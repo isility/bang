@@ -10,4 +10,14 @@ public class JoinController {
     public String join() {
         return "join/join.html";
     }
+
+    @GetMapping("/costomerterms")
+    public String terms() {
+        return "join/costomerterms.html";
+    }
+
+    @GetMapping("/joinForm")
+    public String joinForm() {
+        return "join/joinForm.html";
+    }
 }
