@@ -1,14 +1,11 @@
 package kr.co.jhta.bang.finalproject.dao;
 
-import kr.co.jhta.bang.finalproject.dto.DeptDTO;
+import kr.co.jhta.bang.finalproject.dto.MemberDTO;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
-import java.util.List;
-
-
 @Mapper
 @Repository
-public interface DeptDAO {
-    List<DeptDTO> getAll();
+public interface MemberDAO {
+    void insertOne(MemberDTO dto);
 }
