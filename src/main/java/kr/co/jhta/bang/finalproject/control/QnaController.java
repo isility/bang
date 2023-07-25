@@ -1,4 +1,4 @@
-package kr.co.jhta.bang.finalproject.Control;
+package kr.co.jhta.bang.finalproject.control;
 
 import kr.co.jhta.bang.finalproject.service.QnaService;
 import org.springframework.beans.factory.annotation.Autowired;
