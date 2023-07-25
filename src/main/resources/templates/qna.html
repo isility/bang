@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 	<head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -25,29 +25,32 @@
 	<!-- <link href="https://fonts.googleapis.com/css?family=Playfair+Display:400,400i" rel="stylesheet"> -->
 	
 	<!-- Animate.css -->
-	<link rel="stylesheet" href="css/animate.css">
+	<link rel="stylesheet" th:href="@{/css/animate.css}">
 	<!-- Icomoon Icon Fonts-->
-	<link rel="stylesheet" href="css/icomoon.css">
+	<link rel="stylesheet" th:href="@{/css/icomoon.css}">
 	<!-- Bootstrap  -->
-	<link rel="stylesheet" href="css/bootstrap.css">
+	<link rel="stylesheet" th:href="@{/css/bootstrap.css}">
 
 	<!-- Flexslider  -->
-	<link rel="stylesheet" href="css/flexslider.css">
+	<link rel="stylesheet" th:href="@{/css/flexslider.css}">
 
 	<!-- Owl Carousel  -->
-	<link rel="stylesheet" href="css/owl.carousel.min.css">
-	<link rel="stylesheet" href="css/owl.theme.default.min.css">
+	<link rel="stylesheet" th:href="@{/css/owl.carousel.min.css}">
+	<link rel="stylesheet" th:href="@{/css/owl.theme.default.min.css}">
 
 	<!-- Theme style  -->
-	<link rel="stylesheet" href="css/style.css">
+	<link rel="stylesheet" th:href="@{/css/style.css}">
 
 	<!-- Modernizr JS -->
-	<script src="js/modernizr-2.6.2.min.js"></script>
+	<script th:src="@{/js/modernizr-2.6.2.min.js}"></script>
 	<!-- FOR IE9 below -->
 	<!--[if lt IE 9]>
-	<script src="js/respond.min.js"></script>
-	<![endif]-->
-
+		<script th:src="@{/js/respond.min.js}"></script>
+		<![endif]-->
+		<script th:src="@{/js/modernizr-2.6.2.min.js}"></script>
+		<script th:src="@{https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js}"></script>
+		<link th:href="@{https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css}" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+		<script th:src="@{https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js}" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
 	</head>
 	<body>
 		
@@ -56,30 +59,39 @@
 	<div id="page">
 		<nav class="fh5co-nav" role="navigation">
 			<div class="container">
-				<div class="row">
-					<div class="col-md-3 col-xs-2">
-						<div id="fh5co-logo"><a href="index.html">Bang & Oops</a></div>
+				<div class="row" style="width:1200px;">
+					<div class="col-md-3 col-xs-2" style="width:200px;">
+						<div id="fh5co-logo" style="width:200px;"><a th:href="@{/index.html}">Bang & Oops</a></div>
 					</div>
-					<div class="col-md-6 col-xs-6 text-center menu-1" >
+					<div class="col-md-6 col-xs-6 text-center menu-1" style="width:700px;">
 						<ul>
-							<li><a href="productList.html">SPEAKER</a></li>
-							<li><a href="productList.html">EARPHONE</a></li>
-							<li><a href="productList.html">HEADPHONE</a></li>
-							<li><a href="productList.html">ACCESSORIES</a></li>
-							<li><a href="services.html">SERVICE</a></li>
-							<li><a href="community.html">COMMUNITY</a></li>
+							<li><a th:href="@{/productList.html}">SPEAKER</a></li>
+							<li><a th:href="@{/productList.html}">EARPHONE</a></li>
+							<li><a th:href="@{/productList.html}">HEADPHONE</a></li>
+							<li><a th:href="@{/productList.html}">ACCESSORIES</a></li>
+							<li><a th:href="@{/services.html}">SERVICE</a></li>
+							<li class="nav-item dropdown">
+								<a class="nav-link dropdown-toggle" th:href="@{/community.html}" role="button" data-bs-toggle="dropdown" aria-expanded="false">COMMUNITY</a>
+								<ul class="dropdown-menu">
+									<li><a class="dropdown-item" th:href="@{notice.html}">공지사항</a></li>
+									<li><a class="dropdown-item" th:href="@{review.html}">REVIEW</a></li>
+									<li><a class="dropdown-item" th:href="@{qna}">Q&A</a></li>
+								</ul>
+							</li>
 						</ul>
 					</div>
-					<div class="col-md-3 col-xs-4 text-right hidden-xs menu-2" >
+					<div class="col-md-3 col-xs-4 text-right hidden-xs menu-2">
 						<ul>
-							<li class="shopping-cart menu-2"><a href="#" class="cart"><span><small>0</small><i class="icon-shopping-cart"></i></span></a></li>
-							<li class="login menu-2"><a href="#">JOIN</a></li>
-							<li class="login menu-2"><a href="#">login</a></li>
-							<li class="search menu-2" >
+							<li class="shopping-cart menu-2"><a th:href="@{#}" class="cart"><span><small>0</small><i
+									class="icon-shopping-cart"></i></span></a></li>
+							<li class="login menu-2"><a th:href="@{#}">JOIN</a></li>
+							<li class="login menu-2"><a th:href="@{#}">login</a></li>
+							<li class="search menu-2">
 								<div class="input-group">
 									<input type="text" placeholder="SEARCH">
 									<span class="input-group-btn">
-										<button class="btn btn-primary" type="button"><i class="icon-search"></i></button>
+										<button class="btn btn-primary" type="button"><i
+												class="icon-search"></i></button>
 									</span>
 								</div>
 							</li>
@@ -97,8 +109,8 @@
 				<div class="col-md-8 col-md-offset-2 text-center">
 					<div class="display-t">
 						<div class="display-tc animate-box" data-animate-effect="fadeIn">
-							<h1>Services</h1>
-							<h2>Free html5 templates by <a href="https://themewagon.com/theme_tag/free/" target="_blank">Themewagon</a></h2>
+							<h1>Q&A</h1>
+							<h2>Free html5 templates by <a th:href="@{https://themewagon.com/theme_tag/free/}" target="_blank">Themewagon</a></h2>
 						</div>
 					</div>
 				</div>
@@ -109,6 +121,28 @@
 	<div id="fh5co-services" class="fh5co-bg-section">
 		<div class="container">
 			<div class="row">
+				<div><h2>Q&A</h2></div>
+				<div>
+					<a href="write"><input type="button" style="float:right;" class="btn btn-outline-primary" value="글쓰기" /></a>
+				</div>
+<!--				<h2 th:text="${list}"></h2>-->
+				<table class="table">
+					<tr>
+						<th>NO</th>
+						<th>제목</th>
+						<th>글쓴이</th>
+						<th>작성시간</th>
+					</tr>
+					<tr th:each="board:${list}">
+						<td th:text="${board.qna_ref}"></td>
+						<td><a th:href="@{detail(qna_number=${board.qna_number})}" th:text="${board.qna_title}"></a></td>
+<!--						<td th:text="${board.qna_title}"></td>-->
+						<td th:text="${board.qna_writer}"></td>
+						<td th:text="${board.qna_date}"></td>
+					</tr>
+
+				</table>
+				<!--
 				<div class="col-md-4 col-sm-4 text-center">
 					<div class="feature-center animate-box" data-animate-effect="fadeIn">
 						<span class="icon">
@@ -169,6 +203,7 @@
 						<p><a href="#" class="btn btn-primary btn-outline">Learn More</a></p>
 					</div>
 				</div>
+			-->
 			</div>
 		</div>
 	</div>
@@ -208,31 +243,31 @@
 				</div>
 				<div class="col-md-2 col-sm-4 col-xs-6 col-md-push-1">
 					<ul class="fh5co-footer-links">
-						<li><a href="#">About</a></li>
-						<li><a href="#">Help</a></li>
-						<li><a href="#">Contact</a></li>
-						<li><a href="#">Terms</a></li>
-						<li><a href="#">Meetups</a></li>
+						<li><a th:href="@{#}">About</a></li>
+						<li><a th:href="@{#}">Help</a></li>
+						<li><a th:href="@{#}">Contact</a></li>
+						<li><a th:href="@{#}">Terms</a></li>
+						<li><a th:href="@{#}">Meetups</a></li>
 					</ul>
 				</div>
 
 				<div class="col-md-2 col-sm-4 col-xs-6 col-md-push-1">
 					<ul class="fh5co-footer-links">
-						<li><a href="#">Shop</a></li>
-						<li><a href="#">Privacy</a></li>
-						<li><a href="#">Testimonials</a></li>
-						<li><a href="#">Handbook</a></li>
-						<li><a href="#">Held Desk</a></li>
+						<li><a th:href="@{#}">Shop</a></li>
+						<li><a th:href="@{#}">Privacy</a></li>
+						<li><a th:href="@{#}">Testimonials</a></li>
+						<li><a th:href="@{#}">Handbook</a></li>
+						<li><a th:href="@{#}">Held Desk</a></li>
 					</ul>
 				</div>
 
 				<div class="col-md-2 col-sm-4 col-xs-6 col-md-push-1">
 					<ul class="fh5co-footer-links">
-						<li><a href="#">Find Designers</a></li>
-						<li><a href="#">Find Developers</a></li>
-						<li><a href="#">Teams</a></li>
-						<li><a href="#">Advertise</a></li>
-						<li><a href="#">API</a></li>
+						<li><a th:href="@{#}">Find Designers</a></li>
+						<li><a th:href="@{#}">Find Developers</a></li>
+						<li><a th:href="@{#}">Teams</a></li>
+						<li><a th:href="@{#}">Advertise</a></li>
+						<li><a th:href="@{#}">API</a></li>
 					</ul>
 				</div>
 			</div>
@@ -241,14 +276,14 @@
 				<div class="col-md-12 text-center">
 					<p>
 						<small class="block">&copy; 2016 Free HTML5. All Rights Reserved.</small> 
-						<small class="block">Designed by <a href="http://freehtml5.co/" target="_blank">FreeHTML5.co</a> Demo Images: <a href="http://blog.gessato.com/" target="_blank">Gessato</a> &amp; <a href="http://unsplash.co/" target="_blank">Unsplash</a></small>
+						<small class="block">Designed by <a th:href="@{http://freehtml5.co/}" target="_blank">FreeHTML5.co</a> Demo Images: <a th:href="@{http://blog.gessato.com/}" target="_blank">Gessato</a> &amp; <a th:href="@{http://unsplash.co/}" target="_blank">Unsplash</a></small>
 					</p>
 					<p>
 						<ul class="fh5co-social-icons">
-							<li><a href="#"><i class="icon-twitter"></i></a></li>
-							<li><a href="#"><i class="icon-facebook"></i></a></li>
-							<li><a href="#"><i class="icon-linkedin"></i></a></li>
-							<li><a href="#"><i class="icon-dribbble"></i></a></li>
+							<li><a th:href="@{#}"><i class="icon-twitter"></i></a></li>
+							<li><a th:href="@{#}"><i class="icon-facebook"></i></a></li>
+							<li><a th:href="@{#}"><i class="icon-linkedin"></i></a></li>
+							<li><a th:href="@{#}"><i class="icon-dribbble"></i></a></li>
 						</ul>
 					</p>
 				</div>
@@ -259,25 +294,25 @@
 	</div>
 
 	<div class="gototop js-top">
-		<a href="#" class="js-gotop"><i class="icon-arrow-up"></i></a>
+		<a th:href="@{#}" class="js-gotop"><i class="icon-arrow-up"></i></a>
 	</div>
 	
 	<!-- jQuery -->
-	<script src="js/jquery.min.js"></script>
+	<script th:src="@{/js/jquery.min.js}"></script>
 	<!-- jQuery Easing -->
-	<script src="js/jquery.easing.1.3.js"></script>
+	<script th:src="@{/js/jquery.easing.1.3.js}"></script>
 	<!-- Bootstrap -->
-	<script src="js/bootstrap.min.js"></script>
+	<script th:src="@{/js/bootstrap.min.js}"></script>
 	<!-- Waypoints -->
-	<script src="js/jquery.waypoints.min.js"></script>
+	<script th:src="@{/js/jquery.waypoints.min.js}"></script>
 	<!-- Carousel -->
-	<script src="js/owl.carousel.min.js"></script>
+	<script th:src="@{/js/owl.carousel.min.js}"></script>
 	<!-- countTo -->
-	<script src="js/jquery.countTo.js"></script>
+	<script th:src="@{/js/jquery.countTo.js}"></script>
 	<!-- Flexslider -->
-	<script src="js/jquery.flexslider-min.js"></script>
+	<script th:src="@{/js/jquery.flexslider-min.js}"></script>
 	<!-- Main -->
-	<script src="js/main.js"></script>
+	<script th:src="@{/js/main.js}"></script>
 
 	</body>
 </html>

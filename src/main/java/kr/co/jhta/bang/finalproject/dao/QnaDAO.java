@@ -1,15 +1,17 @@
 package kr.co.jhta.bang.finalproject.dao;
 
-import kr.co.jhta.bang.finalproject.dto.DeptDTO;
+import kr.co.jhta.bang.finalproject.dto.QnaDTO;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-
-@Mapper
 @Repository
-public interface DeptDAO {
-    public List<DeptDTO> getAll();
+@Mapper
+public interface QnaDAO {
+
+    List<QnaDTO> getAll();
+
+    QnaDTO selectOne(int qnaNumber);
 
 }
