@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="kr.co.jhta.bang.finalproject.dao.QnaDAO">
+    <select id="getAll" resultType="QnaDTO">
+        SELECT * FROM qna
+        WHERE qna_step = 0
+        ORDER BY qna_ref DESC
+    </select>
+    <select id="selectOne" parameterType="int" resultType="QnaDTO">
+        SELECT * FROM qna
+        WHERE qna_number =#{qna_number}
+    </select>
+
+</mapper>
+
