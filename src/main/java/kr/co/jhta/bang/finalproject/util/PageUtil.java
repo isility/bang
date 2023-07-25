@@ -34,6 +34,7 @@ public class PageUtil {
         map.put("startNo", startNo);
         map.put("endNo", endNo);
         map.put("startPageNo", startPageNo);
+        map.put("endPageNo", endPageNo);
         map.put("prev", prev);
         map.put("next", next);
 
