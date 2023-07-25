@@ -16,9 +16,10 @@ public class ReviewController {
     @Autowired
     ReviewServiceImpl service;
     @GetMapping(value="/reviewList")
-    public String reviewList(Model model) {
+    public String reviewList(
+            Model model
+    ){
 
-        model.addAttribute("list", service.getAll());
 
         return "review/reviewList";
     }
