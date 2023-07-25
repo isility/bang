@@ -10,5 +10,6 @@ import java.util.List;
 @Mapper
 @Repository
 public interface DeptDAO {
-    List<DeptDTO> getAll();
+    public List<DeptDTO> getAll();
+
 }

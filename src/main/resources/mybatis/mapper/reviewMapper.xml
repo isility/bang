@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="kr.co.jhta.bang.finalproject.dao.ReviewDAO">
+    <!-- 테이블 모든 값 조회 -->
+    <select id="getAll" resultType="ReviewDTO">
+        SELECT reply_number, reply_contents, reply_writer, reply_date, reply_step, reply_ref_order, reply_ref
+        , reply_answer_number, reply_parent_number, reply_score, product_number
+        FROM product_reply
+        WHERE reply_step = 0
+        ORDER BY reply_ref DESC
+    </select>
+    <!-- 상품 리뷰만 조회 ( 댓글 제외 )-->
+    <select id="findAllReply">
+        SELECT rn, reply_number, reply_contents, reply_writer, reply_date, reply_step, reply_ref_order, reply_ref
+        , reply_answer_number, reply_parent_number, reply_score, product_number
+        FROM (
+        SELECT ROW_NUMBER() OVER (ORDER BY reply_ref DESC) AS en,
+        reply_number, reply_contents, reply_writer, reply_date, reply_step, reply_ref_order, reply_ref
+        , reply_answer_number, reply_parent_number, reply_score, product_number
+        FROM product_reply
+        ) AS derived
+        WHERE rn BETWEEN #{startNo} AND #{endNo)
+    </select>
+
+    <!-- 테이블 모든 값 reply_number로 조회 -->
+    <select id="findByReply_number" resultType="ReviewDTO">
+            SELECT reply_number, reply_contents, reply_writer, reply_date, reply_step, reply_ref_order
+            , reply_answer_number, reply_parent_number, reply_score, product_number
+            FROM product_reply WHERE reply_number = #{reply_number}
+    </select>
+
+    <select id="getTotal" resultType="int">
+        SELECT count(*)cnt
+        FROM product_reply
+    </select>
+
+    <select id="list" resultType="ReviewDTO">
+        SELECT * FROM product_reply
+        ORDER BY reply_ref DESC
+        LIMIT #{pageNumber}, #{contentsNumber}
+    </select>
+    <select id="reviewCount" resultType="int">
+        SELECT count(*)
+        FROM product_reply
+    </select>
+
+</mapper>
