@@ -4,14 +4,17 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="kr.co.jhta.bang.finalproject.dao.MemberDAO">
-    <insert id="insertOne" parameterType="kr.co.jhta.bang.finalproject.dto.MemberDTO">
+
+    <insert id="insertOne" parameterType="MemberDTO">
         INSERT INTO member
         VALUES (#{member_id}, #{member_pw}, #{member_token}, #{member_name}, #{member_phone}, #{member_postal}, #{member_address1}, #{member_address2},
-        #{member_email}, #{member_check}, DATE(NOW()), 0, #{member_profile}, #{role_number}, #{grade_number}, #{platformtype_number}, #{member_birth})
+        #{member_email}, #{member_check}, DATE(NOW()), 0, #{member_profile}, #{role_number}, #{grade_number}, #{platformtype_number})
     </insert>
-    <select id="idCheck" parameterType="kr.co.jhta.bang.finalproject.dto.MemberDTO" resultType="int">
+
+    <select id="idCheck" parameterType="MemberDTO" resultType="int">
         SELECT COUNT(*)
         FROM member
         WHERE member_id = #{member_id}
     </select>
+
 </mapper>

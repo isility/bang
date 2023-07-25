@@ -1,6 +1,7 @@
 package kr.co.jhta.bang.finalproject.control;
 
 import kr.co.jhta.bang.finalproject.dto.MemberDTO;
+import kr.co.jhta.bang.finalproject.dto.PersonDTO;
 import kr.co.jhta.bang.finalproject.service.MemberService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,33 +22,28 @@ public class JoinController {
         return "join/join.html";
     }
 
-    @GetMapping("/costomerterms")
+    @GetMapping("/costomerTerms")
     public String terms() {
-        return "join/costomerterms.html";
+        return "join/costomerTerms.html";
     }
 
-    @GetMapping("/costomerjoinForm")
-    public String costomerjoinForm() {
-        return "join/costomerjoinForm.html";
+    @GetMapping("/costomerJoinForm")
+    public String costomerJoinForm() {
+        return "join/costomerJoinForm.html";
     }
 
-    @PostMapping("/costomerjoinOk")
-    public String costomerjoinOk(@ModelAttribute MemberDTO dto) {
+    @PostMapping("/costomerJoinOk")
+    public String costomerJoinOk(@ModelAttribute MemberDTO memberDto,
+                                 @ModelAttribute PersonDTO personDto) {
 
-        log.info("일반 회원 가입 dto :" + dto);
+        log.info("일반 회원 가입 dto :" + memberDto + personDto);
 
-        int result = memberService.idCheck(dto);
 
-        if(result == 1) {
-            // 이미 등록된 id 라면
-            return "redirect:join/costomerjoinForm.html";
-        } else if (result == 0) {
-            // 신규 id 라면
-            memberService.insertOne(dto);
-            return "redirect:login";
-        } else {
-            return "redirect:login";
-        }
+        memberService.insertMemberOne(memberDto);
+        memberService.insertPersonOne(personDto);
+
+        return "login/login.html";
+
     }
 
     @PostMapping("/idCheck")
