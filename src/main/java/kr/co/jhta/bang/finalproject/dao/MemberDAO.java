@@ -8,4 +8,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface MemberDAO {
     void insertOne(MemberDTO dto);
+
+    int idCheck(MemberDTO dto);
 }

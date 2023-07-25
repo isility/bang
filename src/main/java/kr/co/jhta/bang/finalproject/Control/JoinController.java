@@ -36,8 +36,27 @@ public class JoinController {
 
         log.info("일반 회원 가입 dto :" + dto);
 
-        memberService.insertOne(dto);
+        int result = memberService.idCheck(dto);
 
-        return "redirect:login";
+        if(result == 1) {
+            // 이미 등록된 id 라면
+            return "redirect:join/costomerjoinForm.html";
+        } else if (result == 0) {
+            // 신규 id 라면
+            memberService.insertOne(dto);
+            return "redirect:login";
+        } else {
+            return "redirect:login";
+        }
+    }
+
+    @PostMapping("/idCheck")
+    public int idCheck(@ModelAttribute MemberDTO dto) {
+        // 아이디 중복검사
+        int result = memberService.idCheck(dto);
+
+        log.info("아이디 중복 체크 : " + result);
+
+        return result;
     }
 }
