@@ -135,7 +135,7 @@
 					</tr>
 					<tr th:each="board:${list}">
 						<td th:text="${board.qna_ref}"></td>
-						<td><a th:href="@{detail(qna_number=${board.qna_number})}" th:text="${board.qna_title}"></a></td>
+						<td><a th:href="@{qnaDetail(qna_number=${board.qna_number})}" th:text="${board.qna_title}"></a></td>
 <!--						<td th:text="${board.qna_title}"></td>-->
 						<td th:text="${board.qna_writer}"></td>
 						<td th:text="${board.qna_date}"></td>

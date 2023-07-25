@@ -15,17 +15,17 @@ public class QnaController {
     @Autowired
     QnaService service;
 
-    @GetMapping("/qna")
+    @GetMapping("/qnaList")
     public String list(Model model){
         model.addAttribute("list", service.selectAll());
-        return "qna";
+        return "qnaList";
 
     }
 
-    @GetMapping("/detail")
+    @GetMapping("/qnaDetail")
     public String form(@RequestParam("qna_number")int qnaNumber, Model model){
         model.addAttribute("dto", service.selectOne(qnaNumber));
-        return "detail";
+        return "qnaDetail";
     }
 
 }

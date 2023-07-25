@@ -10,8 +10,8 @@
         ORDER BY qna_ref DESC
     </select>
     <select id="selectOne" parameterType="int" resultType="QnaDTO">
-
-
+        SELECT * FROM qna
+        WHERE qna_number =#{qna_number}
     </select>
 
 </mapper>

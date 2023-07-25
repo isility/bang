@@ -73,8 +73,8 @@
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" th:href="@{/community.html}" role="button" data-bs-toggle="dropdown" aria-expanded="false">COMMUNITY</a>
                             <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" th:href="@{notice.html}">공지사항</a></li>
-                                <li><a class="dropdown-item" th:href="@{review.html}">REVIEW</a></li>
+                                <li><a class="dropdown-item" th:href="@{notice}">공지사항</a></li>
+                                <li><a class="dropdown-item" th:href="@{review}">REVIEW</a></li>
                                 <li><a class="dropdown-item" th:href="@{qna}">Q&A</a></li>
                             </ul>
                         </li>
@@ -126,29 +126,29 @@
                 <table class="table">
                     <tr>
                         <th>게시물번호</th>
-                        <td th:text="${qna_ref}"></td>
+                        <td th:text="${dto.qna_ref}"></td>
                         <th>작성자</th>
-                        <td th:text="${qna_writer}"></td>
+                        <td th:text="${dto.qna_writer}"></td>
                     </tr>
                     <tr>
                         <th>작성일</th>
-                        <td th:text="${qna_date}"></td>
+                        <td th:text="${dto.qna_date}"></td>
                         <th>상태정보</th>
-                        <td th:text="${qna_status}"></td>
+                        <td th:text="${dto.qna_status}"></td>
                     </tr>
                     <tr>
                         <th>제목</th>
-                        <td colspan="4" th:text="${qna_title}"></td>
+                        <td colspan="4" th:text="${dto.qna_title}"></td>
                     </tr>
                     <tr>
                         <th>내용</th>
-                        <td colspan="4" th:text="${qna_contents}"></td>
+                        <td colspan="4" th:text="${dto.qna_contents}"></td>
                     </tr>
                     <tr>
                         <td colspan="4">
-                            <a th:href="@{list}"><input type="button" class="btn btn-outline-primary" value="목록" /></a>
-                            <a th:href="@{modify(qna_number=${qna_number})}"><input type="button" class="btn btn-outline-success" value="수정" /></a>
-                            <a th:href="@{delete(qna_number=${qna_number})}"><input type="button" class="btn btn-outline-danger" value="삭제" /></a>
+                            <a th:href="@{qna}"><input type="button" class="btn btn-outline-primary" value="목록" /></a>
+                            <a th:href="@{modify(qna_number=${dto.qna_number})}"><input type="button" class="btn btn-outline-success" value="수정" /></a>
+                            <a th:href="@{delete(qna_number=${dto.qna_number})}"><input type="button" class="btn btn-outline-danger" value="삭제" /></a>
                         </td>
                     </tr>
                 </table>
