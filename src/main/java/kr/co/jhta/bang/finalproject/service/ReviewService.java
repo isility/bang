@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class ReviewServiceImpl {
+public class ReviewService {
     @Autowired
     private ReviewDAO dao;
     public List<ReviewDTO> getAll() {

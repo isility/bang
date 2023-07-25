@@ -1,6 +1,6 @@
 package kr.co.jhta.bang.finalproject.control;
 
-import kr.co.jhta.bang.finalproject.service.ReviewServiceImpl;
+import kr.co.jhta.bang.finalproject.service.ReviewService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 @RequestMapping("/review")
 public class ReviewController {
     @Autowired
-    ReviewServiceImpl service;
+    ReviewService service;
     @GetMapping(value="/reviewList")
     public String reviewList(Model model) {
 
