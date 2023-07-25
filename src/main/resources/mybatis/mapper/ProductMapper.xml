@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="kr.co.jhta.bang.finalproject.dao.ProductListDAO">
+    <select id="selectAll" resultType="kr.co.jhta.bang.finalproject.dto.ProductDTO">
+        SELECT p.product_number,  image_src, product_name, product_price
+        FROM product p JOIN image i
+        ON p.product_number = i.product_number
+    </select>
+
+</mapper>
