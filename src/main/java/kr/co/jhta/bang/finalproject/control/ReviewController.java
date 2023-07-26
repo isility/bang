@@ -1,14 +1,13 @@
 package kr.co.jhta.bang.finalproject.control;
 
+import kr.co.jhta.bang.finalproject.dto.ReviewDTO;
 import kr.co.jhta.bang.finalproject.service.ReviewService;
 import kr.co.jhta.bang.finalproject.util.PageUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
 
@@ -18,7 +17,7 @@ import java.util.Map;
 public class ReviewController {
     @Autowired
     ReviewService service;
-    @GetMapping(value="/reviewList")
+    @GetMapping("/reviewList")
     public String reviewList(
             Model model,
             @RequestParam(name="currentPage", defaultValue = "1")int currentPage
@@ -26,14 +25,14 @@ public class ReviewController {
         // 총 게시물 수
         int totalNumber = service.getTotal();
         // 페이지당 게시물 수
-        int recordPerPage = 10;
+        int countPerPage = 10;
 
-        Map<String,Object> map = PageUtil.getPageData(totalNumber, recordPerPage, currentPage);
         log.info("총 게시물 수 >>>>>>>" + totalNumber);
-        log.info("페이지당 게시물 수 >>>>>>>" + recordPerPage);
+        log.info("페이지당 게시물 수 >>>>>>>" + countPerPage);
         log.info("현재 페이지 번호 >>>>>>>" + currentPage);
+        Map<String,Object> map = PageUtil.getPageData(totalNumber, countPerPage, currentPage);
         int startNo = (int)map.get("startNo");
-        int endNo = (int)map.get("startNo");
+        int endNo = (int)map.get("endNo");
         model.addAttribute("list", service.findAllReply(startNo, endNo));
         model.addAttribute("map", map);
         return "review/reviewList";
@@ -57,5 +56,17 @@ public class ReviewController {
     public String reviewWrite(){
 
         return "review/reviewWrite";
+    }
+
+    @PostMapping("/reviewWrite")
+    public String reviewWriteOk(@ModelAttribute ReviewDTO dto){
+        service.writeReply(dto); // dto 객체에는 사용자가 작성한 리뷰 데이터가 담겨있음
+        log.info(">>>>>>>>>>>>>>>>>>>>dto {}", dto);
+        return "redirect:/review/reviewList"; // 리뷰 리스트 페이지로 리다이렉트
+    }
+
+    public String reviewDelete(@RequestParam("reply_number")int reply_number){
+        service.deleteReview(reply_number);
+        return "redirect:/review/reviewList";
     }
 }

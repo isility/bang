@@ -48,7 +48,26 @@
 		<script th:src="@{/js/respond.min.js}"></script>
 		<![endif]-->
 	</head>
+	<style>
+    .centered {
+        display: flex;
+        justify-content: center;
+    }
+    th.writer, td.writer, th.productNumber, td.productNumber, th.score, td.score {
+        width: 120px; /* 작성자 칼럼의 너비를 조정합니다 */
+    }
 
+     th.date, td.date {
+        width: 150px; ]\\
+
+        white-space: nowrap; /* 텍스트가 넘치지 않도록 한 줄로 유지합니다 */
+        overflow: hidden; /* 넘치는 텍스트를 숨깁니다 */
+        text-overflow: ellipsis; /* 넘치는 텍스트를 ... 으로 표시합니다 */
+    }
+    th.reviewNo, td.reviewNo {
+        width: 30px; /* 작성자 칼럼의 너비를 조정합니다 */
+    }
+	</style>
 
 	<body>
 	<!--======================================================================================================  -->
@@ -116,51 +135,46 @@
 				<div class="row">
 					<table class="table">
 						<tr>
-							<th>No</th>
-							<th>작성자</th>
+							<th class="reviewNo">No</th>
+							<th class="productNumber">상품번호</th>
 							<th>내용</th>
-							<th></th>
-							<th>별점</th>
-							<th>작성일</th>
+							<th class="writer">작성자</th>
+							<th class="score">별점</th>
+							<th class="date">작성일</th>
 							<th></th>
 							<th></th>
 						</tr>
 						<tr th:each="dto : ${list}">
-							<td th:text="${dto.reply_ref}"></td>
-							<td th:text="${dto.reply_writer}"></td>
+							<td class="reviewNo" th:text="${dto.reply_ref}"></td>
+							<td class="productNumber" th:text="${dto.product_number}"></td>
 							<td><a th:href="@{/review/reviewDetail(reply_number=${dto.reply_number})}" th:text="${dto.reply_contents}"></a></td>
-							<td th:with="dateString=${#strings.substring(dto.reply_date, 0, 10)}"></td>
-							<td th:text="${dto.reply_score}"></td>
-							<td th:text="${dto.reply_date}"></td>
+							<td class="writer" th:text="${dto.reply_writer}"></td>
+							<td class="score" th:text="${dto.reply_score}"></td>
+							<td class="date" th:text="${dto.reply_date}"></td>
 
 							<td><a th:href="@{/review/reviewModify(reply_number=${dto.reply_number})}" class="btn btn-info">수정</a></td>
 							<td><a th:href="@{/review/reviewDelete(reply_number=${dto.reply_number})}" class="btn btn-danger">삭제</a></td>
 						</tr>
-
-						<tr>
-							<td>
-								<a th:href="@{/review/reviewWrite}" class="btn btn-primary">작성</a>
-							</td>
-						</tr>
-
-						<tr>
-							<td colspan="4">
-								<nav aria-label="Page navigation example">
-									<ul class="pagination">
-										<li th:if="${map.prev}">
-											<a th:href="@{/review/reviewList(currentPage=${map.currentPage-5})}" class="page-link">이전</a>
-										</li>
-										<li th:each="i : ${#numbers.sequence(map.startPageNo, map.endPageNo)}">
-											<a th:href="@{/review/reviewList(currentPage=${i})}" class="page-link" th:text="${i}"></a>
-										</li>
-										<li th:if="${map.next}">
-											<a th:href="@{/review/reviewList(currentPage=${map.currentPage+5})}" class="page-link">다음</a>
-										</li>
-									</ul>
-								</nav>
-							</td>
-						</tr>
 					</table>
+						<hr>
+					<div>
+					<a th:href="@{/review/reviewWrite}" class="btn btn-primary">작성</a>
+					</div>
+					<div class="centered">
+							<nav aria-label="Page navigation example">
+								<ul class="pagination">
+									<li th:if="${map.prev}">
+										<a th:href="@{/review/reviewList(currentPage=${map.currentPage-5})}" class="page-link">이전</a>
+									</li>
+									<li th:each="i : ${#numbers.sequence(map.startPageNo, map.endPageNo)}">
+										<a th:href="@{/review/reviewList(currentPage=${i})}" class="page-link" th:text="${i}"></a>
+									</li>
+									<li th:if="${map.next}">
+										<a th:href="@{/review/reviewList(currentPage=${map.currentPage+5})}" class="page-link">다음</a>
+									</li>
+								</ul>
+							</nav>
+					</div>
 					</div>
 				</div>
 				</div>

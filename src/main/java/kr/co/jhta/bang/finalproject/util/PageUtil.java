@@ -15,7 +15,7 @@ public class PageUtil {
         // 현재 페이지의 게시물 시작 번호
         int startNo = (currentPage -1)*countPerPage + 1;
         // 현재 페이지의 게시물 끝 번호
-        int endNo = currentPage*currentPage;
+        int endNo = currentPage*countPerPage;
         // 시작 페이지 번호
         int startPageNo = currentPage-5<=0?1:currentPage-5;
 
@@ -37,10 +37,6 @@ public class PageUtil {
         map.put("endPageNo", endPageNo);
         map.put("prev", prev);
         map.put("next", next);
-
-
-
-
             return map;
     }
 }

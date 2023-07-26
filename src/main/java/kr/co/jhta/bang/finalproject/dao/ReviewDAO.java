@@ -12,9 +12,12 @@ import java.util.List;
 public interface ReviewDAO {
 
 
-    List<ReviewDTO> getAll();
-    List<ReviewDTO> findAllReply(StartEnd se);
-    ReviewDTO findByReply_number(int replyNumber);
+    List<ReviewDTO> getAll(); // reply_step = 0인 리뷰들 가져오는 select
+    List<ReviewDTO> findAllReply(StartEnd se); // 페이징
+    ReviewDTO findByReply_number(int replyNumber); // replyNumber로 reviewDetail로 연결하는 select
     int getTotal();
 
+    void writeReply(ReviewDTO dto); // 리뷰 작성하는 insert
+
+    void deleteReview(int reply_number);
 }

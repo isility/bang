@@ -17,17 +17,24 @@
         SELECT rn, reply_number, reply_contents, reply_writer, reply_date, reply_step, reply_ref_order, reply_ref
         , reply_answer_number, reply_parent_number, reply_score, product_number
         FROM (
-        SELECT ROW_NUMBER() OVER (ORDER BY reply_ref DESC) AS en,
+        SELECT ROW_NUMBER() OVER (ORDER BY reply_ref DESC) AS rn,
         reply_number, reply_contents, reply_writer, reply_date, reply_step, reply_ref_order, reply_ref
         , reply_answer_number, reply_parent_number, reply_score, product_number
         FROM product_reply
         ) AS derived
-        WHERE rn BETWEEN #{startNo} AND #{endNo)
+        WHERE rn BETWEEN #{startNo} AND #{endNo}
     </select>
     <select id="getTotal" resultType="int">
         SELECT count(*)cnt
         FROM product_reply
     </select>
+
+    <insert id="writeReply" parameterType="ReviewDTO">
+        INSERT INTO product_reply (reply_contents, reply_writer, reply_date, reply_ref, reply_step, reply_ref_order, reply_answer_number, reply_parent_number, reply_score, product_number)
+        VALUES (#{reply_contents}, #{reply_writer}, DATE_FORMAT(NOW(), '%y-%m-%d'), 5, 0, 0, 0, 0, #{reply_score}, #{product_number})
+
+    </insert>
+
 
 
     <!-- 테이블 모든 값 reply_number로 조회 -->
@@ -36,6 +43,11 @@
             , reply_answer_number, reply_parent_number, reply_score, product_number
             FROM product_reply WHERE reply_number = #{reply_number}
     </select>
+    <delete id="deleteReview" parameterType="int">
+        DELETE FROM product_reply
+        WHERE reply_number=#{reply_number}
+
+    </delete>
 
 
 </mapper>
