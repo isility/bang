@@ -97,11 +97,18 @@
         });
 
 
-        <!-- 아이디 중복 검사 -->
+        <!-- 아이디 중복 및 유효성 검사 -->
         $("#idCheck").on("click", function() {
+
             if ($("#member_id").val() == "") {
                 alert("아이디를 입력해주세요.");
                 $("#member_id").focus();
+            }
+
+            var specialText = /^[a-z0-9_]{6,20}$/;
+            if (!specialText.test($("#member_id").val())) {
+                alert("특수문자를 포함할 수 없습니다.(_언더바 허용)", '$("#member_id").val()');
+                $("#idCheck").val("사용 불가");
             }
 
             $.ajax({
@@ -112,13 +119,55 @@
                 success: function(data) {
                     if (data == 1) {
                         alert("중복된 아이디 입니다.");
-                    } else if (data == 0 && $("#member_id").val() != "") {
+                        $("#idCheck").val("사용 불가");
+                    } else if (specialText.test($("#member_id").val()) == true && $("#member_id").val() != "") {
                         $("#idCheck").val("사용 가능");
                         alert("사용 가능한 아이디 입니다.");
                     }
                 }
             });
         });
+
+        $("#member_id").on("input", function() {
+
+            var memberId = $("#member_id").val();
+
+            var korean = /[ㄱ-ㅎㅏ-ㅣ가-힣]/g;
+            if (korean.test(memberId)) {
+                alert("한글은 포함할 수 없습니다.","memberId");
+                $("#idCheck").val("사용 불가");
+            }
+
+            var english = memberId.search(/[a-z]/g);
+            if (memberId != "" && english < 0) {
+                alert("영문을 필히 포함해 주세요","memberId");
+                $("#idCheck").val("사용 불가");
+            }
+
+            var specialText = /^[a-z0-9_]{6,20}$/;
+            if (!specialText.test(memberId)) {
+                alert("특수문자를 포함할 수 없습니다.( _ 허용)","memberId");
+                $("#idCheck").val("사용 불가");
+            }
+        });
+
+
+
+        <!-- 비밀번호 일치 -->
+        $("#pwCheck").on("input", function() {
+              if( $("#member_pw").val() == $("#pwCheck").val() ) {
+                  $("#pwCorrect").css("display", "block");
+                  $("#pwNotCorrect").css("display", "none");
+              } else if ( $("#member_pw").val() != $("#pwCheck").val() ) {
+                  $("#pwCorrect").css("display", "none");
+                  $("#pwNotCorrect").css("display", "block");
+              }
+        });
+
+
+
+        <!-- 비밀번호 유효성 검사 -->
+
 
 
 
@@ -245,6 +294,7 @@
             <div class="row form-group">
               <div class="col-md-12">
                   <input type="text" id="member_id" name="member_id" class="form-control" placeholder="아이디 *" style="width: 500px;height: 54px;">
+                  <p class="text-primary">영문 소문자만 허용, 6자 ~ 20자 내외 (특수문자 제외함. 단, _ 가능)</p>
                   <input type="button" class="btn btn-outline-warning" id="idCheck" value="아이디 중복확인">
               </div>
             </div>
@@ -252,15 +302,24 @@
             <div class="row form-group">
               <div class="col-md-12">
                 <!-- <label for="subject">Subject</label> -->
-                <input type="text" id="member_pw" name="member_pw" class="form-control" placeholder="비밀번호 *" style="width: 500px;height: 54px;">
+                <input type="text" id="member_pw" name="member_pw" class="form-control" placeholder="비밀번호 *" value="" style="width: 500px;height: 54px;">
               </div>
             </div>
 
             <div class="row form-group">
               <div class="col-md-12">
-                <!-- <label for="subject">Subject</label> -->
-                <input type="text" id="pwCheck" class="form-control" placeholder="비밀번호 확인 *" style="width: 500px;height: 54px;">
-                <p class="text-danger">비밀번호를 다시 확인해주세요.</p>
+                <input type="text" id="pwCheck" class="form-control" placeholder="비밀번호 확인 *" value="" style="width: 500px;height: 54px;">
+                <p class="text-primary" style="display: none;" id="pwCorrect">비밀번호가 일치합니다.</p>
+                <p class="text-danger" style="display: none;" id="pwNotCorrect">비밀번호를 다시 확인해주세요.</p>
+                  <div class="progress" style="display: none;">
+                    <div class="progress-bar bg-success" id="gauge30" role="progressbar" aria-label="Success example" style="width: 30%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">보안 약함</div>
+                  </div>
+                  <div class="progress" style="display: none;">
+                    <div class="progress-bar bg-warning" id="gauge65" role="progressbar" aria-label="Warning example" style="width: 65%" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100">보안 좋음</div>
+                  </div>
+                  <div class="progress" style="display: none;">
+                    <div class="progress-bar bg-danger" id="gauge100" role="progressbar" aria-label="Danger example" style="width: 100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">보안 최적</div>
+                  </div>
               </div>
             </div>
 
