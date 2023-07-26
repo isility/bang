@@ -17,9 +17,4 @@ public interface ReviewDAO {
     ReviewDTO findByReply_number(int replyNumber);
     int getTotal();
 
-//    List<ReviewDTO> reviewList(int pageNumber, int contentsNumber);
-//    int reviewCount();
-//    List<ReviewDTO> list(int pageNumber, int contentsNumber);
-
-
 }
