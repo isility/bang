@@ -70,4 +70,9 @@ public class ReviewController {
         service.deleteReview(reply_number);
         return "redirect:/review/reviewList";
     }
+
+    @GetMapping("/reviewModify")
+    public String modifyForm(){
+        return"review/reviewModify";
+    }
 }
