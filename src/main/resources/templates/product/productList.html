@@ -3,7 +3,7 @@
 	<head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>Shop &mdash; Free Website Template, Free HTML5 Template by gettemplates.co</title>
+	<title>Bang&Oops</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta name="description" content="Free HTML5 Website Template by gettemplates.co" />
 	<meta name="keywords" content="free website templates, free html5, free template, free bootstrap, free website template, html5, css3, mobile first, responsive" />
@@ -50,10 +50,39 @@
 
 	<!-- Modernizr JS -->
 	<script src="@{/js/modernizr-2.6.2.min.js}"></script>
-	<!-- FOR IE9 below -->
-	<!--[if lt IE 9]>
+
+		<!-- FOR IE9 below -->
+		<!--[if lt IE 9]>
 		<script src="@{/js/respond.min.js}"></script>
 		<![endif]-->
+
+
+		<style>
+	#fh5co-hero .flexslider .slides li {
+		background-size: cover;
+		/* 이미지를 컨테이너에 맞추어 확대/축소 */
+		background-position: center center;
+		/* 이미지를 가운데로 정렬 */
+	}
+
+	.input-group {
+		position: relative;
+		left: 48px;
+	}
+
+	.col-md-3 col-xs-2 {
+	}
+
+	a {
+  	text-decoration-line: none;
+	}
+
+	#sort{
+	position: relative;
+	left: 940px;
+	}
+
+</style>
 	</head>
 
 	<body>
@@ -64,33 +93,43 @@
 	<div id="page">
 		<nav class="fh5co-nav" role="navigation">
 			<div class="container">
-				<div class="row">
-					<div class="col-md-3 col-xs-2">
-						<div id="fh5co-logo"><a th:href="@{/}">Bang & Oops</a></div>
+				<div class="row" style="width:1200px;">
+					<div class="col-md-3 col-xs-2" style="width:200px;">
+						<div id="fh5co-logo" style="width:200px;"><a href="index.html">Bang & Oops</a></div>
 					</div>
-					<div class="col-md-6 col-xs-6 text-center menu-1" >
+					<div class="col-md-6 col-xs-6 text-center menu-1" style="width:700px;">
 						<ul>
-							<li><a href="productList.html">SPEAKER</a></li>
-							<li><a href="productList.html">EARPHONE</a></li>
-							<li><a href="productList.html">HEADPHONE</a></li>
-							<li><a href="productList.html">ACCESSORIES</a></li>
-							<li><a href="../../static/services.html">SERVICE</a></li>
+							<li><a  href="/product/productList?category_number=1">SPEAKER</a></li>
+							<li><a href="/product/productList?category_number=2" >EARPHONE</a></li>
+							<li><a href="/product/productList?category_number=3" >HEADPHONE</a></li>
+							<li><a href="/product/productList?category_number=4" >ACCESSORIES</a></li>
+							<li><a href="/product/productList?category_number=5" >SERVICE</a></li>
+							<li class="nav-item dropdown">
+								<a class="nav-link dropdown-toggle" href="community.html" role="button" data-bs-toggle="dropdown" aria-expanded="false">COMMUNITY</a>
+								<ul class="dropdown-menu">
+									<li><a class="dropdown-item" href="notice.html">공지사항</a></li>
+									<li><a class="dropdown-item" href="review.html">REVIEW</a></li>
+									<li><a class="dropdown-item" href="qnaList">Q&A</a></li>
+								</ul>
+							</li>
 						</ul>
 					</div>
-					<div class="col-md-3 col-xs-4 text-right hidden-xs menu-2" >
+					<div class="col-md-3 col-xs-4 text-right hidden-xs menu-2">
 						<ul>
-							<li class="shopping-cart menu-2"><a href="#" class="cart"><span><small>0</small><i class="icon-shopping-cart"></i></span></a></li>
-							<li class="login menu-2"><a href="#">JOIN</a></li>
-							<li class="login menu-2"><a href="#">login</a></li>
-							<li class="search menu-2" >
+							<li class="shopping-cart menu-2"><a href="#" class="cart"><span><small>0</small><i
+									class="icon-shopping-cart"></i></span></a></li>
+							<li class="login menu-2"><a href="join">JOIN</a></li>
+							<li class="login menu-2"><a href="login">login</a></li>
+							<li class="search menu-2">
 								<div class="input-group">
 									<input type="text" placeholder="SEARCH">
 									<span class="input-group-btn">
-										<button class="btn btn-primary" type="button"><i class="icon-search"></i></button>
+										<button class="btn btn-primary" type="button"><i
+												class="icon-search"></i></button>
 									</span>
 								</div>
 							</li>
-						
+
 						</ul>
 					</div>
 				</div>
@@ -99,41 +138,46 @@
 
 	<!-- ======================================================================================================================================== -->
 	<!-- 메인 배너 -->
-	<header id="fh5co-header" class="fh5co-cover fh5co-cover-sm" role="banner" style="background-image:url(/images/banner_speaker.jpg);">
+	<header id="fh5co-header" class="fh5co-cover fh5co-cover-sm" role="banner" th:style="'background-image:url('+${img}+');'">
 		<div class="overlay"></div>
 		<div class="container">
 			<div class="row">
 				<div class="col-md-8 col-md-offset-2 text-center">
 					<div class="display-t">
 						<div class="display-tc animate-box" data-animate-effect="fadeIn">
-							<h1>SPEAKER</h1>
+							<h1 th:text="${banner}">SPEAKER</h1>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
 	</header>
-	
+
 	<!-- ======================================================================================================================================== -->
 	<!-- 상품리스트 -->
 	<div id="fh5co-product">
 		<div class="container">
-			
-			<p>SPEAKER 22</p>
+
+			<!-- 총 상품 수	-->
+			<p th:text="${banner + ' ' + total}"></p>
+
+			<!--	정렬		-->
+			<select id="sort">
+				<option value="1">신상품순</option>
+				<option value="2">리뷰수 많은 순</option>
+				<option value="3">낮은가격순</option>
+				<option value="4">높은가격순</option>
+			</select>
 
 			<div class="row" >
 
 				<div class="col-md-4 text-center animate-box" th:each="dto:${list}">
 
-<!--			<h1 th:text="${dto.product_number}"></h1>-->
-
-				<!--	왜 안찍히지... sql문이 잘못됐나?				-->
-				<!--	db 확인				-->
-<!--				<h1 th:text="${dto.image_src}"></h1>-->
+				<!--	왜 안찍히지... sql문이 잘못됐나?		>> 변수명의 _ 때문...		-->
+				<!--	<h1 th:text="${dto.img}"></h1>-->
 
 						<div class="product" >
-							<div class="product-grid" th:style="'background-image: url();'">
-<!--								th:style="'background-image: url(' + ${dto.image_src} + ');'"-->
+							<div class="product-grid" th:style="'background-image: url(/images/'+${dto.img}+'.jpg);'">
 								<a th:href="@{/product/productDetail}">
 
 									<div class="inner">
@@ -152,65 +196,12 @@
 						</div>
 					</div>
 
-
-
 			</div>
-			
-<!--			<div class="row">-->
-<!--				<div class="col-md-4 text-center animate-box">-->
-<!--					<div class="product">-->
-<!--						<div class="product-grid" style="background-image:url(images/product-4.jpg);">-->
-<!--							<div class="inner">-->
-<!--								<p>-->
-<!--									<a href="single.html" class="icon"><i class="icon-shopping-cart"></i></a>-->
-<!--									<a href="single.html" class="icon"><i class="icon-eye"></i></a>-->
-<!--								</p>-->
-<!--							</div>-->
-<!--						</div>-->
-<!--						<div class="desc">-->
-<!--							<h3><a href="single.html">Alato Cabinet</a></h3>-->
-<!--							<span class="price">$800</span>-->
-<!--						</div>-->
-<!--					</div>-->
-<!--				</div>-->
-<!--				<div class="col-md-4 text-center animate-box">-->
-<!--					<div class="product">-->
-<!--						<div class="product-grid" style="background-image:url(images/product-5.jpg);">-->
-<!--							<div class="inner">-->
-<!--								<p>-->
-<!--									<a href="single.html" class="icon"><i class="icon-shopping-cart"></i></a>-->
-<!--									<a href="single.html" class="icon"><i class="icon-eye"></i></a>-->
-<!--								</p>-->
-<!--							</div>-->
-<!--						</div>-->
-<!--						<div class="desc">-->
-<!--							<h3><a href="single.html">Earing Wireless</a></h3>-->
-<!--							<span class="price">$100</span>-->
-<!--						</div>-->
-<!--					</div>-->
-<!--				</div>-->
-<!--				<div class="col-md-4 text-center animate-box">-->
-<!--					<div class="product">-->
-<!--						<div class="product-grid" style="background-image:url(images/product-6.jpg);">-->
-<!--							<div class="inner">-->
-<!--								<p>-->
-<!--									<a href="single.html" class="icon"><i class="icon-shopping-cart"></i></a>-->
-<!--									<a href="single.html" class="icon"><i class="icon-eye"></i></a>-->
-<!--								</p>-->
-<!--							</div>-->
-<!--						</div>-->
-<!--						<div class="desc">-->
-<!--							<h3><a href="single.html">Sculptural Coffee Table</a></h3>-->
-<!--							<span class="price">$960</span>-->
-<!--						</div>-->
-<!--					</div>-->
-<!--				</div>-->
-<!--			</div>-->
 
 		</div>
 	</div>
 
-<!--===========================================================================================-->
+<!--====================================================================================================================================-->
 	<footer id="fh5co-footer" role="contentinfo">
 		<div class="container">
 			<div class="row copyright">
@@ -230,21 +221,21 @@
 	</div>
 	
 	<!-- jQuery -->
-	<script src="../../static/js/jquery.min.js"></script>
+	<script src="/js/jquery.min.js"></script>
 	<!-- jQuery Easing -->
-	<script src="../../static/js/jquery.easing.1.3.js"></script>
+	<script src="js/jquery.easing.1.3.js"></script>
 	<!-- Bootstrap -->
-	<script src="../../static/js/bootstrap.min.js"></script>
+	<script src="/js/bootstrap.min.js"></script>
 	<!-- Waypoints -->
-	<script src="../../static/js/jquery.waypoints.min.js"></script>
+	<script src="/js/jquery.waypoints.min.js"></script>
 	<!-- Carousel -->
-	<script src="../../static/js/owl.carousel.min.js"></script>
+	<script src="/js/owl.carousel.min.js"></script>
 	<!-- countTo -->
-	<script src="../../static/js/jquery.countTo.js"></script>
+	<script src="/js/jquery.countTo.js"></script>
 	<!-- Flexslider -->
-	<script src="../../static/js/jquery.flexslider-min.js"></script>
+	<script src="/js/jquery.flexslider-min.js"></script>
 	<!-- Main -->
-	<script src="../../static/js/main.js"></script>
+	<script src="/js/main.js"></script>
 
 	</body>
 </html>

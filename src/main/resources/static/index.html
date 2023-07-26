@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 
 <head>
 	<meta charset="utf-8">
@@ -30,9 +30,6 @@
 
 	<!-- Modernizr JS -->
 	<script src="js/modernizr-2.6.2.min.js"></script>
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
-	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
-	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
 </head>
 
 <style>
@@ -71,7 +68,6 @@
 
 	a {
   	text-decoration-line: none;
-
 	}
 
 </style>
@@ -90,11 +86,11 @@
 					</div>
 					<div class="col-md-6 col-xs-6 text-center menu-1" style="width:700px;">
 						<ul>
-							<li><a href="../templates/product/productList.html">SPEAKER</a></li>
-							<li><a href="../templates/product/productList.html">EARPHONE</a></li>
-							<li><a href="../templates/product/productList.html">HEADPHONE</a></li>
-							<li><a href="../templates/product/productList.html">ACCESSORIES</a></li>
-							<li><a href="services.html">SERVICE</a></li>
+							<li><a  href="/product/productList?category_number=1">SPEAKER</a></li>
+							<li><a href="/product/productList?category_number=2">EARPHONE</a></li>
+							<li><a href="/product/productList?category_number=3">HEADPHONE</a></li>
+							<li><a href="/product/productList?category_number=4">ACCESSORIES</a></li>
+							<li><a href="/product/productList?category_number=5">SERVICE</a></li>
 							<li class="nav-item dropdown">
 								<a class="nav-link dropdown-toggle" href="community.html" role="button" data-bs-toggle="dropdown" aria-expanded="false">COMMUNITY</a>
 								<ul class="dropdown-menu">

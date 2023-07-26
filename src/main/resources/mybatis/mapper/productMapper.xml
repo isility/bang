@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="kr.co.jhta.bang.finalproject.dao.ProductListDAO">
+    <select id="selectAll" parameterType="int" resultType="ProductListDTO">
+        SELECT p.product_number,  i.image_src as img, product_name , product_price, category_number
+        FROM product p, image i
+        WHERE p.product_number = i.product_number AND category_number=#{category_number}
+        AND image_order=1
+    </select>
+
+    <select id="getTotal" resultType="int">
+        SELECT count(*) cnt
+        FROM product
+        WHERE category_number=#{category_number}
+    </select>
+
+</mapper>
