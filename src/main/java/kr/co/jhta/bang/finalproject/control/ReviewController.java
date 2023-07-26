@@ -59,7 +59,8 @@ public class ReviewController {
     }
 
     @PostMapping("/reviewWrite")
-    public String reviewWriteOk(@ModelAttribute ReviewDTO dto){
+    public String reviewWriteOk(@ModelAttribute ReviewDTO dto, @RequestParam("star") int star){
+        dto.setReply_score(star);
         service.writeReply(dto); // dto 객체에는 사용자가 작성한 리뷰 데이터가 담겨있음
         log.info(">>>>>>>>>>>>>>>>>>>>dto {}", dto);
         return "redirect:/review/reviewList"; // 리뷰 리스트 페이지로 리다이렉트

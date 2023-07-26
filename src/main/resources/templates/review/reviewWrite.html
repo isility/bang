@@ -30,7 +30,6 @@
 		<script src="https://code.jquery.com/jquery-3.6.0.min.js"
 				integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 		<script th:src="@{/js/board.js}"></script>
-
 	</head>
 x
 
@@ -70,7 +69,34 @@ x
 	<!-- include plugin -->
 	<script src="[folder where script is located]/[plugin script].js"></script>
 	</head>
+	<style>
+		.star-rating {
 
+  font-size: 30px;
+  direction: rtl;
+}
+
+.star {
+  display: none;
+}
+
+label {
+  color: #ccc;
+  cursor: pointer;
+  display: inline-block;
+  unicode-bidi: bidi-override;
+  direction: ltr;
+}
+
+/* 별점이 체크되지 않은 상태일 때 회색으로 표시 */
+.star:not(:checked) ~ label {
+  color: #ccc;
+}
+.star:checked ~ label {
+  color: orange;
+}
+
+	</style>
 
 
 	<body>
@@ -123,9 +149,17 @@ x
 				<div class="container border rounded flex-md-row mb-4 shadow-sm h-md-250">
 					<form action="reviewWrite" method="post">
 						<h1>리뷰 작성</h1>
-						<div class="rating">
-							<p>평점</p>
-							<input type="text" id="reply_score" name="reply_score" value="">
+						<div class="star-rating">
+							<input type="radio" name="star" class="star" id="star5" value="5" />
+							<label for="star5">&#9733;</label>
+							<input type="radio" name="star" class="star" id="star4" value="4" />
+							<label for="star4">&#9733;</label>
+							<input type="radio" name="star" class="star" id="star3" value="3" />
+							<label for="star3">&#9733;</label>
+							<input type="radio" name="star" class="star" id="star2" value="2" />
+							<label for="star2">&#9733;</label>
+							<input type="radio" name="star" class="star" id="star1" value="1" />
+							<label for="star1">&#9733;</label>
 						</div>
 						<div>
 							<p>상품번호</p>
