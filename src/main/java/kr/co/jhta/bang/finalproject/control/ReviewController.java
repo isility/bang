@@ -65,6 +65,7 @@ public class ReviewController {
         return "redirect:/review/reviewList"; // 리뷰 리스트 페이지로 리다이렉트
     }
 
+    @GetMapping("/reviewDelete")
     public String reviewDelete(@RequestParam("reply_number")int reply_number){
         service.deleteReview(reply_number);
         return "redirect:/review/reviewList";
