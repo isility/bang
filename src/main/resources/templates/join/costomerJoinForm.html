@@ -49,17 +49,87 @@
   <script src="js/respond.min.js"></script>
   <![endif]-->
 
-  <script>
 
-  </script>
-
-  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js" integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js" integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V" crossorigin="anonymous"></script>
 
 
-  <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-  <script>
-    function kakaoaddress() {
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+
+    <script type="text/javascript">
+    $(document).ready(function(){
+        <!-- 필수 입력 알림 -->
+        $("#joinCorrect").on("click", function(){
+            if ($("#member_id").val() == "") {
+                alert("아이디를 입력해주세요.");
+                $("#member_id").focus();
+                return false;
+            }
+            if ($("#member_pw").val() == "") {
+                alert("비밀번호를 입력해주세요.");
+                $("#member_pw").focus();
+                return false;
+            }
+            if ($("#name").val() == "") {
+                alert("성명을 입력해주세요.");
+                $("#name").focus();
+                return false;
+            }
+            if ($("#nickname").val() == "") {
+                alert("닉네임을 입력해주세요.");
+                $("#nickname").focus();
+                return false;
+            }
+            if ($("#phone").val() == "") {
+                alert("연락처를 입력해주세요.");
+                $("#phone").focus();
+                return false;
+            }
+            var idChkVal = $("#idCheck").val();
+            if (idChkVal == "아이디 중복확인") {
+                alert("'아이디 중복확인' 버튼을 눌러주세요.");
+                $("#member_id").focus();
+                return false;
+            } else if (idChkVal == "사용 가능") {
+                $("#joinForm").submit();
+            }
+        });
+
+
+        <!-- 아이디 중복 검사 -->
+        $("#idCheck").on("click", function() {
+            if ($("#member_id").val() == "") {
+                alert("아이디를 입력해주세요.");
+                $("#member_id").focus();
+            }
+
+            $.ajax({
+                url: "idCheck",
+                type: "post",
+                dataType: "json",
+                data: {"member_id": $("#member_id").val()},
+                success: function(data) {
+                    if (data == 1) {
+                        alert("중복된 아이디 입니다.");
+                    } else if (data == 0 && $("#member_id").val() != "") {
+                        $("#idCheck").val("사용 가능");
+                        alert("사용 가능한 아이디 입니다.");
+                    }
+                }
+            });
+        });
+
+
+
+
+        <!-- 카카오 주소 -->
+        $("#addressSearch").on("click", function() {
+            kakaoaddress();
+        });
+
+
+        function kakaoaddress() {
         new daum.Postcode({
             oncomplete: function(data) {
                 // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
@@ -105,13 +175,8 @@
                 document.getElementById("address2").focus();
             }
         }).open();
-    }
-
-
-    function idjungbokCheck() {
-
-    }
-
+        }
+    });
 </script>
 
 </head>
@@ -170,39 +235,43 @@
           <hr>
           <br>
 
-          <form action="costomerJoinOk" method="post">
+          <div class="alert alert-warning" style="font-weight: bold; width: 500px;height: 54px; margin: 30px; margin-top: -30px;">
+            * 표시되어 있는 칸은 필수 입력입니다.
+          </div>
+
+          <form action="costomerJoinForm" method="post" id="joinForm">
 
             <h4 style="color:#7E7E7E ; font-weight: bold; position: relative;">계정</h4>
             <div class="row form-group">
               <div class="col-md-12">
-                <!-- <label for="email">Email</label> -->
-                <input type="text" id="id" name="member_id" class="form-control" placeholder="아이디" style="width: 500px;height: 54px;">
-                <input type="button" class="btn btn-outline-warning" id="idCheck" value="아이디 중복확인" onclick="idjungbokCheck()">
+                  <input type="text" id="member_id" name="member_id" class="form-control" placeholder="아이디 *" style="width: 500px;height: 54px;">
+                  <input type="button" class="btn btn-outline-warning" id="idCheck" value="아이디 중복확인">
               </div>
             </div>
 
             <div class="row form-group">
               <div class="col-md-12">
                 <!-- <label for="subject">Subject</label> -->
-                <input type="text" id="pw" name="member_pw" class="form-control" placeholder="비밀번호" style="width: 500px;height: 54px;">
+                <input type="text" id="member_pw" name="member_pw" class="form-control" placeholder="비밀번호 *" style="width: 500px;height: 54px;">
               </div>
             </div>
 
             <div class="row form-group">
               <div class="col-md-12">
                 <!-- <label for="subject">Subject</label> -->
-                <input type="text" id="pwCheck" class="form-control" placeholder="비밀번호 확인" style="width: 500px;height: 54px;">
+                <input type="text" id="pwCheck" class="form-control" placeholder="비밀번호 확인 *" style="width: 500px;height: 54px;">
+                <p class="text-danger">비밀번호를 다시 확인해주세요.</p>
               </div>
             </div>
 
             <br>
 
-            <h4 style="color:#7E7E7E ; font-weight: bold; position: relative;">Email 본인인증</h4>
+            <h4 style="color:#7E7E7E ; font-weight: bold; position: relative;">Email</h4>
             <div class="row form-group">
               <div class="col-md-12">
                 <!-- <label for="email">Email</label> -->
-                <input type="text" id="email" name="member_email" class="form-control" placeholder="이메일" style="width: 500px;height: 54px;">
-                <input type="button" class="btn btn-outline-warning" id="emailCheck" value="전송하기">
+                <input type="text" id="email" name="member_email" class="form-control" placeholder="이메일 *" style="width: 500px;height: 54px;">
+                <input type="button" class="btn btn-outline-warning" id="emailCheck" value="본인 인증하기">
                 <input type="text" id="emailCheckResult" name="email" class="form-control" placeholder="인증코드 6자리" style="width: 500px;height: 54px;">
               </div>
             </div>
@@ -213,28 +282,28 @@
             <div class="row form-group">
               <div class="col-md-12">
                 <!-- <label for="subject">Subject</label> -->
-                <input type="text" id="name" name="member_name" class="form-control" placeholder="이름" style="width: 500px;height: 54px;">
+                <input type="text" id="name" name="member_name" class="form-control" placeholder="이름 *" style="width: 500px;height: 54px;">
               </div>
             </div>
 
             <div class="row form-group">
               <div class="col-md-12">
                 <!-- <label for="subject">Subject</label> -->
-                <input type="text" id="nickname" name="person_nickname" class="form-control" placeholder="이름" style="width: 500px;height: 54px;">
+                <input type="text" id="nickname" name="person_nickname" class="form-control" placeholder="닉네임 *" style="width: 500px;height: 54px;">
               </div>
             </div>
 
             <div class="row form-group">
               <div class="col-md-12">
                 <!-- <label for="subject">Subject</label> -->
-                <input type="text" id="phone" name="member_phone" class="form-control" placeholder="연락처" style="width: 500px;height: 54px;">
+                <input type="text" id="phone" name="member_phone" class="form-control" placeholder="연락처 * (-를 제외, 01011112222, 0266667777)" style="width: 500px;height: 54px;">
               </div>
             </div>
 
             <div class="row form-group">
               <div class="col-md-12">
                 <!-- <label for="subject">Subject</label> -->
-                <h5 style="color:#7E7E7E ; font-weight: bold; position: relative;">생년월일<input type="date" id="birth" name="person_birth" value="" class="form-control" style="width: 500px;height: 54px;"></h5>
+                <h5 style="color:#7E7E7E ; font-weight: bold; position: relative;">생년월일<input type="date" id="birth" name="person_birth" value="생년월일" class="form-control" style="width: 500px;height: 54px;"></h5>
               </div>
             </div>
 
@@ -242,11 +311,11 @@
             <br>
 
 
-            <h4 style="color:#7E7E7E ; font-weight: bold; position: relative;">주소</h4>
+            <h4 style="color:#7E7E7E ; font-weight: bold; position: relative;">주소 *</h4>
             <div class="row form-group">
               <div class="col-md-12">
-                <p>먼저, 주소를 검색해주세요.</p>
-                <input type="button" class="btn btn-outline-warning" id="addressSearch" value="주소검색" onclick="kakaoaddress()">
+                <input type="button" class="btn btn-outline-warning" id="addressSearch" value="주소검색">
+                <p class="text-success">'주소검색' 버튼을 통해 간편하게 입력하세요</p>
                 <input type="text" id="postal" name="member_postal" class="form-control" placeholder="우편번호" style="width: 500px;height: 54px;">
                 <input type="text" id="address1" name="member_address1" class="form-control" placeholder="기본주소" style="width: 500px;height: 54px;">
                 <input type="text" id="address2" name="member_address2" class="form-control" placeholder="상세주소 (ex: 101동 101호)" style="width: 500px;height: 54px;">
@@ -255,11 +324,18 @@
             </div>
 
 
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" value="1" id="email_check" name="email_check">
+              <label class="form-check-label" for="email_check">
+                (선택) 광고성 메일 수신에 동의합니다.
+              </label>
+            </div>
+
             <br>
 
 
             <div class="form-group">
-              <input type="submit" value="SIGN IN" class="btn btn-primary" style="width: 500px;height: 54px;">
+              <input type="submit" id="joinCorrect" value="SIGN IN" class="btn btn-primary" style="width: 500px;height: 54px;">
             </div>
 
           </form>

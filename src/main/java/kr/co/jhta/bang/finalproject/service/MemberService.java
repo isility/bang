@@ -21,7 +21,7 @@ public class MemberService {
 
     public void insertPersonOne(PersonDTO personDto) { personDao.insertOne(personDto); }
 
-    public int idCheck(MemberDTO dto) {
-        return memberDao.idCheck(dto);
+    public int idCheck(String memberId) {
+        return memberDao.idCheck(memberId);
     }
 }

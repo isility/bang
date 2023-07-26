@@ -9,5 +9,5 @@ import org.springframework.stereotype.Repository;
 public interface MemberDAO {
     void insertOne(MemberDTO memberDto);
 
-    int idCheck(MemberDTO dto);
+    int idCheck(String memberId);
 }
