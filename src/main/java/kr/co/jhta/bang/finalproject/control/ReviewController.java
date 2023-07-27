@@ -80,7 +80,7 @@ public class ReviewController {
     @PostMapping("/reviewModify")
     public String modifyReply(@ModelAttribute ReviewDTO dto, @RequestParam("star") int star){
         dto.setReply_score(star);
-        service.modifyReply(dto);
+        service.modifyReview(dto);
         log.info(">>>>>>>>>>>>>dto {} ", dto);
         return "redirect:/review/reviewList";
     }
