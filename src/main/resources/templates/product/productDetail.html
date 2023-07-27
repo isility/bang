@@ -1,9 +1,9 @@
 <!DOCTYPE HTML>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 	<head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>Shop &mdash; Free Website Template, Free HTML5 Template by gettemplates.co</title>
+	<title>Bang</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta name="description" content="Free HTML5 Website Template by gettemplates.co" />
 	<meta name="keywords" content="free website templates, free html5, free template, free bootstrap, free website template, html5, css3, mobile first, responsive" />
@@ -22,70 +22,110 @@
 
 	<!-- <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet"> -->
 	<!-- <link href="https://fonts.googleapis.com/css?family=Playfair+Display:400,400i" rel="stylesheet"> -->
-	
-	<!-- Animate.css -->
-	<link rel="stylesheet" href="css/animate.css">
-	<!-- Icomoon Icon Fonts-->
-	<link rel="stylesheet" href="css/icomoon.css">
-	<!-- Bootstrap  -->
-	<link rel="stylesheet" href="css/bootstrap.css">
 
-	<!-- Flexslider  -->
-	<link rel="stylesheet" href="css/flexslider.css">
+		<!-- Animate.css -->
 
-	<!-- Owl Carousel  -->
-	<link rel="stylesheet" href="css/owl.carousel.min.css">
-	<link rel="stylesheet" href="css/owl.theme.default.min.css">
+		<link rel="stylesheet"  th:href="@{/css/animate.css}">
+		<!-- Icomoon Icon Fonts-->
+		<!--	<link rel="stylesheet" href="../../static/css/icomoon.css">-->
+		<link rel="stylesheet"  th:href="@{/css/icomoon.css}">
+		<!-- Bootstrap  -->
+		<!--	<link rel="stylesheet" href="../../static/css/bootstrap.css">-->
+		<link rel="stylesheet"  th:href="@{/css/bootstrap.css}">
 
-	<!-- Theme style  -->
-	<link rel="stylesheet" href="css/style.css">
+		<!-- Flexslider  -->
+		<!--	<link rel="stylesheet" href="../../static/css/flexslider.css">-->
+		<link rel="stylesheet"  th:href="@{/css/flexslider.css}">
 
-	<!-- Modernizr JS -->
-	<script src="js/modernizr-2.6.2.min.js"></script>
+		<!-- Owl Carousel  -->
+		<!--	<link rel="stylesheet" href="../../static/css/owl.carousel.min.css">-->
+		<link rel="stylesheet"  th:href="@{/css/owl.carousel.min.css}">
+		<!--	<link rel="stylesheet" href="../../static/css/owl.theme.default.min.css">-->
+		<link rel="stylesheet"  th:href="@{/css/owl.theme.default.min.css}">
 
-	<!-- FOR IE9 below -->
-	<!--[if lt IE 9]>
-	<script src="js/respond.min.js"></script>
-	<![endif]-->
+		<!-- Theme style  -->
+		<!--	<link rel="stylesheet" href="../../static/css/style.css">-->
+		<!--		<link rel="stylesheet" type="text/css" th:href="@{/css/style.css}">-->
+		<link rel="stylesheet" th:href="@{/css/style.css}">
 
-	<style>
+		<!-- Modernizr JS -->
+		<script src="@{/js/modernizr-2.6.2.min.js}"></script>
+
+		<!-- FOR IE9 below -->
+		<!--[if lt IE 9]>
+		<script src="@{/js/respond.min.js}"></script>
+		<![endif]-->
 
 
-	</style>
+		<style>
+	#fh5co-hero .flexslider .slides li {
+		background-size: cover;
+		/* 이미지를 컨테이너에 맞추어 확대/축소 */
+		background-position: center center;
+		/* 이미지를 가운데로 정렬 */
+	}
 
+	.input-group {
+		position: relative;
+		left: 48px;
+	}
 
+	.col-md-3 col-xs-2 {
+	}
+
+	a {
+  	text-decoration-line: none;
+	}
+
+	#sort{
+	position: relative;
+	left: 940px;
+	}
+
+</style>
 	</head>
+
 	<body>
-		
-	<div class="fh5co-loader"></div>
-	
+	<!--======================================================================================================  -->
+	<!-- 상단부분 -->
+	<!--		<div class="fh5co-loader"></div>-->
+
 	<div id="page">
 		<nav class="fh5co-nav" role="navigation">
 			<div class="container">
-				<div class="row">
-					<div class="col-md-3 col-xs-2">
-						<div id="fh5co-logo"><a href="index.html">Bang & Oops</a></div>
+				<div class="row" style="width:1200px;">
+					<div class="col-md-3 col-xs-2" style="width:200px;">
+						<div id="fh5co-logo" style="width:200px;"><a href="index.html">Bang & Oops</a></div>
 					</div>
-					<div class="col-md-6 col-xs-6 text-center menu-1" >
+					<div class="col-md-6 col-xs-6 text-center menu-1" style="width:700px;">
 						<ul>
-							<li><a href="../templates/product/productList.html">SPEAKER</a></li>
-							<li><a href="../templates/product/productList.html">EARPHONE</a></li>
-							<li><a href="../templates/product/productList.html">HEADPHONE</a></li>
-							<li><a href="../templates/product/productList.html">ACCESSORIES</a></li>
-							<li><a href="services.html">SERVICE</a></li>
-							<li><a href="community.html">COMMUNITY</a></li>
+							<li><a  href="/product/productList?cno=1">SPEAKER</a></li>
+							<li><a href="/product/productList?cno=2" >EARPHONE</a></li>
+							<li><a href="/product/productList?cno=3" >HEADPHONE</a></li>
+							<li><a href="/product/productList?cno=4" >ACCESSORIES</a></li>
+							<li><a href="/product/productList?cno=5" >SERVICE</a></li>
+							<li class="nav-item dropdown">
+								<a class="nav-link dropdown-toggle" href="community.html" role="button" data-bs-toggle="dropdown" aria-expanded="false">COMMUNITY</a>
+								<ul class="dropdown-menu">
+									<li><a class="dropdown-item" href="notice.html">공지사항</a></li>
+									<li><a class="dropdown-item" href="review.html">REVIEW</a></li>
+									<li><a class="dropdown-item" href="qnaList">Q&A</a></li>
+								</ul>
+							</li>
 						</ul>
 					</div>
-					<div class="col-md-3 col-xs-4 text-right hidden-xs menu-2" >
+					<div class="col-md-3 col-xs-4 text-right hidden-xs menu-2">
 						<ul>
-							<li class="shopping-cart menu-2"><a href="#" class="cart"><span><small>0</small><i class="icon-shopping-cart"></i></span></a></li>
+							<li class="shopping-cart menu-2"><a href="#" class="cart"><span><small>0</small><i
+									class="icon-shopping-cart"></i></span></a></li>
 							<li class="login menu-2"><a href="join">JOIN</a></li>
 							<li class="login menu-2"><a href="login">login</a></li>
-							<li class="search menu-2" >
+							<li class="search menu-2">
 								<div class="input-group">
 									<input type="text" placeholder="SEARCH">
 									<span class="input-group-btn">
-										<button class="btn btn-primary" type="button"><i class="icon-search"></i></button>
+										<button class="btn btn-primary" type="button"><i
+												class="icon-search"></i></button>
 									</span>
 								</div>
 							</li>
@@ -114,6 +154,7 @@
 	</header> -->
 		<!-- =========================================================================================== -->
 
+<!-- 상품		-->
 	<div id="fh5co-product">
 		<div class="container">
 			<div class="row">
@@ -122,21 +163,21 @@
 						<div class="item">
 							<div class="active text-center">
 								<figure>
-									<img src="images/product-single-1.jpg" alt="user">
+									<img th:src="@{/images/'+${productDto.img}+'.jpg}" alt="user">
 								</figure>
 							</div>
 						</div>
 						<div class="item">
 							<div class="active text-center">
 								<figure>
-									<img src="images/product-single-2.jpg" alt="user">
+									<img src="../../static/images/product-single-2.jpg" alt="user">
 								</figure>
 							</div>
 						</div>
 						<div class="item">
 							<div class="active text-center">
 								<figure>
-									<img src="images/product-single-3.jpg" alt="user">
+									<img src="../../static/images/product-single-3.jpg" alt="user">
 								</figure>
 							</div>
 						</div>
@@ -144,10 +185,9 @@
 
 					<div class="row animate-box">
 						<div class="col-md-8 col-md-offset-2 text-center fh5co-heading">
-							<h2>베오릿20</h2>
-							<h3 style="color: #D1C286;">679,000원</h3>
+							<h2 th:text="${productDto.pname}">베오릿20</h2>
+							<h3 style="color: #D1C286;" th:text="${productDto.pprice}">679,000원</h3>
 							<span>배송방법 택배 </span>     <span>배송비 무료 </span>
-							
 							<p>
 								<a href="#" class="btn btn-primary btn-outline btn-lg">장바구니</a>
 								<a href="#" class="btn btn-primary btn-outline btn-lg">구매하기</a>
@@ -202,7 +242,7 @@
 									<div class="feed">
 										<div >
 											<blockquote>
-												<p>[[${dto.reply_contents}}]]</p>
+												<p>[[${dto.reply_contents}]]</p>
 											</blockquote>
 											<h3>[[${dto.qna_writer}]]</h3>
 											<span class="rate">
@@ -271,21 +311,21 @@
 	</div>
 	
 	<!-- jQuery -->
-	<script src="js/jquery.min.js"></script>
+	<script src="../../static/js/jquery.min.js"></script>
 	<!-- jQuery Easing -->
-	<script src="js/jquery.easing.1.3.js"></script>
+	<script src="../../static/js/jquery.easing.1.3.js"></script>
 	<!-- Bootstrap -->
-	<script src="js/bootstrap.min.js"></script>
+	<script src="../../static/js/bootstrap.min.js"></script>
 	<!-- Waypoints -->
-	<script src="js/jquery.waypoints.min.js"></script>
+	<script src="../../static/js/jquery.waypoints.min.js"></script>
 	<!-- Carousel -->
-	<script src="js/owl.carousel.min.js"></script>
+	<script src="../../static/js/owl.carousel.min.js"></script>
 	<!-- countTo -->
-	<script src="js/jquery.countTo.js"></script>
+	<script src="../../static/js/jquery.countTo.js"></script>
 	<!-- Flexslider -->
-	<script src="js/jquery.flexslider-min.js"></script>
+	<script src="../../static/js/jquery.flexslider-min.js"></script>
 	<!-- Main -->
-	<script src="js/main.js"></script>
+	<script src="../../static/js/main.js"></script>
 
 	</body>
 </html>

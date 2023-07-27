@@ -7,10 +7,11 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class ImageDTO {
-
-    private int ino;
-    private String img;
-    private int imgOrder;
+public class ProductListDTO {
     private int pno;
+    private String img;
+    private String pname;
+    private int pprice;
+    private int cno;
+
 }

@@ -1,6 +1,6 @@
 package kr.co.jhta.bang.finalproject.dao;
 
-import kr.co.jhta.bang.finalproject.dto.ProductDTO;
+import kr.co.jhta.bang.finalproject.dto.ProductListDTO;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
@@ -11,8 +11,13 @@ import java.util.List;
 public interface ProductListDAO {
 
     //상품리스트
-    public List<ProductDTO> selectAll();
+    public List<ProductListDTO> selectAll(int cno);
 
-    //카테고리 리스트
-    public ProductDTO selectOne(int no);
+    //카테고리별 총 상품 수
+    public int getTotal(int cno);
+
+    //상세 페이지
+    public ProductListDTO selectOne(int pno);
+
+
 }
