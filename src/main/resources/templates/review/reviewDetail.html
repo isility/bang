@@ -50,6 +50,7 @@
     <script th:src="@{/js/modernizr-2.6.2.min.js}"></script>
 
 </head>
+
 <body>
 
 <div class="fh5co-loader"></div>
@@ -120,41 +121,61 @@
             <div class="row">
                 <div><h2>REVIEW</h2></div>
                 <div>
-                    <a th:href="@{/review/reviewDelete(reply_number=${reviewDTO.reply_number})}"><input type="button" class="btn btn-primary btn-outline" style="font-size: 9px;" value="삭제" /></a>
-                    <a th:href="@{/review/reviewModify(reply_number=${reviewDTO.reply_number})}"><input type="button" class="btn btn-primary" style="font-size: 9px;" value="수정" /></a>
+                    <a th:href="@{/review/reviewDelete(replyNumber=${reviewDTO.replyNumber})}"><input type="button" class="btn btn-primary btn-outline" style="font-size: 9px;" value="삭제" /></a>
+                    <a th:href="@{/review/reviewModify(replyNumber=${reviewDTO.replyNumber})}"><input type="button" class="btn btn-primary" style="font-size: 9px;" value="수정" /></a>
                     <a th:href="@{/review/reviewList}"><input type="button" class="btn btn-primary" style="font-size: 9px;" value="목록" /></a>
                 </div>
                 <form>
                     <table class="table">
                         <tr>
                             <th>게시물번호</th>
-                            <td th:text="${reviewDTO.reply_ref}"></td>
+                            <td th:text="${reviewDTO.replyRef}"></td>
                             <th>작성자</th>
-                            <td th:text="${reviewDTO.reply_writer}"></td>
+                            <td th:text="${reviewDTO.replyWriter}"></td>
                         </tr>
                         <tr>
                             <th>작성일</th>
-                            <td th:text="${reviewDTO.reply_date}"></td>
+                            <td th:text="${reviewDTO.replyDate}"></td>
                             <th>리뷰점수</th>
-                            <td th:text="${reviewDTO.reply_score}"></td>
+                            <td th:text="${reviewDTO.replyScore}"></td>
                         </tr>
                         <tr>
                             <th>내용</th>
-                            <td colspan="4" th:text="${reviewDTO.reply_contents}"></td>
-                        </tr>
-                        <tr>
-                            <th>댓글을 남겨주세요</th>
-                            <td><input type="text" name="reply_contents" id="" /></td>
-                            <td colspan="4">
-                                <input class="btn btn-outline-success" style="float:right;" type="submit" value="댓글작성" />
-                                <input type="button" style="float:right;" class="btn btn-outline-danger" value="삭제" />
-                                <input type="button" style="float:right;" class="btn btn-outline-success" value="수정" />
-                            </td>
+                            <td colspan="4" th:text="${reviewDTO.replyContents}"></td>
                         </tr>
 
 
                     </table>
+
                 </form>
+
+                    <!-- 댓글과 대댓글이 표시될 영역 -->
+                    <div id="comment-section">
+                        <!-- 서버에서 동적으로 댓글과 대댓글이 추가될 예정 -->
+                    </div>
+
+                    <!-- 댓글 입력 폼 -->
+                    <!--ref 가 1인 친구들 -->
+                    <!-- 정렬 : ref_order asc-->
+                    <!--step = 1--> <!--order = 1-->
+                    <form id="comment-form1" action="/reviewComment" method="post">
+                        <input type="text" name="replyContents" placeholder="댓글을 입력하세요..." required>
+                        <button type="submit">댓글 등록</button>
+                    </form>
+                    <!--step = 2--> <!--order = 2-->
+                    <form id="comment-form2" action="/reviewComment" method="post">
+                        <input type="text" name="replyContents" placeholder="댓글을 입력하세요..." required>
+                        <button type="submit">댓글 등록</button>
+                    </form>
+                    <!--step = 3--> <!--order = 3-->
+                    <form id="comment-form3" action="/reviewComment" method="post">
+                        <input type="text" name="replyContents" placeholder="댓글을 입력하세요..." required>
+                        <button type="submit">댓글 등록</button>
+                    </form>
+                    <!--step : 2인 댓글 추가했을 시 스탭이 같은 친구들 중에서 order를 가장 큰 수로 넣고-->
+
+
+
 
             </div>
         </div>

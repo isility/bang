@@ -6,25 +6,54 @@
 <mapper namespace="kr.co.jhta.bang.finalproject.dao.ReviewDAO">
     <!-- 테이블 모든 값 조회 -->
     <select id="getAll" resultType="ReviewDTO">
-        SELECT reply_number, reply_contents, reply_writer, reply_date, reply_step, reply_ref_order, reply_ref
-        , reply_answer_number, reply_parent_number, reply_score, product_number
+        SELECT reply_number AS replyNumber,
+        reply_contents AS replyContents,
+        reply_writer AS replyWriter,
+        reply_date AS replyDate,
+        reply_step AS replyStep,
+        reply_ref_order AS replyRefOrder,
+        reply_ref AS replyRef,
+        reply_answer_number AS replyAnswerNumber,
+        reply_parent_number AS replyParentNumber,
+        reply_score AS replyScore,
+        product_number AS productNumber
         FROM product_reply
         WHERE reply_step = 0
-        ORDER BY reply_ref DESC
+        ORDER BY reply_ref DESC;
     </select>
     <!--페이징 처리한 리스트-->
     <select id="findAllReply" resultType="ReviewDTO" parameterType="StartEnd">
-        SELECT rn, reply_number, reply_contents, reply_writer, reply_date, reply_step, reply_ref_order, reply_ref
-        , reply_answer_number, reply_parent_number, reply_score, product_number
+        SELECT rn AS rowNumber,
+        reply_number AS replyNumber,
+        reply_contents AS replyContents,
+        reply_writer AS replyWriter,
+        reply_date AS replyDate,
+        reply_step AS replyStep,
+        reply_ref_order AS replyRefOrder,
+        reply_ref AS replyRef,
+        reply_answer_number AS replyAnswerNumber,
+        reply_parent_number AS replyParentNumber,
+        reply_score AS replyScore,
+        product_number AS productNumber
         FROM (
         SELECT ROW_NUMBER() OVER (ORDER BY reply_ref DESC) AS rn,
-        reply_number, reply_contents, reply_writer, reply_date, reply_step, reply_ref_order, reply_ref
-        , reply_answer_number, reply_parent_number, reply_score, product_number
+        reply_number,
+        reply_contents,
+        reply_writer,
+        reply_date,
+        reply_step,
+        reply_ref_order,
+        reply_ref,
+        reply_answer_number,
+        reply_parent_number,
+        reply_score,
+        product_number
         FROM product_reply
-        WHERE reply_step = 0  <!-- 서브쿼리에도 조건 추가 -->
+        WHERE reply_step = 0
         ) AS derived
         WHERE rn BETWEEN #{startNo} AND #{endNo}
-        AND reply_step = 0;  <!-- 메인 쿼리에 조건 추가 -->
+        AND reply_step = 0;
+
     </select>
     <select id="getTotal" resultType="int">
         SELECT count(*)cnt
@@ -35,28 +64,43 @@
         INSERT INTO product_reply (reply_contents, reply_writer,
         reply_date, reply_ref, reply_step, reply_ref_order,
         reply_answer_number, reply_parent_number, reply_score, product_number)
-        VALUES (#{reply_contents}, #{reply_writer}, DATE_FORMAT(NOW(), '%y-%m-%d'),
-        5, 0, 0, 0, 0, #{reply_score}, #{product_number})
+        VALUES (#{replyContents}, #{replyWriter}, DATE_FORMAT(NOW(), '%y-%m-%d'),
+        5, 0, 0, 0, 0, #{replyScore}, #{productNumber});
+
     </insert>
+<!--    INSERT INTO product_reply (reply_contents, reply_writer,-->
+<!--    reply_date, reply_ref, reply_step, reply_ref_order,-->
+<!--    reply_answer_number, reply_parent_number, reply_score, product_number)-->
+<!--    VALUES (#{replyContents}, #{replyWriter}, DATE_FORMAT(NOW(), '%y-%m-%d'),-->
+<!--    (SELECT IFNULL(MAX(reply_ref), 0) + 1 FROM product_reply),-->
+<!--    0, 0, 0, 0, #{replyScore}, #{productNumber});-->
 
 
 
     <!-- 테이블 모든 값 reply_number로 조회 -->
     <select id="findByReply_number" resultType="ReviewDTO">
-            SELECT reply_number, reply_contents, reply_writer, reply_date, reply_step, reply_ref_order
-            , reply_answer_number, reply_parent_number, reply_score, product_number
-            FROM product_reply WHERE reply_number = #{reply_number}
+        SELECT reply_number AS replyNumber,
+        reply_contents AS replyContents,
+        reply_writer AS replyWriter,
+        reply_date AS replyDate,
+        reply_step AS replyStep,
+        reply_ref_order AS replyRefOrder,
+        reply_answer_number AS replyAnswerNumber,
+        reply_parent_number AS replyParentNumber,
+        reply_score AS replyScore,
+        product_number AS productNumber
+        FROM product_reply
+        WHERE reply_number = #{replyNumber};
     </select>
     <delete id="deleteReview" parameterType="int">
         DELETE FROM product_reply
-        WHERE reply_number=#{reply_number}
-
+        WHERE reply_number = #{replyNumber};
     </delete>
 
     <update id="modifyReview" parameterType="ReviewDTO">
         UPDATE product_reply
-        SET reply_contents=#{reply_contents}, reply_score=#{reply_score}
-        WHERE reply_number=#{reply_number}
+        SET reply_contents = #{replyContents}, reply_score = #{replyScore}
+        WHERE reply_number = #{replyNumber};
     </update>
 
 </mapper>
