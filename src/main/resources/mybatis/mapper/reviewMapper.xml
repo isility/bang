@@ -23,6 +23,7 @@
         FROM product_reply
         ) AS derived
         WHERE rn BETWEEN #{startNo} AND #{endNo}
+        AND reply_step = 0;
     </select>
     <select id="getTotal" resultType="int">
         SELECT count(*)cnt
