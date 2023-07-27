@@ -38,8 +38,8 @@ public class ReviewService {
     }
 
     // review 삭제
-    public void deleteReview(int reply_number){
-        dao.deleteReview(reply_number);
+    public void deleteReview(int replyNumber){
+        dao.deleteReview(replyNumber);
     }
 
     public void modifyReview(ReviewDTO dto)  {dao.modifyReview(dto);}
