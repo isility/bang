@@ -1,6 +1,10 @@
 package kr.co.jhta.bang.finalproject.control;
 
+import kr.co.jhta.bang.finalproject.dto.CartDTO;
+import kr.co.jhta.bang.finalproject.dto.ProductDTO;
 import kr.co.jhta.bang.finalproject.service.KakaoPayService;
+import kr.co.jhta.bang.finalproject.service.PaymentService;
+import kr.co.jhta.bang.finalproject.service.ProductService;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +15,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.security.Principal;
+import java.util.List;
+
 
 @Controller
 @Slf4j
@@ -20,9 +27,21 @@ public class PaymentController {
     @Setter(onMethod_ = @Autowired)
     private KakaoPayService kakaopay;
 
+    @Autowired
+    PaymentService payService;
+
+    @Autowired
+    ProductService productService;
+
 
     @RequestMapping("")
-    public String kakaoPayGet() {
+    public String kakaoPayGet(Model model) {
+//      Principal = getname
+        model.addAttribute("cartList",payService.cartlist("aaa"));
+        List<CartDTO> list = payService.cartlist("aaa");
+        for(CartDTO cartDTO : list) {
+            model.addAttribute("img", productService.selectOne(cartDTO.getProductNumber()));
+        }
         log.info("카카페 래디1");
         return "payment/kakaopay";
     }
@@ -31,7 +50,6 @@ public class PaymentController {
     public String kakaoPay() {
         log.info("카카페 래디2");
         return "redirect:" + kakaopay.kakaoPayReady();
-
     }
 
     @GetMapping("/kakaoPaySuccess")
