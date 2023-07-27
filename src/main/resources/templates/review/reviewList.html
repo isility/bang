@@ -149,20 +149,21 @@
 							<th></th>
 							<th></th>
 						</tr>
-						<tr th:each="dto : ${list}">
-							<td class="reviewNo" th:text="${dto.reply_ref}"></td>
-							<td class="productNumber" th:text="${dto.product_number}"></td>
+						<tr th:each="reviewDTO : ${list}">
+							<td class="reviewNo" th:text="${reviewDTO.reply_ref}"></td>
+							<td class="productNumber" th:text="${reviewDTO.product_number}"></td>
 							<td>
-								<a th:href="@{/review/reviewDetail(reply_number=${dto.reply_number})}" style="">
-									<span th:utext="${#strings.length(dto.reply_contents) > 20 ? #strings.substring(dto.reply_contents, 0, 20) + '...' : dto.reply_contents}"></span>
+								<a th:href="@{/review/reviewDetail(reply_number=${reviewDTO.reply_number})}" style="">
+									<span th:utext="${#strings.length(reviewDTO.reply_contents) > 20 ? #strings.substring(reviewDTO.reply_contents, 0, 20) + '...' : reviewDTO.reply_contents}"></span>
 								</a>
 							</td>
-							<td class="writer" th:text="${dto.reply_writer}"></td>
-							<td class="score" th:text="${dto.reply_score}"></td>
-							<td class="date" th:text="${dto.reply_date}"></td>
+							<td class="writer" th:text="${reviewDTO.reply_writer}"></td>
+							<td class="score" th:text="${reviewDTO.reply_score}"></td>
+							<td class="date" th:text="${reviewDTO.reply_date}"></td>
 
-							<td><a th:href="@{/review/reviewModify(reply_number=${dto.reply_number})}" class="btn btn-primary" style="font-size: 9px;">수정</a></td>
-							<td><a th:href="@{/review/reviewDelete(reply_number=${dto.reply_number})}" class="btn btn-primary btn-outline" style="font-size: 9px;">삭제</a></td>
+							<td><a th:href="@{/review/reviewModify(reply_number=${reviewDTO.reply_number})}" class="btn btn-primary" style="font-size: 9px;">수정</a></td>
+							<td><a th:href="@{/review/reviewDelete(reply_number=${reviewDTO
+							.reply_number})}" class="btn btn-primary btn-outline" style="font-size: 9px;">삭제</a></td>
 
 
 						</tr>

@@ -40,28 +40,20 @@ public class ReviewController {
 
     @GetMapping("/reviewDetail")
     public String reviewDetail(@RequestParam("reply_number")int reply_number, Model model){
-        model.addAttribute("dto", service.findByReply_number(reply_number));
+        model.addAttribute("reviewDTO", service.findByReply_number(reply_number));
         log.info(">>>>>>>>>>>>>>>>>>>>reviewDetail {}", service.findByReply_number(reply_number));
         return "review/reviewDetail";
     }
-
-    @GetMapping("/productDetail")
-    public String productDetail(Model model){
-        model.addAttribute("list", service.getAll());
-//        log.info(">>>>>>>>>>>>>>>>>>>>>reviewList {}", service.findAllReply());
-        return "review/productDetail";
-    }
-
     @GetMapping("/reviewWrite")
     public String reviewWrite(){
         return "review/reviewWrite";
     }
 
     @PostMapping("/reviewWrite")
-    public String reviewWriteOk(@ModelAttribute ReviewDTO dto, @RequestParam("star") int star){
-        dto.setReply_score(star);
-        service.writeReply(dto); // dto 객체에는 사용자가 작성한 리뷰 데이터가 담겨있음
-        log.info(">>>>>>>>>>>>>>>>>>>>dto {}", dto);
+    public String reviewWriteOk(@ModelAttribute ReviewDTO reviewDTO, @RequestParam("star") int star){
+        reviewDTO.setReply_score(star);
+        service.writeReply(reviewDTO); // reviewDTO 객체에는 사용자가 작성한 리뷰 데이터가 담겨있음
+        log.info(">>>>>>>>>>>>>>>>>>>>reviewDTO {}", reviewDTO);
         return "redirect:/review/reviewList"; // 리뷰 리스트 페이지로 리다이렉트
     }
 
@@ -73,15 +65,16 @@ public class ReviewController {
 
     @GetMapping("/reviewModify")
     public String modifyForm(@RequestParam("reply_number")int reply_number, Model model){
-        model.addAttribute("dto", service.findByReply_number(reply_number));
+        model.addAttribute("reviewDTO", service.findByReply_number(reply_number));
         return"review/reviewModify";
     }
 
     @PostMapping("/reviewModify")
-    public String modifyReply(@ModelAttribute ReviewDTO dto, @RequestParam("star") int star){
-        dto.setReply_score(star);
-        service.modifyReview(dto);
-        log.info(">>>>>>>>>>>>>dto {} ", dto);
+    public String modifyReply(@ModelAttribute ReviewDTO reviewDTO, @RequestParam("star") int star){
+        reviewDTO.setReply_score(star);
+        service.modifyReview(reviewDTO);
+        log.info(">>>>>>>>>>>>>dto {} ", reviewDTO);
         return "redirect:/review/reviewList";
     }
+
 }

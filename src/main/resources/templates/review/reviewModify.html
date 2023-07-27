@@ -164,8 +164,9 @@ x
                     </div>
                     <div class="form-floating m-3">
                         <p>리뷰내용</p>
-                        <textarea class="form-control" rows="5" id="summernote" style="height: 450px;" name="reply_contents" th:utext="${dto.reply_contents}"></textarea>
-                        <td><input type="hidden" name="reply_number" th:value="${dto.reply_number}"/></td>
+                        <textarea class="form-control" rows="5" id="summernote" style="height: 450px;" name="reply_contents" th:utext="${reviewDTO.reply_contents}"></textarea>
+                        <td><input type="hidden" name="reply_number" th:value="${reviewDTO
+                        .reply_number}"/></td>
                     </div>
 
                     <input type="submit" class="btn btn-success" value="작성">
