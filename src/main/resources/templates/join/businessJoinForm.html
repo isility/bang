@@ -1,0 +1,675 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>CostomerJoinForm</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Free HTML5 Website Template by gettemplates.co"/>
+  <meta name="keywords"
+        content="free website templates, free html5, free template, free bootstrap, free website template, html5, css3, mobile first, responsive"/>
+  <meta name="author" content="gettemplates.co"/>
+
+
+  <!-- Facebook and Twitter integration -->
+  <meta property="og:title" content=""/>
+  <meta property="og:image" content=""/>
+  <meta property="og:url" content=""/>
+  <meta property="og:site_name" content=""/>
+  <meta property="og:description" content=""/>
+  <meta name="twitter:title" content=""/>
+  <meta name="twitter:image" content=""/>
+  <meta name="twitter:url" content=""/>
+  <meta name="twitter:card" content=""/>
+
+  <!-- <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet"> -->
+  <!-- <link href="https://fonts.googleapis.com/css?family=Playfair+Display:400,400i" rel="stylesheet"> -->
+
+
+  <!-- Theme style  -->
+  <link rel="stylesheet" href="css/style.css">
+
+  <!-- Animate.css -->
+  <link rel="stylesheet" href="css/animate.css">
+
+  <!-- Icomoon Icon Fonts-->
+  <link rel="stylesheet" href="css/icomoon.css">
+
+  <!-- Flexslider  -->
+  <link rel="stylesheet" href="css/flexslider.css">
+
+
+  <!-- Owl Carousel  -->
+  <link rel="stylesheet" href="css/owl.carousel.min.css">
+  <link rel="stylesheet" href="css/owl.theme.default.min.css">
+
+  <!-- Modernizr JS -->
+  <script src="js/modernizr-2.6.2.min.js"></script>
+  <!-- FOR IE9 below -->
+  <!--[if lt IE 9]>
+  <script src="js/respond.min.js"></script>
+  <![endif]-->
+
+
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+
+  <!-- Bootstrap  -->
+  <link rel="stylesheet" href="css/bootstrap.css">
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
+          integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3"
+          crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js"
+          integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V"
+          crossorigin="anonymous"></script>
+
+
+  <style>
+    #joinForm {
+        padding-left: 30px;
+        padding-right: 25px;
+    }
+
+    </style>
+
+
+  <script type="text/javascript">
+  $(document).ready(function(){
+            <!-- 필수 입력 알림 -->
+            $("#joinCorrect").on("click", function(){
+
+            if ($("#member_id").val() == "") {
+                alert("아이디를 입력해주세요.");
+                $("#member_id").focus();
+                return false;
+            }
+
+            if ($("#member_pw").val() == "") {
+            alert("비밀번호를 입력해주세요.");
+                $("#member_pw").focus();
+                return false;
+            }
+
+            if ($("#name").val() == "") {
+                alert("성명을 입력해주세요.");
+                $("#name").focus();
+                return false;
+            }
+
+            if ($("#nickname").val() == "") {
+                alert("닉네임을 입력해주세요.");
+                $("#nickname").focus();
+                return false;
+            }
+
+            if ($("#phone").val() == "") {
+                alert("연락처를 입력해주세요.");
+                $("#phone").focus();
+                return false;
+            }
+
+            var idChkVal = $("#idCheck").val();
+            var pwChkVal = $("#pwCheck").val();
+            if (idChkVal == "아이디 중복확인") {
+                alert("'아이디 중복확인' 버튼을 눌러주세요.");
+                $("#member_id").focus();
+                return false;
+            } else if (pwChkVal == "비밀번호를 다시 확인해주세요." ) {
+                alert("유효한 비밀번호를 입력해주셔야 합니다.");
+                $("#member_pw").focus();
+                return false;
+            } else if (idChkVal == "사용 가능" && pwChkVal == "비밀번호가 일치합니다. 비밀번호를 사용할 수 있습니다!" ) {
+                $("#joinForm").submit();
+            }
+        });
+
+
+        $("#member_id").on("blur", function() {
+            // "사용 가능" 인 상태라면 "중복확인"으로 바꾸기
+            $("#idCheck").val("아이디 중복확인");
+
+            // 에러 메세지가 있다면 먼저, remove
+            $("#error_msg").remove();
+
+            var memberId = $("#member_id").val();
+
+            // 아이디가 한글로 입력되었는 지 확인, 한글이라면 반려
+            var korean = /[ㄱ-ㅎㅏ-ㅣ가-힣]/g;
+            if (korean.test(memberId)) {
+                $("#error_msg").remove();
+                $("#member_id").after('<p id="error_msg" style="color: red;">한글은 포함할 수 없습니다.</p>');
+                $("#idCheck").val("사용 불가");
+            }
+
+            // 아이디가 영문이 포함되었는 지 확인, 영문이 포함되지 않았다면 반려
+            var english = memberId.search(/[a-z]/g);
+            if (english < 0) {
+                $("#error_msg").remove();
+                $("#member_id").after('<p id="error_msg" style="color: red;">영문 소문자를 넣어주세요. </p>');
+                $("#idCheck").val("사용 불가");
+            }
+
+
+            // 특수문자가 포함되었는지 확인, 포함되었다면 반려
+            var normalText = /^[a-z0-9_]+$/;
+            if (!normalText.test(memberId)) {
+                $("#error_msg").remove();
+                $("#member_id").after('<p id="error_msg" style="color: red;">특수문자는 포함할 수 없습니다. (단, _ (언더바)는 허용)</p>');
+                $("#idCheck").val("사용 불가");
+            }
+
+
+            // 총 글자 수가 6자이상 ~ 20자이하 이내인지 확인, 미만이거나 초과라면 반려
+            var countText = /^.{6,20}$/;
+            if (!countText.test(memberId)) {
+                $("#error_msg").remove();
+                $("#member_id").after('<p id="error_msg" style="color: red;">총 글자수는 6자 이상 ~ 20자 이하 만 가능합니다.</p>');
+                $("#idCheck").val("사용 불가");
+            }
+
+            // 아이디가 빈 칸이라면 에러 메세지 숨기기
+            if ($("#member_id").val() == "") {
+                $("#error_msg").remove();
+            }
+
+        });
+
+
+       $("#idCheck").on("click", function() {
+            var memberId = $("#member_id").val();
+
+            <!-- 아이디가 빈칸인지 확인 -->
+            if (memberId.trim() === "") {
+                alert("아이디를 입력해주세요.");
+                $("#member_id").focus();
+                return;
+            }
+
+            <!-- 아이디가 한글로 입력되었는 지 확인, 한글이라면 반려 -->
+            var korean = /[ㄱ-ㅎㅏ-ㅣ가-힣]/g;
+            if (korean.test(memberId)) {
+                alert("한글은 포함할 수 없습니다.");
+                $("#member_id").val("");
+                $("#idCheck").val("사용 불가");
+                return;
+            }
+
+            <!-- 아이디가 영문이 포함되었는 지 확인, 영문이 포함되지 않았다면 반려 -->
+            var english = memberId.search(/[a-z]/g);
+            if (english < 0) {
+                alert("영문을 필히 포함해 주세요");
+                $("#member_id").val("");
+                $("#idCheck").val("사용 불가");
+                return;
+            }
+
+            <!-- 특수문자가 포함되었는지 확인, 포함되었다면 반려 -->
+            var normalText = /^[a-z0-9_]+$/;
+            if (!normalText.test(memberId)) {
+                alert("특수문자를 포함할 수 없습니다.( _ 허용)");
+                $("#member_id").val("");
+                $("#idCheck").val("사용 불가");
+                return;
+            }
+
+
+            <!-- 글자 수가 맞는지 확인, 아니라면 반려 -->
+            var countText = /^.{6,20}$/;
+            if (!countText.test(memberId)) {
+                alert("사용할 수 있는 글자 수는 6자 이상~20자 이하로만 가능합니다.");
+                $("#member_id").val("");
+                $("#idCheck").val("사용 불가");
+                return;
+            }
+
+            <!-- 4가지 체크가 끝난 뒤, 아이디 중복확인 -->
+            $.ajax({
+                url: "idCheck",
+                type: "post",
+                dataType: "json",
+                data: { "member_id": memberId },
+                success: function(data) {
+                    if (data == 1) {
+                        alert("중복된 아이디 입니다.");
+                        $("#idCheck").val("사용 불가");
+                    } else {
+                        alert("사용 가능한 아이디 입니다.");
+                        $("#idCheck").val("사용 가능");
+                    }
+                }
+            });
+        });
+
+        <!-- 아이디 체크를 한 뒤 "사용불가" 또는 "사용가능"인 상황, 아이디 칸에 어떤 값을 입력해도 중복확인으로 변경하도록 함 -->
+        $("#member_id").on("input", function() {
+            $("#idCheck").val("중복확인");
+        });
+
+
+
+
+
+
+
+
+        <!-- 비밀번호 유효성 검사 -->
+        $("#member_pw").on("input", function() {
+            var memberPw = $("#member_pw").val();
+            var isValid = true;
+
+            if (memberPw == "") {
+                isValid = false;
+            }
+
+            // 1. 최소 8자 이상
+            if (memberPw.length < 8) {
+                $("#pw_condition1").css("color", "red");
+                isValid = false;
+            } else {
+                $("#pw_condition1").css("color", "green");
+            }
+
+            // 2. 영문 대문자와 영문 소문자가 모두 포함
+            if (!/[a-z]/.test(memberPw) || !/[A-Z]/.test(memberPw)) {
+                $("#pw_condition2").css("color", "red");
+                isValid = false;
+            } else {
+                $("#pw_condition2").css("color", "green");
+            }
+
+            // 3. 숫자가 적어도 1개 이상 포함
+            if (!/\d/.test(memberPw)) {
+                $("#pw_condition3").css("color", "red");
+                isValid = false;
+            } else {
+                $("#pw_condition3").css("color", "green");
+            }
+
+            // 4. 특수문자가 적어도 1개 이상 포함
+            // 한글을 입력하면 특수문자로 인식되는 오류가 있어서 특수문자를 직접 입력
+            if (!/[!@#$%^&*()_+[\]{}|;:'",.<>?]/.test(memberPw)) {
+                $("#pw_condition4").css("color", "red");
+                isValid = false;
+            } else {
+                $("#pw_condition4").css("color", "green");
+            }
+
+            // 5. 한글은 포함할 수 없음
+            if (/[ㄱ-ㅎㅏ-ㅣ가-힣]/g.test(memberPw)) {
+                $("#pw_condition5").css("color", "red");
+                isValid = false;
+            } else {
+                $("#pw_condition5").css("color", "green");
+            }
+
+            // 모든 조건을 만족하는 경우, 유효한 비밀번호로 간주
+            if (memberPw == "") {
+                $("#error_msg2").hide(); // 입력값이 빈칸인 경우 메시지를 숨김
+                $("#pwCheck").hide();
+            } else if (isValid) {
+                $("#error_msg2").show(); // 조건을 모두 만족하는 경우 메시지를 보여줌
+                $("#pwCheck").show();
+            } else {
+                $("#error_msg2").hide(); // 조건을 만족하지 않는 경우 메시지를 숨김
+                $("#pwCheck").hide();
+            }
+        });
+
+
+
+        <!-- 비밀번호 일치 -->
+        $("#pwCheck").on("input", function() {
+            var memberPw = $("#member_pw").val();
+            var pwCheck = $("#pwCheck").val();
+            var isPwValid = $("#error_msg2").is(":visible");
+
+            if (!isPwValid) {
+                // 비밀번호가 유효하지 않은 경우, 비밀번호 확인 메시지 숨기기
+                $("#pwCorrect").css("display", "none");
+                $("#pwNotCorrect").css("display", "none");
+                return;
+            }
+
+            if (pwCheck === "") {
+                // 비밀번호 확인 칸이 빈칸인 경우
+                $("#pwCorrect").css("display", "none");
+                $("#pwNotCorrect").css("display", "none");
+            } else if (memberPw === pwCheck) {
+                // 비밀번호가 일치하는 경우
+                $("#pwCorrect").css("display", "block");
+                $("#pwNotCorrect").css("display", "none");
+            } else {
+                // 비밀번호가 일치하지 않는 경우
+                $("#pwCorrect").css("display", "none");
+                $("#pwNotCorrect").css("display", "block");
+            }
+        });
+
+
+
+
+
+
+
+
+        <!-- 카카오 주소 -->
+        $("#addressSearch").on("click", function() {
+            kakaoaddress();
+        });
+
+
+        function kakaoaddress() {
+        new daum.Postcode({
+            oncomplete: function(data) {
+                // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
+
+                // 각 주소의 노출 규칙에 따라 주소를 조합한다.
+                // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
+                var addr = ''; // 주소 변수
+                var extraAddr = ''; // 참고항목 변수
+
+                //사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
+                if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
+                    addr = data.roadAddress;
+                } else { // 사용자가 지번 주소를 선택했을 경우(J)
+                    addr = data.jibunAddress;
+                }
+
+                // 사용자가 선택한 주소가 도로명 타입일때 참고항목을 조합한다.
+                if(data.userSelectedType === 'R'){
+                    // 법정동명이 있을 경우 추가한다. (법정리는 제외)
+                    // 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
+                    if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
+                        extraAddr += data.bname;
+                    }
+                    // 건물명이 있고, 공동주택일 경우 추가한다.
+                    if(data.buildingName !== '' && data.apartment === 'Y'){
+                        extraAddr += (extraAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+                    }
+                    // 표시할 참고항목이 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
+                    if(extraAddr !== ''){
+                        extraAddr = ' (' + extraAddr + ')';
+                    }
+                    // 조합된 참고항목을 해당 필드에 넣는다.
+                    document.getElementById("address3").value = extraAddr;
+
+                } else {
+                    document.getElementById("address3").value = '';
+                }
+
+                // 우편번호와 주소 정보를 해당 필드에 넣는다.
+                document.getElementById('postal').value = data.zonecode;
+                document.getElementById("address1").value = addr;
+                // 커서를 상세주소 필드로 이동한다.
+                document.getElementById("address2").focus();
+            }
+        }).open();
+        }
+    });
+
+    </script>
+
+</head>
+<body>
+
+<div class="fh5co-loader"></div>
+
+<div id="page">
+  <nav class="fh5co-nav" role="navigation">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-3 col-xs-2">
+          <div id="fh5co-logo"><a href="index.html">Bang & Oops</a></div>
+        </div>
+        <div class="col-md-6 col-xs-6 text-center menu-1">
+          <ul>
+            <li><a href="productList.html">SPEAKER</a></li>
+            <li><a href="productList.html">EARPHONE</a></li>
+            <li><a href="productList.html">HEADPHONE</a></li>
+            <li><a href="productList.html">ACCESSORIES</a></li>
+            <li><a href="services.html">SERVICE</a></li>
+          </ul>
+        </div>
+        <div class="col-md-3 col-xs-4 text-right hidden-xs menu-2">
+          <ul>
+            <li class="shopping-cart menu-2"><a href="#" class="cart"><span><small>0</small><i
+                    class="icon-shopping-cart"></i></span></a></li>
+            <li class="login menu-2"><a href="join">JOIN</a></li>
+            <li class="login menu-2"><a href="login">login</a></li>
+            <li class="search menu-2">
+              <div class="input-group">
+                <input type="text" placeholder="SEARCH">
+                <span class="input-group-btn">
+                              <button class="btn btn-primary" type="button"><i
+                                      class="icon-search"></i></button>
+                           </span>
+              </div>
+            </li>
+
+          </ul>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+
+  <!-- ============================================================= -->
+
+  <div id="fh5co-contact">
+    <div class="container">
+      <div class="row">
+
+        <div class="col-md-6 animate-box" style="position: relative; left: 300px;">
+          <h2 style="color:#7E7E7E ; font-weight: bold; position: relative; text-align: center;">사업자회원 가입정보</h2>
+
+          <hr>
+          <br>
+
+          <div class="alert alert-warning" style="font-weight: bold; width: 500px;height: 54px; margin: 30px; margin-top: -30px;">
+            * 표시되어 있는 칸은 필수 입력입니다.
+          </div>
+
+          <form action="businessJoinForm" method="post" id="joinForm">
+
+            <h4 style="color:#7E7E7E ; font-weight: bold; position: relative;">계정</h4>
+            <div class="row form-group">
+              <div class="col-md-12">
+                <input type="text" id="member_id" name="member_id" class="form-control"
+                       placeholder="아이디 *" style="width: 500px;height: 54px;">
+                <p class="text-primary">영문 소문자만 허용, 6자 이상 ~ 20자 이하 (특수문자 제외. 단, _ 가능)</p>
+                <input type="button" class="btn btn-outline-warning" id="idCheck" value="아이디 중복확인">
+              </div>
+            </div>
+
+            <div class="row form-group">
+              <div class="col-md-12">
+                <!-- <label for="subject">Subject</label> -->
+                <input type="text" id="member_pw" name="member_pw" class="form-control"
+                       placeholder="비밀번호 *" value="" style="width: 500px;height: 54px;">
+                <p id="error_msg2" style="color: green; display: none;">유효한 비밀번호 입니다.</p>
+                <p class="text-primary">모든 조건이 충족되어 유효하다면, 초록색 글자로 변경됩니다.</p>
+                <div class="progress" style="display: block;">
+                  <div class="progress-bar bg-success" id="gauge30" role="progressbar"
+                       aria-label="Success example" style="width: 30%;" aria-valuenow="25"
+                       aria-valuemin="0" aria-valuemax="100">보안 약함
+                  </div>
+                </div>
+                <div class="progress" style="display: none;">
+                  <div class="progress-bar bg-warning" id="gauge65" role="progressbar"
+                       aria-label="Warning example" style="width: 65%" aria-valuenow="75"
+                       aria-valuemin="0" aria-valuemax="100">보안 좋음
+                  </div>
+                </div>
+                <div class="progress" style="display: none;">
+                  <div class="progress-bar bg-danger" id="gauge100" role="progressbar"
+                       aria-label="Danger example" style="width: 100%" aria-valuenow="100"
+                       aria-valuemin="0" aria-valuemax="100">보안 최적
+                  </div>
+                </div>
+                <span id="pw_condition1" style="color: red;">1. 최소 8자 이상 <br></span>
+                <span id="pw_condition2" style="color: red;">2. 영문 대문자와 영문 소문자가 모두 포함 <br></span>
+                <span id="pw_condition3" style="color: red;">3. 숫자가 적어도 1개 이상 포함 <br></span>
+                <span id="pw_condition4" style="color: red;">4. 특수문자가 적어도 1개 이상 포함 <br></span>
+                <span id="pw_condition5" style="color: green;">5. 한글은 포함할 수 없음</span>
+              </div>
+            </div>
+
+            <div class="row form-group">
+              <div class="col-md-12">
+                <input type="text" id="pwCheck" class="form-control" placeholder="비밀번호 확인 *" value=""
+                       style="width: 500px;height: 54px; display: none;">
+                <p class="text-success" style="display: none;" id="pwCorrect">비밀번호가 일치합니다. 비밀번호를 사용할 수
+                  있습니다!</p>
+                <p class="text-danger" style="display: none;" id="pwNotCorrect">비밀번호를 다시 확인해주세요.</p>
+              </div>
+            </div>
+
+
+            <h4 style="color:#7E7E7E ; font-weight: bold; position: relative;">Email</h4>
+            <div class="row form-group">
+              <div class="col-md-12">
+                <!-- <label for="email">Email</label> -->
+                <input type="text" id="email" name="member_email" class="form-control"
+                       placeholder="이메일 *" style="width: 500px;height: 54px;">
+                <input type="button" class="btn btn-outline-warning" id="emailCheck" value="본인 인증하기">
+                <input type="text" id="emailCheckResult" name="email" class="form-control"
+                       placeholder="인증코드 6자리" style="width: 500px;height: 54px;">
+              </div>
+            </div>
+
+            <br>
+
+            <h4 style="color:#7E7E7E ; font-weight: bold; position: relative;">회원정보</h4>
+            <div class="row form-group">
+              <div class="col-md-12">
+                <!-- <label for="subject">Subject</label> -->
+                <input type="text" id="name" name="member_name" class="form-control" placeholder="이름 *"
+                       style="width: 500px;height: 54px;">
+              </div>
+            </div>
+
+            <div class="row form-group">
+              <div class="col-md-12">
+                <!-- <label for="subject">Subject</label> -->
+                <input type="text" id="nickname" name="person_nickname" class="form-control"
+                       placeholder="닉네임 *" style="width: 500px;height: 54px;">
+              </div>
+            </div>
+
+            <div class="row form-group">
+              <div class="col-md-12">
+                <!-- <label for="subject">Subject</label> -->
+                <input type="text" id="phone" name="member_phone" class="form-control"
+                       placeholder="연락처 * (-를 제외, 01011112222, 0266667777)"
+                       style="width: 500px;height: 54px;">
+              </div>
+            </div>
+
+            <div class="row form-group">
+              <div class="col-md-12">
+                <!-- <label for="subject">Subject</label> -->
+                <h5 style="color:#7E7E7E ; font-weight: bold; position: relative;">생년월일<input
+                        type="date" id="birth" name="person_birth" value="생년월일" class="form-control"
+                        style="width: 500px;height: 54px;"></h5>
+              </div>
+            </div>
+
+
+            <br>
+
+
+            <h4 style="color:#7E7E7E ; font-weight: bold; position: relative;">주소 *</h4>
+            <div class="row form-group">
+              <div class="col-md-12">
+                <input type="button" class="btn btn-outline-warning" id="addressSearch" value="주소검색">
+                <p class="text-success">'주소검색' 버튼을 통해 간편하게 입력하세요</p>
+                <input type="text" id="postal" name="member_postal" class="form-control"
+                       placeholder="우편번호" style="width: 500px;height: 54px;">
+                <input type="text" id="address1" name="member_address1" class="form-control"
+                       placeholder="기본주소" style="width: 500px;height: 54px;">
+                <input type="text" id="address2" name="member_address2" class="form-control"
+                       placeholder="상세주소 (ex: 101동 101호)" style="width: 500px;height: 54px;">
+                <input type="text" id="address3" name="address3" class="form-control" placeholder="참고주소"
+                       style="width: 500px;height: 54px;">
+              </div>
+            </div>
+
+
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" value="1" id="email_check"
+                     name="email_check">
+              <label class="form-check-label" for="email_check">
+                (선택) 광고성 메일 수신에 동의합니다.
+              </label>
+            </div>
+
+            <br>
+
+
+            <div class="form-group">
+              <input type="submit" id="joinCorrect" value="SIGN IN" class="btn btn-outline-warning"
+                     style="width: 500px; height: 54px;">
+            </div>
+
+          </form>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+
+  <footer id="fh5co-footer" role="contentinfo">
+    <div class="container">
+
+
+      <div class="row copyright">
+        <div class="col-md-12 text-center">
+          <p>
+            <small class="block">&copy; 2016 Free HTML5. All Rights Reserved.</small>
+            <small class="block">Designed by <a href="http://freehtml5.co/" target="_blank">FreeHTML5.co</a>
+              Demo Images: <a href="http://blog.gessato.com/" target="_blank">Gessato</a> &amp; <a
+                      href="http://unsplash.co/" target="_blank">Unsplash</a></small>
+          </p>
+          <p>
+          <ul class="fh5co-social-icons">
+            <li><a href="#"><i class="icon-twitter"></i></a></li>
+            <li><a href="#"><i class="icon-facebook"></i></a></li>
+            <li><a href="#"><i class="icon-linkedin"></i></a></li>
+            <li><a href="#"><i class="icon-dribbble"></i></a></li>
+          </ul>
+          </p>
+        </div>
+      </div>
+
+    </div>
+  </footer>
+</div>
+
+<div class="gototop js-top">
+  <a href="#" class="js-gotop"><i class="icon-arrow-up"></i></a>
+</div>
+
+<!-- jQuery -->
+<script src="js/jquery.min.js"></script>
+<!-- jQuery Easing -->
+<script src="js/jquery.easing.1.3.js"></script>
+<!-- Bootstrap -->
+<script src="js/bootstrap.min.js"></script>
+<!-- Waypoints -->
+<script src="js/jquery.waypoints.min.js"></script>
+<!-- Carousel -->
+<script src="js/owl.carousel.min.js"></script>
+<!-- countTo -->
+<script src="js/jquery.countTo.js"></script>
+<!-- Flexslider -->
+<script src="js/jquery.flexslider-min.js"></script>
+<!-- Google Map -->
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCefOgb1ZWqYtj7raVSmN4PL2WkTrc-KyA&sensor=false"></script>
+<script src="js/google_map.js"></script>
+
+<!-- Main -->
+<script src="js/main.js"></script>
+
+</body>
+</html>

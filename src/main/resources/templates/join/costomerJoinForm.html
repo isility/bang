@@ -1,97 +1,124 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>CostomerJoinForm</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Free HTML5 Website Template by gettemplates.co" />
-  <meta name="keywords" content="free website templates, free html5, free template, free bootstrap, free website template, html5, css3, mobile first, responsive" />
-  <meta name="author" content="gettemplates.co" />
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>CostomerJoinForm</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Free HTML5 Website Template by gettemplates.co"/>
+    <meta name="keywords"
+          content="free website templates, free html5, free template, free bootstrap, free website template, html5, css3, mobile first, responsive"/>
+    <meta name="author" content="gettemplates.co"/>
 
 
-  <!-- Facebook and Twitter integration -->
-  <meta property="og:title" content=""/>
-  <meta property="og:image" content=""/>
-  <meta property="og:url" content=""/>
-  <meta property="og:site_name" content=""/>
-  <meta property="og:description" content=""/>
-  <meta name="twitter:title" content="" />
-  <meta name="twitter:image" content="" />
-  <meta name="twitter:url" content="" />
-  <meta name="twitter:card" content="" />
+    <!-- Facebook and Twitter integration -->
+    <meta property="og:title" content=""/>
+    <meta property="og:image" content=""/>
+    <meta property="og:url" content=""/>
+    <meta property="og:site_name" content=""/>
+    <meta property="og:description" content=""/>
+    <meta name="twitter:title" content=""/>
+    <meta name="twitter:image" content=""/>
+    <meta name="twitter:url" content=""/>
+    <meta name="twitter:card" content=""/>
 
-  <!-- <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet"> -->
-  <!-- <link href="https://fonts.googleapis.com/css?family=Playfair+Display:400,400i" rel="stylesheet"> -->
-
-  <!-- Animate.css -->
-  <link rel="stylesheet" href="css/animate.css">
-  <!-- Icomoon Icon Fonts-->
-  <link rel="stylesheet" href="css/icomoon.css">
-  <!-- Bootstrap  -->
-  <link rel="stylesheet" href="css/bootstrap.css">
-
-  <!-- Flexslider  -->
-  <link rel="stylesheet" href="css/flexslider.css">
+    <!-- <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet"> -->
+    <!-- <link href="https://fonts.googleapis.com/css?family=Playfair+Display:400,400i" rel="stylesheet"> -->
 
 
-  <!-- Owl Carousel  -->
-  <link rel="stylesheet" href="css/owl.carousel.min.css">
-  <link rel="stylesheet" href="css/owl.theme.default.min.css">
+    <!-- Theme style  -->
+    <link rel="stylesheet" href="css/style.css">
 
-  <!-- Theme style  -->
-  <link rel="stylesheet" href="css/style.css">
+    <!-- Animate.css -->
+    <link rel="stylesheet" href="css/animate.css">
 
-  <!-- Modernizr JS -->
-  <script src="js/modernizr-2.6.2.min.js"></script>
-  <!-- FOR IE9 below -->
-  <!--[if lt IE 9]>
-  <script src="js/respond.min.js"></script>
-  <![endif]-->
+    <!-- Icomoon Icon Fonts-->
+    <link rel="stylesheet" href="css/icomoon.css">
+
+    <!-- Flexslider  -->
+    <link rel="stylesheet" href="css/flexslider.css">
 
 
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js" integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V" crossorigin="anonymous"></script>
+    <!-- Owl Carousel  -->
+    <link rel="stylesheet" href="css/owl.carousel.min.css">
+    <link rel="stylesheet" href="css/owl.theme.default.min.css">
+
+    <!-- Modernizr JS -->
+    <script src="js/modernizr-2.6.2.min.js"></script>
+    <!-- FOR IE9 below -->
+    <!--[if lt IE 9]>
+    <script src="js/respond.min.js"></script>
+    <![endif]-->
 
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 
+    <!-- Bootstrap  -->
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
+            integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3"
+            crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js"
+            integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V"
+            crossorigin="anonymous"></script>
+
+
+    <style>
+    #joinForm {
+        padding-left: 30px;
+        padding-right: 25px;
+    }
+
+    </style>
+
+
     <script type="text/javascript">
-    $(document).ready(function(){
-        <!-- 필수 입력 알림 -->
-        $("#joinCorrect").on("click", function(){
+  $(document).ready(function(){
+            <!-- 필수 입력 알림 -->
+            $("#joinCorrect").on("click", function(){
+
             if ($("#member_id").val() == "") {
                 alert("아이디를 입력해주세요.");
                 $("#member_id").focus();
                 return false;
             }
+
             if ($("#member_pw").val() == "") {
-                alert("비밀번호를 입력해주세요.");
+            alert("비밀번호를 입력해주세요.");
                 $("#member_pw").focus();
                 return false;
             }
+
             if ($("#name").val() == "") {
                 alert("성명을 입력해주세요.");
                 $("#name").focus();
                 return false;
             }
+
             if ($("#nickname").val() == "") {
                 alert("닉네임을 입력해주세요.");
                 $("#nickname").focus();
                 return false;
             }
+
             if ($("#phone").val() == "") {
                 alert("연락처를 입력해주세요.");
                 $("#phone").focus();
                 return false;
             }
+
             var idChkVal = $("#idCheck").val();
+            var pwChkVal = $("#pwCheck").val();
             if (idChkVal == "아이디 중복확인") {
                 alert("'아이디 중복확인' 버튼을 눌러주세요.");
                 $("#member_id").focus();
                 return false;
-            } else if (idChkVal == "사용 가능") {
+            } else if (pwChkVal == "비밀번호를 다시 확인해주세요." ) {
+                alert("유효한 비밀번호를 입력해주셔야 합니다.");
+                $("#member_pw").focus();
+                return false;
+            } else if (idChkVal == "사용 가능" && pwChkVal == "비밀번호가 일치합니다. 비밀번호를 사용할 수 있습니다!" ) {
                 $("#joinForm").submit();
             }
         });
@@ -110,7 +137,7 @@
             var korean = /[ㄱ-ㅎㅏ-ㅣ가-힣]/g;
             if (korean.test(memberId)) {
                 $("#error_msg").remove();
-                $("#member_id").after('<span id="error_msg" style="color: red;">한글은 포함할 수 없습니다.</span>');
+                $("#member_id").after('<p id="error_msg" style="color: red;">한글은 포함할 수 없습니다.</p>');
                 $("#idCheck").val("사용 불가");
             }
 
@@ -118,7 +145,7 @@
             var english = memberId.search(/[a-z]/g);
             if (english < 0) {
                 $("#error_msg").remove();
-                $("#member_id").after('<span id="error_msg" style="color: red;">영문 소문자를 넣어주세요. </span>');
+                $("#member_id").after('<p id="error_msg" style="color: red;">영문 소문자를 넣어주세요. </p>');
                 $("#idCheck").val("사용 불가");
             }
 
@@ -127,7 +154,7 @@
             var normalText = /^[a-z0-9_]+$/;
             if (!normalText.test(memberId)) {
                 $("#error_msg").remove();
-                $("#member_id").after('<span id="error_msg" style="color: red;">특수문자는 포함할 수 없습니다. (단, _ (언더바)는 허용)</span>');
+                $("#member_id").after('<p id="error_msg" style="color: red;">특수문자는 포함할 수 없습니다. (단, _ (언더바)는 허용)</p>');
                 $("#idCheck").val("사용 불가");
             }
 
@@ -136,9 +163,15 @@
             var countText = /^.{6,20}$/;
             if (!countText.test(memberId)) {
                 $("#error_msg").remove();
-                $("#member_id").after('<span id="error_msg" style="color: red;">총 글자수는 6자 이상 ~ 20자 이하 만 가능합니다.</span>');
+                $("#member_id").after('<p id="error_msg" style="color: red;">총 글자수는 6자 이상 ~ 20자 이하 만 가능합니다.</p>');
                 $("#idCheck").val("사용 불가");
             }
+
+            // 아이디가 빈 칸이라면 에러 메세지 숨기기
+            if ($("#member_id").val() == "") {
+                $("#error_msg").remove();
+            }
+
         });
         
        
@@ -213,24 +246,107 @@
         });
         
         
-       
+
+
+
+
+
+
+        <!-- 비밀번호 유효성 검사 -->
+        $("#member_pw").on("input", function() {
+            var memberPw = $("#member_pw").val();
+            var isValid = true;
+
+            if (memberPw == "") {
+                isValid = false;
+            }
+
+            // 1. 최소 8자 이상
+            if (memberPw.length < 8) {
+                $("#pw_condition1").css("color", "red");
+                isValid = false;
+            } else {
+                $("#pw_condition1").css("color", "green");
+            }
+
+            // 2. 영문 대문자와 영문 소문자가 모두 포함
+            if (!/[a-z]/.test(memberPw) || !/[A-Z]/.test(memberPw)) {
+                $("#pw_condition2").css("color", "red");
+                isValid = false;
+            } else {
+                $("#pw_condition2").css("color", "green");
+            }
+
+            // 3. 숫자가 적어도 1개 이상 포함
+            if (!/\d/.test(memberPw)) {
+                $("#pw_condition3").css("color", "red");
+                isValid = false;
+            } else {
+                $("#pw_condition3").css("color", "green");
+            }
+
+            // 4. 특수문자가 적어도 1개 이상 포함
+            // 한글을 입력하면 특수문자로 인식되는 오류가 있어서 특수문자를 직접 입력
+            if (!/[!@#$%^&*()_+[\]{}|;:'",.<>?]/.test(memberPw)) {
+                $("#pw_condition4").css("color", "red");
+                isValid = false;
+            } else {
+                $("#pw_condition4").css("color", "green");
+            }
+
+            // 5. 한글은 포함할 수 없음
+            if (/[ㄱ-ㅎㅏ-ㅣ가-힣]/g.test(memberPw)) {
+                $("#pw_condition5").css("color", "red");
+                isValid = false;
+            } else {
+                $("#pw_condition5").css("color", "green");
+            }
+
+            // 모든 조건을 만족하는 경우, 유효한 비밀번호로 간주
+            if (memberPw == "") {
+                $("#error_msg2").hide(); // 입력값이 빈칸인 경우 메시지를 숨김
+                $("#pwCheck").hide();
+            } else if (isValid) {
+                $("#error_msg2").show(); // 조건을 모두 만족하는 경우 메시지를 보여줌
+                $("#pwCheck").show();
+            } else {
+                $("#error_msg2").hide(); // 조건을 만족하지 않는 경우 메시지를 숨김
+                $("#pwCheck").hide();
+            }
+        });
 
 
 
         <!-- 비밀번호 일치 -->
         $("#pwCheck").on("input", function() {
-              if( $("#member_pw").val() == $("#pwCheck").val() ) {
-                  $("#pwCorrect").css("display", "block");
-                  $("#pwNotCorrect").css("display", "none");
-              } else if ( $("#member_pw").val() != $("#pwCheck").val() ) {
-                  $("#pwCorrect").css("display", "none");
-                  $("#pwNotCorrect").css("display", "block");
-              }
+            var memberPw = $("#member_pw").val();
+            var pwCheck = $("#pwCheck").val();
+            var isPwValid = $("#error_msg2").is(":visible");
+
+            if (!isPwValid) {
+                // 비밀번호가 유효하지 않은 경우, 비밀번호 확인 메시지 숨기기
+                $("#pwCorrect").css("display", "none");
+                $("#pwNotCorrect").css("display", "none");
+                return;
+            }
+
+            if (pwCheck === "") {
+                // 비밀번호 확인 칸이 빈칸인 경우
+                $("#pwCorrect").css("display", "none");
+                $("#pwNotCorrect").css("display", "none");
+            } else if (memberPw === pwCheck) {
+                // 비밀번호가 일치하는 경우
+                $("#pwCorrect").css("display", "block");
+                $("#pwNotCorrect").css("display", "none");
+            } else {
+                // 비밀번호가 일치하지 않는 경우
+                $("#pwCorrect").css("display", "none");
+                $("#pwNotCorrect").css("display", "block");
+            }
         });
 
 
 
-        <!-- 비밀번호 유효성 검사 -->
 
 
 
@@ -290,7 +406,8 @@
         }).open();
         }
     });
-</script>
+
+    </script>
 
 </head>
 <body>
@@ -298,205 +415,239 @@
 <div class="fh5co-loader"></div>
 
 <div id="page">
-  <nav class="fh5co-nav" role="navigation">
-    <div class="container">
-      <div class="row">
-        <div class="col-md-3 col-xs-2">
-          <div id="fh5co-logo"><a href="index.html">Bang & Oops</a></div>
-        </div>
-        <div class="col-md-6 col-xs-6 text-center menu-1">
-          <ul>
-            <li><a href="productList.html">SPEAKER</a></li>
-            <li><a href="productList.html">EARPHONE</a></li>
-            <li><a href="productList.html">HEADPHONE</a></li>
-            <li><a href="productList.html">ACCESSORIES</a></li>
-            <li><a href="services.html">SERVICE</a></li>
-          </ul>
-        </div>
-        <div class="col-md-3 col-xs-4 text-right hidden-xs menu-2">
-          <ul>
-            <li class="shopping-cart menu-2"><a href="#" class="cart"><span><small>0</small><i
-                    class="icon-shopping-cart"></i></span></a></li>
-            <li class="login menu-2"><a href="join">JOIN</a></li>
-            <li class="login menu-2"><a href="login">login</a></li>
-            <li class="search menu-2">
-              <div class="input-group">
-                <input type="text" placeholder="SEARCH">
-                <span class="input-group-btn">
+    <nav class="fh5co-nav" role="navigation">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3 col-xs-2">
+                    <div id="fh5co-logo"><a href="index.html">Bang & Oops</a></div>
+                </div>
+                <div class="col-md-6 col-xs-6 text-center menu-1">
+                    <ul>
+                        <li><a href="productList.html">SPEAKER</a></li>
+                        <li><a href="productList.html">EARPHONE</a></li>
+                        <li><a href="productList.html">HEADPHONE</a></li>
+                        <li><a href="productList.html">ACCESSORIES</a></li>
+                        <li><a href="services.html">SERVICE</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-3 col-xs-4 text-right hidden-xs menu-2">
+                    <ul>
+                        <li class="shopping-cart menu-2"><a href="#" class="cart"><span><small>0</small><i
+                                class="icon-shopping-cart"></i></span></a></li>
+                        <li class="login menu-2"><a href="join">JOIN</a></li>
+                        <li class="login menu-2"><a href="login">login</a></li>
+                        <li class="search menu-2">
+                            <div class="input-group">
+                                <input type="text" placeholder="SEARCH">
+                                <span class="input-group-btn">
                               <button class="btn btn-primary" type="button"><i
                                       class="icon-search"></i></button>
                            </span>
-              </div>
-            </li>
+                            </div>
+                        </li>
 
-          </ul>
+                    </ul>
+                </div>
+            </div>
         </div>
-      </div>
-    </div>
-  </nav>
+    </nav>
 
 
-  <!-- ============================================================= -->
+    <!-- ============================================================= -->
 
-  <div id="fh5co-contact">
-    <div class="container">
-      <div class="row">
+    <div id="fh5co-contact">
+        <div class="container">
+            <div class="row">
 
-        <div class="col-md-6 animate-box" style="position: relative; left: 300px;">
-          <h2 style="color:#7E7E7E ; font-weight: bold; position: relative; text-align: center;">일반회원 가입정보</h2>
+                <div class="col-md-6 animate-box" style="position: relative; left: 300px;">
+                    <h2 style="color:#7E7E7E ; font-weight: bold; position: relative; text-align: center;">일반회원 가입정보</h2>
 
-          <hr>
-          <br>
+                    <hr>
+                    <br>
 
-          <div class="alert alert-warning" style="font-weight: bold; width: 500px;height: 54px; margin: 30px; margin-top: -30px;">
-            * 표시되어 있는 칸은 필수 입력입니다.
-          </div>
+                    <div class="alert alert-warning" style="font-weight: bold; width: 500px;height: 54px; margin: 30px; margin-top: -30px;">
+                        * 표시되어 있는 칸은 필수 입력입니다.
+                    </div>
 
-          <form action="costomerJoinForm" method="post" id="joinForm">
+                    <form action="costomerJoinForm" method="post" id="joinForm">
 
-            <h4 style="color:#7E7E7E ; font-weight: bold; position: relative;">계정</h4>
-            <div class="row form-group">
-              <div class="col-md-12">
-                  <input type="text" id="member_id" name="member_id" class="form-control" placeholder="아이디 *" style="width: 500px;height: 54px;">
-                  <p class="text-primary">영문 소문자만 허용, 6자 이상 ~ 20자 이하 (특수문자 제외. 단, _ 가능)</p>
-                  <input type="button" class="btn btn-outline-warning" id="idCheck" value="아이디 중복확인">
-              </div>
+                        <h4 style="color:#7E7E7E ; font-weight: bold; position: relative;">계정</h4>
+                        <div class="row form-group">
+                            <div class="col-md-12">
+                                <input type="text" id="member_id" name="member_id" class="form-control"
+                                       placeholder="아이디 *" style="width: 500px;height: 54px;">
+                                <p class="text-primary">영문 소문자만 허용, 6자 이상 ~ 20자 이하 (특수문자 제외. 단, _ 가능)</p>
+                                <input type="button" class="btn btn-outline-warning" id="idCheck" value="아이디 중복확인">
+                            </div>
+                        </div>
+
+                        <div class="row form-group">
+                            <div class="col-md-12">
+                                <!-- <label for="subject">Subject</label> -->
+                                <input type="text" id="member_pw" name="member_pw" class="form-control"
+                                       placeholder="비밀번호 *" value="" style="width: 500px;height: 54px;">
+                                <p id="error_msg2" style="color: green; display: none;">유효한 비밀번호 입니다.</p>
+                                <p class="text-primary">모든 조건이 충족되어 유효하다면, 초록색 글자로 변경됩니다.</p>
+                                <div class="progress" style="display: block;">
+                                    <div class="progress-bar bg-success" id="gauge30" role="progressbar"
+                                         aria-label="Success example" style="width: 30%;" aria-valuenow="25"
+                                         aria-valuemin="0" aria-valuemax="100">보안 약함
+                                    </div>
+                                </div>
+                                <div class="progress" style="display: none;">
+                                    <div class="progress-bar bg-warning" id="gauge65" role="progressbar"
+                                         aria-label="Warning example" style="width: 65%" aria-valuenow="75"
+                                         aria-valuemin="0" aria-valuemax="100">보안 좋음
+                                    </div>
+                                </div>
+                                <div class="progress" style="display: none;">
+                                    <div class="progress-bar bg-danger" id="gauge100" role="progressbar"
+                                         aria-label="Danger example" style="width: 100%" aria-valuenow="100"
+                                         aria-valuemin="0" aria-valuemax="100">보안 최적
+                                    </div>
+                                </div>
+                                <span id="pw_condition1" style="color: red;">1. 최소 8자 이상 <br></span>
+                                <span id="pw_condition2" style="color: red;">2. 영문 대문자와 영문 소문자가 모두 포함 <br></span>
+                                <span id="pw_condition3" style="color: red;">3. 숫자가 적어도 1개 이상 포함 <br></span>
+                                <span id="pw_condition4" style="color: red;">4. 특수문자가 적어도 1개 이상 포함 <br></span>
+                                <span id="pw_condition5" style="color: green;">5. 한글은 포함할 수 없음</span>
+                            </div>
+                        </div>
+
+                        <div class="row form-group">
+                            <div class="col-md-12">
+                                <input type="text" id="pwCheck" class="form-control" placeholder="비밀번호 확인 *" value=""
+                                       style="width: 500px;height: 54px; display: none;">
+                                <p class="text-success" style="display: none;" id="pwCorrect">비밀번호가 일치합니다. 비밀번호를 사용할 수
+                                    있습니다!</p>
+                                <p class="text-danger" style="display: none;" id="pwNotCorrect">비밀번호를 다시 확인해주세요.</p>
+                            </div>
+                        </div>
+
+
+                        <h4 style="color:#7E7E7E ; font-weight: bold; position: relative;">Email</h4>
+                        <div class="row form-group">
+                            <div class="col-md-12">
+                                <!-- <label for="email">Email</label> -->
+                                <input type="text" id="email" name="member_email" class="form-control"
+                                       placeholder="이메일 *" style="width: 500px;height: 54px;">
+                                <input type="button" class="btn btn-outline-warning" id="emailCheck" value="본인 인증하기">
+                                <input type="text" id="emailCheckResult" name="email" class="form-control"
+                                       placeholder="인증코드 6자리" style="width: 500px;height: 54px;">
+                            </div>
+                        </div>
+
+                        <br>
+
+                        <h4 style="color:#7E7E7E ; font-weight: bold; position: relative;">회원정보</h4>
+                        <div class="row form-group">
+                            <div class="col-md-12">
+                                <!-- <label for="subject">Subject</label> -->
+                                <input type="text" id="name" name="member_name" class="form-control" placeholder="이름 *"
+                                       style="width: 500px;height: 54px;">
+                            </div>
+                        </div>
+
+                        <div class="row form-group">
+                            <div class="col-md-12">
+                                <!-- <label for="subject">Subject</label> -->
+                                <input type="text" id="nickname" name="person_nickname" class="form-control"
+                                       placeholder="닉네임 *" style="width: 500px;height: 54px;">
+                            </div>
+                        </div>
+
+                        <div class="row form-group">
+                            <div class="col-md-12">
+                                <!-- <label for="subject">Subject</label> -->
+                                <input type="text" id="phone" name="member_phone" class="form-control"
+                                       placeholder="연락처 * (-를 제외, 01011112222, 0266667777)"
+                                       style="width: 500px;height: 54px;">
+                            </div>
+                        </div>
+
+                        <div class="row form-group">
+                            <div class="col-md-12">
+                                <!-- <label for="subject">Subject</label> -->
+                                <h5 style="color:#7E7E7E ; font-weight: bold; position: relative;">생년월일<input
+                                        type="date" id="birth" name="person_birth" value="생년월일" class="form-control"
+                                        style="width: 500px;height: 54px;"></h5>
+                            </div>
+                        </div>
+
+
+                        <br>
+
+
+                        <h4 style="color:#7E7E7E ; font-weight: bold; position: relative;">주소 *</h4>
+                        <div class="row form-group">
+                            <div class="col-md-12">
+                                <input type="button" class="btn btn-outline-warning" id="addressSearch" value="주소검색">
+                                <p class="text-success">'주소검색' 버튼을 통해 간편하게 입력하세요</p>
+                                <input type="text" id="postal" name="member_postal" class="form-control"
+                                       placeholder="우편번호" style="width: 500px;height: 54px;">
+                                <input type="text" id="address1" name="member_address1" class="form-control"
+                                       placeholder="기본주소" style="width: 500px;height: 54px;">
+                                <input type="text" id="address2" name="member_address2" class="form-control"
+                                       placeholder="상세주소 (ex: 101동 101호)" style="width: 500px;height: 54px;">
+                                <input type="text" id="address3" name="address3" class="form-control" placeholder="참고주소"
+                                       style="width: 500px;height: 54px;">
+                            </div>
+                        </div>
+
+
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="1" id="email_check"
+                                   name="email_check">
+                            <label class="form-check-label" for="email_check">
+                                (선택) 광고성 메일 수신에 동의합니다.
+                            </label>
+                        </div>
+
+                        <br>
+
+
+                        <div class="form-group">
+                            <input type="submit" id="joinCorrect" value="SIGN IN" class="btn btn-outline-warning"
+                                   style="width: 500px; height: 54px;">
+                        </div>
+
+                    </form>
+                </div>
             </div>
 
-            <div class="row form-group">
-              <div class="col-md-12">
-                <!-- <label for="subject">Subject</label> -->
-                <input type="text" id="member_pw" name="member_pw" class="form-control" placeholder="비밀번호 *" value="" style="width: 500px;height: 54px;">
-              </div>
-            </div>
-
-            <div class="row form-group">
-              <div class="col-md-12">
-                <input type="text" id="pwCheck" class="form-control" placeholder="비밀번호 확인 *" value="" style="width: 500px;height: 54px;">
-                <p class="text-primary" style="display: none;" id="pwCorrect">비밀번호가 일치합니다.</p>
-                <p class="text-danger" style="display: none;" id="pwNotCorrect">비밀번호를 다시 확인해주세요.</p>
-                  <div class="progress" style="display: none;">
-                    <div class="progress-bar bg-success" id="gauge30" role="progressbar" aria-label="Success example" style="width: 30%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">보안 약함</div>
-                  </div>
-                  <div class="progress" style="display: none;">
-                    <div class="progress-bar bg-warning" id="gauge65" role="progressbar" aria-label="Warning example" style="width: 65%" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100">보안 좋음</div>
-                  </div>
-                  <div class="progress" style="display: none;">
-                    <div class="progress-bar bg-danger" id="gauge100" role="progressbar" aria-label="Danger example" style="width: 100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">보안 최적</div>
-                  </div>
-              </div>
-            </div>
-
-            <br>
-
-            <h4 style="color:#7E7E7E ; font-weight: bold; position: relative;">Email</h4>
-            <div class="row form-group">
-              <div class="col-md-12">
-                <!-- <label for="email">Email</label> -->
-                <input type="text" id="email" name="member_email" class="form-control" placeholder="이메일 *" style="width: 500px;height: 54px;">
-                <input type="button" class="btn btn-outline-warning" id="emailCheck" value="본인 인증하기">
-                <input type="text" id="emailCheckResult" name="email" class="form-control" placeholder="인증코드 6자리" style="width: 500px;height: 54px;">
-              </div>
-            </div>
-
-            <br>
-
-            <h4 style="color:#7E7E7E ; font-weight: bold; position: relative;">회원정보</h4>
-            <div class="row form-group">
-              <div class="col-md-12">
-                <!-- <label for="subject">Subject</label> -->
-                <input type="text" id="name" name="member_name" class="form-control" placeholder="이름 *" style="width: 500px;height: 54px;">
-              </div>
-            </div>
-
-            <div class="row form-group">
-              <div class="col-md-12">
-                <!-- <label for="subject">Subject</label> -->
-                <input type="text" id="nickname" name="person_nickname" class="form-control" placeholder="닉네임 *" style="width: 500px;height: 54px;">
-              </div>
-            </div>
-
-            <div class="row form-group">
-              <div class="col-md-12">
-                <!-- <label for="subject">Subject</label> -->
-                <input type="text" id="phone" name="member_phone" class="form-control" placeholder="연락처 * (-를 제외, 01011112222, 0266667777)" style="width: 500px;height: 54px;">
-              </div>
-            </div>
-
-            <div class="row form-group">
-              <div class="col-md-12">
-                <!-- <label for="subject">Subject</label> -->
-                <h5 style="color:#7E7E7E ; font-weight: bold; position: relative;">생년월일<input type="date" id="birth" name="person_birth" value="생년월일" class="form-control" style="width: 500px;height: 54px;"></h5>
-              </div>
-            </div>
-
-
-            <br>
-
-
-            <h4 style="color:#7E7E7E ; font-weight: bold; position: relative;">주소 *</h4>
-            <div class="row form-group">
-              <div class="col-md-12">
-                <input type="button" class="btn btn-outline-warning" id="addressSearch" value="주소검색">
-                <p class="text-success">'주소검색' 버튼을 통해 간편하게 입력하세요</p>
-                <input type="text" id="postal" name="member_postal" class="form-control" placeholder="우편번호" style="width: 500px;height: 54px;">
-                <input type="text" id="address1" name="member_address1" class="form-control" placeholder="기본주소" style="width: 500px;height: 54px;">
-                <input type="text" id="address2" name="member_address2" class="form-control" placeholder="상세주소 (ex: 101동 101호)" style="width: 500px;height: 54px;">
-                <input type="text" id="address3" name="address3" class="form-control" placeholder="참고주소" style="width: 500px;height: 54px;">
-              </div>
-            </div>
-
-
-            <div class="form-check">
-              <input class="form-check-input" type="checkbox" value="1" id="email_check" name="email_check">
-              <label class="form-check-label" for="email_check">
-                (선택) 광고성 메일 수신에 동의합니다.
-              </label>
-            </div>
-
-            <br>
-
-
-            <div class="form-group">
-              <input type="submit" id="joinCorrect" value="SIGN IN" class="btn btn-primary" style="width: 500px;height: 54px;">
-            </div>
-
-          </form>
         </div>
-      </div>
-
     </div>
-  </div>
 
 
+    <footer id="fh5co-footer" role="contentinfo">
+        <div class="container">
 
-  <footer id="fh5co-footer" role="contentinfo">
-    <div class="container">
 
+            <div class="row copyright">
+                <div class="col-md-12 text-center">
+                    <p>
+                        <small class="block">&copy; 2016 Free HTML5. All Rights Reserved.</small>
+                        <small class="block">Designed by <a href="http://freehtml5.co/" target="_blank">FreeHTML5.co</a>
+                            Demo Images: <a href="http://blog.gessato.com/" target="_blank">Gessato</a> &amp; <a
+                                    href="http://unsplash.co/" target="_blank">Unsplash</a></small>
+                    </p>
+                    <p>
+                    <ul class="fh5co-social-icons">
+                        <li><a href="#"><i class="icon-twitter"></i></a></li>
+                        <li><a href="#"><i class="icon-facebook"></i></a></li>
+                        <li><a href="#"><i class="icon-linkedin"></i></a></li>
+                        <li><a href="#"><i class="icon-dribbble"></i></a></li>
+                    </ul>
+                    </p>
+                </div>
+            </div>
 
-      <div class="row copyright">
-        <div class="col-md-12 text-center">
-          <p>
-            <small class="block">&copy; 2016 Free HTML5. All Rights Reserved.</small>
-            <small class="block">Designed by <a href="http://freehtml5.co/" target="_blank">FreeHTML5.co</a> Demo Images: <a href="http://blog.gessato.com/" target="_blank">Gessato</a> &amp; <a href="http://unsplash.co/" target="_blank">Unsplash</a></small>
-          </p>
-          <p>
-          <ul class="fh5co-social-icons">
-            <li><a href="#"><i class="icon-twitter"></i></a></li>
-            <li><a href="#"><i class="icon-facebook"></i></a></li>
-            <li><a href="#"><i class="icon-linkedin"></i></a></li>
-            <li><a href="#"><i class="icon-dribbble"></i></a></li>
-          </ul>
-          </p>
         </div>
-      </div>
-
-    </div>
-  </footer>
+    </footer>
 </div>
 
 <div class="gototop js-top">
-  <a href="#" class="js-gotop"><i class="icon-arrow-up"></i></a>
+    <a href="#" class="js-gotop"><i class="icon-arrow-up"></i></a>
 </div>
 
 <!-- jQuery -->

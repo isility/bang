@@ -11,6 +11,8 @@
         content="free website templates, free html5, free template, free bootstrap, free website template, html5, css3, mobile first, responsive" />
   <meta name="author" content="gettemplates.co" />
 
+  <link rel="stylesheet" type="text/css" href="//script.gmarket.com/signup/css/app.css?t=0803" />
+
   <!-- Animate.css -->
   <link rel="stylesheet" href="css/animate.css">
   <!-- Icomoon Icon Fonts-->
@@ -31,6 +33,10 @@
 
   <!-- Bootstrap  -->
   <link rel="stylesheet" href="css/bootstrap.css">
+
+
+
+
 
 </head>
 
@@ -66,6 +72,22 @@
 	.input-group {
 		position: relative;
 		left: 48px;
+	}
+
+	.box__section .text__box-title .text__emphasis {
+	    color: #D1C286;
+	}
+
+	.button__submit {
+        background-color: #D1C286;
+	}
+
+	.box__form.multiple-label .text__label, .box__form.guide-select .text__label, .box__form.guide-label .text__label {
+        width: 500px;
+	}
+
+	.innercontainer {
+	    width: 500px;
 	}
 
 </style>
@@ -113,33 +135,80 @@
     </div>
   </nav>
 
-  <!-- 구매목적의 일반 회원, 판매목적의 사업자 회원 -->
+  <!-- 사업자 등록번호 조회 -->
   <div id="fh5co-services" class="fh5co-bg-section">
 
-    <div class="container">
+    <div class="innercontainer">
       <div class="rowcontents">
 
-        <div class="col-md-4 col-sm-4 text-center">
-          <div class="feature-center animate-box" data-animate-effect="fadeIn">
-                        <span class="icon">
-                        <i class="icon-user"></i>
-                    </span>
-            <h3>일반회원</h3>
-            <p>상품 구매를 목적으로 하는 일반 회원</p>
-            <p><a href="costomerTerms" class="btn btn-primary btn-outline">Join us!</a></p>
+        <form id="sellerSignupForm" role="form" action="/signup/corpSeller" method="post" onsubmit="return false;">
+          <div class="form-group">
+            <input type="hidden" id="sellerType" name="sellerType" value="BizSeller" >
           </div>
-        </div>
+          <div class="box__step-wrap">
+            <div class="box__section section-title">
+              <h2 class="text__box-title"><strong class="text__emphasis">잠시만요! <br> 먼저, 사업자 등록 정보를 확인하겠습니다.</strong></h2>
+              <p class="text__box-subtitle">사업자등록번호(고유번호)를 입력해주세요.</p>
+            </div>
 
-        <div class="col-md-4 col-sm-4 text-center">
-          <div class="feature-center animate-box" data-animate-effect="fadeIn">
-                  <span class="icon">
-                      <i class="icon-briefcase"></i>
-                  </span>
-            <h3>사업자 회원</h3>
-            <p>상품 판매를 목적으로 하는 사업자 회원</p>
-            <p><a href="businessOk" class="btn btn-primary btn-outline">Join us!</a></p>
+            <div class="box__section section-form">
+              <ul class="list__form">
+                <li class="list-item">
+                  <div class="box__form guide-label">
+                    <label for="bizNo" class="text__label">
+                      <span class="text__main">사업자등록번호</span>
+                      <span class="text__sub">- 없이 숫자 10자리 입력</span>
+                    </label>
+                    <input type="text" class="form__input-text" placeholder="사업자등록번호" aria-label="사업자등록번호 10자리를 입력해주세요." value="" aria-errormessage="companyNum--error-msg" onkeyup="sellerSignup.validateBizNoInput()" maxlength="10" id="bizNo" name="bizNo" >
+                    <span class="text__notification" role="alert"><!-- To dev : 에러 메세지 영역 --></span>
+                  </div>
+                  <p class="text__form-noti">
+                    사업자 정보 확인(인증)에 문제가 있는 경우, 사업자등록증 사본 파일을 첨부하고 연락처 적은 이메일을 NICE평가정보(주) 기업고객센터 아래 두 곳으로 보내주세요.<br>
+                    nicesbc_cs@nice.co.kr, credit@nice.co.kr
+                  </p>
+                  <p class="text__form-noti">
+                    <strong class="text__emphasis">사업자등록번호 도용하여 가입 시, 형사 처벌을 받을 수 있습니다.</strong>
+                  </p>
+                </li>
+              </ul>
+            </div>
           </div>
-        </div>
+
+          <div id="layer-alert-identification" class="box__layer box__dimmed-layer layer-alert-colsed" role="alertdialog" aria-hidden="true" aria-modal="true">
+            <div class="box__layer-container">
+              <div class="box__layer-body">
+                <div class="box__text-dimmed">
+                  <strong class="text__title">전환 안내</strong>
+                  <span id="valid-message" class="text__desc"></span>
+                </div>
+                <div class="box__button-wrap">
+                  <button class="button__cancel" data-dismiss="modal">확인</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div id="layer-alert-invalidBizNo" class="box__layer box__dimmed-layer layer-alert-colsed" role="alertdialog" aria-hidden="true" aria-modal="true">
+            <div class="box__layer-container">
+              <div class="box__layer-body">
+                <div class="box__text-dimmed">
+                  <strong class="text__title">유효한 사업자가 아닙니다.</strong>
+                  <span id="valid-message2" class="text__desc"></span>
+                </div>
+                <div class="box__button-wrap">
+                  <button class="button__cancel" data-dismiss="modal">확인</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="box__section section-fixed--button">
+            <div class="box__fixed-button">
+              <!-- To Dev : 버튼 활성화 시 disabled 삭제 -->
+              <button id="btnSubmitAuth" type="button" class="button__submit"><span class="text__case">인증하기</span></button>
+            </div>
+          </div>
+        </form>
+        <!-- step  -->
+
 
       </div>
     </div>

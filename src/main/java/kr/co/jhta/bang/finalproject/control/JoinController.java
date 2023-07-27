@@ -20,8 +20,9 @@ public class JoinController {
         return "join/join.html";
     }
 
+
     @GetMapping("/costomerTerms")
-    public String terms() {
+    public String costomerTerms() {
         return "join/costomerTerms.html";
     }
 
@@ -29,6 +30,16 @@ public class JoinController {
     public String costomerJoinForm() {
         return "join/costomerJoinForm.html";
     }
+
+    @GetMapping("/businessOk")
+    public String businessOk() { return "join/businessOk.html"; }
+
+    @GetMapping("/businessTerms")
+    public String businessTerms() { return "join/businessTerms.html"; }
+
+    @GetMapping("/businessJoinForm")
+    public String businessJoinForm() { return "join/businessJoinForm.html"; }
+
 
     @PostMapping("/costomerJoinForm")
     public String costomerJoinOk(@ModelAttribute MemberDTO memberDto,
