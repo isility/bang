@@ -1,6 +1,6 @@
 package kr.co.jhta.bang.finalproject.control;
 
-import kr.co.jhta.bang.finalproject.service.KakaoPay;
+import kr.co.jhta.bang.finalproject.service.KakaoPayService;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class PaymentController {
 
     @Setter(onMethod_ = @Autowired)
-    private KakaoPay kakaopay;
+    private KakaoPayService kakaopay;
 
 
     @GetMapping("/kakaoPay")
