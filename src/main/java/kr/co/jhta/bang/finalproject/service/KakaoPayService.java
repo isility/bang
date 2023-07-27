@@ -15,7 +15,7 @@ import java.net.URI;
 import java.net.URISyntaxException;
 
 @Service
-public class KakaoPay {
+public class KakaoPayService {
 
 
     private static final String HOST = "https://kapi.kakao.com";
