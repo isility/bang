@@ -82,6 +82,22 @@
 	left: 940px;
 	}
 
+	/* 이미지를 감싸는 컨테이너인 <figure> 태그의 최대 너비를 조정합니다. */
+  .item figure {
+    max-width: 500px; /* 원하는 크기로 조정하십시오. */
+    margin: 0 auto; /* 가운데 정렬을 위해 필요한 부분입니다. */
+  }
+
+  /* 이미지의 최대 너비와 높이를 지정하여 비율을 유지합니다. */
+  .item figure img {
+    max-width: 100%;
+    height: auto;
+  }
+
+.icon-heart{
+position:relative;
+  right:8px;
+}
 </style>
 	</head>
 
@@ -95,15 +111,15 @@
 			<div class="container">
 				<div class="row" style="width:1200px;">
 					<div class="col-md-3 col-xs-2" style="width:200px;">
-						<div id="fh5co-logo" style="width:200px;"><a href="index.html">Bang & Oops</a></div>
+						<div id="fh5co-logo" style="width:200px;"><a href="/">Bang & Oops</a></div>
 					</div>
 					<div class="col-md-6 col-xs-6 text-center menu-1" style="width:700px;">
 						<ul>
-							<li><a  href="/product/productList?cno=1">SPEAKER</a></li>
-							<li><a href="/product/productList?cno=2" >EARPHONE</a></li>
-							<li><a href="/product/productList?cno=3" >HEADPHONE</a></li>
-							<li><a href="/product/productList?cno=4" >ACCESSORIES</a></li>
-							<li><a href="/product/productList?cno=5" >SERVICE</a></li>
+							<li><a  href="/product/productList?categoryNumber=1">SPEAKER</a></li>
+							<li><a href="/product/productList?categoryNumber=2" >EARPHONE</a></li>
+							<li><a href="/product/productList?categoryNumber=3" >HEADPHONE</a></li>
+							<li><a href="/product/productList?categoryNumber=4" >ACCESSORIES</a></li>
+							<li><a href="/product/productList?categoryNumber=5" >SERVICE</a></li>
 							<li class="nav-item dropdown">
 								<a class="nav-link dropdown-toggle" href="community.html" role="button" data-bs-toggle="dropdown" aria-expanded="false">COMMUNITY</a>
 								<ul class="dropdown-menu">
@@ -163,21 +179,21 @@
 						<div class="item">
 							<div class="active text-center">
 								<figure>
-									<img th:src="@{/images/'+${productDto.img}+'.jpg}" alt="user">
+									<img th:src="@{/images/__${productDto.imageSrc}__.jpg}" alt="user">
 								</figure>
 							</div>
 						</div>
 						<div class="item">
 							<div class="active text-center">
 								<figure>
-									<img src="../../static/images/product-single-2.jpg" alt="user">
+									<img src="/images/product-single-2.jpg" alt="user">
 								</figure>
 							</div>
 						</div>
 						<div class="item">
 							<div class="active text-center">
 								<figure>
-									<img src="../../static/images/product-single-3.jpg" alt="user">
+									<img src="/images/product-single-3.jpg" alt="user">
 								</figure>
 							</div>
 						</div>
@@ -185,12 +201,18 @@
 
 					<div class="row animate-box">
 						<div class="col-md-8 col-md-offset-2 text-center fh5co-heading">
-							<h2 th:text="${productDto.pname}">베오릿20</h2>
-							<h3 style="color: #D1C286;" th:text="${productDto.pprice}">679,000원</h3>
-							<span>배송방법 택배 </span>     <span>배송비 무료 </span>
+							<h2 th:text="${productDto.productName}">베오릿20</h2>
+							<h3 style="color: #D1C286;" th:text="${productDto.productPrice}">679,000원</h3>
+							<span>배송방법 택배  |  배송비 무료 </span>
+							<span>색상<select>
+								 <option value="red"></option>
+							<option value="blue"></option>
+							<option value="red"></option>
+							</select> </span>
 							<p>
 								<a href="#" class="btn btn-primary btn-outline btn-lg">장바구니</a>
-								<a href="#" class="btn btn-primary btn-outline btn-lg">구매하기</a>
+								<a href="#" class="btn btn-primary btn btn-lg">구매하기</a>
+								<a href="#" class="icon btn btn-primary btn-outline btn-lg" style="width:30px"><i class="icon-heart"></i></a>
 							</p>
 						</div>
 					</div>
@@ -212,23 +234,12 @@
 							
 							<!-- =================================================================================== -->
 							<!-- 상세정보 -->
-							<div class="fh5co-tab-content tab-content active" data-tab-content="1">
-								<div class="col-md-10 col-md-offset-1">
-									<span class="price">SRP: $350</span>
-									<h2>Hauteville Rocking Chair</h2>
-									<p>Paragraph placeat quis fugiat provident veritatis quia iure a debitis adipisci dignissimos consectetur magni quas eius nobis reprehenderit soluta eligendi quo reiciendis fugit? Veritatis tenetur odio delectus quibusdam officiis est.</p>
+							<div class="fh5co-tab-content tab-content active" data-tab-content="1" id="detail">
+								<div class="col-md-10 col-md">
 
-									<p>Ullam dolorum iure dolore dicta fuga ipsa velit veritatis molestias totam fugiat soluta accusantium omnis quod similique placeat at. Dolorum ducimus libero fuga molestiae asperiores obcaecati corporis sint illo facilis.</p>
-
-									<div class="row">
-										<div class="col-md-6">
-											<h2 class="uppercase">Keep it simple</h2>
-											<p>Ullam dolorum iure dolore dicta fuga ipsa velit veritatis</p>
-										</div>
-										<div class="col-md-6">
-											<h2 class="uppercase">Less is more</h2>
-											<p>Ullam dolorum iure dolore dicta fuga ipsa velit veritatis</p>
-										</div>
+<!--									이미지 가져오기-->
+									<div th:each="images:${detailImg}">
+										<img th:src="@{/images/__${images.imageSrc}__.jpg}" alt="user">
 									</div>
 
 								</div>
@@ -242,9 +253,8 @@
 									<div class="feed">
 										<div >
 											<blockquote>
-												<p>[[${dto.reply_contents}]]</p>
 											</blockquote>
-											<h3>[[${dto.qna_writer}]]</h3>
+
 											<span class="rate">
 												<i class="icon-star2"></i>
 												<i class="icon-star2"></i>
@@ -265,9 +275,9 @@
 									<div class="feed">
 										<div >
 											<blockquote>
-												<p>[[${dto.qna_contents}]</p>
+
 											</blockquote>
-											<h3>[[${dto.qna_writer}]]</h3>
+
 											<span class="rate">
 												<i class="icon-star2"></i>
 												<i class="icon-star2"></i>
@@ -279,8 +289,6 @@
 									</div>
 								</div>
 							</div>
-
-
 
 						</div>
 
@@ -309,23 +317,23 @@
 	<div class="gototop js-top">
 		<a href="#" class="js-gotop"><i class="icon-arrow-up"></i></a>
 	</div>
-	
+
 	<!-- jQuery -->
-	<script src="../../static/js/jquery.min.js"></script>
+	<script src="/js/jquery.min.js"></script>
 	<!-- jQuery Easing -->
-	<script src="../../static/js/jquery.easing.1.3.js"></script>
+	<script src="js/jquery.easing.1.3.js"></script>
 	<!-- Bootstrap -->
-	<script src="../../static/js/bootstrap.min.js"></script>
+	<script src="/js/bootstrap.min.js"></script>
 	<!-- Waypoints -->
-	<script src="../../static/js/jquery.waypoints.min.js"></script>
+	<script src="/js/jquery.waypoints.min.js"></script>
 	<!-- Carousel -->
-	<script src="../../static/js/owl.carousel.min.js"></script>
+	<script src="/js/owl.carousel.min.js"></script>
 	<!-- countTo -->
-	<script src="../../static/js/jquery.countTo.js"></script>
+	<script src="/js/jquery.countTo.js"></script>
 	<!-- Flexslider -->
-	<script src="../../static/js/jquery.flexslider-min.js"></script>
+	<script src="/js/jquery.flexslider-min.js"></script>
 	<!-- Main -->
-	<script src="../../static/js/main.js"></script>
+	<script src="/js/main.js"></script>
 
 	</body>
 </html>

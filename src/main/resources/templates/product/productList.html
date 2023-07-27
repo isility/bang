@@ -94,15 +94,15 @@
 			<div class="container">
 				<div class="row" style="width:1200px;">
 					<div class="col-md-3 col-xs-2" style="width:200px;">
-						<div id="fh5co-logo" style="width:200px;"><a href="index.html">Bang & Oops</a></div>
+						<div id="fh5co-logo" style="width:200px;"><a href="/">Bang & Oops</a></div>
 					</div>
 					<div class="col-md-6 col-xs-6 text-center menu-1" style="width:700px;">
 						<ul>
-							<li><a  href="/product/productList?cno=1">SPEAKER</a></li>
-							<li><a href="/product/productList?cno=2" >EARPHONE</a></li>
-							<li><a href="/product/productList?cno=3" >HEADPHONE</a></li>
-							<li><a href="/product/productList?cno=4" >ACCESSORIES</a></li>
-							<li><a href="/product/productList?cno=5" >SERVICE</a></li>
+							<li><a  href="/product/productList?categoryNumber=1">SPEAKER</a></li>
+							<li><a href="/product/productList?categoryNumber=2" >EARPHONE</a></li>
+							<li><a href="/product/productList?categoryNumber=3" >HEADPHONE</a></li>
+							<li><a href="/product/productList?categoryNumber=4" >ACCESSORIES</a></li>
+							<li><a href="/product/productList?categoryNumber=5" >SERVICE</a></li>
 							<li class="nav-item dropdown">
 								<a class="nav-link dropdown-toggle" href="community.html" role="button" data-bs-toggle="dropdown" aria-expanded="false">COMMUNITY</a>
 								<ul class="dropdown-menu">
@@ -176,17 +176,17 @@
 				<!--	<h1 th:text="${dto.img}"></h1>-->
 
 						<div class="product" >
-							<div class="product-grid" th:style="'background-image: url(/images/'+${dto.img}+'.jpg);'">
+							<div class="product-grid" th:style="'background-image: url(/images/'+${dto.imageSrc}+'.jpg);'">
 									<div class="inner">
 										<p>
-											<a th:href="cart.html" class="icon"><i class="icon-shopping-cart"></i></a>
+											<a th:href="@{/product/productDetail(productNumber=${dto.productNumber})}" class="icon"><i class="icon-shopping-cart"></i></a>
 											<a th:href="wish.html" class="icon"><i class="icon-heart"></i></a>
 										</p>
 									</div>
 							</div>
 							<div class="desc">
-								<h3><a th:href="@{/product/productDetail(pno=${dto.pno})}" th:text="${dto.pname}"></a></h3>
-								<span class="price" th:text="${dto.pprice}"></span>
+								<h3><a th:href="@{/product/productDetail(productNumber=${dto.productNumber})}" th:text="${dto.productName}"></a></h3>
+								<span class="price" th:text="${dto.productPrice}"></span>
 								<p style="color:#BFBFBF;">리뷰 4</p>
 							</div>
 						</div>

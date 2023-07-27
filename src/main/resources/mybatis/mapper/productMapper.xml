@@ -5,7 +5,7 @@
 
 <mapper namespace="kr.co.jhta.bang.finalproject.dao.ProductListDAO">
     <select id="selectAll" parameterType="int" resultType="ProductListDTO">
-        SELECT p.product_number as pno,  i.image_src as img, product_name as pname, product_price as pprice, category_number as cno
+        SELECT p.product_number as productNumber,  i.image_src as imageSrc, product_name as productName, product_price as productPrice, category_number as categoryNumber
         FROM product p, image i
         WHERE p.product_number = i.product_number
         AND category_number=#{category_number}
@@ -19,10 +19,21 @@
     </select>
 
     <select id="selectOne" resultType="ProductListDTO" parameterType="int">
-        SELECT  p.product_number as pno, p.product_name as pname, p.product_price as pprice, i.image_src as img
+        SELECT  p.product_number as productNumber, p.product_name as productName, p.product_price as productPrice, i.image_src as imageSrc
         FROM product p, image i
         WHERE p.product_number = i.product_number
         AND p.product_number=#{product_number}
+        AND image_order=1
     </select>
+
+<!--    상세정보에 이미지 리스트 뿌려주기 -->
+    <select id="selectList" resultType="ImageDTO" parameterType="int">
+        SELECT image_src as imageSrc
+        FROM image
+        WHERE product_number=#{product_number}
+        AND not image_order = 1
+
+    </select>
+
 
 </mapper>
