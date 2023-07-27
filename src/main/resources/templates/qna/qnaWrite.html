@@ -54,6 +54,7 @@
   <script th:src="@{https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js}"></script>
   <script type="text/javascript" th:src="@{https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/lang/summernote-ko-KR.min.js}"></script>
 </head>
+
 <body>
 
 <div class="fh5co-loader"></div>
@@ -72,12 +73,12 @@
             <li><a th:href="@{/productList.html}">HEADPHONE</a></li>
             <li><a th:href="@{/productList.html}">ACCESSORIES</a></li>
             <li><a th:href="@{/services.html}">SERVICE</a></li>
-            <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" th:href="@{/community.html}" role="button" data-bs-toggle="dropdown" aria-expanded="false">COMMUNITY</a>
-              <ul class="dropdown-menu">
-                <li><a class="dropdown-item" th:href="@{notice}">공지사항</a></li>
-                <li><a class="dropdown-item" th:href="@{review}">REVIEW</a></li>
-                <li><a class="dropdown-item" th:href="@{qna}">Q&A</a></li>
+            <li class="has-dropdown">
+              <a th:href="@{/community.html}">COMMUNITY</a>
+              <ul class="dropdown">
+                <li><a th:href="@{notice}">공지사항</a></li>
+                <li><a th:href="@{review}">REVIEW</a></li>
+                <li><a th:href="@{qna}">Q&A</a></li>
               </ul>
             </li>
           </ul>
@@ -125,15 +126,26 @@
       <div class="row">
         <div><h2>Q&A</h2></div>
         <!--				<h2 th:text="${list}"></h2>-->
+
+
+
+
         <form action="qwrite" method="post">
+          <select name="qna_type" id="category">
+            <option value="">카테고리선택</option>
+            <option value="상품문의">상품문의</option>
+            <option value="결제/배송문의">결제/배송문의</option>
+            <option value="회원정보문의">회원정보문의</option>
+            <option value="기타문의">기타문의</option>
+          </select>
           <table class="table">
             <tr>
               <th>작성자</th>
-              <td><input type="text" name="qna_writer" id="" /></td>
+              <td><input type="text" name="qna_writer" id="writer" /></td>
             </tr>
             <tr>
               <th>제목</th>
-              <td><input type="text" name="qna_title" id="" /></td>
+              <td><input type="text" name="qna_title" id="title" /></td>
             </tr>
             <tr>
               <th>내용</th>
