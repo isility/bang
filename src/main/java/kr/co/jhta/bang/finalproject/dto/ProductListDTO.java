@@ -8,9 +8,10 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ProductListDTO {
-    private int product_number;
+    private int pno;
     private String img;
-    private String product_name;
-    private int product_price;
-    private int category_number;
+    private String pname;
+    private int pprice;
+    private int cno;
+
 }

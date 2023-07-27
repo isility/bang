@@ -5,9 +5,10 @@
 
 <mapper namespace="kr.co.jhta.bang.finalproject.dao.ProductListDAO">
     <select id="selectAll" parameterType="int" resultType="ProductListDTO">
-        SELECT p.product_number,  i.image_src as img, product_name , product_price, category_number
+        SELECT p.product_number as pno,  i.image_src as img, product_name as pname, product_price as pprice, category_number as cno
         FROM product p, image i
-        WHERE p.product_number = i.product_number AND category_number=#{category_number}
+        WHERE p.product_number = i.product_number
+        AND category_number=#{category_number}
         AND image_order=1
     </select>
 
@@ -15,6 +16,13 @@
         SELECT count(*) cnt
         FROM product
         WHERE category_number=#{category_number}
+    </select>
+
+    <select id="selectOne" resultType="ProductListDTO" parameterType="int">
+        SELECT  p.product_number as pno, p.product_name as pname, p.product_price as pprice, i.image_src as img
+        FROM product p, image i
+        WHERE p.product_number = i.product_number
+        AND p.product_number=#{product_number}
     </select>
 
 </mapper>

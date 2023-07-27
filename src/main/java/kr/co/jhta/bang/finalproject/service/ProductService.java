@@ -13,11 +13,16 @@ public class ProductService {
     @Autowired
     ProductListDAO dao;
 
-    public List<ProductListDTO> selectAll(int category_number){
-        return dao.selectAll(category_number);
+    public List<ProductListDTO> selectAll(int cno){
+        return dao.selectAll(cno);
     }
 
-    public int getTotal(int category_number) {
-        return dao.getTotal(category_number);
+    public int getTotal(int cno) {
+        return dao.getTotal(cno);
     }
+
+    public ProductListDTO selectOne(int pno){
+        return dao.selectOne(pno);
+    }
+
 }

@@ -56,7 +56,6 @@
 		<script src="@{/js/respond.min.js}"></script>
 		<![endif]-->
 
-
 		<style>
 	#fh5co-hero .flexslider .slides li {
 		background-size: cover;
@@ -99,11 +98,11 @@
 					</div>
 					<div class="col-md-6 col-xs-6 text-center menu-1" style="width:700px;">
 						<ul>
-							<li><a  href="/product/productList?category_number=1">SPEAKER</a></li>
-							<li><a href="/product/productList?category_number=2" >EARPHONE</a></li>
-							<li><a href="/product/productList?category_number=3" >HEADPHONE</a></li>
-							<li><a href="/product/productList?category_number=4" >ACCESSORIES</a></li>
-							<li><a href="/product/productList?category_number=5" >SERVICE</a></li>
+							<li><a  href="/product/productList?cno=1">SPEAKER</a></li>
+							<li><a href="/product/productList?cno=2" >EARPHONE</a></li>
+							<li><a href="/product/productList?cno=3" >HEADPHONE</a></li>
+							<li><a href="/product/productList?cno=4" >ACCESSORIES</a></li>
+							<li><a href="/product/productList?cno=5" >SERVICE</a></li>
 							<li class="nav-item dropdown">
 								<a class="nav-link dropdown-toggle" href="community.html" role="button" data-bs-toggle="dropdown" aria-expanded="false">COMMUNITY</a>
 								<ul class="dropdown-menu">
@@ -161,12 +160,12 @@
 			<!-- 총 상품 수	-->
 			<p th:text="${banner + ' ' + total}"></p>
 
-			<!--	정렬		-->
-			<select id="sort">
-				<option value="1">신상품순</option>
-				<option value="2">리뷰수 많은 순</option>
-				<option value="3">낮은가격순</option>
-				<option value="4">높은가격순</option>
+			<!--	정렬	옵션 선택을 위한 셀렉트 박스	-->
+			<select id="sort" name="sortType">
+				<option value="latest">신상품순</option>
+				<option value="review">리뷰수 많은 순</option>
+				<option value="priceLowToHigh">낮은가격순</option>
+				<option value="priceHighToLow">높은가격순</option>
 			</select>
 
 			<div class="row" >
@@ -178,19 +177,16 @@
 
 						<div class="product" >
 							<div class="product-grid" th:style="'background-image: url(/images/'+${dto.img}+'.jpg);'">
-								<a th:href="@{/product/productDetail}">
-
 									<div class="inner">
 										<p>
 											<a th:href="cart.html" class="icon"><i class="icon-shopping-cart"></i></a>
 											<a th:href="wish.html" class="icon"><i class="icon-heart"></i></a>
 										</p>
 									</div>
-								</a>
 							</div>
 							<div class="desc">
-								<h3><a th:href="@{/product/productDetail}" th:text="${dto.product_name}"></a></h3>
-								<span class="price" th:text="${dto.product_price}"></span>
+								<h3><a th:href="@{/product/productDetail(pno=${dto.pno})}" th:text="${dto.pname}"></a></h3>
+								<span class="price" th:text="${dto.pprice}"></span>
 								<p style="color:#BFBFBF;">리뷰 4</p>
 							</div>
 						</div>

@@ -11,10 +11,13 @@ import java.util.List;
 public interface ProductListDAO {
 
     //상품리스트
-    public List<ProductListDTO> selectAll(int category_number);
+    public List<ProductListDTO> selectAll(int cno);
 
-    public int getTotal(int category_number);
+    //카테고리별 총 상품 수
+    public int getTotal(int cno);
 
-    //카테고리 리스트
-    public ProductListDTO selectOne(int no);
+    //상세 페이지
+    public ProductListDTO selectOne(int pno);
+
+
 }
