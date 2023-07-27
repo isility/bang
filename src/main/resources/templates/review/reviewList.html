@@ -68,6 +68,11 @@
         width: 30px; /* 작성자 칼럼의 너비를 조정합니다 */
     }
 	</style>
+	<script th:inline="javascript">
+  function truncateText(text, maxLength) {
+    return text.length > maxLength ? text.slice(0, maxLength) + '...' : text;
+  }
+</script>
 
 	<body>
 	<!--======================================================================================================  -->
@@ -102,13 +107,13 @@
 									</span>
 								</div>
 							</li>
-						
+
 						</ul>
 					</div>
 				</div>
 			</div>
 		</nav>
-	
+
 
 	<!-- ======================================================================================================================================== -->
 		<!-- 메인 배너 -->
@@ -126,7 +131,7 @@
 				</div>
 			</div>
 		</header>
-	
+
 	<!-- ======================================================================================================================================== -->
 	<!-- 리뷰 -->
 		<div id="fh5co-product">
@@ -139,7 +144,7 @@
 							<th class="productNumber">상품번호</th>
 							<th>내용</th>
 							<th class="writer">작성자</th>
-							<th class="score">별점</th>
+							<th class="score">평점</th>
 							<th class="date">작성일</th>
 							<th></th>
 							<th></th>
@@ -147,13 +152,19 @@
 						<tr th:each="dto : ${list}">
 							<td class="reviewNo" th:text="${dto.reply_ref}"></td>
 							<td class="productNumber" th:text="${dto.product_number}"></td>
-							<td><a th:href="@{/review/reviewDetail(reply_number=${dto.reply_number})}" th:text="${dto.reply_contents}"></a></td>
+							<td>
+								<a th:href="@{/review/reviewDetail(reply_number=${dto.reply_number})}" style="">
+									<span th:utext="${#strings.length(dto.reply_contents) > 20 ? #strings.substring(dto.reply_contents, 0, 20) + '...' : dto.reply_contents}"></span>
+								</a>
+							</td>
 							<td class="writer" th:text="${dto.reply_writer}"></td>
 							<td class="score" th:text="${dto.reply_score}"></td>
 							<td class="date" th:text="${dto.reply_date}"></td>
 
-							<td><a th:href="@{/review/reviewModify(reply_number=${dto.reply_number})}" class="btn btn-info">수정</a></td>
-							<td><a th:href="@{/review/reviewDelete(reply_number=${dto.reply_number})}" class="btn btn-danger">삭제</a></td>
+							<td><a th:href="@{/review/reviewModify(reply_number=${dto.reply_number})}" class="btn btn-primary" style="font-size: 9px;">수정</a></td>
+							<td><a th:href="@{/review/reviewDelete(reply_number=${dto.reply_number})}" class="btn btn-primary btn-outline" style="font-size: 9px;">삭제</a></td>
+
+
 						</tr>
 					</table>
 						<hr>
@@ -178,6 +189,7 @@
 					</div>
 				</div>
 				</div>
+
 
 	<footer id="fh5co-footer" role="contentinfo">
 		<div class="container">

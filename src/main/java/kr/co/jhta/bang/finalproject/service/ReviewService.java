@@ -36,6 +36,8 @@ public class ReviewService {
     public void writeReply(ReviewDTO dto){
         dao.writeReply(dto);
     }
+
+    // review 삭제
     public void deleteReview(int reply_number){
         dao.deleteReview(reply_number);
     }
