@@ -14,4 +14,9 @@ public interface QnaDAO {
 
     QnaDTO selectOne(int qnaNumber);
 
+    void insertOne(QnaDTO dto);
+
+    void updateOne(QnaDTO dto);
+
+    void deleteOne(int qnaNumber);
 }

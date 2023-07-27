@@ -10,4 +10,9 @@ public interface QnaService {
 
     public QnaDTO selectOne(int qnaNumber);
 
+    public void addOne(QnaDTO dto);
+
+    public void modifyOne(QnaDTO dto);
+
+    public void removeOne(int qnaNumber);
 }

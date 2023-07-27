@@ -22,4 +22,19 @@ public class QnaAwsService implements QnaService{
     public QnaDTO selectOne(int qnaNumber) {
         return dao.selectOne(qnaNumber);
     }
+
+    @Override
+    public void addOne(QnaDTO dto) {
+        dao.insertOne(dto);
+    }
+
+    @Override
+    public void modifyOne(QnaDTO dto) {
+        dao.updateOne(dto);
+    }
+
+    @Override
+    public void removeOne(int qnaNumber) {
+        dao.deleteOne(qnaNumber);
+    }
 }
