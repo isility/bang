@@ -9,8 +9,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class ImageDTO {
 
-    private int ino;
-    private String img;
+    private int imageNumber;
+    private String imageSrc;
     private int imgOrder;
-    private int pno;
+    private int productNumber;
 }

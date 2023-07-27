@@ -22,10 +22,10 @@ public class ProductController {
 
     //상품리스트-------------------------------------------------------------------------------------------------
     @GetMapping("/productList")
-    public String productList(Model model, @RequestParam("cno") int cno){
+    public String productList(Model model, @RequestParam("categoryNumber") int categoryNumber){
 
-        model.addAttribute("list", service.selectAll(cno));
-        List<ProductListDTO> list =  service.selectAll(cno);
+        model.addAttribute("list", service.selectAll(categoryNumber));
+        List<ProductListDTO> list =  service.selectAll(categoryNumber);
 //        for(ProductListDTO dto : list ){
 //            log.info(dto.getImg());
 //        }
@@ -33,20 +33,20 @@ public class ProductController {
         String img ="";
         String banner="";
 
-        if(cno==1) {
+        if(categoryNumber==1) {
             img = "/images/banner_speaker.jpg";
             banner="SPEAKER";
         }
-        else if(cno==2) {
+        else if(categoryNumber==2) {
             img = "/images/banner_earphone.jpg";
             banner="EARPHONE";
         }
 
-        else if(cno==3) {
+        else if(categoryNumber==3) {
             img = "/images/banner_headphone.jpg";
             banner="HEADPHONE";
         }
-        else if(cno==4) {
+        else if(categoryNumber==4) {
             img = "/images/banner_acc.jpg";
             banner="ACCESSORIES";
         }
@@ -55,7 +55,7 @@ public class ProductController {
         model.addAttribute("img",img);
         model.addAttribute("banner",banner);
 
-        int total = service.getTotal(cno);
+        int total = service.getTotal(categoryNumber);
         model.addAttribute("total",total);
 
 
@@ -70,8 +70,9 @@ public class ProductController {
 
     //상세 페이지 -------------------------------------------------------------------------------------------------
     @GetMapping("/productDetail")
-    public String detail(Model model, @RequestParam("pno") int pno){
-        model.addAttribute("productDto", service.selectOne(pno));
+    public String detail(Model model, @RequestParam("productNumber") int productNumber){
+        model.addAttribute("productDto", service.selectOne(productNumber));
+        model.addAttribute("detailImg", service.selectList(productNumber));
 
         return "product/productDetail";
     }

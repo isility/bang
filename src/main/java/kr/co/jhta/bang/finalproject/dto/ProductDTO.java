@@ -7,11 +7,12 @@ import lombok.*;
 @NoArgsConstructor
 
 public class ProductDTO {
-    private int product_number;
-    private String product_name;
-    private int product_price;
-    private int product_stock;
-    private String product_detail;
-    private String product_regist;
-    private int category_number;
+    private int productNumber;
+    private String productName;
+    private int productPrice;
+    private int productStock;
+    private String productDetail;
+    private String productRegist;
+    private int categoryNumber;
+
 }
