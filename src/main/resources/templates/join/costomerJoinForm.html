@@ -96,60 +96,124 @@
             }
         });
 
+        
+        $("#member_id").on("blur", function() {
+            // "사용 가능" 인 상태라면 "중복확인"으로 바꾸기
+            $("#idCheck").val("아이디 중복확인");
 
-        <!-- 아이디 중복 및 유효성 검사 -->
-        $("#idCheck").on("click", function() {
+            // 에러 메세지가 있다면 먼저, remove
+            $("#error_msg").remove();
 
-            if ($("#member_id").val() == "") {
-                alert("아이디를 입력해주세요.");
-                $("#member_id").focus();
-            }
+            var memberId = $("#member_id").val();
 
-            var specialText = /^[a-z0-9_]{6,20}$/;
-            if (!specialText.test($("#member_id").val())) {
-                alert("특수문자를 포함할 수 없습니다.(_언더바 허용)", '$("#member_id").val()');
+            // 아이디가 한글로 입력되었는 지 확인, 한글이라면 반려
+            var korean = /[ㄱ-ㅎㅏ-ㅣ가-힣]/g;
+            if (korean.test(memberId)) {
+                $("#error_msg").remove();
+                $("#member_id").after('<span id="error_msg" style="color: red;">한글은 포함할 수 없습니다.</span>');
                 $("#idCheck").val("사용 불가");
             }
 
+            // 아이디가 영문이 포함되었는 지 확인, 영문이 포함되지 않았다면 반려
+            var english = memberId.search(/[a-z]/g);
+            if (english < 0) {
+                $("#error_msg").remove();
+                $("#member_id").after('<span id="error_msg" style="color: red;">영문 소문자를 넣어주세요. </span>');
+                $("#idCheck").val("사용 불가");
+            }
+
+
+            // 특수문자가 포함되었는지 확인, 포함되었다면 반려
+            var normalText = /^[a-z0-9_]+$/;
+            if (!normalText.test(memberId)) {
+                $("#error_msg").remove();
+                $("#member_id").after('<span id="error_msg" style="color: red;">특수문자는 포함할 수 없습니다. (단, _ (언더바)는 허용)</span>');
+                $("#idCheck").val("사용 불가");
+            }
+
+
+            // 총 글자 수가 6자이상 ~ 20자이하 이내인지 확인, 미만이거나 초과라면 반려
+            var countText = /^.{6,20}$/;
+            if (!countText.test(memberId)) {
+                $("#error_msg").remove();
+                $("#member_id").after('<span id="error_msg" style="color: red;">총 글자수는 6자 이상 ~ 20자 이하 만 가능합니다.</span>');
+                $("#idCheck").val("사용 불가");
+            }
+        });
+        
+       
+       $("#idCheck").on("click", function() {
+            var memberId = $("#member_id").val();
+
+            <!-- 아이디가 빈칸인지 확인 -->
+            if (memberId.trim() === "") {
+                alert("아이디를 입력해주세요.");
+                $("#member_id").focus();
+                return;
+            }
+
+            <!-- 아이디가 한글로 입력되었는 지 확인, 한글이라면 반려 -->
+            var korean = /[ㄱ-ㅎㅏ-ㅣ가-힣]/g;
+            if (korean.test(memberId)) {
+                alert("한글은 포함할 수 없습니다.");
+                $("#member_id").val("");
+                $("#idCheck").val("사용 불가");
+                return;
+            }
+
+            <!-- 아이디가 영문이 포함되었는 지 확인, 영문이 포함되지 않았다면 반려 -->
+            var english = memberId.search(/[a-z]/g);
+            if (english < 0) {
+                alert("영문을 필히 포함해 주세요");
+                $("#member_id").val("");
+                $("#idCheck").val("사용 불가");
+                return;
+            }
+
+            <!-- 특수문자가 포함되었는지 확인, 포함되었다면 반려 -->
+            var normalText = /^[a-z0-9_]+$/;
+            if (!normalText.test(memberId)) {
+                alert("특수문자를 포함할 수 없습니다.( _ 허용)");
+                $("#member_id").val("");
+                $("#idCheck").val("사용 불가");
+                return;
+            }
+
+
+            <!-- 글자 수가 맞는지 확인, 아니라면 반려 -->
+            var countText = /^.{6,20}$/;
+            if (!countText.test(memberId)) {
+                alert("사용할 수 있는 글자 수는 6자 이상~20자 이하로만 가능합니다.");
+                $("#member_id").val("");
+                $("#idCheck").val("사용 불가");
+                return;
+            }
+
+            <!-- 4가지 체크가 끝난 뒤, 아이디 중복확인 -->
             $.ajax({
                 url: "idCheck",
                 type: "post",
                 dataType: "json",
-                data: {"member_id": $("#member_id").val()},
+                data: { "member_id": memberId },
                 success: function(data) {
                     if (data == 1) {
                         alert("중복된 아이디 입니다.");
                         $("#idCheck").val("사용 불가");
-                    } else if (specialText.test($("#member_id").val()) == true && $("#member_id").val() != "") {
-                        $("#idCheck").val("사용 가능");
+                    } else {
                         alert("사용 가능한 아이디 입니다.");
+                        $("#idCheck").val("사용 가능");
                     }
                 }
             });
         });
 
+        <!-- 아이디 체크를 한 뒤 "사용불가" 또는 "사용가능"인 상황, 아이디 칸에 어떤 값을 입력해도 중복확인으로 변경하도록 함 -->
         $("#member_id").on("input", function() {
-
-            var memberId = $("#member_id").val();
-
-            var korean = /[ㄱ-ㅎㅏ-ㅣ가-힣]/g;
-            if (korean.test(memberId)) {
-                alert("한글은 포함할 수 없습니다.","memberId");
-                $("#idCheck").val("사용 불가");
-            }
-
-            var english = memberId.search(/[a-z]/g);
-            if (memberId != "" && english < 0) {
-                alert("영문을 필히 포함해 주세요","memberId");
-                $("#idCheck").val("사용 불가");
-            }
-
-            var specialText = /^[a-z0-9_]{6,20}$/;
-            if (!specialText.test(memberId)) {
-                alert("특수문자를 포함할 수 없습니다.( _ 허용)","memberId");
-                $("#idCheck").val("사용 불가");
-            }
+            $("#idCheck").val("중복확인");
         });
+        
+        
+       
 
 
 
@@ -294,7 +358,7 @@
             <div class="row form-group">
               <div class="col-md-12">
                   <input type="text" id="member_id" name="member_id" class="form-control" placeholder="아이디 *" style="width: 500px;height: 54px;">
-                  <p class="text-primary">영문 소문자만 허용, 6자 ~ 20자 내외 (특수문자 제외함. 단, _ 가능)</p>
+                  <p class="text-primary">영문 소문자만 허용, 6자 이상 ~ 20자 이하 (특수문자 제외. 단, _ 가능)</p>
                   <input type="button" class="btn btn-outline-warning" id="idCheck" value="아이디 중복확인">
               </div>
             </div>
