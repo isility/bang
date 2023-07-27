@@ -147,8 +147,8 @@ x
 
         <main class="form-signin" style="max-width: 100%;">
             <div class="container border rounded flex-md-row mb-4 shadow-sm h-md-250">
-                <form action="reviewWrite" method="post">
-                    <h1>리뷰 작성</h1>
+                <form action="reviewModify" method="post">
+                    <h1>리뷰 수정</h1>
                     <div class="star-rating">
                         <input type="radio" name="star" class="star" id="star5" value="5" />
                         <label for="star5">&#9733;</label>
@@ -162,15 +162,12 @@ x
                         <label for="star1">&#9733;</label>
                         <input type="radio" name="star" class="star" id="star0" value="0" checked="checked" style="display: none;" />
                     </div>
-                    <div>
-                        <p>상품번호</p>
-                        <input type="text" id="product_number" name="product_number" value="">
-                    </div>
                     <div class="form-floating m-3">
                         <p>리뷰내용</p>
-                        <textarea class="form-control" rows="5" id="summernote" style="height: 450px;" name="reply_contents" th:text="${reply_contents}"></textarea>
-                        <input type="text" name="reply_writer" value="강아지">
+                        <textarea class="form-control" rows="5" id="summernote" style="height: 450px;" name="reply_contents" th:utext="${dto.reply_contents}"></textarea>
+                        <td><input type="hidden" name="reply_number" th:value="${dto.reply_number}"/></td>
                     </div>
+
                     <input type="submit" class="btn btn-success" value="작성">
                 </form>
             </div>

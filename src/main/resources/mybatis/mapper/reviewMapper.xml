@@ -21,9 +21,10 @@
         reply_number, reply_contents, reply_writer, reply_date, reply_step, reply_ref_order, reply_ref
         , reply_answer_number, reply_parent_number, reply_score, product_number
         FROM product_reply
+        WHERE reply_step = 0  <!-- 서브쿼리에도 조건 추가 -->
         ) AS derived
         WHERE rn BETWEEN #{startNo} AND #{endNo}
-        AND reply_step = 0;
+        AND reply_step = 0;  <!-- 메인 쿼리에 조건 추가 -->
     </select>
     <select id="getTotal" resultType="int">
         SELECT count(*)cnt
@@ -52,5 +53,10 @@
 
     </delete>
 
+    <update id="modifyReview" parameterType="ReviewDTO">
+        UPDATE product_reply
+        SET reply_contents=#{reply_contents}, reply_score=#{reply_score}
+        WHERE reply_number=#{reply_number}
+    </update>
 
 </mapper>

@@ -20,4 +20,5 @@ public interface ReviewDAO {
     void writeReply(ReviewDTO dto); // 리뷰 작성하는 insert
 
     void deleteReview(int reply_number);
+    void modifyReply(ReviewDTO dto);
 }

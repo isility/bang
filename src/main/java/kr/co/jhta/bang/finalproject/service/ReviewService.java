@@ -41,4 +41,6 @@ public class ReviewService {
     public void deleteReview(int reply_number){
         dao.deleteReview(reply_number);
     }
+
+    public void modifyReply(ReviewDTO dto)  {dao.modifyReply(dto);}
 }

@@ -54,7 +54,6 @@ public class ReviewController {
 
     @GetMapping("/reviewWrite")
     public String reviewWrite(){
-
         return "review/reviewWrite";
     }
 
@@ -73,7 +72,16 @@ public class ReviewController {
     }
 
     @GetMapping("/reviewModify")
-    public String modifyForm(){
+    public String modifyForm(@RequestParam("reply_number")int reply_number, Model model){
+        model.addAttribute("dto", service.findByReply_number(reply_number));
         return"review/reviewModify";
+    }
+
+    @PostMapping("/reviewModify")
+    public String modifyReply(@ModelAttribute ReviewDTO dto, @RequestParam("star") int star){
+        dto.setReply_score(star);
+        service.modifyReply(dto);
+        log.info(">>>>>>>>>>>>>dto {} ", dto);
+        return "redirect:/review/reviewList";
     }
 }

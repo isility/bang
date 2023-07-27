@@ -163,8 +163,10 @@ x
 							<input type="radio" name="star" class="star" id="star0" value="0" checked="checked" style="display: none;" />
 						</div>
 						<div>
-							<p>상품번호</p>
-							<input type="text" id="product_number" name="product_number" value="">
+							<p>구매이력</p>
+							<select>
+								<option th:each="option : ${options}" th:value="${option.value}" th:text="${option.label}"></option>
+							</select>
 						</div>
 						<div class="form-floating m-3">
 							<p>리뷰내용</p>
