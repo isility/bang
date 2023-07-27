@@ -13,17 +13,18 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 
 @Controller
-@RequestMapping("/payment")
 @Slf4j
+@RequestMapping("/payment")
 public class PaymentController {
 
     @Setter(onMethod_ = @Autowired)
     private KakaoPayService kakaopay;
 
 
-    @GetMapping("/kakaoPay")
-    public void kakaoPayGet() {
+    @RequestMapping("")
+    public String kakaoPayGet() {
         log.info("카카페 래디1");
+        return "payment/kakaopay";
     }
 
     @PostMapping("/kakaoPay")
