@@ -69,61 +69,11 @@
         padding-left: 30px;
         padding-right: 25px;
     }
-
     </style>
 
 
     <script type="text/javascript">
   $(document).ready(function(){
-            <!-- 필수 입력 알림 -->
-            $("#joinCorrect").on("click", function(){
-
-            if ($("#member_id").val() == "") {
-                alert("아이디를 입력해주세요.");
-                $("#member_id").focus();
-                return false;
-            }
-
-            if ($("#member_pw").val() == "") {
-            alert("비밀번호를 입력해주세요.");
-                $("#member_pw").focus();
-                return false;
-            }
-
-            if ($("#name").val() == "") {
-                alert("성명을 입력해주세요.");
-                $("#name").focus();
-                return false;
-            }
-
-            if ($("#nickname").val() == "") {
-                alert("닉네임을 입력해주세요.");
-                $("#nickname").focus();
-                return false;
-            }
-
-            if ($("#phone").val() == "") {
-                alert("연락처를 입력해주세요.");
-                $("#phone").focus();
-                return false;
-            }
-
-            var idChkVal = $("#idCheck").val();
-            var pwChkVal = $("#pwCheck").val();
-            if (idChkVal == "아이디 중복확인") {
-                alert("'아이디 중복확인' 버튼을 눌러주세요.");
-                $("#member_id").focus();
-                return false;
-            } else if (pwChkVal == "비밀번호를 다시 확인해주세요." ) {
-                alert("유효한 비밀번호를 입력해주셔야 합니다.");
-                $("#member_pw").focus();
-                return false;
-            } else if (idChkVal == "사용 가능" && pwChkVal == "비밀번호가 일치합니다. 비밀번호를 사용할 수 있습니다!" ) {
-                $("#joinForm").submit();
-            }
-        });
-
-        
         $("#member_id").on("blur", function() {
             // "사용 가능" 인 상태라면 "중복확인"으로 바꾸기
             $("#idCheck").val("아이디 중복확인");
@@ -242,29 +192,25 @@
 
         <!-- 아이디 체크를 한 뒤 "사용불가" 또는 "사용가능"인 상황, 아이디 칸에 어떤 값을 입력해도 중복확인으로 변경하도록 함 -->
         $("#member_id").on("input", function() {
-            $("#idCheck").val("중복확인");
+            $("#idCheck").val("아이디 중복확인");
         });
         
         
 
 
-
-
-
-
         <!-- 비밀번호 유효성 검사 -->
         $("#member_pw").on("input", function() {
             var memberPw = $("#member_pw").val();
-            var isValid = true;
+
+            // 조건이 충족되었을 경우 counting 할 변수
+            var conditionsMet = 0;
 
             if (memberPw == "") {
-                isValid = false;
             }
 
             // 1. 최소 8자 이상
             if (memberPw.length < 8) {
                 $("#pw_condition1").css("color", "red");
-                isValid = false;
             } else {
                 $("#pw_condition1").css("color", "green");
             }
@@ -272,7 +218,6 @@
             // 2. 영문 대문자와 영문 소문자가 모두 포함
             if (!/[a-z]/.test(memberPw) || !/[A-Z]/.test(memberPw)) {
                 $("#pw_condition2").css("color", "red");
-                isValid = false;
             } else {
                 $("#pw_condition2").css("color", "green");
             }
@@ -280,7 +225,6 @@
             // 3. 숫자가 적어도 1개 이상 포함
             if (!/\d/.test(memberPw)) {
                 $("#pw_condition3").css("color", "red");
-                isValid = false;
             } else {
                 $("#pw_condition3").css("color", "green");
             }
@@ -289,7 +233,6 @@
             // 한글을 입력하면 특수문자로 인식되는 오류가 있어서 특수문자를 직접 입력
             if (!/[!@#$%^&*()_+[\]{}|;:'",.<>?]/.test(memberPw)) {
                 $("#pw_condition4").css("color", "red");
-                isValid = false;
             } else {
                 $("#pw_condition4").css("color", "green");
             }
@@ -297,16 +240,57 @@
             // 5. 한글은 포함할 수 없음
             if (/[ㄱ-ㅎㅏ-ㅣ가-힣]/g.test(memberPw)) {
                 $("#pw_condition5").css("color", "red");
-                isValid = false;
             } else {
                 $("#pw_condition5").css("color", "green");
             }
 
-            // 모든 조건을 만족하는 경우, 유효한 비밀번호로 간주
+            // 조건 충족 여부를 확인하고, 만족하는 조건의 개수를 세어봅니다.
+              if (memberPw.length >= 8) {
+                conditionsMet++;
+              }
+
+              if (/[a-z]/.test(memberPw) && /[A-Z]/.test(memberPw)) {
+                conditionsMet++;
+              }
+
+              if (/\d/.test(memberPw)) {
+                conditionsMet++;
+              }
+
+              if (/[!@#$%^&*()_+[\]{}|;:'",.<>?]/.test(memberPw)) {
+                conditionsMet++;
+              }
+
+              if (!/[ㄱ-ㅎㅏ-ㅣ가-힣]/g.test(memberPw)) {
+                conditionsMet++;
+              }
+
+              // 조건 충족 여부에 따라 게이지 요소를 보여주거나 숨깁니다.
+              if (memberPw === "") {
+                $("#gauge30").hide();
+                $("#gauge60").hide();
+                $("#gauge100").hide();
+              } else if (conditionsMet <= 2) {
+                $("#gauge30").show(); // 30% 강도의 게이지를 보여줍니다.
+                $("#gauge60").hide();
+                $("#gauge100").hide();
+              } else if (conditionsMet <= 4) {
+                $("#gauge30").hide();
+                $("#gauge60").show(); // 65% 강도의 게이지를 보여줍니다.
+                $("#gauge100").hide();
+              } else {
+                $("#gauge30").hide();
+                $("#gauge60").hide();
+                $("#gauge100").show(); // 100% 강도의 게이지를 보여줍니다.
+            }
+
+
+
+            // 조건을 3가지 이상 만족하는 경우, 유효한 비밀번호로 간주
             if (memberPw == "") {
                 $("#error_msg2").hide(); // 입력값이 빈칸인 경우 메시지를 숨김
                 $("#pwCheck").hide();
-            } else if (isValid) {
+            } else if (conditionsMet >= 3) {
                 $("#error_msg2").show(); // 조건을 모두 만족하는 경우 메시지를 보여줌
                 $("#pwCheck").show();
             } else {
@@ -348,6 +332,57 @@
 
 
 
+
+
+        <!-- email 형식이 적절한지 확인 -->
+        $("#email").on("input", function() {
+            var email = $("#email").val();
+            if (/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+                $("#emailCorrect").css("display", "block");
+                $("#emailNotCorrect").css("display", "none");
+            } else {
+                $("#emailCorrect").css("display", "none");
+                $("#emailNotCorrect").css("display", "block");
+            }
+        })
+
+
+        <!-- email 인증하기 버튼을 누르면 본인인증 진행 -->
+        $("#emailCheck").on("click", function() {
+            <!-- 사용자 입력 이메일 주소 받기 -->
+            $.ajax({
+                url: "emailCheck",
+                type: "post",
+                dataType: "json",
+                data: { "member_email": $("#email").val() },
+                success: function(data) {
+                    <!--서버로부터 응답을 받은 경우-->
+                    alert("메일이 발송되었습니다! 메일을 확인해주세요.");
+                    $("#emailCheckResultmsg").css("display", "block");
+                    $("#emailCheckResult").css("display", "block");
+                    $("#emailCodeCheck").css("display", "block");
+
+                    console.log(data);
+
+                    <!-- 인증코드와 입력한 코드가 동일한지 확인 -->
+                    $("#emailCodeCheck").on("click", function() {
+                        var inputCode = $("#emailCheckResult").val(); // 사용자가 입력한 인증코드
+                        if (inputCode == data) {
+                            $("#emailCodeCorrect").css("display", "block");
+                            $("#emailCodeNotCorrect").css("display", "none");
+                        } else {
+                            $("#emailCodeCorrect").css("display", "none");
+                            $("#emailCodeNotCorrect").css("display", "block");
+                        }
+                    })
+                },
+                error: function(xhr, status, error) {
+                    <!--서버로부터 응답을 받지 못한 경우 또는 에러가 발생한 경우-->
+                    alert("메일 발송에 실패했습니다. 다른 이메일을 사용해주세요.");
+                }
+            });
+
+        })
 
 
 
@@ -405,6 +440,74 @@
             }
         }).open();
         }
+
+
+
+
+
+        <!-- 필수 입력 알림 -->
+        $("#joinCorrect").on("click", function () {
+        if ($("#member_id").val() == "") {
+          alert("아이디를 입력해주세요.");
+          $("#member_id").focus();
+          return false;
+        }
+
+        if ($("#member_pw").val() == "") {
+          alert("비밀번호를 입력해주세요.");
+          $("#member_pw").focus();
+          return false;
+        }
+
+        if ($("#email").val() == "") {
+          alert("이메일을 입력해주세요.");
+          $("#email").focus();
+          return false;
+        }
+
+        if ($("#name").val() == "") {
+          alert("성명을 입력해주세요.");
+          $("#name").focus();
+          return false;
+        }
+
+        if ($("#nickname").val() == "") {
+          alert("닉네임을 입력해주세요.");
+          $("#nickname").focus();
+          return false;
+        }
+
+        if ($("#phone").val() == "") {
+          alert("연락처를 입력해주세요.");
+          $("#phone").focus();
+          return false;
+        }
+
+        var idChkVal = $("#idCheck").val();
+        var emailChkVal = $("#emailCodeNotCorrect").val();
+
+
+        <!-- 중복 확인과 유효성 검사를 완료하지 않은 경우 알림 메시지 출력-->
+        if (idChkVal != "사용 가능") {
+            alert("아이디가 유효하지 않거나, 중복된 아이디입니다.");
+            $("#member_id").focus();
+            return false;
+        } else if ($("#pwCorrect").css("display") != "block") {
+            alert("비밀번호가 유효하지 않거나, 비밀번호 확인이 필요합니다.");
+            $("#member_pw").focus();
+            return false;
+        } else if ($("#emailCodeCorrect").css("display") != "block") {
+            alert("이메일 본인인증을 진행해주셔야 합니다.");
+            $("#email").focus();
+            return false;
+        }
+
+        if ( idChkVal == "사용 가능" && $("#pwCorrect").css("display") != "block" && $("#emailCodeCorrect").css("display") != "block"){
+            <!-- 중복 확인과 유효성 검사를 모두 완료했을 때 가입 처리-->
+            $("#joinForm").submit();
+        }
+
+      });
     });
 
     </script>
@@ -487,22 +590,32 @@
                                 <input type="text" id="member_pw" name="member_pw" class="form-control"
                                        placeholder="비밀번호 *" value="" style="width: 500px;height: 54px;">
                                 <p id="error_msg2" style="color: green; display: none;">유효한 비밀번호 입니다.</p>
-                                <p class="text-primary">모든 조건이 충족되어 유효하다면, 초록색 글자로 변경됩니다.</p>
-                                <div class="progress" style="display: block;">
-                                    <div class="progress-bar bg-success" id="gauge30" role="progressbar"
-                                         aria-label="Success example" style="width: 30%;" aria-valuenow="25"
-                                         aria-valuemin="0" aria-valuemax="100">보안 약함
+                                <div class="row form-group">
+                                    <div class="col-md-12">
+                                        <input type="text" id="pwCheck" class="form-control" placeholder="비밀번호 확인 *" value=""
+                                               style="width: 500px;height: 54px; display: none;">
+                                        <p class="text-success" style="display: none;" id="pwCorrect">비밀번호가 일치합니다. 비밀번호를 사용할 수
+                                            있습니다!</p>
+                                        <p class="text-danger" style="display: none;" id="pwNotCorrect">비밀번호를 다시 확인해주세요.</p>
                                     </div>
                                 </div>
-                                <div class="progress" style="display: none;">
-                                    <div class="progress-bar bg-warning" id="gauge65" role="progressbar"
-                                         aria-label="Warning example" style="width: 65%" aria-valuenow="75"
+                                <p class="text-primary">조건이 충족되어 유효하다면, 초록색 글자로 변경됩니다.</p>
+                                <p class="text-primary">조건을 3가지 이상 충족해야 비밀번호로 사용할 수 있습니다.</p>
+                                <div class="progress" id="gauge30"  style="display: block;">
+                                    <div class="progress-bar bg-success" role="progressbar"
+                                         aria-label="Success example" style="width: 30%; background-color: #F8A1A4; color: black;" aria-valuenow="25"
+                                         aria-valuemin="0" aria-valuemax="100">보안 취약
+                                    </div>
+                                </div>
+                                <div class="progress" id="gauge60"  style="display: none;">
+                                    <div class="progress-bar bg-warning" role="progressbar"
+                                         aria-label="Warning example" style="width: 60%; background-color: #FFFA99; color: black;" aria-valuenow="75"
                                          aria-valuemin="0" aria-valuemax="100">보안 좋음
                                     </div>
                                 </div>
-                                <div class="progress" style="display: none;">
-                                    <div class="progress-bar bg-danger" id="gauge100" role="progressbar"
-                                         aria-label="Danger example" style="width: 100%" aria-valuenow="100"
+                                <div class="progress" id="gauge100" style="display: none;">
+                                    <div class="progress-bar bg-danger" role="progressbar"
+                                         aria-label="Danger example" style="width: 100%;  background-color: #98E0AD; color: black;" aria-valuenow="100"
                                          aria-valuemin="0" aria-valuemax="100">보안 최적
                                     </div>
                                 </div>
@@ -514,15 +627,7 @@
                             </div>
                         </div>
 
-                        <div class="row form-group">
-                            <div class="col-md-12">
-                                <input type="text" id="pwCheck" class="form-control" placeholder="비밀번호 확인 *" value=""
-                                       style="width: 500px;height: 54px; display: none;">
-                                <p class="text-success" style="display: none;" id="pwCorrect">비밀번호가 일치합니다. 비밀번호를 사용할 수
-                                    있습니다!</p>
-                                <p class="text-danger" style="display: none;" id="pwNotCorrect">비밀번호를 다시 확인해주세요.</p>
-                            </div>
-                        </div>
+
 
 
                         <h4 style="color:#7E7E7E ; font-weight: bold; position: relative;">Email</h4>
@@ -531,9 +636,15 @@
                                 <!-- <label for="email">Email</label> -->
                                 <input type="text" id="email" name="member_email" class="form-control"
                                        placeholder="이메일 *" style="width: 500px;height: 54px;">
+                                <p class="text-success" style="display: none;" id="emailCorrect">완벽한 이메일!</p>
+                                <p class="text-danger" style="display: none;" id="emailNotCorrect">올바른 이메일 형식이 아닙니다.</p>
                                 <input type="button" class="btn btn-outline-warning" id="emailCheck" value="본인 인증하기">
+                                <p class="text-primary" style="display: none;" id="emailCheckResultmsg">발송된 이메일을 확인하시고, 6자리 코드를 아래에 입력해주세요.</p>
                                 <input type="text" id="emailCheckResult" name="email" class="form-control"
-                                       placeholder="인증코드 6자리" style="width: 500px;height: 54px;">
+                                    placeholder="인증코드 6자리" maxlength="6" style="width: 500px;height: 54px; display: none;">
+                                <input type="button" class="btn btn-outline-warning" style="display: none;" id="emailCodeCheck" value="확인">
+                                <span class="text-success" style="display: none;" id="emailCodeCorrect">인증되었습니다!</span>
+                                <span class="text-danger" style="display: none;" id="emailCodeNotCorrect">인증번호를 다시 확인해주세요.</span>
                             </div>
                         </div>
 

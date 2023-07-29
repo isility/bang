@@ -2,11 +2,15 @@ package kr.co.jhta.bang.finalproject.control;
 
 import kr.co.jhta.bang.finalproject.dto.MemberDTO;
 import kr.co.jhta.bang.finalproject.dto.PersonDTO;
+import kr.co.jhta.bang.finalproject.service.EmailService;
 import kr.co.jhta.bang.finalproject.service.MemberService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+
+import javax.mail.MessagingException;
+import java.io.UnsupportedEncodingException;
 
 @Slf4j
 @Controller
@@ -14,6 +18,8 @@ public class JoinController {
 
     @Autowired
     MemberService memberService;
+    @Autowired
+    EmailService emailService;
 
     @GetMapping("/join")
     public String join() {
@@ -39,6 +45,16 @@ public class JoinController {
 
     @GetMapping("/businessJoinForm")
     public String businessJoinForm() { return "join/businessJoinForm.html"; }
+
+
+    @ResponseBody
+    @PostMapping("/emailCheck")
+    public String emailCheck(@RequestParam("member_email")String email) throws MessagingException, UnsupportedEncodingException {
+        return emailService.sendEmail(email);
+    }
+
+
+
 
 
     @PostMapping("/costomerJoinForm")
