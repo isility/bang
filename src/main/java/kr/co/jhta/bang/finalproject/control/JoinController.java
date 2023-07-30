@@ -21,6 +21,7 @@ public class JoinController {
     @Autowired
     EmailService emailService;
 
+
     @GetMapping("/join")
     public String join() {
         return "join/join.html";
@@ -33,9 +34,7 @@ public class JoinController {
     }
 
     @GetMapping("/costomerJoinForm")
-    public String costomerJoinForm() {
-        return "join/costomerJoinForm.html";
-    }
+    public String costomerJoinForm() { return "join/costomerJoinForm.html"; }
 
     @GetMapping("/businessOk")
     public String businessOk() { return "join/businessOk.html"; }
@@ -52,9 +51,6 @@ public class JoinController {
     public String emailCheck(@RequestParam("member_email")String email) throws MessagingException, UnsupportedEncodingException {
         return emailService.sendEmail(email);
     }
-
-
-
 
 
     @PostMapping("/costomerJoinForm")
