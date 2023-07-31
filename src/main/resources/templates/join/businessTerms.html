@@ -87,7 +87,7 @@
             var checkBox3 = document.getElementById("flexCheckDefault3");
             var checkAgree = document.getElementById("notAgree");
             if(checkBox3.checked) {
-                window.location.href = "businessJoinForm";
+                window.location.href = "costomerJoinForm";
             } else {
                 checkAgree.style.display = "block";
             }
@@ -191,6 +191,7 @@
     <div class="container">
       <div class="row">
 
+        <form action="businessTerms" method="post">
         <div class="col-md-6 animate-box" style="position: relative; left: 300px;">
           <h2 style="color:#7E7E7E ; font-weight: bold; position: relative; text-align: center;">사업자회원 가입약관</h2>
           <hr>
@@ -272,24 +273,26 @@
                 <label class="text__label" for="flexCheckDefault3">
                   약관 및 개인정보 수집, 이용에 모두 동의합니다.
                 </label>
+                <input type="hidden" id="bzNum" name="bzNum" value="">
               </div>
 
             </div>
           </div>
 
 
+            
+
+            <div class="form-group">
+              <input type="submit" value="NEXT" class="button__basic" style="width: 450px; height: 54px; margin-top: 20px; margin-left: 50px; top: 10px;" onclick="beforeAgree()">
+            </div>
 
 
-          <div class="form-group">
-            <input type="button" value="NEXT" class="button__basic" style="width: 450px; height: 54px; margin-top: 20px; margin-left: 50px; top: 10px;" onclick="beforeAgree()">
+            <div class="alert alert-danger" id="notAgree" role="alert" style="font-weight: bold; width: 450px; height: 54px; margin-top: 20px; margin-left: 50px;">
+              모두 동의하지 않으면 회원 가입이 제한됩니다.
+            </div>
+
           </div>
-
-
-          <div class="alert alert-danger" id="notAgree" role="alert" style="font-weight: bold; width: 450px; height: 54px; margin-top: 20px; margin-left: 50px;">
-            모두 동의하지 않으면 회원 가입이 제한됩니다.
-          </div>
-
-        </div>
+        </form>
       </div>
 
     </div>

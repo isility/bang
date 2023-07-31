@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.mail.MessagingException;
+import javax.servlet.http.HttpSession;
 import java.io.UnsupportedEncodingException;
 
 @Slf4j
@@ -38,19 +39,38 @@ public class JoinController {
     public String costomerJoinForm() { return "join/costomerJoinForm.html"; }
 
     @GetMapping("/businessOk")
-    public String businessOk() {
+    public String businessOk() { return "join/businessOk.html"; }
 
-        return "join/businessOk.html";
-    }
-
-    @GetMapping("/businessTerms")
-    public String businessTerms() {
-
+    @PostMapping("/businessOk")
+    public String businessNumber(@RequestParam("bzNum")String bzNum,
+                               HttpSession session) {
+        /* 사업자 번호를 여기로 저장 */
+        session.setAttribute("bzNum", bzNum);
+        log.info("businessOk 의 session에 담긴 값 : " + session.getAttribute("bzNum"));
         return "join/businessTerms.html";
     }
 
+
+    @GetMapping("/businessTerms")
+    public String businessTerms(HttpSession session) {
+        return "join/businessTerms.html";
+    }
+
+    @PostMapping("/businessTerms")
+    public String businessNumberForm(HttpSession session) {
+        session.setAttribute("bzNum", session.getAttribute("bzNum"));
+        log.info("businessTerms 의 session에 담긴 값 : " + session.getAttribute("bzNum"));
+        return "join/businessJoinForm.html";
+    }
+
+
+
+
     @GetMapping("/businessJoinForm")
-    public String businessJoinForm() { return "join/businessJoinForm.html"; }
+    public String businessJoinForm(HttpSession session) {
+        log.info("businessJoinForm 의 session에 담긴 값 : " + session.getAttribute("bzNum"));
+        return "join/businessJoinForm.html";
+    }
 
 
     @ResponseBody
@@ -92,10 +112,12 @@ public class JoinController {
     @PostMapping("/businessJoinForm")
     public String businessJoinOk(@ModelAttribute MemberDTO memberDto,
                                  @ModelAttribute CompanyDTO companyDto,
-                                 @RequestParam(name = "email_check", defaultValue = "0")int emailCheck) {
+                                 @RequestParam(name = "email_check", defaultValue = "0")int emailCheck,
+                                 HttpSession session) {
 
         log.info("사업자 회원 가입 dto :" + memberDto + companyDto);
         log.info("이메일 수신 여부 : " + emailCheck);
+        log.info("businessJoinForm 의 session 에 담긴 값 : " + (String) session.getAttribute("bzNum"));
 
         if(idCheck(memberDto.getMember_id()) == 1) {
             // id 또는 닉네임이 이미 존재할 때
@@ -105,6 +127,7 @@ public class JoinController {
             // id가 신규일 때
             memberDto.setMember_type(2);
             memberDto.setRole_number(2);
+            companyDto.setCompany_registnumber((String) session.getAttribute("bzNum"));
             memberService.insertMemberOne(memberDto);
             memberService.insertCompanyOne(companyDto);
 

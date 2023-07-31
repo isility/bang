@@ -96,13 +96,6 @@
 
   <script type="text/javascript">
   $(document).ready(function(){
-
-        var params = new URLSearchParams(window.location.search);
-        var bzNum = params.get('bzNum');
-
-        $("#bzNum").val(bzNum);
-        $("#bzNum").prop("readonly", true);
-
         $("#member_id").on("blur", function() {
             // "사용 가능" 인 상태라면 "중복확인"으로 바꾸기
             $("#idCheck").val("아이디 중복확인");
@@ -752,12 +745,6 @@
             <br>
 
             <h4 style="color:#7E7E7E ; font-weight: bold; position: relative;">사업자등록정보</h4>
-            <div class="row form-group">
-              <div class="col-md-12">
-                <h5 style="color:#7E7E7E ; font-weight: bold; position: relative;">사업자등록번호</h5>
-                <input type="text" id="bzNum" name="company_registnumber" class="form-control" value="" style="width: 500px;height: 54px;">
-              </div>
-            </div>
             <div class="row form-group">
               <div class="col-md-12">
                 <input type="text" id="bankname" name="company_bank" class="form-control"

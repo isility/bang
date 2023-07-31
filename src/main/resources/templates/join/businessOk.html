@@ -81,10 +81,6 @@
             });
         });
 
-        $("#joinUs").on("click", function() {
-            window.location.href = "businessTerms";
-        });
-
   });
 </script>
 
@@ -207,7 +203,7 @@
     <div class="innercontainer">
       <div class="rowcontents">
 
-
+        <form action="businessOk" method="post">
           <div class="form-group">
             <input type="hidden" id="sellerType" name="sellerType" value="BizSeller" >
           </div>
@@ -239,13 +235,13 @@
             </div>
           </div>
 
-        <span class="box__section section-fixed--button">
-            <button id="checkAuth" type="button" class="btn btn-primary btn-outline">인증하기</button>
-        </span>
-        <span class="box__section section-fixed--button">
-            <button id="joinUs" type="button" class="btn btn-primary btn-outline" style="display : none;">가입하기</button>
-        </span>
-
+          <span class="box__section section-fixed--button">
+              <button id="checkAuth" type="button" class="btn btn-primary btn-outline">인증하기</button>
+          </span>
+          <span class="box__section section-fixed--button">
+              <input id="joinUs" type="submit" class="btn btn-primary btn-outline" style="display : none;" value="가입하기">
+          </span>
+        </form>
         <!-- step  -->
 
 
