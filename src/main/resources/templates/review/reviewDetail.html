@@ -274,13 +274,16 @@
         const writer = document.getElementById("replyWriter").value;
         const contents = document.getElementById("replyContents").value;
         const number = /*[[${reviewDTO.replyNumber}]]*/;
+        const ref = /*[[${reviewDTO.replyRef}]]*/;
         $.ajax({
             type: "post",
             url: "/review/reviewDetail",
             data: {
                 replyWriter: writer,
                 replyContents: contents,
-                replyNumber: number
+                replyNumber: number,
+                replyRef: ref
+
             },
             dataType: "json",
             success: function(commentList) {

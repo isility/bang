@@ -42,7 +42,7 @@ public class ReviewController {
     @GetMapping("/reviewDetail")
     public String reviewDetail(@RequestParam("replyNumber") int replyNumber, Model model){
         model.addAttribute("reviewDTO", service.findByReply_number(replyNumber));
-        log.info("-----------------{}", replyNumber);
+        log.info("-----------------replyNumber : {}", replyNumber);
         //log.info(">>>>>>>>>>>>>>>>>>>>GET {}", service.commentsSave(replyNumber));
 
 
@@ -52,7 +52,9 @@ public class ReviewController {
     @PostMapping("/reviewDetail")
     public @ResponseBody List<ReviewDTO> save(@ModelAttribute ReviewDTO reviewDTO){
 
-        log.info("reviewDTO {} ", reviewDTO);
+
+        log.info("reviewDTO :   {} ", reviewDTO);
+
 
         return null;
     }

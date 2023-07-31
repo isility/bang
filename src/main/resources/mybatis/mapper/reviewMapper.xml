@@ -83,6 +83,7 @@
         reply_contents AS replyContents,
         reply_writer AS replyWriter,
         reply_date AS replyDate,
+        reply_ref AS replyRef,
         reply_step AS replyStep,
         reply_ref_order AS replyRefOrder,
         reply_answer_number AS replyAnswerNumber,
