@@ -52,7 +52,7 @@ public class ReviewController {
     @PostMapping("/reviewDetail")
     public @ResponseBody List<ReviewDTO> save(@ModelAttribute ReviewDTO reviewDTO){
 
-        log.info("reviewDTO", reviewDTO);
+        log.info("reviewDTO {} ", reviewDTO);
 
         return null;
     }

@@ -269,25 +269,28 @@
 
 </body>
 
-<script>
-
+<script th:inline="javascript">
     const commentWrite = () => {
         const writer = document.getElementById("replyWriter").value;
         const contents = document.getElementById("replyContents").value;
-        const number = ${replyNumber};
+        const number = /*[[${reviewDTO.replyNumber}]]*/;
         $.ajax({
             type: "post",
-            url: "/reviewDetail",
+            url: "/review/reviewDetail",
             data: {
                 replyWriter: writer,
                 replyContents: contents,
                 replyNumber: number
-                },
-            dataType: "json"
+            },
+            dataType: "json",
             success: function(commentList) {
                 console.log("작성성공");
+            },
+            error: function(){
+                console.log("실패");
             }
         });
     }
 </script>
+
 </html>
