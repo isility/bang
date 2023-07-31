@@ -76,9 +76,9 @@
             <li class="has-dropdown">
               <a th:href="@{/community.html}">COMMUNITY</a>
               <ul class="dropdown">
-                <li><a th:href="@{notice}">공지사항</a></li>
-                <li><a th:href="@{review}">REVIEW</a></li>
-                <li><a th:href="@{qna}">Q&A</a></li>
+                <li><a th:href="@{/notice/noticeList}">공지사항</a></li>
+                <li><a th:href="@{/review/reviewList}">REVIEW</a></li>
+                <li><a th:href="@{/qna/qnaList}">Q&A</a></li>
               </ul>
             </li>
           </ul>
@@ -130,7 +130,7 @@
 
 
 
-        <form action="qwrite" method="post">
+        <form action="qnaWrite" method="post">
           <select name="qna_type" id="category">
             <option value="">카테고리선택</option>
             <option value="상품문의">상품문의</option>
@@ -138,6 +138,12 @@
             <option value="회원정보문의">회원정보문의</option>
             <option value="기타문의">기타문의</option>
           </select>
+
+            <div style="width:70px; float:right;">
+            비밀글
+              <input type="checkbox" th:value="*{qna_secret}" id="qna_secret" name="qna_secret" th:checked="*{#strings.equals( qna_secret, 'Y' )}" />
+            </div>
+
           <table class="table">
             <tr>
               <th>작성자</th>
@@ -153,8 +159,10 @@
             </tr>
             <tr>
               <td colspan="2">
-                <a class="btn btn-outline-primary" href="qlist">목록</a>
-                <input class="btn btn-outline-success" type="submit" value="작성" />
+                <div style="float:right;">
+                  <a class="btn btn-outline-primary" th:href="@{/qna/qnaList}">목록</a>
+                  <input class="btn btn-outline-success" type="submit" value="작성" />
+                </div>
               </td>
             </tr>
           </table>
@@ -346,6 +354,29 @@
 		});
 
 	</script>
+<th:block layout:fragment="script">
+<script th:inline="javascript">
+			/*<![CDATA[*/
+
+			function addOne(form) {
+
+				form.qna_secret.value = form.qna_secret.checked == false ? 'N' : 'Y';
+
+				var result = (
+						   isValid(form.qna_writer, "작성자", null, null)
+						&& isValid(form.qna_title, "제목", null, null)
+						&& isValid(form.qna_contents, "내용", null, null)
+				);
+
+				if ( result == false ) {
+					return false;
+				}
+			}
+			/*[- end of function -]*/
+
+			/*]]>*/
+		</script>
+</th:block>
 </body>
 </html>
 
