@@ -24,6 +24,12 @@
     <!-- <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet"> -->
     <!-- <link href="https://fonts.googleapis.com/css?family=Playfair+Display:400,400i" rel="stylesheet"> -->
 
+    <link rel="stylesheet" type="text/css" href="//script.gmarket.com/signup/css/app.css?t=0803" />
+
+    <link rel="stylesheet" type="text/css" href="//script.gmarket.co.kr/pc/css/ko/common.css"/>
+    <link rel="stylesheet" type="text/css" href="//script.gmarket.co.kr/pc/css/ko/member_login.css?v=20230504"/>
+
+
     <!-- Animate.css -->
     <link rel="stylesheet" href="css/animate.css">
     <!-- Icomoon Icon Fonts-->
@@ -48,6 +54,20 @@
     <!--[if lt IE 9]>
     <script src="js/respond.min.js"></script>
     <![endif]-->
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+
+    <style>
+        .link__login-option {
+            font-size: 20px;
+        }
+
+        .fh5co-social-icons {
+            margin-left: 30px;
+        }
+
+    </style>
 
 </head>
 <body>
@@ -101,31 +121,55 @@
 
                 <div class="col-md-6 animate-box" style="position: relative; left: 300px;">
                     <h3 style="color:#7E7E7E ; font-weight: bold; position: relative; left: 200px;">LOGIN</h3>
-                    <form action="#">
-
+                    <form action="login" method="post">
 
                         <div class="row form-group">
                             <div class="col-md-12">
-                                <!-- <label for="email">Email</label> -->
-                                <input type="text" id="id" class="form-control" placeholder="ID" style="width: 500px;height: 54px;">
+                                <input type="text" id="id" name="member_id" class="form-control" placeholder="ID" style="width: 500px;height: 54px;">
                             </div>
                         </div>
 
                         <div class="row form-group">
                             <div class="col-md-12">
-                                <!-- <label for="subject">Subject</label> -->
-                                <input type="text" id="pw" class="form-control" placeholder="PW" style="width: 500px;height: 54px;">
+                                <input type="text" id="pw" name="member_pw" class="form-control" placeholder="PW" style="width: 500px;height: 54px;">
                             </div>
                         </div>
 
+                        <div class="form-check">
+                            <input class="form__checkbox" type="checkbox" value="" id="autoLogin">
+                            <label class="text__label" for="autoLogin">
+                                자동 로그인
+                            </label>
+                        </div>
+
+                        <br>
 
                         <div class="form-group">
-                            <input type="submit" value="LOGIN" class="btn btn-primary" style="width: 500px;height: 54px;">
+                            <input type="submit" value="LOGIN" class="button__submit" style="width: 500px;height: 54px; background-color: #D1C286; color: white;">
                         </div>
 
-                        <div>
-                            <input type="checkbox" name="" id="">
+                        <br>
+
+                        <ul class="fh5co-social-icons">
+                            <li><a href="#" id="goFindID" class="link__login-option" >아이디 찾기</a></li>|
+                            <li><a href="#" id="goFindPassword" class="link__login-option" >비밀번호 재설정</a></li>|
+                            <li><a href="join" id="goDefault" class="link__login-option" >회원가입</a></li>
+                        </ul>
+
+                        <div class="box__login-other">
+
+                            <div class="box__social type-icon">
+                                <a href="#" id="social_login-type-kakao" data-montelena-acode="" class="link__social-login type-kakao sprite__login--before" aria-label="카카오로 로그인하기"></a>
+                                <a href="#" id="social_login-type-apple" data-montelena-acode="" class="link__social-login type-apple sprite__login--before" aria-label="애플로 로그인하기"></a>
+                            </div>
+                            <div id="appleid-signin" data-type="sign in" style="display:none"></div>
                         </div>
+
+                        <br>
+
+                        <h3 style="color:#7E7E7E ; font-weight: bold; position: relative; left: 150px;">SOCIAL LOGIN</h3>
+
+                        <p></p>
 
                     </form>
                 </div>

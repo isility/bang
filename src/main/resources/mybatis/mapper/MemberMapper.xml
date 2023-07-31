@@ -17,4 +17,10 @@
         WHERE member_id = #{member_id}
     </select>
 
+    <select id="pwCheck" parameterType="String" resultType="String">
+        SELECT member_pw
+        FROM member
+        WHERE member_id = #{member_id}
+    </select>
+
 </mapper>

@@ -33,4 +33,7 @@ public class MemberService {
     }
 
     public int nicknameCheck(String nickname) { return personDao.nicknameCheck(nickname); }
+
+    public String pwCheck(String memberId) { return memberDao.pwCheck(memberId);
+    }
 }
