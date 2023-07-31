@@ -1,5 +1,6 @@
 package kr.co.jhta.bang.finalproject.control;
 
+import kr.co.jhta.bang.finalproject.dto.CompanyDTO;
 import kr.co.jhta.bang.finalproject.dto.MemberDTO;
 import kr.co.jhta.bang.finalproject.dto.PersonDTO;
 import kr.co.jhta.bang.finalproject.service.EmailService;
@@ -37,10 +38,16 @@ public class JoinController {
     public String costomerJoinForm() { return "join/costomerJoinForm.html"; }
 
     @GetMapping("/businessOk")
-    public String businessOk() { return "join/businessOk.html"; }
+    public String businessOk() {
+
+        return "join/businessOk.html";
+    }
 
     @GetMapping("/businessTerms")
-    public String businessTerms() { return "join/businessTerms.html"; }
+    public String businessTerms() {
+
+        return "join/businessTerms.html";
+    }
 
     @GetMapping("/businessJoinForm")
     public String businessJoinForm() { return "join/businessJoinForm.html"; }
@@ -53,6 +60,8 @@ public class JoinController {
     }
 
 
+
+
     @PostMapping("/costomerJoinForm")
     public String costomerJoinOk(@ModelAttribute MemberDTO memberDto,
                                  @ModelAttribute PersonDTO personDto,
@@ -61,13 +70,14 @@ public class JoinController {
         log.info("일반 회원 가입 dto :" + memberDto + personDto);
         log.info("이메일 수신 여부 : " + emailCheck);
 
-        if(idCheck(memberDto.getMember_id()) == 1) {
-            // id가 이미 존재할 때
-            
+        if(idCheck(memberDto.getMember_id()) == 1 || nicknameCheck(personDto.getPerson_nickname()) == 1 ) {
+            // id 또는 닉네임이 이미 존재할 때
+
             return "join/costomerJoinForm.html";
         } else if (idCheck(memberDto.getMember_id()) == 0) {
             // id가 신규일 때
-            
+            memberDto.setMember_type(1);
+            memberDto.setRole_number(1);
             memberService.insertMemberOne(memberDto);
             memberService.insertPersonOne(personDto);
 
@@ -76,9 +86,45 @@ public class JoinController {
         return "redirect:index.html";
     }
 
+
+
+
+    @PostMapping("/businessJoinForm")
+    public String businessJoinOk(@ModelAttribute MemberDTO memberDto,
+                                 @ModelAttribute CompanyDTO companyDto,
+                                 @RequestParam(name = "email_check", defaultValue = "0")int emailCheck) {
+
+        log.info("사업자 회원 가입 dto :" + memberDto + companyDto);
+        log.info("이메일 수신 여부 : " + emailCheck);
+
+        if(idCheck(memberDto.getMember_id()) == 1) {
+            // id 또는 닉네임이 이미 존재할 때
+
+            return "join/businessJoinForm.html";
+        } else if (idCheck(memberDto.getMember_id()) == 0) {
+            // id가 신규일 때
+            memberDto.setMember_type(2);
+            memberDto.setRole_number(2);
+            memberService.insertMemberOne(memberDto);
+            memberService.insertCompanyOne(companyDto);
+
+            return "login/login.html";
+        }
+        return "redirect:index.html";
+    }
+
+
+
     @ResponseBody
     @PostMapping("/idCheck")
     public int idCheck(@RequestParam("member_id")String memberId) {
         return memberService.idCheck(memberId);
+    }
+
+
+    @ResponseBody
+    @PostMapping("/nicknameCheck")
+    public int nicknameCheck(@RequestParam("nickname")String nickname) {
+        return memberService.nicknameCheck(nickname);
     }
 }

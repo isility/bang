@@ -1,14 +1,12 @@
 package kr.co.jhta.bang.finalproject.dao;
 
-import kr.co.jhta.bang.finalproject.dto.PersonDTO;
+import kr.co.jhta.bang.finalproject.dto.CompanyDTO;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
 @Mapper
 @Repository
-public interface PersonDAO {
+public interface CompanyDAO {
 
-    void insertOne(PersonDTO dto);
-
-    int nicknameCheck(String nickname);
+    void insertOne(CompanyDTO dto);
 }

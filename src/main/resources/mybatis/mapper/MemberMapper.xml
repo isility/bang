@@ -8,7 +8,7 @@
     <insert id="insertOne" parameterType="MemberDTO">
         INSERT INTO member
         VALUES (#{member_id}, #{member_pw}, #{member_token}, #{member_name}, #{member_phone}, #{member_postal}, #{member_address1}, #{member_address2},
-        #{member_email}, #{email_check}, DATE(NOW()), 0, #{member_profile}, #{role_number}, #{grade_number}, #{platformtype_number})
+        #{member_email}, #{email_check}, DATE(NOW()), #{member_type}, #{member_profile}, #{role_number}, #{grade_number}, #{platformtype_number})
     </insert>
 
     <select id="idCheck" parameterType="String" resultType="int">

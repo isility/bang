@@ -10,4 +10,10 @@
         VALUES (#{member_id}, #{person_birth}, #{person_nickname})
     </insert>
 
+    <select id="nicknameCheck" parameterType="String" resultType="int">
+        SELECT COUNT(*)
+        FROM person
+        WHERE person_nickname = #{person_nickname}
+    </select>
+
 </mapper>

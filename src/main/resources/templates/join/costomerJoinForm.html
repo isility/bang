@@ -424,6 +424,104 @@
         })
 
 
+        $("#nickname").on("blur", function() {
+            <!--"사용 가능" 인 상태라면 "중복확인"으로 바꾸기-->
+            $("#nicknameCheck").val("닉네임 중복확인");
+
+            <!--에러 메세지가 있다면 먼저, remove-->
+            $("#error_msg3").remove();
+
+            var nickname = $("#nickname").val();
+
+            <!-- 닉네임이 빈칸인지 확인 -->
+            if (nickname.trim() === "") {
+                $("#error_msg3").remove();
+                $("#nickname").after('<p id="error_msg3" style="color: red;">닉네임을 입력해주세요.</p>');
+                $("#nickname").focus();
+                return;
+            }
+
+
+           <!-- 특수문자가 포함되었는지 확인, 포함되었다면 반려 (한글, 영어 소문자, 숫자만 허용) -->
+            var normalText = /^[a-z0-9_\uAC00-\uD7A3]+$/;
+            if (!normalText.test(nickname)) {
+                $("#error_msg3").remove();
+                $("#nickname").after('<p id="error_msg3" style="color: red;">특수문자는 포함할 수 없습니다. (단, _ (언더바)는 허용)</p>');
+                $("#nicknameCheck").val("사용 불가");
+            }
+
+
+            // 총 글자 수가 2자이상 ~ 10자이하 이내인지 확인, 미만이거나 초과라면 반려
+            var countText = /^.{2,10}$/;
+            if (!countText.test(memberId)) {
+                $("#error_msg3").remove();
+                $("#nickname").after('<p id="error_msg3" style="color: red;">총 글자수는 2자 이상 ~ 10자 이하 만 가능합니다.</p>');
+                $("#nicknameCheck").val("사용 불가");
+            }
+
+            // 닉네임이 빈 칸이라면 에러 메세지 숨기기
+            if ($("#nickname").val() == "") {
+                $("#error_msg3").remove();
+            }
+
+        });
+
+
+       $("#nicknameCheck").on("click", function() {
+            var nickname = $("#nickname").val();
+
+            <!-- 닉네임이 빈칸인지 확인 -->
+            if (nickname.trim() === "") {
+                alert("닉네임을 입력해주세요.");
+                $("#nickname").focus();
+                return;
+            }
+
+
+            <!-- 특수문자가 포함되었는지 확인, 포함되었다면 반려 (한글, 영어 소문자, 숫자만 허용) -->
+            var normalText = /^[a-z0-9_\uAC00-\uD7A3]+$/;
+            if (!normalText.test(nickname)) {
+                alert("특수문자를 포함할 수 없습니다.( _ 허용)");
+                $("#nickname").val("");
+                $("#nicknameCheck").val("사용 불가");
+                return;
+            }
+
+
+            <!-- 글자 수가 맞는지 확인, 아니라면 반려 -->
+            var countText = /^.{2,10}$/;
+            if (!countText.test(nickname)) {
+                alert("사용할 수 있는 글자 수는 2자 이상~10자 이하로만 가능합니다.");
+                $("#nickname").val("");
+                $("#nicknameCheck").val("사용 불가");
+                return;
+            }
+
+            <!-- 4가지 체크가 끝난 뒤, 닉네임 중복확인 -->
+            $.ajax({
+                url: "nicknameCheck",
+                type: "post",
+                dataType: "json",
+                data: { "nickname": nickname },
+                success: function(data) {
+                    if (data == 1) {
+                        alert("중복된 닉네임 입니다.");
+                        $("#nicknameCheck").val("사용 불가");
+                    } else {
+                        alert("사용 가능한 닉네임 입니다.");
+                        $("#nicknameCheck").val("사용 가능");
+                    }
+                }
+            });
+        });
+
+        <!-- 닉네임 체크를 한 뒤 "사용불가" 또는 "사용가능"인 상황, 닉네임 칸에 어떤 값을 입력해도 중복확인으로 변경하도록 함 -->
+        $("#nickname").on("input", function() {
+            $("#nicknameCheck").val("닉네임 중복확인");
+        });
+
+
+
 
 
         <!-- 카카오 주소 -->
@@ -523,6 +621,7 @@
         }
 
         var idChkVal = $("#idCheck").val();
+        var nicknameChkVal = $("#nicknameCheck").val();
         var emailChkVal = $("#emailCodeNotCorrect").val();
         var response = grecaptcha.getResponse();
 
@@ -535,6 +634,10 @@
             alert("비밀번호가 유효하지 않거나, 비밀번호 확인이 필요합니다.");
             $("#member_pw").focus();
             return false;
+        } else if ( nicknameChkVal != "사용 가능") {
+            alert("닉네임이 유효하지 않거나, 중복된 닉네임입니다.");
+            $("#nickname").focus();
+            return false;
         } else if ($("#emailCodeCorrect").css("display") != "block") {
             alert("이메일 본인인증을 진행해주셔야 합니다.");
             $("#email").focus();
@@ -546,7 +649,7 @@
         }
 
 
-        if ( idChkVal == "사용 가능" && $("#pwCorrect").css("display") != "block" && $("#emailCodeCorrect").css("display") != "block" && response.length != 0){
+        if ( idChkVal == "사용 가능" && $("#pwCorrect").css("display") != "block" && nicknameChkVal == "사용 가능" && $("#emailCodeCorrect").css("display") != "block" && response.length != 0){
             <!-- 중복 확인과 유효성 검사를 모두 완료했을 때 가입 처리-->
             $("#joinForm").submit();
         }
@@ -626,7 +729,7 @@
                             <div class="col-md-12">
                                 <input type="text" id="member_id" name="member_id" class="form-control"
                                        placeholder="아이디 *" style="width: 500px;height: 54px;">
-                                <p class="text-primary">영문 소문자만 허용, 6자 이상 ~ 20자 이하 (특수문자 제외. 단, _ 가능)</p>
+                                <p class="text-primary">영어 소문자, 숫자만 허용. 6자 이상 ~ 20자 이하 (특수문자 제외. 단, _ 가능)</p>
                                 <input type="button" class="btn btn-outline-warning" id="idCheck" value="아이디 중복확인">
                             </div>
                         </div>
@@ -719,6 +822,9 @@
                                 <!-- <label for="subject">Subject</label> -->
                                 <input type="text" id="nickname" name="person_nickname" class="form-control"
                                        placeholder="닉네임 *" style="width: 500px;height: 54px;">
+                                <p id="error_msg3" style="color: green; display: none;">유효한 닉네임 입니다.</p>
+                                <p class="text-primary">한글, 영어 대/소문자, 숫자만 가능. 2자 이상 ~ 10자 이하. (특수문자 제외. 단, _ 가능)</p>
+                                <input type="button" class="btn btn-outline-warning" id="nicknameCheck" value="닉네임 중복확인">
                             </div>
                         </div>
 
