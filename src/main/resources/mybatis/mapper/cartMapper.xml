@@ -5,9 +5,12 @@
 
 <mapper namespace="kr.co.jhta.bang.finalproject.dao.CartDAO">
     <select id="selectAll" resultType="CartDTO" parameterType="String">
-        select product_number as productNumber, member_id as memberID, cart_quantity as cartQuantity
-        from cart
+        select c.product_number as productNumber, member_id as memberID, cart_quantity as cartQuantity, p.product_name as productName, image_src as img
+        from cart c, product p, image i
         where member_id = #{memberID}
+        and c.product_number = p.product_number
+        and c.product_number = i.product_number
+        and image_order = 1
     </select>
 
 </mapper>

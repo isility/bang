@@ -13,4 +13,6 @@ public class CartDTO {
     int productNumber;
     String memberID;
     int cartQuantity;
+    String productName;
+    String img;
 }
