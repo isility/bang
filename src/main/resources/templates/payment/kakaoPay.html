@@ -46,18 +46,18 @@
                 </div>
                 <div class="col-md-3 col-xs-4 text-right hidden-xs menu-2">
                     <ul>
-                        <li class="shopping-cart menu-2"><a href="#" class="cart"><span><small>0</small><i
-                                class="icon-shopping-cart"></i></span></a></li>
+                        <li class="shopping-cart menu-2"><a href="#" class="cart"><span><small>0</small>
+                            <i class="icon-shopping-cart"></i></span></a></li>
                         <li class="login menu-2"><a href="#">JOIN</a></li>
                         <li class="login menu-2"><a href="#">login</a></li>
                         <li class="search menu-2">
                             <div class="input-group">
                                 <input type="text" placeholder="SEARCH">
                                 <span class="input-group-btn">
-										<button class="btn btn-primary" type="button">
-                                            <i class="icon-search"></i>
-                                        </button>
-									</span>
+                                    <button class="btn btn-primary" type="button">
+                                        <i class="icon-search"></i>
+                                    </button>
+                                </span>
                             </div>
                         </li>
                     </ul>
@@ -88,35 +88,44 @@
                     </div>
                     <div class="fh5co-contact-info">
                         <h3 style="margin-bottom:10px;">주문자 정보</h3>
-                        <div class="row form-group" style="margin-bottom:30px;">
+                        <div class="row form-group" style="margin-bottom:30px;" th:with="item=${cartList[0]}">
                             <div class="col-md-4">
-                                <input type="text" name="" class="form-control" placeholder="이름" style="height:40px;">
+                                <input type="text" name="" class="form-control" placeholder="이름" style="height:40px;"
+                                       th:value="${item.memberName}">
                             </div>
                             <div class="col-md-8">
-                                <input type="text" name="" class="form-control" placeholder="연락처" style="height:40px;">
+                                <input type="text" name="" class="form-control" placeholder="연락처" style="height:40px;"
+                                       th:value="${item.memberPhone}">
                             </div>
                             <div class="col-md-12">
-                                <input type="text" name="" class="form-control" placeholder="이메일" style="height:40px;">
+                                <input type="text" name="" class="form-control" placeholder="이메일" style="height:40px;"
+                                       th:value="${item.memberEmail}">
                             </div>
                         </div>
                     </div>
                     <div class="fh5co-contact-info">
                         <h3 style="margin-bottom:10px;">배송정보</h3>
-                        <div class="row form-group" style="margin-bottom:30px;">
+                        <div class="row form-group" style="margin-bottom:30px;" th:with="item=${cartList[0]}">
                             <div class="col-md-4">
-                                <input type="text" name="" class="form-control" placeholder="이름" style="height:40px;">
+                                <input type="text" name="" class="form-control" placeholder="이름" style="height:40px;"
+                                       th:value="${item.memberName}">
                             </div>
                             <div class="col-md-8">
-                                <input type="text" name="" class="form-control" placeholder="연락처" style="height:40px;">
+                                <input type="text" name="" class="form-control" placeholder="연락처" style="height:40px;"
+                                       th:value="${item.memberPhone}">
                             </div>
                             <div class="col-md-8">
-                                <input type="text" name="" class="form-control" placeholder="주소1" style="height:40px;">
+                                <input type="text" name="" class="form-control" placeholder="도로명/지번 주소"
+                                       style="height:40px;"
+                                       th:value="${item.memberAddress1}">
                             </div>
                             <div class="col-md-12">
-                                <input type="text" name="" class="form-control" placeholder="주소2" style="height:40px;">
+                                <input type="text" name="" class="form-control" placeholder="상세주소" style="height:40px;"
+                                       th:value="${item.memberAddress2}">
                             </div>
                             <div class="col-md-6">
-                                <input type="text" name="" class="form-control" placeholder="우편번호" style="height:40px;">
+                                <input type="text" name="" class="form-control" placeholder="우편번호" style="height:40px;"
+                                       th:value="${item.memberPostal}">
                             </div>
                         </div>
                     </div>
@@ -124,40 +133,59 @@
                         <h3 style="margin-bottom:10px;">쿠폰 정보</h3>
                         <div class="row form-group" style="margin-bottom:30px;">
                             <div class="col-md-9">
-                                <input type="text" name="" class="form-control" style="height:40px;" placeholder="사용가능 장수">
+                                <input type="text" name="" class="form-control" style="height:40px;"
+                                       placeholder="보유쿠폰 x장">
                             </div>
                             <div class="col-md-3">
                                 <input type="button" class="form-control" value="쿠폰목록"
                                        style="padding:0px; height:40px;">
                             </div>
                             <div class="col-md-9">
-                                <input type="text" name="" class="form-control" style="height:40px;" placeholder="현재 적립금">
+                                <input type="text" name="" class="form-control" style="height:40px;"
+                                       placeholder="현재 적립금">
                             </div>
                             <div class="col-md-3">
-                                <input type="button" class="form-control" value="적립"
+                                <input type="button" class="form-control" value="모두사용"
                                        style="padding:0px; height:40px;">
                             </div>
                         </div>
                     </div>
                 </div>
                 <!--오른쪽-->
-                <div class="col-md-4 col-md-push-4 animate-box fadeInUp animated-fast">
+                <div class="col-md-3 col-md-push-2 animate-box fadeInUp animated-fast">
                     <div class="row">
                         <div class="col-md fh5co-contact-info">
-                            주문요약
+                            <h3>주문요약</h3>
+                            <input class="col-md-6" type="text" value="주문금액 : " style="align-text:left; border:0px;"
+                                   disabled>
+                            <input class="col-md-6" type="text" name="" value="상품총가격"
+                                   style="text-align:right; border:0px;" disabled>
+                            <input class="col-md-6" type="text" value="배송료 : " style="align-text:left; border:0px;"
+                                   disabled>
+                            <input class="col-md-6" type="text" name="" value="무료" style="text-align:right; border:0px;"
+                                   disabled>
                         </div>
                         <div class="col-md fh5co-contact-info">
-                            <div class="row">
+                            <div class="row" style="text-align:center;">
                                 <div class="col-md-6">
                                     <input type="radio" name="radio">신용카드
                                 </div>
-                                <div>
+                                <div class="col-md-6">
                                     <input type="radio" name="radio">카카오페이
                                 </div>
                             </div>
                         </div>
+
                         <div class="col-md fh5co-contact-info">
-                            결제동의
+                            <h3>결제동의</h3>
+                            <input class="col-md-1" type="checkbox" name="">
+                            <span class="col-md-11">
+                                전체 동의
+                            </span>
+                            <input class="col-md-1" type="checkbox" name="">
+                            <span class="col-md-11">
+                                제3자 정보 제공 동의
+                            </span>
                         </div>
                     </div>
                     <form method="post" action="/payment/kakaoPay">

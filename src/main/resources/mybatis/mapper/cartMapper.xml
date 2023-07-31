@@ -5,12 +5,21 @@
 
 <mapper namespace="kr.co.jhta.bang.finalproject.dao.CartDAO">
     <select id="selectAll" resultType="CartDTO" parameterType="String">
-        select c.product_number as productNumber, member_id as memberID, cart_quantity as cartQuantity, p.product_name as productName, image_src as img
-        from cart c, product p, image i
-        where member_id = #{memberID}
-        and c.product_number = p.product_number
-        and c.product_number = i.product_number
-        and image_order = 1
+        SELECT c.product_number AS productNumber,
+        cart_quantity AS cartQuantity,
+        p.product_name AS productName,
+        image_src AS img,
+        member_address1 AS memberAddress1,
+        member_address2 AS memberAddress2,
+        member_name AS memberName,
+        member_phone AS memberPhone,
+        member_postal AS memberPostal,
+        member_email AS memberEmail
+        FROM cart c
+        INNER JOIN product p ON c.product_number = p.product_number
+        INNER JOIN image i ON c.product_number = i.product_number AND image_order = 1
+        INNER JOIN member m ON c.member_id = m.member_id
+        WHERE c.member_id = #{memberID};
     </select>
 
 </mapper>

@@ -34,8 +34,7 @@ public class PaymentController {
 
     @RequestMapping("")
     public String kakaoPayGet(Model model, Principal principal) {
-        List<ProductListDTO> img = new ArrayList<ProductListDTO>();
-        principal.getName();
+//      principal.getName();
         model.addAttribute("cartList",payService.cartlist("aaa"));
 
         log.info("카카페 래디1");
