@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 
 <head>
   <meta charset="utf-8">
@@ -47,38 +47,51 @@
             var bsNum = $("#bzNum").val();
             var bsStatus = null;
 
-            <!-- data 를 key : value 로 보냄 -->
-            var data = { "b_no": [""+bsNum+""] }
-
             $.ajax({
-              url: "https://api.odcloud.kr/api/nts-businessman/v1/status?serviceKey=F%2FG4iLSBelahsfdbMRRMHGkoBcbiEv6gKL%2Fm4SBhhu5g1IxczQEGoDodzsnYADgtSkijqfSERiTFSMNN6RTDTw%3D%3D",
-              type: "POST",
-              data: JSON.stringify(data),
-              dataType: "JSON",
-              contentType: "application/json",
-              accept: "application/json",
-              success: function(result) {
-                  bsStatus = result.data[0].b_stt_cd;
+              url: "businessJoin",
+              type: "post",
+              dataType: "text",
+              success: function(key) {
+                  <!-- data 를 key : value 로 보냄 -->
+                  var data = { "b_no": [""+bsNum+""] }
 
-                  if( bsStatus == "01" ) {
-                      $("#msg").remove();
-                      $("#bsNumResult").after('<span id="msg" style="color: #6BD089; font-size: 15px;">개업</span>');
-                      $("#joinUs").css({"display": "inline-block", "margin-right": "10px"});
-                  } else if ( bsStatus == "02" || bsStatus == "03") {
-                      $("#msg").remove();
-                      $("#bsNumResult").after('<span id="msg" style="color: #F47378; font-size: 15px;">휴업 또는 폐업</span>');
-                      $("#joinUs").css("display", "none");
-                  } else {
-                      $("#msg").remove();
-                      $("#bsNumResult").after('<span id="msg" style="color: #007AAE;">다시 입력해주세요.</span>');
-                      $("#joinUs").css("display", "none");
-                  }
+                  $.ajax({
+                    url: "https://api.odcloud.kr/api/nts-businessman/v1/status?serviceKey="+key,
+                    type: "POST",
+                    data: JSON.stringify(data),
+                    dataType: "JSON",
+                    contentType: "application/json",
+                    accept: "application/json",
+                    success: function(result) {
+                        bsStatus = result.data[0].b_stt_cd;
 
+                        if( bsStatus == "01" ) {
+                            $("#msg").remove();
+                            $("#bsNumResult").after('<span id="msg" style="color: #6BD089; font-size: 15px;">개업</span>');
+                            $("#joinUs").css({"display": "inline-block", "margin-right": "10px"});
+                        } else if ( bsStatus == "02" || bsStatus == "03") {
+                            $("#msg").remove();
+                            $("#bsNumResult").after('<span id="msg" style="color: #F47378; font-size: 15px;">휴업 또는 폐업</span>');
+                            $("#joinUs").css("display", "none");
+                        } else {
+                            $("#msg").remove();
+                            $("#bsNumResult").after('<span id="msg" style="color: #007AAE;">다시 입력해주세요.</span>');
+                            $("#joinUs").css("display", "none");
+                        }
+
+                    },
+                    error: function(result) {
+                        console.log(result.responseText);
+                    }
+                  });
               },
-              error: function(result) {
-                  console.log(result.responseText);
+              error: function(xhr, status, error) {
+                  console.error("Failed to get API key: " + error);
               }
             });
+
+
+
         });
 
   });

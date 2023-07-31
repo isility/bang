@@ -30,6 +30,8 @@ public class JoinController {
     }
 
 
+
+
     @GetMapping("/costomerTerms")
     public String costomerTerms() {
         return "join/costomerTerms.html";
@@ -37,6 +39,8 @@ public class JoinController {
 
     @GetMapping("/costomerJoinForm")
     public String costomerJoinForm() { return "join/costomerJoinForm.html"; }
+
+
 
     @GetMapping("/businessOk")
     public String businessOk() { return "join/businessOk.html"; }
@@ -46,7 +50,9 @@ public class JoinController {
                                HttpSession session) {
         /* 사업자 번호를 여기로 저장 */
         session.setAttribute("bzNum", bzNum);
-        log.info("businessOk 의 session에 담긴 값 : " + session.getAttribute("bzNum"));
+        session.getAttribute("key");
+        log.info("businessOk 의 session에 담긴 bzNum : " + session.getAttribute("bzNum"));
+        log.info("businessOk 의 session에 담긴 key : " + session.getAttribute("key"));
         return "join/businessTerms.html";
     }
 
@@ -149,5 +155,20 @@ public class JoinController {
     @PostMapping("/nicknameCheck")
     public int nicknameCheck(@RequestParam("nickname")String nickname) {
         return memberService.nicknameCheck(nickname);
+    }
+
+
+    @PostMapping("/businessJoin")
+    @ResponseBody
+    public String bsApiSession() {
+        /* 사업자 등록번호 조회 사이트 키 */
+        return "F%2FG4iLSBelahsfdbMRRMHGkoBcbiEv6gKL%2Fm4SBhhu5g1IxczQEGoDodzsnYADgtSkijqfSERiTFSMNN6RTDTw%3D%3D";
+    }
+
+
+    @PostMapping("/captcha")
+    @ResponseBody
+    public String captcha() {
+        return "6LeuiWgnAAAAAJ_EghIJxPCem8QToRF4VIj7TfLg";
     }
 }
