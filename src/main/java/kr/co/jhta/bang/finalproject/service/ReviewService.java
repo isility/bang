@@ -46,34 +46,27 @@ public class ReviewService {
     public void modifyReview(ReviewDTO reviewDTO)  {dao.modifyReview(reviewDTO);}
 
 
-
-            ReviewDTO reviewDTO2 = new ReviewDTO();
-    public ReviewDTO commentsSave(int replyNumber) {
-
-
-
+    public void firstCommentsSave(ReviewDTO reviewDTO) {
         // 게시글에 달리는 글이 첫댓글 인 댓글인 경우
-        ReviewDTO reviewDTO = new ReviewDTO();
-        log.info("<<<<<<<<<<<<<<<service<<<<<     {}",findByReply_number(replyNumber).getReplyAnswerNumber());
-
-        if (findByReply_number(replyNumber).getReplyAnswerNumber() == 0) {
-            reviewDTO.setReplyParentNumber(findByReply_number(replyNumber).getReplyNumber());
-            reviewDTO.setReplyStep(1);
-            reviewDTO.setReplyRef(findByReply_number(replyNumber).getReplyRef());
-            reviewDTO.setProductNumber(findByReply_number(replyNumber).getProductNumber());
-            reviewDTO.setReplyParentNumber(findByReply_number(replyNumber).getProductNumber());
-
-            // 부모글의 댓글이 0 인 경우
-
-        } else {
-            // 게시글에 달리는 글이 첫댓글이 아닌 경우
-            // step 이 1인 댓글
-        }
-        dao.setReplyFirstStep(reviewDTO);
+//        ReviewDTO reviewDTO = new ReviewDTO();
+//        log.info("<<<<<<<<<<<<<<<service<<<<<     {}",findByReply_number(replyNumber).getReplyAnswerNumber());
+//
+//        if (findByReply_number(replyNumber).getReplyAnswerNumber() == 0) {
+//            reviewDTO.setReplyParentNumber(findByReply_number(replyNumber).getReplyNumber());
+//            reviewDTO.setReplyStep(1);
+//            reviewDTO.setReplyRef(findByReply_number(replyNumber).getReplyRef());
+//            reviewDTO.setProductNumber(findByReply_number(replyNumber).getProductNumber());
+//            reviewDTO.setReplyParentNumber(findByReply_number(replyNumber).getProductNumber());
+//
+//            // 부모글의 댓글이 0 인 경우
+//
+//        } else {
+//            // 게시글에 달리는 글이 첫댓글이 아닌 경우
+//            // step 이 1인 댓글
+//        }
 
         log.info("<<<<<<<<<<<<<<<reviewDTO<<<<<     {}",reviewDTO);
-
-        return reviewDTO;
+        dao.setReplyFirstStep(reviewDTO);
     }
 
 

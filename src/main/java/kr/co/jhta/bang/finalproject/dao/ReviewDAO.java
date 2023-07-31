@@ -30,7 +30,7 @@ public interface ReviewDAO {
 
     void setReplyFirst(ReviewDTO dto); // 최초 댓글 작성
     int getReplyAnswerNumberByReplyNumber(int replyNumber); // 최초 댓글인지 확인
-    void setReplyFirstStep(ReviewDTO dto); // step = 1인 답글
+    void setReplyFirstStep(ReviewDTO reviewDTO); // step = 1인 답글
 
     void updateAnswerNumber(int replyNumber);
 

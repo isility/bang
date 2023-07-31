@@ -153,6 +153,10 @@
                     <button id="comment-write-btn" th:onclick="commentWrite()">댓글작성</button>
                 </div>
 
+                <div id="comment-list">
+
+                </div>
+
 
 
 
@@ -275,6 +279,9 @@
         const contents = document.getElementById("replyContents").value;
         const number = /*[[${reviewDTO.replyNumber}]]*/;
         const ref = /*[[${reviewDTO.replyRef}]]*/;
+        const productNumber = /*[[${reviewDTO.productNumber}]]*/;
+        const ParentNumber = /*[[${reviewDTO.replyParentNumber}]]*/;
+
         $.ajax({
             type: "post",
             url: "/review/reviewDetail",
@@ -282,12 +289,29 @@
                 replyWriter: writer,
                 replyContents: contents,
                 replyNumber: number,
-                replyRef: ref
-
+                replyRef: ref,
+                productNumber: productNumber,
+                replyParentNumber: ParentNumber
             },
             dataType: "json",
             success: function(commentList) {
                 console.log("작성성공");
+                console.log(commentList);
+                let output = "<table>";
+                output += "<tr><th>작성자</th>";
+                output += "<th>내용</th>";
+                output += "<th>작성시간</th>";
+                for(let i in commentList){
+                   output += "<tr>";
+                   output += "<td>+commentList[i].replyWriter</td>";
+                   output += "<td>+commentList[i].replyContents</td>";
+                   output += "<td>+commentList[i].replyDate</td>";
+                   output += "</>tr>";
+                }
+               output += "</table>";
+               document.getElementById('comment-list').innerHTML = output;
+               document.getElementById('commentWriter').value = '';
+               document.getElementById('commentContents').innerHTML = '';
             },
             error: function(){
                 console.log("실패");

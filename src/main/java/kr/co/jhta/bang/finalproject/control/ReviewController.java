@@ -54,7 +54,7 @@ public class ReviewController {
 
 
         log.info("reviewDTO :   {} ", reviewDTO);
-
+        service.firstCommentsSave(reviewDTO);
 
         return null;
     }
