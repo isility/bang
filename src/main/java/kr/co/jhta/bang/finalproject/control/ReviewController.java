@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Map;
 
 @Slf4j
@@ -39,11 +40,23 @@ public class ReviewController {
     }
 
     @GetMapping("/reviewDetail")
-    public String reviewDetail(@RequestParam("replyNumber")int replyNumber, Model model){
+    public String reviewDetail(@RequestParam("replyNumber") int replyNumber, Model model){
         model.addAttribute("reviewDTO", service.findByReply_number(replyNumber));
-        log.info(">>>>>>>>>>>>>>>>>>>>reviewDetail {}", service.findByReply_number(replyNumber));
+        log.info("-----------------{}", replyNumber);
+        //log.info(">>>>>>>>>>>>>>>>>>>>GET {}", service.commentsSave(replyNumber));
+
+
         return "review/reviewDetail";
     }
+
+    @PostMapping("/reviewDetail")
+    public @ResponseBody List<ReviewDTO> save(@ModelAttribute ReviewDTO reviewDTO){
+
+        log.info("reviewDTO", reviewDTO);
+
+        return null;
+    }
+
     @GetMapping("/reviewWrite")
     public String reviewWrite(){
         return "review/reviewWrite";
@@ -76,5 +89,10 @@ public class ReviewController {
         log.info(">>>>>>>>>>>>>dto {} ", reviewDTO);
         return "redirect:/review/reviewList";
     }
+
+
+
+
+
 
 }

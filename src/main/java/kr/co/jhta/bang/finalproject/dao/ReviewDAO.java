@@ -23,5 +23,18 @@ public interface ReviewDAO {
     void modifyReview(ReviewDTO dto);
 
 
+    int getReplyRefOrderByReplyNumber(int replyNumber);
+
+    int getReplyRefByReplyNumber(int replyNumber);
+
+
+    void setReplyFirst(ReviewDTO dto); // 최초 댓글 작성
+    int getReplyAnswerNumberByReplyNumber(int replyNumber); // 최초 댓글인지 확인
+    void setReplyFirstStep(ReviewDTO dto); // step = 1인 답글
+
+    void updateAnswerNumber(int replyNumber);
+
+    int findNvlRef(int replyNumber);
+    int getReplyNumber(int replyNumber);
 
 }

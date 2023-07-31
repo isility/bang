@@ -125,7 +125,6 @@
                     <a th:href="@{/review/reviewModify(replyNumber=${reviewDTO.replyNumber})}"><input type="button" class="btn btn-primary" style="font-size: 9px;" value="수정" /></a>
                     <a th:href="@{/review/reviewList}"><input type="button" class="btn btn-primary" style="font-size: 9px;" value="목록" /></a>
                 </div>
-                <form>
                     <table class="table">
                         <tr>
                             <th>게시물번호</th>
@@ -144,35 +143,16 @@
                             <td colspan="4" th:text="${reviewDTO.replyContents}"></td>
                         </tr>
 
-
                     </table>
 
-                </form>
 
-                    <!-- 댓글과 대댓글이 표시될 영역 -->
-                    <div id="comment-section">
-                        <!-- 서버에서 동적으로 댓글과 대댓글이 추가될 예정 -->
-                    </div>
 
-                    <!-- 댓글 입력 폼 -->
-                    <!--ref 가 1인 친구들 -->
-                    <!-- 정렬 : ref_order asc-->
-                    <!--step = 1--> <!--order = 1-->
-                    <form id="comment-form1" action="/reviewComment" method="post">
-                        <input type="text" name="replyContents" placeholder="댓글을 입력하세요..." required>
-                        <button type="submit">댓글 등록</button>
-                    </form>
-                    <!--step = 2--> <!--order = 2-->
-                    <form id="comment-form2" action="/reviewComment" method="post">
-                        <input type="text" name="replyContents" placeholder="댓글을 입력하세요..." required>
-                        <button type="submit">댓글 등록</button>
-                    </form>
-                    <!--step = 3--> <!--order = 3-->
-                    <form id="comment-form3" action="/reviewComment" method="post">
-                        <input type="text" name="replyContents" placeholder="댓글을 입력하세요..." required>
-                        <button type="submit">댓글 등록</button>
-                    </form>
-                    <!--step : 2인 댓글 추가했을 시 스탭이 같은 친구들 중에서 order를 가장 큰 수로 넣고-->
+                <div>
+                    <input type="text" id="replyWriter" placeholder="작성자">
+                    <input type="text" id="replyContents" placeholder="내용">
+                    <button id="comment-write-btn" th:onclick="commentWrite()">댓글작성</button>
+                </div>
+
 
 
 
@@ -288,4 +268,26 @@
 <script th:src="@{/js/main.js}"></script>
 
 </body>
+
+<script>
+
+    const commentWrite = () => {
+        const writer = document.getElementById("replyWriter").value;
+        const contents = document.getElementById("replyContents").value;
+        const number = ${replyNumber};
+        $.ajax({
+            type: "post",
+            url: "/reviewDetail",
+            data: {
+                replyWriter: writer,
+                replyContents: contents,
+                replyNumber: number
+                },
+            dataType: "json"
+            success: function(commentList) {
+                console.log("작성성공");
+            }
+        });
+    }
+</script>
 </html>
