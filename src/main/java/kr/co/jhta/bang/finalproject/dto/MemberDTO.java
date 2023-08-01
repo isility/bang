@@ -17,13 +17,11 @@ public class MemberDTO {
     String member_address1;
     String member_address2;
     String member_email;
-    int member_check;
+    int email_check;
     String member_insertdate;
     int member_type;
     String member_profile;
     int role_number;
     int grade_number;
     int platformtype_number;
-    String member_birth;
-
 }
