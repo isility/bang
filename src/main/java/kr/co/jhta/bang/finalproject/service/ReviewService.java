@@ -3,12 +3,14 @@ package kr.co.jhta.bang.finalproject.service;
 import kr.co.jhta.bang.finalproject.dao.ReviewDAO;
 import kr.co.jhta.bang.finalproject.dto.ReviewDTO;
 import kr.co.jhta.bang.finalproject.dto.StartEnd;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
+@Slf4j
 public class ReviewService {
     @Autowired
     private ReviewDAO dao; // 리뷰 dao
@@ -18,7 +20,6 @@ public class ReviewService {
         StartEnd se = new StartEnd(startNo, endNo);
         return dao.findAllReply(se);
     }
-
     // 모든 리뷰글 조회
     public List<ReviewDTO> getAll() { return dao.getAll(); }
 
@@ -42,5 +43,25 @@ public class ReviewService {
         dao.deleteReview(replyNumber);
     }
 
-    public void modifyReview(ReviewDTO dto)  {dao.modifyReview(dto);}
+    public void modifyReview(ReviewDTO reviewDTO)  {dao.modifyReview(reviewDTO);}
+
+
+    public List<ReviewDTO> firstCommentsSave(ReviewDTO reviewDTO) {
+        log.info("reviewDTO: {}", reviewDTO);
+        dao.setReplyFirst(reviewDTO);
+
+        // 저장 결과를 얻는 로직 (dao에 따라 다를 수 있음)
+        List<ReviewDTO> savedReviews = dao.findAllByReplyRef(reviewDTO.getReplyNumber());
+
+        return savedReviews;
+    }
+
+    public List<ReviewDTO> findAllByReplyRef(int refNumber){
+        return dao.findAllByReplyRef(refNumber);
+    }
+
+
+
+
+
 }

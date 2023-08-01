@@ -49,6 +49,7 @@
     <![endif]-->
     <script th:src="@{/js/modernizr-2.6.2.min.js}"></script>
 
+
 </head>
 
 <body>
@@ -121,11 +122,10 @@
             <div class="row">
                 <div><h2>REVIEW</h2></div>
                 <div>
-                    <a th:href="@{/review/reviewDelete(replyNumber=${reviewDTO.replyNumber})}"><input type="button" class="btn btn-primary btn-outline" style="font-size: 9px;" value="삭제" /></a>
-                    <a th:href="@{/review/reviewModify(replyNumber=${reviewDTO.replyNumber})}"><input type="button" class="btn btn-primary" style="font-size: 9px;" value="수정" /></a>
-                    <a th:href="@{/review/reviewList}"><input type="button" class="btn btn-primary" style="font-size: 9px;" value="목록" /></a>
+                    <a th:href="@{/review/reviewDelete(replyNumber=${reviewDTO.replyNumber})}"><input type="button" class="btn btn-primary btn-outline" style="font-size: 14px;" value="삭제" /></a>
+                    <a th:href="@{/review/reviewModify(replyNumber=${reviewDTO.replyNumber})}"><input type="button" class="btn btn-primary" style="font-size: 14px;" value="수정" /></a>
+                    <a th:href="@{/review/reviewList}"><input type="button" class="btn btn-primary" style="font-size: 14px;" value="목록" /></a>
                 </div>
-                <form>
                     <table class="table">
                         <tr>
                             <th>게시물번호</th>
@@ -144,40 +144,39 @@
                             <td colspan="4" th:text="${reviewDTO.replyContents}"></td>
                         </tr>
 
-
                     </table>
 
-                </form>
+                <br>
+                <br>
+                <br>
 
-                    <!-- 댓글과 대댓글이 표시될 영역 -->
-                    <div id="comment-section">
-                        <!-- 서버에서 동적으로 댓글과 대댓글이 추가될 예정 -->
+
+                <div style="text-align: left;">
+                    <input type="text" id="replyContents" placeholder="내용" style="width: 800px; height: 38px; text-align: center; font-size: 14px; border: 2px solid #D1C286; vertical-align: top;">
+                    <input type="text" id="replyWriter" placeholder="작성자" style="width: 90px; height: 38px; text-align: center; font-size: 14px; border: 2px solid #D1C286; vertical-align: top;">
+                    <button id="comment-write-btn" th:onclick="commentWrite()" class="btn btn-primary" style="font-size: 12px; vertical-align: top;">댓글작성</button>
+                </div>
+                        <br>
                     </div>
 
-                    <!-- 댓글 입력 폼 -->
-                    <!--ref 가 1인 친구들 -->
-                    <!-- 정렬 : ref_order asc-->
-                    <!--step = 1--> <!--order = 1-->
-                    <form id="comment-form1" action="/reviewComment" method="post">
-                        <input type="text" name="replyContents" placeholder="댓글을 입력하세요..." required>
-                        <button type="submit">댓글 등록</button>
-                    </form>
-                    <!--step = 2--> <!--order = 2-->
-                    <form id="comment-form2" action="/reviewComment" method="post">
-                        <input type="text" name="replyContents" placeholder="댓글을 입력하세요..." required>
-                        <button type="submit">댓글 등록</button>
-                    </form>
-                    <!--step = 3--> <!--order = 3-->
-                    <form id="comment-form3" action="/reviewComment" method="post">
-                        <input type="text" name="replyContents" placeholder="댓글을 입력하세요..." required>
-                        <button type="submit">댓글 등록</button>
-                    </form>
-                    <!--step : 2인 댓글 추가했을 시 스탭이 같은 친구들 중에서 order를 가장 큰 수로 넣고-->
+                <hr>
 
-
-
-
+            <div id="comment-list" style="text-align: left;">
+                <table>
+                    <tr th:each="reviewDTO2 : ${list}">
+                        <td id="comment-contents" th:text="${reviewDTO2.replyContents}" style="width: 800px; height: 38px; text-align: center; font-size: 14px; border: 2px solid #D1C286; padding: 10px;border-right: none;"></td>
+                        <td id="comment-writer" th:text="${reviewDTO2.replyWriter}" style="width: 90px; height: 38px; text-align: center; font-size: 14px; border: 2px solid #D1C286; padding: 10px;border-left: none; border-right: none;"></td>
+                        <td id="comment-date" th:text="${reviewDTO2.replyDate}" style="width: 90px; height: 38px; text-align: center; font-size: 14px; border: 2px solid #D1C286; padding: 10px;border-left: none;"></td>
+                    </tr>
+                </table>
             </div>
+
+
+
+
+
+
+        </div>
         </div>
     </div>
 
@@ -204,7 +203,7 @@
                     </form>
                 </div>
             </div>
-        </div>
+        </div>게
     </div>
 
     <footer id="fh5co-footer" role="contentinfo">
@@ -288,4 +287,55 @@
 <script th:src="@{/js/main.js}"></script>
 
 </body>
+
+<script th:inline="javascript">
+
+
+// commentWrite 함수 정의
+const commentWrite = () => {
+    const writer = document.getElementById("replyWriter").value;
+    const contents = document.getElementById("replyContents").value;
+    const number = /*[[${reviewDTO.replyNumber}]]*/;
+    const ref = /*[[${reviewDTO.replyRef}]]*/;
+    const pNumber = /*[[${reviewDTO.productNumber}]]*/;
+    const ParentNumber = /*[[${reviewDTO.replyParentNumber}]]*/;
+
+
+    $.ajax({
+        type: "post",
+        url: "/review/reviewDetail",
+        data: {
+            replyWriter: writer,
+            replyContents: contents,
+            replyNumber: number,
+            replyRef: ref,
+            productNumber: pNumber,
+            replyParentNumber: ParentNumber
+        },
+        dataType: "json",
+        success: function(commentList) {
+            console.log("작성성공");
+            console.log(commentList);
+            let output = "<table>";
+            for(let i in commentList){
+               output += '<tr>';
+               output += `<td style="width: 800px; height: 38px; text-align: center; font-size: 14px; border: 2px solid #D1C286; padding: 10px; border-right: none;" id="comment-contents">${commentList[i].replyContents}</td>`;
+               output += `<td style="width: 90px; height: 38px; text-align: center; font-size: 14px; border: 2px solid #D1C286; padding: 10px;border-left: none; border-right: none;" id="comment-writer">${commentList[i].replyWriter}</td>`;
+               output += `<td style="width: 90px; height: 38px; text-align: center; font-size: 14px; border: 2px solid #D1C286; padding: 10px;border-left: none;" id="comment-date">${commentList[i].replyDate}</td>`;
+               output += '</tr>';
+            }
+           output += "</table>";
+           document.getElementById('comment-list').innerHTML = output;
+           document.getElementById('commentWriter').value = '';
+           document.getElementById('commentContents').innerHTML = '';
+        },
+        error: function(){
+            console.log("실패");
+        }
+    });
+};
+
+
+</script>
+
 </html>
