@@ -46,9 +46,14 @@ public class ReviewService {
     public void modifyReview(ReviewDTO reviewDTO)  {dao.modifyReview(reviewDTO);}
 
 
-    public void firstCommentsSave(ReviewDTO reviewDTO) {
-        log.info("<<<<<<<<<<<<<<<reviewDTO<<<<<     {}",reviewDTO);
-        dao.setReplyFirst(reviewDTO);
+    public List<ReviewDTO> firstCommentsSave(ReviewDTO reviewDTO) {
+        log.info("reviewDTO: {}", reviewDTO);
+        dao.setReplyFirstStep(reviewDTO);
+
+        // 저장 결과를 얻는 로직 (dao에 따라 다를 수 있음)
+        List<ReviewDTO> savedReviews = dao.getAll();
+
+        return savedReviews;
     }
 
 

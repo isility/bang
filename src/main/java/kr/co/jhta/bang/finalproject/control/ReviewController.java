@@ -54,9 +54,9 @@ public class ReviewController {
 
 
         log.info("reviewDTO :   {} ", reviewDTO);
-        service.firstCommentsSave(reviewDTO);
-
-        return null;
+        //service.firstCommentsSave(reviewDTO);
+        List<ReviewDTO> savedReviewList = service.firstCommentsSave(reviewDTO);
+        return savedReviewList;
     }
 
     @GetMapping("/reviewWrite")
