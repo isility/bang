@@ -1,8 +1,11 @@
 package kr.co.jhta.bang.finalproject.config;
 
-import kr.co.jhta.bang.finalproject.service.MemberOAuth2UserDetailService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -17,7 +20,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     PasswordEncoder passwordEncoder;
-
 
 
     // 인증 메서드
@@ -37,7 +39,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authoritiesByUsernameQuery(authQuery.toString())
                 .passwordEncoder(passwordEncoder);
     }
-
 
 
     // 정적 리소스의 요청을 지정하고, ignoring() 메서드를 통해 보안 설정을 무시하도록 설정
@@ -63,16 +64,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .usernameParameter("member_id")
                 .passwordParameter("member_pw")
                 .loginProcessingUrl("/login")
-                    .defaultSuccessUrl("/index")
-                    .failureUrl("/login?error=true")
+                .defaultSuccessUrl("/index")
+                .failureUrl("/login?error=true")
                 .and()
-                    .logout()
-                    .logoutUrl("/logout")
-                    .logoutSuccessUrl("/index");
+                .logout()
+                .logoutUrl("/logout")
+                .logoutSuccessUrl("/index");
     }
-}
-
-
-
-
 }
