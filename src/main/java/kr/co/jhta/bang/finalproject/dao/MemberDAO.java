@@ -12,4 +12,6 @@ public interface MemberDAO {
     int idCheck(String memberId);
 
     String pwCheck(String memberId);
+
+    MemberDTO selectOne(String id);
 }
