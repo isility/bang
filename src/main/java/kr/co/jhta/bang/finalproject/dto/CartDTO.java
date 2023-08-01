@@ -11,7 +11,6 @@ import lombok.NoArgsConstructor;
 public class CartDTO {
     int cartNumber;
     int productNumber;
-    String memberID;
     int cartQuantity;
     String productName;
     String img;
