@@ -160,7 +160,7 @@
 						<tr th:each="board:${list}">
 							<td th:text="${board.qna_ref}"></td>
 							<td th:text="${board.qna_type}"></td>
-							<td><a th:href="@{/qna/qnaDetail(qna_number=${board.qna_number})}" th:text="${#strings.equals( board.qna_secret, 'Y' ) ? '비밀글 입니다' : board.qna_title}"></a></td>
+							<td><a th:href="@{/qna/qnaDetail(qna_number=${board.qna_number})}" th:text="${board.qna_title}"></a></td>
 							<td th:text="${board.qna_writer}"></td>
 							<td th:text="${board.qna_date}"></td>
 						</tr>

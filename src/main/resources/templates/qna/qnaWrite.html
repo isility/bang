@@ -140,8 +140,9 @@
           </select>
 
             <div style="width:70px; float:right;">
-            비밀글
-              <input type="checkbox" th:value="*{qna_secret}" id="qna_secret" name="qna_secret" th:checked="*{#strings.equals( qna_secret, 'Y' )}" />
+              비밀글
+              <input type="checkbox" name="qna_secret" id="qna_secret" value="true">
+              <input type="hidden" name="_qna_secret" value="on" >
             </div>
 
           <table class="table">
@@ -161,7 +162,7 @@
               <td colspan="2">
                 <div style="float:right;">
                   <a class="btn btn-outline-primary" th:href="@{/qna/qnaList}">목록</a>
-                  <input class="btn btn-outline-success" type="submit" value="작성" />
+                  <input class="btn btn-outline-success" type="submit" id="btnWrite" value="작성" />
                 </div>
               </td>
             </tr>
@@ -354,29 +355,6 @@
 		});
 
 	</script>
-<th:block layout:fragment="script">
-<script th:inline="javascript">
-			/*<![CDATA[*/
-
-			function addOne(form) {
-
-				form.qna_secret.value = form.qna_secret.checked == false ? 'N' : 'Y';
-
-				var result = (
-						   isValid(form.qna_writer, "작성자", null, null)
-						&& isValid(form.qna_title, "제목", null, null)
-						&& isValid(form.qna_contents, "내용", null, null)
-				);
-
-				if ( result == false ) {
-					return false;
-				}
-			}
-			/*[- end of function -]*/
-
-			/*]]>*/
-		</script>
-</th:block>
 </body>
 </html>
 
