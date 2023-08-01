@@ -49,12 +49,12 @@
 	<link rel="stylesheet" th:href="@{/css/style.css}">
 
 	<!-- Modernizr JS -->
-	<script src="@{/js/modernizr-2.6.2.min.js}"></script>
+	<script th:src="@{/js/modernizr-2.6.2.min.js}"></script>
 	<!-- FOR IE9 below -->
 	<!--[if lt IE 9]>
-	<script src="@{/js/respond.min.js}"></script>
+	<script th:src="@{/js/respond.min.js}"></script>
 	<![endif]-->
-
+	<script th:src="@{/js/modernizr-2.6.2.min.js}"></script>
 </head>
 
 <body>
@@ -79,9 +79,9 @@
 						<li class="has-dropdown">
 							<a th:href="@{/community.html}">COMMUNITY</a>
 							<ul class="dropdown">
-								<li><a th:href="@{notice.html}">공지사항</a></li>
-								<li><a th:href="@{review.html}">REVIEW</a></li>
-								<li><a th:href="@{qna}">Q&A</a></li>
+								<li><a th:href="@{/notice/noticeList}">공지사항</a></li>
+								<li><a th:href="@{/review/reviewList}">REVIEW</a></li>
+								<li><a th:href="@{/qna/qnaList}">Q&A</a></li>
 							</ul>
 						</li>
 					</ul>
@@ -132,22 +132,54 @@
 			<div><h2>Q&A</h2></div>
 				<div class="row" >
 					<div>
-						<a th:href="@{qwrite}"><input type="button" style="float:right;" class="btn btn-outline-primary" value="글쓰기" /></a>
+						<a th:href="@{/qna/qnaWrite}"><input type="button" style="float:right;" class="btn btn-outline-primary" value="글쓰기" /></a>
 					</div>
 					<table class="table">
 						<tr>
 							<th>NO</th>
+							<th>
+								<select name="qna_type" id="category">
+									<option value="">카테고리선택</option>
+									<option value="상품문의">상품문의</option>
+									<option value="결제/배송문의">결제/배송문의</option>
+									<option value="회원정보문의">회원정보문의</option>
+									<option value="기타문의">기타문의</option>
+								</select>
+							</th>
 							<th>제목</th>
 							<th>글쓴이</th>
 							<th>작성시간</th>
 						</tr>
+
+						<!--<td scope="row" th:text="${#strings.equals( board.qna_secret, 'Y' ) ? '비밀글 입니다' : board.qna_title}"></td>
+						<td class="text-left">
+							<a th:href="@{/board/view.do( idx=${row.idx} )}" th:text="${row.title}"></a>
+						</td>-->
+
+
 						<tr th:each="board:${list}">
 							<td th:text="${board.qna_ref}"></td>
-							<td><a th:href="@{qdetail(qna_number=${board.qna_number})}" th:text="${board.qna_title}"></a></td>
+							<td th:text="${board.qna_type}"></td>
+							<td><a th:href="@{/qna/qnaDetail(qna_number=${board.qna_number})}" th:text="${board.qna_title}"></a></td>
 							<td th:text="${board.qna_writer}"></td>
 							<td th:text="${board.qna_date}"></td>
 						</tr>
 					</table>
+					<div class="centered">
+						<nav aria-label="Page navigation example">
+							<ul class="pagination">
+								<li th:if="${map.prev}">
+									<a th:href="@{/qna/qnaList(currentPage=${map.currentPage-5})}" class="page-link">이전</a>
+								</li>
+								<li th:each="i : ${#numbers.sequence(map.startPageNo, map.endPageNo)}">
+									<a th:href="@{/qna/qnaList(currentPage=${i})}" class="page-link" th:text="${i}"></a>
+								</li>
+								<li th:if="${map.next}">
+									<a th:href="@{/qna/qnaList(currentPage=${map.currentPage+5})}" class="page-link">다음</a>
+								</li>
+							</ul>
+						</nav>
+					</div>
 				</div>
 			<!--			<div class="row">-->
 			<!--				<div class="col-md-4 text-center animate-box">-->
@@ -208,7 +240,7 @@
 				<div class="col-md-12 text-center">
 					<p>
 						<small class="block">&copy; 2023 Free HTML5. All Rights Reserved.</small>
-						<small class="block">Designed by <a href="http://freehtml5.co/" target="_blank">FreeHTML5.co</a> Demo Images: <a href="http://blog.gessato.com/" target="_blank">Gessato</a> &amp; <a href="http://unsplash.co/" target="_blank">Unsplash</a></small>
+						<small class="block">Designed by <a th:href="@{http://freehtml5.co/}" target="_blank">FreeHTML5.co</a> Demo Images: <a href="http://blog.gessato.com/" target="_blank">Gessato</a> &amp; <a href="http://unsplash.co/" target="_blank">Unsplash</a></small>
 					</p>
 				</div>
 			</div>
@@ -217,25 +249,25 @@
 </div>
 
 <div class="gototop js-top">
-	<a href="#" class="js-gotop"><i class="icon-arrow-up"></i></a>
+	<a th:href="@{#}" class="js-gotop"><i class="icon-arrow-up"></i></a>
 </div>
 
 <!-- jQuery -->
-<script src="../../static/js/jquery.min.js"></script>
+<script th:src="@{/js/jquery.min.js}"></script>
 <!-- jQuery Easing -->
-<script src="../../static/js/jquery.easing.1.3.js"></script>
+<script th:src="@{/js/jquery.easing.1.3.js}"></script>
 <!-- Bootstrap -->
-<script src="../../static/js/bootstrap.min.js"></script>
+<script th:src="@{/js/bootstrap.min.js}"></script>
 <!-- Waypoints -->
-<script src="../../static/js/jquery.waypoints.min.js"></script>
+<script th:src="@{/js/jquery.waypoints.min.js}"></script>
 <!-- Carousel -->
-<script src="../../static/js/owl.carousel.min.js"></script>
+<script th:src="@{/js/owl.carousel.min.js}"></script>
 <!-- countTo -->
-<script src="../../static/js/jquery.countTo.js"></script>
+<script th:src="@{/js/jquery.countTo.js}"></script>
 <!-- Flexslider -->
-<script src="../../static/js/jquery.flexslider-min.js"></script>
+<script th:src="@{/js/jquery.flexslider-min.js}"></script>
 <!-- Main -->
-<script src="../../static/js/main.js"></script>
+<script th:src="@{/js/main.js}"></script>
 
 </body>
 </html>

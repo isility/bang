@@ -68,12 +68,12 @@
             <li><a th:href="@{/productList.html}">HEADPHONE</a></li>
             <li><a th:href="@{/productList.html}">ACCESSORIES</a></li>
             <li><a th:href="@{/services.html}">SERVICE</a></li>
-            <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" th:href="@{/community.html}" role="button" data-bs-toggle="dropdown" aria-expanded="false">COMMUNITY</a>
-              <ul class="dropdown-menu">
-                <li><a class="dropdown-item" th:href="@{notice}">공지사항</a></li>
-                <li><a class="dropdown-item" th:href="@{review}">REVIEW</a></li>
-                <li><a class="dropdown-item" th:href="@{qna}">Q&A</a></li>
+            <li class="has-dropdown">
+              <a th:href="@{/community.html}">COMMUNITY</a>
+              <ul class="dropdown">
+                <li><a th:href="@{/notice/noticeList}">공지사항</a></li>
+                <li><a th:href="@{/review/reviewList}">REVIEW</a></li>
+                <li><a th:href="@{/qna/qnaList}">Q&A</a></li>
               </ul>
             </li>
           </ul>

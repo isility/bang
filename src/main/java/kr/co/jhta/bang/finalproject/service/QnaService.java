@@ -6,7 +6,11 @@ import java.util.List;
 
 public interface QnaService {
 
-    public List<QnaDTO> selectAll();
+    public List<QnaDTO> selectAll(int startNo, int endNo);
+
+    public int getTotal();
+
+ /*   public List<QnaDTO> selectAll();*/
 
     public QnaDTO selectOne(int qnaNumber);
 

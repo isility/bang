@@ -20,5 +20,6 @@ public class QnaDTO {
     private int qna_parents_number;
     private String qna_type;
     private int qna_status;
+    private String qna_secret;
     private String member_id;
 }

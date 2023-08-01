@@ -49,11 +49,12 @@
     <link rel="stylesheet" th:href="@{/css/style.css}">
 
     <!-- Modernizr JS -->
-    <script src="@{/js/modernizr-2.6.2.min.js}"></script>
+    <script th:src="@{/js/modernizr-2.6.2.min.js}"></script>
     <!-- FOR IE9 below -->
     <!--[if lt IE 9]>
-    <script src="@{/js/respond.min.js}"></script>
+    <script th:src="@{/js/respond.min.js}"></script>
     <![endif]-->
+    <script th:src="@{/js/modernizr-2.6.2.min.js}"></script>
 
 </head>
 
@@ -79,9 +80,9 @@
                         <li class="has-dropdown">
                             <a th:href="@{/community.html}">COMMUNITY</a>
                             <ul class="dropdown">
-                                <li><a th:href="@{notice.html}">공지사항</a></li>
-                                <li><a th:href="@{review.html}">REVIEW</a></li>
-                                <li><a th:href="@{qna}">Q&A</a></li>
+                                <li><a th:href="@{/notice/noticeList}">공지사항</a></li>
+                                <li><a th:href="@{/review/reviewList}">REVIEW</a></li>
+                                <li><a th:href="@{/qna/qnaList}">Q&A</a></li>
                             </ul>
                         </li>
                     </ul>
@@ -221,21 +222,21 @@
 </div>
 
 <!-- jQuery -->
-<script src="../../static/js/jquery.min.js"></script>
+<script th:src="@{/js/jquery.min.js}"></script>
 <!-- jQuery Easing -->
-<script src="../../static/js/jquery.easing.1.3.js"></script>
+<script th:src="@{/js/jquery.easing.1.3.js}"></script>
 <!-- Bootstrap -->
-<script src="../../static/js/bootstrap.min.js"></script>
+<script th:src="@{/js/bootstrap.min.js}"></script>
 <!-- Waypoints -->
-<script src="../../static/js/jquery.waypoints.min.js"></script>
+<script th:src="@{/js/jquery.waypoints.min.js}"></script>
 <!-- Carousel -->
-<script src="../../static/js/owl.carousel.min.js"></script>
+<script th:src="@{/js/owl.carousel.min.js}"></script>
 <!-- countTo -->
-<script src="../../static/js/jquery.countTo.js"></script>
+<script th:src="@{/js/jquery.countTo.js}"></script>
 <!-- Flexslider -->
-<script src="../../static/js/jquery.flexslider-min.js"></script>
+<script th:src="@{/js/jquery.flexslider-min.js}"></script>
 <!-- Main -->
-<script src="../../static/js/main.js"></script>
+<script th:src="@{/js/main.js}"></script>
 
 </body>
 </html>

@@ -11,51 +11,51 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 
 @Controller
-@RequestMapping("/notice")
+@RequestMapping("/")
 public class NoticeController {
 
     @Autowired
     NoticeService service;
 
-    @GetMapping("/nlist")
+    @GetMapping("notice/noticeList")
     public String list(Model model){
         model.addAttribute("list", service.selectAll());
         return "notice/noticeList";
     }
 
-    @GetMapping("/ndetail")
+    @GetMapping("notice/noticeDetail")
     public String form(@RequestParam("notice_number")int noticeNumber, Model model){
         model.addAttribute("dto", service.selectOne(noticeNumber));
         return "notice/noticeDetail";
     }
 
-    @GetMapping("/nwrite")
+    @GetMapping("notice/noticeWrite")
     public String writeForm(){
         return "notice/noticeWrite";
     }
 
-    @PostMapping("/qwrite")
+    @PostMapping("notice/noticeWrite")
     public String writeOk(@ModelAttribute NoticeDTO dto, HttpServletRequest req){
         service.addOne(dto);
-        return "redirect:/notice/nlist";
+        return "redirect:/notice/noticeList";
     }
 
-    @GetMapping("/nmodify")
+    @GetMapping("notice/noticeModify")
     public String modifyForm(@RequestParam("notice_number")int noticeNumber, Model model) {
         model.addAttribute("dto", service.selectOne(noticeNumber));
         return "notice/noticeModify";
     }
 
-    @PostMapping("/nmodify")
+    @PostMapping("notice/noticeModify")
     public String modifyOk(@ModelAttribute NoticeDTO dto) {
         service.modifyOne(dto);
-        return "redirect:/notice/nlist";
+        return "redirect:/notice/noticeList";
     }
 
-    @GetMapping("/ndelete")
+    @GetMapping("notice/noticeDelete")
     public String deleteOk(@RequestParam("notice_number")int noticeNumber) {
         service.removeOne(noticeNumber);
-        return "redirect:/notice/nlist";
+        return "redirect:/notice/noticeList";
     }
 
 }
