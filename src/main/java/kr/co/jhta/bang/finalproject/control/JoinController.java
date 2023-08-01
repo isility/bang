@@ -7,6 +7,7 @@ import kr.co.jhta.bang.finalproject.service.EmailService;
 import kr.co.jhta.bang.finalproject.service.MemberService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,6 +23,9 @@ public class JoinController {
     MemberService memberService;
     @Autowired
     EmailService emailService;
+
+    @Autowired
+    PasswordEncoder passwordEncoder;
 
 
     @GetMapping("/join")
@@ -50,9 +54,7 @@ public class JoinController {
                                HttpSession session) {
         /* 사업자 번호를 여기로 저장 */
         session.setAttribute("bzNum", bzNum);
-        session.getAttribute("key");
         log.info("businessOk 의 session에 담긴 bzNum : " + session.getAttribute("bzNum"));
-        log.info("businessOk 의 session에 담긴 key : " + session.getAttribute("key"));
         return "join/businessTerms.html";
     }
 
@@ -103,6 +105,7 @@ public class JoinController {
             return "join/costomerJoinForm.html";
         } else if (idCheck(memberDto.getMember_id()) == 0) {
             // id가 신규일 때
+            memberDto.setMember_pw(passwordEncoder.encode(memberDto.getMember_pw()));
             memberDto.setMember_type(1);
             memberDto.setRole_number(1);
             memberService.insertMemberOne(memberDto);
@@ -132,6 +135,7 @@ public class JoinController {
             return "join/businessJoinForm.html";
         } else if (idCheck(memberDto.getMember_id()) == 0) {
             // id가 신규일 때
+            memberDto.setMember_pw(passwordEncoder.encode(memberDto.getMember_pw()));
             memberDto.setMember_type(2);
             memberDto.setRole_number(2);
             companyDto.setCompany_registnumber((String) session.getAttribute("bzNum"));
