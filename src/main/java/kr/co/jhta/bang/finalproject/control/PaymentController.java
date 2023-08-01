@@ -2,6 +2,7 @@ package kr.co.jhta.bang.finalproject.control;
 
 import kr.co.jhta.bang.finalproject.dto.CartDTO;
 import kr.co.jhta.bang.finalproject.dto.ProductDTO;
+import kr.co.jhta.bang.finalproject.dto.ProductListDTO;
 import kr.co.jhta.bang.finalproject.service.KakaoPayService;
 import kr.co.jhta.bang.finalproject.service.PaymentService;
 import kr.co.jhta.bang.finalproject.service.ProductService;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.security.Principal;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -26,22 +28,15 @@ public class PaymentController {
 
     @Setter(onMethod_ = @Autowired)
     private KakaoPayService kakaopay;
-
     @Autowired
     PaymentService payService;
 
-    @Autowired
-    ProductService productService;
-
 
     @RequestMapping("")
-    public String kakaoPayGet(Model model) {
-//      Principal = getname
+    public String kakaoPayGet(Model model, Principal principal) {
+//      principal.getName();
         model.addAttribute("cartList",payService.cartlist("aaa"));
-        List<CartDTO> list = payService.cartlist("aaa");
-        for(CartDTO cartDTO : list) {
-            model.addAttribute("img", productService.selectOne(cartDTO.getProductNumber()));
-        }
+
         log.info("카카페 래디1");
         return "payment/kakaopay";
     }
