@@ -118,7 +118,7 @@ position:relative;
 }
 
 #totalPrice{
-font-size: 120%;
+font-size: 150%;
 color: #D3C48B;
 }
 </style>
@@ -234,7 +234,7 @@ console.dir($("#quantity"));
 					<div class="row animate-box">
 						<div class="col-md-8 col-md-offset-2 text-center fh5co-heading">
 							<h2 th:text="${productDto.productName}">베오릿20</h2>
-							<h3 style="color: #D1C286;" th:text="${productDto.productPrice}">679,000원</h3>
+							<h3 style="color: #D1C286;" th:text="${productDto.productPrice}+ '원'">679,000원</h3>
 							<span>배송방법 택배  |  배송비 무료 </span>
 
 							<hr>
@@ -360,10 +360,6 @@ console.dir($("#quantity"));
 	<div class="gototop js-top">
 		<a href="#" class="js-gotop"><i class="icon-arrow-up"></i></a>
 	</div>
-
-
-
-
 
 
 	</body>
