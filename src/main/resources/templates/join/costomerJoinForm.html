@@ -410,7 +410,9 @@
                 url: "emailCheck",
                 type: "post",
                 dataType: "json",
-                data: { "member_email": $("#email").val() },
+                data: { "member_id": $("#member_id").val(),
+                        "member_email": $("#email").val()
+                        },
                 success: function(data) {
                     <!--서버로부터 응답을 받은 경우-->
                     alert("메일이 발송되었습니다! 메일을 확인해주세요.");

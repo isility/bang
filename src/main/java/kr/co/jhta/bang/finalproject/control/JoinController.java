@@ -81,8 +81,9 @@ public class JoinController {
 
     @ResponseBody
     @PostMapping("/emailCheck")
-    public String emailCheck(@RequestParam("member_email")String email) throws MessagingException, UnsupportedEncodingException {
-        return emailService.sendEmail(email);
+    public String emailCheck(@RequestParam("member_email")String email,
+                             @RequestParam("member_id")String id) throws MessagingException, UnsupportedEncodingException {
+        return emailService.sendEmail(id, email);
     }
 
 
