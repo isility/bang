@@ -90,8 +90,11 @@
               }
             });
 
+        });
 
-
+        <!-- 다시 사업자번호를 입력하면 '가입하기' 버튼 none -->
+        $("#bzNum").on("input", function() {
+            $("#joinUs").css("display", "none");
         });
 
   });
