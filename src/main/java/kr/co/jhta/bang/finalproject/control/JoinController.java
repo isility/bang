@@ -50,9 +50,7 @@ public class JoinController {
                                HttpSession session) {
         /* 사업자 번호를 여기로 저장 */
         session.setAttribute("bzNum", bzNum);
-        session.getAttribute("key");
         log.info("businessOk 의 session에 담긴 bzNum : " + session.getAttribute("bzNum"));
-        log.info("businessOk 의 session에 담긴 key : " + session.getAttribute("key"));
         return "join/businessTerms.html";
     }
 
