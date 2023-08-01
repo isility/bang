@@ -49,6 +49,7 @@
     <![endif]-->
     <script th:src="@{/js/modernizr-2.6.2.min.js}"></script>
 
+
 </head>
 
 <body>
@@ -121,9 +122,9 @@
             <div class="row">
                 <div><h2>REVIEW</h2></div>
                 <div>
-                    <a th:href="@{/review/reviewDelete(replyNumber=${reviewDTO.replyNumber})}"><input type="button" class="btn btn-primary btn-outline" style="font-size: 9px;" value="삭제" /></a>
-                    <a th:href="@{/review/reviewModify(replyNumber=${reviewDTO.replyNumber})}"><input type="button" class="btn btn-primary" style="font-size: 9px;" value="수정" /></a>
-                    <a th:href="@{/review/reviewList}"><input type="button" class="btn btn-primary" style="font-size: 9px;" value="목록" /></a>
+                    <a th:href="@{/review/reviewDelete(replyNumber=${reviewDTO.replyNumber})}"><input type="button" class="btn btn-primary btn-outline" style="font-size: 14px;" value="삭제" /></a>
+                    <a th:href="@{/review/reviewModify(replyNumber=${reviewDTO.replyNumber})}"><input type="button" class="btn btn-primary" style="font-size: 14px;" value="수정" /></a>
+                    <a th:href="@{/review/reviewList}"><input type="button" class="btn btn-primary" style="font-size: 14px;" value="목록" /></a>
                 </div>
                     <table class="table">
                         <tr>
@@ -145,35 +146,37 @@
 
                     </table>
 
+                <br>
+                <br>
+                <br>
 
 
-                <div>
-
-                    <input type="text" id="replyWriter" placeholder="작성자">
-                    <input type="text" id="replyContents" placeholder="내용">
-                    <button id="comment-write-btn" th:onclick="commentWrite()">댓글작성</button>
+                <div style="text-align: left;">
+                    <input type="text" id="replyContents" placeholder="내용" style="width: 800px; height: 38px; text-align: center; font-size: 14px; border: 2px solid #D1C286; vertical-align: top;">
+                    <input type="text" id="replyWriter" placeholder="작성자" style="width: 90px; height: 38px; text-align: center; font-size: 14px; border: 2px solid #D1C286; vertical-align: top;">
+                    <button id="comment-write-btn" th:onclick="commentWrite()" class="btn btn-primary" style="font-size: 12px; vertical-align: top;">댓글작성</button>
                 </div>
+                        <br>
+                    </div>
 
-                <div id="comment-list">
-                    <table>
-                            <tr>
-                                <th>작성자</th>
-                                <th>내용</th>
-                                <th>작성시간</th>
-                            </tr>
-                            <tr th:each="reviewDTO2 : ${list}">
-                                <td th:text="${reviewDTO2.replyWriter}"></td>
-                                <td th:text="${reviewDTO2.replyContents}"></td>
-                                <td th:text="${reviewDTO2.replyDate}"></td>
-                            </tr>
-                    </table>
-                </div>
+                <hr>
 
-
-
-
-
+            <div id="comment-list" style="text-align: left;">
+                <table>
+                    <tr th:each="reviewDTO2 : ${list}">
+                        <td id="comment-contents" th:text="${reviewDTO2.replyContents}" style="width: 800px; height: 38px; text-align: center; font-size: 14px; border: 2px solid #D1C286; padding: 10px;border-right: none;"></td>
+                        <td id="comment-writer" th:text="${reviewDTO2.replyWriter}" style="width: 90px; height: 38px; text-align: center; font-size: 14px; border: 2px solid #D1C286; padding: 10px;border-left: none; border-right: none;"></td>
+                        <td id="comment-date" th:text="${reviewDTO2.replyDate}" style="width: 90px; height: 38px; text-align: center; font-size: 14px; border: 2px solid #D1C286; padding: 10px;border-left: none;"></td>
+                    </tr>
+                </table>
             </div>
+
+
+
+
+
+
+        </div>
         </div>
     </div>
 
@@ -314,14 +317,11 @@ const commentWrite = () => {
             console.log("작성성공");
             console.log(commentList);
             let output = "<table>";
-            output += "<tr><th>작성자</th>";
-            output += "<th>내용</th>";
-            output += "<th>작성시간</th>";
             for(let i in commentList){
                output += '<tr>';
-               output += `<td>${commentList[i].replyWriter}</td>`;
-               output += `<td>${commentList[i].replyContents}</td>`;
-               output += `<td>${commentList[i].replyDate}</td>`;
+               output += `<td style="width: 800px; height: 38px; text-align: center; font-size: 14px; border: 2px solid #D1C286; padding: 10px; border-right: none;" id="comment-contents">${commentList[i].replyContents}</td>`;
+               output += `<td style="width: 90px; height: 38px; text-align: center; font-size: 14px; border: 2px solid #D1C286; padding: 10px;border-left: none; border-right: none;" id="comment-writer">${commentList[i].replyWriter}</td>`;
+               output += `<td style="width: 90px; height: 38px; text-align: center; font-size: 14px; border: 2px solid #D1C286; padding: 10px;border-left: none;" id="comment-date">${commentList[i].replyDate}</td>`;
                output += '</tr>';
             }
            output += "</table>";
