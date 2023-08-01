@@ -40,11 +40,11 @@ public class ReviewController {
     }
 
     @GetMapping("/reviewDetail")
-    public String reviewDetail(@RequestParam("replyNumber") int replyNumber, Model model){
+    public String reviewDetail(@RequestParam("replyNumber") int replyNumber, Model model, Model model2){
         model.addAttribute("reviewDTO", service.findByReply_number(replyNumber));
         log.info("-----------------replyNumber : {}", replyNumber);
         //log.info(">>>>>>>>>>>>>>>>>>>>GET {}", service.commentsSave(replyNumber));
-
+        model2.addAttribute("list", service.findAllByReplyRef(replyNumber));
 
         return "review/reviewDetail";
     }

@@ -60,6 +60,23 @@
         FROM product_reply
     </select>
 
+    <select id="findAllByReplyRef"  resultType="ReviewDTO" parameterType="int">
+        SELECT reply_number AS replyNumber,
+        reply_contents AS replyContents,
+        reply_writer AS replyWriter,
+        reply_date AS replyDate,
+        reply_step AS replyStep,
+        reply_ref_order AS replyRefOrder,
+        reply_ref AS replyRef,
+        reply_answer_number AS replyAnswerNumber,
+        reply_parent_number AS replyParentNumber,
+        reply_score AS replyScore,
+        product_number AS productNumber
+        FROM product_reply
+        WHERE reply_parent_number = #{replyNumber} and reply_step != 0
+    </select>
+
+
     <insert id="writeReply" parameterType="ReviewDTO">
         INSERT INTO product_reply (reply_contents, reply_writer,
         reply_date, reply_ref, reply_step, reply_ref_order,
@@ -68,12 +85,8 @@
         (SELECT IFNULL(MAX_reply_ref, 0) + 1 FROM (SELECT MAX(reply_ref) AS MAX_reply_ref FROM product_reply) AS temp), 0, 0, 0, 0, #{replyScore}, #{productNumber});
 
     </insert>
-<!--    INSERT INTO product_reply (reply_contents, reply_writer,-->
-<!--    reply_date, reply_ref, reply_step, reply_ref_order,-->
-<!--    reply_answer_number, reply_parent_number, reply_score, product_number)-->
-<!--    VALUES (#{replyContents}, #{replyWriter}, DATE_FORMAT(NOW(), '%y-%m-%d'),-->
-<!--    (SELECT IFNULL(MAX(reply_ref), 0) + 1 FROM product_reply),-->
-<!--    0, 0, 0, 0, #{replyScore}, #{productNumber});-->
+
+
 
 
 
@@ -127,7 +140,7 @@
         reply_answer_number, reply_parent_number, reply_score, product_number)
         VALUES
         (#{replyContents}, #{replyWriter}, DATE_FORMAT(NOW(), '%y-%m-%d'), #{replyRef}, 1,
-        1, 0, #{replyNumber}, null, #{productNumber});
+        1, 0, #{replyNumber}, null, #{productNumber})
     </insert>
 
 

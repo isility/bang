@@ -29,6 +29,7 @@ public interface ReviewDAO {
 
 
     void setReplyFirst(ReviewDTO dto); // 최초 댓글 작성
+    List<ReviewDTO> findAllByReplyRef(int replyNumber); // 댓글들만 가져옴
     int getReplyAnswerNumberByReplyNumber(int replyNumber); // 최초 댓글인지 확인
     void setReplyFirstStep(ReviewDTO reviewDTO); // step = 1인 답글
 

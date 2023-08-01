@@ -148,13 +148,25 @@
 
 
                 <div>
+
                     <input type="text" id="replyWriter" placeholder="작성자">
                     <input type="text" id="replyContents" placeholder="내용">
                     <button id="comment-write-btn" th:onclick="commentWrite()">댓글작성</button>
                 </div>
 
                 <div id="comment-list">
-
+                    <table>
+                            <tr>
+                                <th>작성자</th>
+                                <th>내용</th>
+                                <th>작성시간</th>
+                            </tr>
+                            <tr th:each="reviewDTO2 : ${list}">
+                                <td th:text="${reviewDTO2.replyWriter}"></td>
+                                <td th:text="${reviewDTO2.replyContents}"></td>
+                                <td th:text="${reviewDTO2.replyDate}"></td>
+                            </tr>
+                    </table>
                 </div>
 
 
@@ -274,50 +286,56 @@
 </body>
 
 <script th:inline="javascript">
-    const commentWrite = () => {
-        const writer = document.getElementById("replyWriter").value;
-        const contents = document.getElementById("replyContents").value;
-        const number = /*[[${reviewDTO.replyNumber}]]*/;
-        const ref = /*[[${reviewDTO.replyRef}]]*/;
-        const productNumber = /*[[${reviewDTO.productNumber}]]*/;
-        const ParentNumber = /*[[${reviewDTO.replyParentNumber}]]*/;
 
-        $.ajax({
-            type: "post",
-            url: "/review/reviewDetail",
-            data: {
-                replyWriter: writer,
-                replyContents: contents,
-                replyNumber: number,
-                replyRef: ref,
-                productNumber: productNumber,
-                replyParentNumber: ParentNumber
-            },
-            dataType: "json",
-            success: function(commentList) {
-                console.log("작성성공");
-                console.log(commentList);
-                let output = "<table>";
-                output += "<tr><th>작성자</th>";
-                output += "<th>내용</th>";
-                output += "<th>작성시간</th>";
-                for(let i in commentList){
-                   output += "<tr>";
-                   output += "<td>+commentList[i].replyWriter</td>";
-                   output += "<td>+commentList[i].replyContents</td>";
-                   output += "<td>+commentList[i].replyDate</td>";
-                   output += "</>tr>";
-                }
-               output += "</table>";
-               document.getElementById('comment-list').innerHTML = output;
-               document.getElementById('commentWriter').value = '';
-               document.getElementById('commentContents').innerHTML = '';
-            },
-            error: function(){
-                console.log("실패");
+
+// commentWrite 함수 정의
+const commentWrite = () => {
+    const writer = document.getElementById("replyWriter").value;
+    const contents = document.getElementById("replyContents").value;
+    const number = /*[[${reviewDTO.replyNumber}]]*/;
+    const ref = /*[[${reviewDTO.replyRef}]]*/;
+    const pNumber = /*[[${reviewDTO.productNumber}]]*/;
+    const ParentNumber = /*[[${reviewDTO.replyParentNumber}]]*/;
+
+
+    $.ajax({
+        type: "post",
+        url: "/review/reviewDetail",
+        data: {
+            replyWriter: writer,
+            replyContents: contents,
+            replyNumber: number,
+            replyRef: ref,
+            productNumber: pNumber,
+            replyParentNumber: ParentNumber
+        },
+        dataType: "json",
+        success: function(commentList) {
+            console.log("작성성공");
+            console.log(commentList);
+            let output = "<table>";
+            output += "<tr><th>작성자</th>";
+            output += "<th>내용</th>";
+            output += "<th>작성시간</th>";
+            for(let i in commentList){
+               output += '<tr>';
+               output += `<td>${commentList[i].replyWriter}</td>`;
+               output += `<td>${commentList[i].replyContents}</td>`;
+               output += `<td>${commentList[i].replyDate}</td>`;
+               output += '</tr>';
             }
-        });
-    }
+           output += "</table>";
+           document.getElementById('comment-list').innerHTML = output;
+           document.getElementById('commentWriter').value = '';
+           document.getElementById('commentContents').innerHTML = '';
+        },
+        error: function(){
+            console.log("실패");
+        }
+    });
+};
+
+
 </script>
 
 </html>
