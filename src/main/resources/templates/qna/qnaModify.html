@@ -126,21 +126,28 @@
         <div><h2>Q&A</h2></div>
         <!--				<h2 th:text="${list}"></h2>-->
         <form action="qnaModify" method="post">
+          <select name="qnaType" id="category">
+            <option value="">카테고리선택</option>
+            <option value="상품문의">상품문의</option>
+            <option value="결제/배송문의">결제/배송문의</option>
+            <option value="회원정보문의">회원정보문의</option>
+            <option value="기타문의">기타문의</option>
+          </select>
           <table class="table">
             <tr>
               <th>작성자</th>
               <td>
-                <input type="hidden" name="qna_number" th:value="${dto.qna_number}" />
-                <input type="text" name="qna_writer" id="" th:value="${dto.qna_writer}" />
+                <input type="hidden" name="qnaNumber" th:value="${dto.qnaNumber}" />
+                <input type="text" name="qnaWriter" th:value="${dto.qnaWriter}" />
               </td>
             </tr>
             <tr>
               <th>제목</th>
-              <td><input type="text" name="qna_title" id="" th:value="${dto.qna_title}" /></td>
+              <td><input type="text" name="qnaTitle" th:value="${dto.qnaTitle}" /></td>
             </tr>
             <tr>
               <th>내용</th>
-              <td><textarea name="qna_contents" id="summernote" cols="30" rows="10" th:text="${dto.qna_contents}"></textarea></td>
+              <td><textarea name="qnaContents" id="summernote" cols="30" rows="10" th:text="${dto.qnaContents}"></textarea></td>
             </tr>
             <tr>
               <td colspan="2">

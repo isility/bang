@@ -7,7 +7,9 @@ import java.util.List;
 
 public interface NoticeService {
 
-    public List<NoticeDTO> selectAll();
+    public List<NoticeDTO> selectAll(int startNo, int endNo);
+
+    public int getTotal();
 
     public NoticeDTO selectOne(int noticeNumber);
 

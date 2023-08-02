@@ -121,35 +121,35 @@
             <div class="row">
                 <div><h2>Q&A</h2></div>
                <div>
-                   <a th:href="@{/qna/qnaDelete(qna_number=${dto.qna_number})}"><input type="button" style="float:right;" class="btn btn-outline-danger" value="삭제" /></a>
-                   <a th:href="@{/qna/qnaModify(qna_number=${dto.qna_number})}"><input type="button" style="float:right;" class="btn btn-outline-success" value="수정" /></a>
+                   <a th:href="@{/qna/qnaDelete(qnaNumber=${dto.qnaNumber})}"><input type="button" style="float:right;" class="btn btn-outline-danger" value="삭제" /></a>
+                   <a th:href="@{/qna/qnaModify(qnaNumber=${dto.qnaNumber})}"><input type="button" style="float:right;" class="btn btn-outline-success" value="수정" /></a>
                    <a th:href="@{/qna/qnaList}"><input type="button" style="float:right;" class="btn btn-outline-primary" value="목록" /></a>
                </div>
                 <form>
                 <table class="table">
                     <tr>
                         <th>게시물번호</th>
-                        <td th:text="${dto.qna_ref}"></td>
+                        <td th:text="${dto.qnaRef}"></td>
                         <th>작성자</th>
-                        <td th:text="${dto.qna_writer}"></td>
+                        <td th:text="${dto.qnaWriter}"></td>
                     </tr>
                     <tr>
                         <th>작성일</th>
-                        <td th:text="${dto.qna_date}"></td>
+                        <td th:text="${dto.qnaDate}"></td>
                         <th>상태정보</th>
-                        <td th:text="${dto.qna_status}"></td>
+                        <td th:text="${dto.qnaStatus}"></td>
                     </tr>
                     <tr>
                         <th>제목</th>
-                        <td colspan="4" th:text="${dto.qna_title}"></td>
+                        <td colspan="4" th:text="${dto.qnaTitle}"></td>
                     </tr>
                     <tr>
                         <th>내용</th>
-                        <td colspan="4" th:text="${dto.qna_contents}"></td>
+                        <td colspan="4" th:text="${dto.qnaContents}"></td>
                     </tr>
                     <tr>
                         <th>댓글을 남겨주세요</th>
-                       <td><input type="text" name="qna_contents" id="" /></td>
+                       <td><input type="text" name="qnaContents" id="" /></td>
                         <td colspan="4">
                             <input class="btn btn-outline-success" style="float:right;" type="submit" value="댓글작성" />
                             <input type="button" style="float:right;" class="btn btn-outline-danger" value="삭제" />

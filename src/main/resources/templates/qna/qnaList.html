@@ -55,6 +55,8 @@
 	<script th:src="@{/js/respond.min.js}"></script>
 	<![endif]-->
 	<script th:src="@{/js/modernizr-2.6.2.min.js}"></script>
+
+
 </head>
 
 <body>
@@ -138,7 +140,7 @@
 						<tr>
 							<th>NO</th>
 							<th>
-								<select name="qna_type" id="category">
+								<select name="qnaType" id="category">
 									<option value="">카테고리선택</option>
 									<option value="상품문의">상품문의</option>
 									<option value="결제/배송문의">결제/배송문의</option>
@@ -158,11 +160,17 @@
 
 
 						<tr th:each="board:${list}">
-							<td th:text="${board.qna_ref}"></td>
-							<td th:text="${board.qna_type}"></td>
-							<td><a th:href="@{/qna/qnaDetail(qna_number=${board.qna_number})}" th:text="${board.qna_title}"></a></td>
-							<td th:text="${board.qna_writer}"></td>
-							<td th:text="${board.qna_date}"></td>
+							<td th:text="${board.qnaRef}"></td>
+							<td th:text="${board.qnaType}"></td>
+<!--							<td><a th:href="@{/qna/qnaDetail(qna_number=${board.qna_number})}" th:text="${board.qna_title}"></a>비밀글입니다</td>-->
+							<td>
+								<span th:if="${board.qnaSecret == 'true'}"><a th:href="@{/qna/qnaDetail(qnaNumber=${board.qnaNumber})}">비밀글입니다</a></span>
+								<span th:if="${board.qnaSecret == null}"><a th:href="@{/qna/qnaDetail(qnaNumber=${board.qnaNumber})}" th:text="${board.qnaTitle}"></a></span>
+							</td>
+<!--							<td th:if="${board.qna_secret == 'true'}">비밀글입니다</td>-->
+<!--							<td th:unlss="${board.qna_secret == 'true'}"><a th:href="@{/qna/qnaDetail(qna_number=${board.qna_number})}" th:text="${board.qna_title}"></a></td>-->
+							<td th:text="${board.qnaWriter}"></td>
+							<td th:text="${board.qnaDate}"></td>
 						</tr>
 					</table>
 					<div class="centered">

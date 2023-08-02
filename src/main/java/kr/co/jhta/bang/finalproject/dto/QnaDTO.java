@@ -8,18 +8,18 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class QnaDTO {
-    private int qna_number;
-    private String qna_title;
-    private String qna_contents;
-    private String qna_writer;
-    private String qna_date;
-    private int qna_ref;
-    private int qna_step;
-    private int qna_ref_order;
-    private int qna_answer_number;
-    private int qna_parents_number;
-    private String qna_type;
-    private int qna_status;
-    private String qna_secret;
-    private String member_id;
+    private int qnaNumber;
+    private String qnaTitle;
+    private String qnaContents;
+    private String qnaWriter;
+    private String qnaDate;
+    private int qnaRef;
+    private int qnaStep;
+    private int qnaRefOrder;
+    private int qnaAnswerNumber;
+    private int qnaParentsNumber;
+    private String qnaType;
+    private int qnaStatus;
+    private String qnaSecret;
+    private String memberId;
 }
