@@ -1,6 +1,7 @@
 package kr.co.jhta.bang.finalproject.control;
 
 import kr.co.jhta.bang.finalproject.dto.ProductListDTO;
+import kr.co.jhta.bang.finalproject.service.PaymentService;
 import kr.co.jhta.bang.finalproject.service.ProductService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.security.Principal;
 import java.util.List;
 
 @Controller
@@ -19,6 +21,9 @@ public class ProductController {
 
     @Autowired
     ProductService service;
+
+    @Autowired
+    PaymentService payService;
 
     //상품리스트-------------------------------------------------------------------------------------------------
     @GetMapping("/productList")
@@ -77,4 +82,10 @@ public class ProductController {
         return "product/productDetail";
     }
 
+    //장바구니---------------------------------------------------------------------------------------------
+    @GetMapping("/cart")
+    public String cart(Model model, Principal principal){
+        model.addAttribute("cartList", payService.cartlist(principal.getName()));
+        return "product/cart";
+    }
 }
