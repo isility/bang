@@ -121,29 +121,29 @@
       <div class="row">
         <div><h2>NOTICE</h2></div>
         <div>
-          <a th:href="@{ndelete(notice_number=${dto.notice_number})}"><input type="button" style="float:right;" class="btn btn-outline-danger" value="삭제" /></a>
-          <a th:href="@{nmodify(notice_number=${dto.notice_number})}"><input type="button" style="float:right;" class="btn btn-outline-success" value="수정" /></a>
-          <a th:href="@{nlist}"><input type="button" style="float:right;" class="btn btn-outline-primary" value="목록" /></a>
+          <a th:href="@{noticeDelete(noticeNumber=${dto.noticeNumber})}"><input type="button" style="float:right;" class="btn btn-outline-danger" value="삭제" /></a>
+          <a th:href="@{noticeModify(noticeNumber=${dto.noticeNumber})}"><input type="button" style="float:right;" class="btn btn-outline-success" value="수정" /></a>
+          <a th:href="@{noticeList}"><input type="button" style="float:right;" class="btn btn-outline-primary" value="목록" /></a>
         </div>
         <form>
           <table class="table">
             <tr>
               <th>게시물번호</th>
-              <td th:text="${dto.notice_number}"></td>
+              <td th:text="${dto.noticeNumber}"></td>
               <th>작성자</th>
-              <td th:text="${dto.notice_writer}"></td>
+              <td th:text="${dto.noticeWriter}"></td>
             </tr>
             <tr>
               <th>작성일</th>
-              <td th:text="${dto.notice_date}"></td>
+              <td th:text="${dto.noticeDate}"></td>
             </tr>
             <tr>
               <th>제목</th>
-              <td colspan="4" th:text="${dto.notice_title}"></td>
+              <td colspan="4" th:text="${dto.noticeTitle}"></td>
             </tr>
             <tr>
               <th>내용</th>
-              <td colspan="4" th:text="${dto.notice_contents}"></td>
+              <td colspan="4" th:text="${dto.noticeContents}"></td>
             </tr>
 
           </table>

@@ -131,7 +131,7 @@
 
 
         <form action="qnaWrite" method="post">
-          <select name="qna_type" id="category">
+          <select name="qnaType" id="category">
             <option value="">카테고리선택</option>
             <option value="상품문의">상품문의</option>
             <option value="결제/배송문의">결제/배송문의</option>
@@ -141,22 +141,22 @@
 
             <div style="width:70px; float:right;">
               비밀글
-              <input type="checkbox" name="qna_secret" id="qna_secret" value="true">
-              <input type="hidden" name="_qna_secret" value="on" >
+              <input type="checkbox" name="qnaSecret" id="qnaSecret" value="true">
+              <input type="hidden" name="_qnaSecret" value="on" >
             </div>
 
           <table class="table">
             <tr>
               <th>작성자</th>
-              <td><input type="text" name="qna_writer" id="writer" /></td>
+              <td><input type="text" name="qnaWriter" id="writer" /></td>
             </tr>
             <tr>
               <th>제목</th>
-              <td><input type="text" name="qna_title" id="title" /></td>
+              <td><input type="text" name="qnaTitle" id="title" /></td>
             </tr>
             <tr>
               <th>내용</th>
-              <td><textarea name="qna_contents" id="summernote" cols="30" rows="10"></textarea></td>
+              <td><textarea name="qnaContents" id="summernote" cols="30" rows="10"></textarea></td>
             </tr>
             <tr>
               <td colspan="2">

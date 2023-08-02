@@ -133,7 +133,7 @@
             <div><h2>NOTICE</h2></div>
             <div class="row" >
                 <div>
-                    <a th:href="@{nwrite}"><input type="button" style="float:right;" class="btn btn-outline-primary" value="글쓰기" /></a>
+                    <a th:href="@{noticeWrite}"><input type="button" style="float:right;" class="btn btn-outline-primary" value="글쓰기" /></a>
                 </div>
                 <table class="table">
                     <tr>
@@ -143,12 +143,27 @@
                         <th>작성시간</th>
                     </tr>
                     <tr th:each="board:${list}">
-                        <td th:text="${board.notice_number}"></td>
-                        <td><a th:href="@{ndetail(notice_number=${board.notice_number})}" th:text="${board.notice_title}"></a></td>
-                        <td th:text="${board.notice_writer}"></td>
-                        <td th:text="${board.notice_date}"></td>
+                        <td th:text="${board.noticeNumber}"></td>
+                        <td><a th:href="@{noticeDetail(noticeNumber=${board.noticeNumber})}" th:text="${board.noticeTitle}"></a></td>
+                        <td th:text="${board.noticeWriter}"></td>
+                        <td th:text="${board.noticeDate}"></td>
                     </tr>
                 </table>
+                <div class="centered">
+                    <nav aria-label="Page navigation example">
+                        <ul class="pagination">
+                            <li th:if="${map.prev}">
+                                <a th:href="@{/notice/noticeList(currentPage=${map.currentPage-5})}" class="page-link">이전</a>
+                            </li>
+                            <li th:each="i : ${#numbers.sequence(map.startPageNo, map.endPageNo)}">
+                                <a th:href="@{/notice/noticeList(currentPage=${i})}" class="page-link" th:text="${i}"></a>
+                            </li>
+                            <li th:if="${map.next}">
+                                <a th:href="@{/notice/noticeList(currentPage=${map.currentPage+5})}" class="page-link">다음</a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
             </div>
             <!--			<div class="row">-->
             <!--				<div class="col-md-4 text-center animate-box">-->

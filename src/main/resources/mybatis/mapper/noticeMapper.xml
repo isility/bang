@@ -4,25 +4,33 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="kr.co.jhta.bang.finalproject.dao.NoticeDAO">
-    <select id="getAll" resultType="NoticeDTO">
-        SELECT * FROM notice
-        ORDER BY notice_number DESC
+    <select id="getAll" resultType="NoticeDTO" parameterType="StartEnd">
+        SELECT rn AS rowNumber, notice_number AS noticeNumber, notice_title AS noticeTitle, notice_contents AS noticeContents, notice_writer AS noticeWriter, notice_date AS noticeDate, member_id AS memberId
+        FROM ( SELECT ROW_NUMBER() OVER (ORDER BY notice_number DESC) AS rn, notice_number, notice_title, notice_contents, notice_writer, notice_date, member_id
+        FROM notice
+        ) AS derived
+        WHERE rn BETWEEN #{startNo} AND #{endNo}
+    </select>
+    <select id="getTotal" resultType="int">
+        SELECT count(*)cnt
+        FROM qna
     </select>
     <select id="selectOne" parameterType="int" resultType="NoticeDTO">
-        SELECT * FROM notice
-        WHERE notice_number =#{notice_number}
+        SELECT notice_number AS noticeNumber, notice_title AS noticeTitle, notice_contents AS noticeContents, notice_writer AS noticeWriter, notice_date AS noticeDate, member_id AS memberId
+        FROM notice
+        WHERE notice_number = #{noticeNumber}
     </select>
     <insert id="insertOne" parameterType="NoticeDTO">
         INSERT INTO notice (notice_title, notice_contents, notice_writer, notice_date, member_id)
-        VALUES (#{notice_title}, #{notice_contents}, #{notice_writer}, DATE_FORMAT(NOW(), '%y-%m-%d'), 'b')
+        VALUES (#{noticeTitle}, #{noticeContents}, #{noticeWriter}, DATE_FORMAT(NOW(), '%y-%m-%d'), 'b')
     </insert>
     <update id="updateOne" parameterType="NoticeDTO">
         UPDATE notice
-        SET notice_writer = #{notice_writer}, notice_title = #{notice_title}, notice_contents = #{notice_contents}
-        WHERE notice_number = #{notice_number}
+        SET notice_writer = #{noticeWriter}, notice_title = #{noticeTitle}, notice_contents = #{noticeContents}
+        WHERE notice_number = #{noticeNumber}
     </update>
     <delete id="deleteOne" parameterType="int">
         DELETE FROM notice
-        WHERE notice_number = #{notice_number}
+        WHERE notice_number = #{noticeNumber}
     </delete>
 </mapper>
