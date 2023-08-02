@@ -14,4 +14,5 @@ public class CartDTO {
     int cartQuantity;
     String productName;
     String img;
+    int productPrice;
 }

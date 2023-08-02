@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.servlet.http.HttpSession;
 import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
@@ -35,14 +36,14 @@ public class PaymentController {
     MemberDAO memberDAO;
 
 
-    @RequestMapping("/")
-    public String kakaoPayGet(Model model, Principal principal) {
-//      principal.getName();
-        model.addAttribute("cartList",payService.cartlist("aaa"));
-        model.addAttribute("member", memberDAO.selectOne("aaa"));
+    @RequestMapping("")
+    public String kakaoPayGet(HttpSession session, Principal principal) {
+
+        session.setAttribute("cartList",payService.cartlist(principal.getName()));
+        session.setAttribute("member", memberDAO.selectOne(principal.getName()));
 
         log.info("카카페 래디1");
-        return "payment/kakaopay";
+        return "payment/kakaoPay";
     }
 
     @PostMapping("/kakaoPay")
