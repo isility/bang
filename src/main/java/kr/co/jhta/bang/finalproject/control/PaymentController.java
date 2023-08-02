@@ -1,5 +1,6 @@
 package kr.co.jhta.bang.finalproject.control;
 
+import kr.co.jhta.bang.finalproject.dao.MemberDAO;
 import kr.co.jhta.bang.finalproject.dto.CartDTO;
 import kr.co.jhta.bang.finalproject.dto.ProductDTO;
 import kr.co.jhta.bang.finalproject.dto.ProductListDTO;
@@ -30,12 +31,15 @@ public class PaymentController {
     private KakaoPayService kakaopay;
     @Autowired
     PaymentService payService;
+    @Autowired
+    MemberDAO memberDAO;
 
 
-    @RequestMapping("")
+    @RequestMapping("/")
     public String kakaoPayGet(Model model, Principal principal) {
 //      principal.getName();
         model.addAttribute("cartList",payService.cartlist("aaa"));
+        model.addAttribute("member", memberDAO.selectOne("aaa"));
 
         log.info("카카페 래디1");
         return "payment/kakaopay";
