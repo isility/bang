@@ -182,18 +182,16 @@
             <tr class="cart_list_detail" th:each="cart:${cartList}">
               <td style="width: 2%;"><input type="checkbox"></td>
               <td style="width: 13%;"><img th:src="@{/images/__${cart.img}__.jpg}"></td>
-              <td style="width: 27%;"><span/><br>
-                <span> 베오릿20</span></td>
-
-              <td class="cart__list__option" style="width: 27%;"><span/><br>
-                <input type="number" id="quantity" min="1" value="1" style="width:50px"></span><br>
+              <td style="width: 35%;"><span/><br>
+                <span th:text=" ${cart.productName}"></span></td>
+              <td class="cart__list__option" style="width: 19%;"><span/><br>
+                <span><input type="number" id="quantity" min="1" th:value="${cart.cartQuantity}" style="width:50px"></span></span><br><br>
                 <button class=" btn btn-primary btn-outline btn-xxs countbtn"
                 style="font-size:13px;width:80px;height:35px;padding:11px;padding-top:7px">수량 변경</button>
               </td>
 
-
               <td style="width: 15%;"><span class="price"></span><br>
-                <p >88,900원</p>
+                <span id="totalPrice" th:utext="${cart.productPrice} + ' 원'"></span>
                 <button class="countbtn btn btn-primary btn-outline orderbtn"
                         style="font-size:13px;width:80px;height:35px;padding:11px;padding-top:7px">바로 구매</button>
               </td>
@@ -220,8 +218,10 @@
         </table>
 
         <div class="cart__mainbtns">
-          <button class=" btn btn-primary btn-outline">쇼핑 계속하기</button>
-          <button class=" btn btn-primary">주문하기</button>
+
+          <button class=" btn btn-primary btn-lg" >주문하기</button>
+          <br>
+          <a href="">쇼핑계속하기</a>
         </div>
       </section>
 
