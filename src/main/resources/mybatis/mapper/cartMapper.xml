@@ -8,11 +8,21 @@
         SELECT c.product_number AS productNumber,
         cart_quantity AS cartQuantity,
         p.product_name AS productName,
-        image_src AS img
+        image_src AS img,
+        p.product_price AS productPrice
         FROM cart c
         INNER JOIN product p ON c.product_number = p.product_number
         INNER JOIN image i ON c.product_number = i.product_number AND image_order = 1
         WHERE c.member_id = #{memberID};
     </select>
+    <insert id="insertOne" parameterType="CartDTO">
+        INSERT INTO cart (product_number, member_id, cart_quantity)
+        VALUES (#{productNumber}, #{memberID}, #{cartQuantity});
+    </insert>
+    <delete id="deleteOne" parameterType="int">
+        DELETE from cart
+        WHERE product_number = #{productNumber};
+
+    </delete>
 
 </mapper>
