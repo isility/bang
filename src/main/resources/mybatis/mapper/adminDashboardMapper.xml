@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="kr.co.jhta.bang.finalproject.dao.PaymentDetailDAO">
+
+    <select id="getFourPaymentDetail" resultType="PaymentDetailDTO">
+        SELECT
+        pd.payment_detail_number AS paymentDetailNumber,
+        pd.product_count AS productCount,
+        pd.product_price AS productPrice,
+        pd.payment_detail_status AS paymentDetailStatus,
+        pd.product_number AS productNumber,
+        p.payment_number AS paymentNumber,
+        pr.product_name AS productName
+        FROM payment_detail pd
+        INNER JOIN payment p ON pd.payment_number = p.payment_number
+        INNER JOIN product pr ON pd.product_number = pr.product_number -- Use the correct column name here
+        ORDER BY pd.payment_detail_number DESC
+        LIMIT 4;
+
+    </select>
+</mapper>
