@@ -17,6 +17,7 @@ import java.io.UnsupportedEncodingException;
 
 @Slf4j
 @Controller
+@RequestMapping(value = "/join")
 public class JoinController {
 
     @Autowired
@@ -28,7 +29,7 @@ public class JoinController {
     PasswordEncoder passwordEncoder;
 
 
-    @GetMapping("/join")
+    @GetMapping()
     public String join() {
         return "join/join.html";
     }
@@ -111,7 +112,7 @@ public class JoinController {
             memberService.insertMemberOne(memberDto);
             memberService.insertPersonOne(personDto);
 
-            return "login/login.html";
+            return "redirect:/login/login.html";
         }
         return "redirect:index.html";
     }
@@ -142,7 +143,7 @@ public class JoinController {
             memberService.insertMemberOne(memberDto);
             memberService.insertCompanyOne(companyDto);
 
-            return "login/login.html";
+            return "redirect:/login/login.html";
         }
         return "redirect:index.html";
     }
