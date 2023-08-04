@@ -68,5 +68,29 @@
         LIMIT 5;
     </select>
 
+    <select id="getTotal" resultType="int">
+        SELECT count(*)cnt
+        FROM product_reply
+    </select>
 
+
+    <select id="getPaging" resultType="PaymentDetailDTO" parameterType="StartEnd">
+        SELECT rn AS rowNumber,
+        payment_detail_number AS paymentDetailNumber,
+        product_count AS productCount,
+        product_price AS productPrice,
+        payment_detail_status AS paymentDetailStatus,
+        product_number AS productNumber
+        FROM (
+        SELECT ROW_NUMBER() OVER (ORDER BY payment_number DESC) AS rn,
+        payment_detail_number,
+        product_count,
+        product_price,
+        payment_detail_status,
+        product_number
+        FROM payment_detail
+        ) AS derived
+        WHERE rn BETWEEN #{startNo} AND #{endNo}
+
+    </select>
 </mapper>

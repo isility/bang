@@ -147,29 +147,11 @@
 
                     <tbody>
 
-                    <tr>
-                      <th scope="row">1</th>
-                      <td>2</td>
-                      <td>1234</td>
-                      <td>12340,12340</td>
-                      <td>
-                        <div>
-                          <select class="form-select">
-                            <option value="1">입금대기</option>
-                            <option value="2">입금확인</option>
-                            <option value="3">상품준비</option>
-                            <option value="4">배송중</option>
-                            <option value="5">배송완료</option>
-                          </select>
-                        </div>
-                      </td>
-                    </tr>
-
-                    <tr>
-                      <th scope="row">1</th>
-                      <td>2</td>
-                      <td>1234</td>
-                      <td>12340,12340</td>
+                    <tr th:each="paymentDetailDTO : ${list}">
+                      <th scope="row" th:text="${paymentDetailDTO.paymentDetailNumber}"></th>
+                      <td th:text="${paymentDetailDTO.productNumber}"></td>
+                      <td th:text="${paymentDetailDTO.productCount}"></td>
+                      <td th:text="${paymentDetailDTO.productPrice}"></td>
                       <td>
                         <div>
                           <select class="form-select">
@@ -187,6 +169,19 @@
                     </tbody>
 
                   </table>
+                  <nav>
+                    <ul class="pagination">
+                      <li th:if="${map.prev}">
+                        <a th:href="@{/admin/paymentList(currentPage=${map.currentPage-5})}" class="page-link">이전</a>
+                      </li>
+                      <li th:each="i : ${#numbers.sequence(map.startPageNo, map.endPageNo)}">
+                        <a th:href="@{/admin/paymentList(currentPage=${i})}" class="page-link" th:text="${i}"></a>
+                      </li>
+                      <li th:if="${map.next}">
+                        <a th:href="@{/admin/paymentList(currentPage=${map.currentPage+5})}" class="page-link">다음</a>
+                      </li>
+                    </ul>
+                  </nav>
                 </div>
               </div>
 
@@ -197,11 +192,11 @@
       </div>
     </div>
   </div>
-  <script src="../assets/libs/jquery/dist/jquery.min.js"></script>
-  <script src="../assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-  <script src="../assets/js/sidebarmenu.js"></script>
-  <script src="../assets/js/app.min.js"></script>
-  <script src="../assets/libs/simplebar/dist/simplebar.js"></script>
+  <script th:src="@{../assets/libs/jquery/dist/jquery.min.js}"></script>
+  <script th:src="@{../assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js}"></script>
+  <script th:src="@{../assets/js/sidebarmenu.js}"></script>
+  <script th:src="@{../assets/js/app.min.js}"></script>
+  <script th:src="@{../assets/libs/simplebar/dist/simplebar.js}"></script>
 </body>
 
 </html>
