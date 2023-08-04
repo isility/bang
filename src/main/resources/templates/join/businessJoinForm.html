@@ -27,27 +27,27 @@
 
 
   <!-- Theme style  -->
-  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="/css/style.css">
 
   <!-- Animate.css -->
-  <link rel="stylesheet" href="css/animate.css">
+  <link rel="stylesheet" href="/css/animate.css">
 
   <!-- Icomoon Icon Fonts-->
-  <link rel="stylesheet" href="css/icomoon.css">
+  <link rel="stylesheet" href="/css/icomoon.css">
 
   <!-- Flexslider  -->
-  <link rel="stylesheet" href="css/flexslider.css">
+  <link rel="stylesheet" href="/css/flexslider.css">
 
 
   <!-- Owl Carousel  -->
-  <link rel="stylesheet" href="css/owl.carousel.min.css">
-  <link rel="stylesheet" href="css/owl.theme.default.min.css">
+  <link rel="stylesheet" href="/css/owl.carousel.min.css">
+  <link rel="stylesheet" href="/css/owl.theme.default.min.css">
 
   <!-- Modernizr JS -->
-  <script src="js/modernizr-2.6.2.min.js"></script>
+  <script src="/js/modernizr-2.6.2.min.js"></script>
   <!-- FOR IE9 below -->
   <!--[if lt IE 9]>
-  <script src="js/respond.min.js"></script>
+  <script src="/js/respond.min.js"></script>
   <![endif]-->
 
 
@@ -56,7 +56,7 @@
 
 
   <!-- Bootstrap  -->
-  <link rel="stylesheet" href="css/bootstrap.css">
+  <link rel="stylesheet" href="/css/bootstrap.css">
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
           integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3"
           crossorigin="anonymous"></script>
@@ -97,7 +97,7 @@
   <script type="text/javascript">
   $(document).ready(function(){
         $.ajax({
-              url: "captcha",
+              url: "/join/captcha",
               type: "post",
               dataType: "text",
               success: function(key) {
@@ -211,7 +211,7 @@
 
             <!-- 4가지 체크가 끝난 뒤, 아이디 중복확인 -->
             $.ajax({
-                url: "idCheck",
+                url: "/join/idCheck",
                 type: "post",
                 dataType: "json",
                 data: { "member_id": memberId },
@@ -405,7 +405,7 @@
         $("#emailCheck").on("click", function() {
             <!-- 사용자 입력 이메일 주소 받기 -->
             $.ajax({
-                url: "emailCheck",
+                url: "/join/emailCheck",
                 type: "post",
                 dataType: "json",
                 data: { "member_id": $("#member_id").val(),
@@ -595,23 +595,23 @@
     <div class="container">
       <div class="row">
         <div class="col-md-3 col-xs-2">
-          <div id="fh5co-logo"><a href="index.html">Bang & Oops</a></div>
+          <div id="fh5co-logo"><a href="/index.html">Bang & Oops</a></div>
         </div>
         <div class="col-md-6 col-xs-6 text-center menu-1">
           <ul>
-            <li><a href="productList.html">SPEAKER</a></li>
-            <li><a href="productList.html">EARPHONE</a></li>
-            <li><a href="productList.html">HEADPHONE</a></li>
-            <li><a href="productList.html">ACCESSORIES</a></li>
-            <li><a href="services.html">SERVICE</a></li>
+            <li><a href="/productList.html">SPEAKER</a></li>
+            <li><a href="/productList.html">EARPHONE</a></li>
+            <li><a href="/productList.html">HEADPHONE</a></li>
+            <li><a href="/productList.html">ACCESSORIES</a></li>
+            <li><a href="/services.html">SERVICE</a></li>
           </ul>
         </div>
         <div class="col-md-3 col-xs-4 text-right hidden-xs menu-2">
           <ul>
             <li class="shopping-cart menu-2"><a href="#" class="cart"><span><small>0</small><i
                     class="icon-shopping-cart"></i></span></a></li>
-            <li class="login menu-2"><a href="join">JOIN</a></li>
-            <li class="login menu-2"><a href="login">login</a></li>
+            <li class="login menu-2"><a href="/join">JOIN</a></li>
+            <li class="login menu-2"><a href="/login">login</a></li>
             <li class="search menu-2">
               <div class="input-group">
                 <input type="text" placeholder="SEARCH">
@@ -645,7 +645,7 @@
             * 표시되어 있는 칸은 필수 입력입니다.
           </div>
 
-          <form action="businessJoinForm" method="post" id="joinForm">
+          <form action="/join/businessJoinForm" method="post" id="joinForm">
 
             <h4 style="color:#7E7E7E ; font-weight: bold; position: relative;">계정</h4>
             <div class="row form-group">
@@ -859,25 +859,25 @@
 </div>
 
 <!-- jQuery -->
-<script src="js/jquery.min.js"></script>
+<script src="/js/jquery.min.js"></script>
 <!-- jQuery Easing -->
-<script src="js/jquery.easing.1.3.js"></script>
+<script src="/js/jquery.easing.1.3.js"></script>
 <!-- Bootstrap -->
-<script src="js/bootstrap.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
 <!-- Waypoints -->
-<script src="js/jquery.waypoints.min.js"></script>
+<script src="/js/jquery.waypoints.min.js"></script>
 <!-- Carousel -->
-<script src="js/owl.carousel.min.js"></script>
+<script src="/js/owl.carousel.min.js"></script>
 <!-- countTo -->
-<script src="js/jquery.countTo.js"></script>
+<script src="/js/jquery.countTo.js"></script>
 <!-- Flexslider -->
-<script src="js/jquery.flexslider-min.js"></script>
+<script src="/js/jquery.flexslider-min.js"></script>
 <!-- Google Map -->
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCefOgb1ZWqYtj7raVSmN4PL2WkTrc-KyA&sensor=false"></script>
-<script src="js/google_map.js"></script>
+<script src="/js/google_map.js"></script>
 
 <!-- Main -->
-<script src="js/main.js"></script>
+<script src="/js/main.js"></script>
 
 </body>
 </html>
