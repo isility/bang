@@ -67,4 +67,6 @@
         ORDER BY qna_number DESC
         LIMIT 5;
     </select>
+
+
 </mapper>

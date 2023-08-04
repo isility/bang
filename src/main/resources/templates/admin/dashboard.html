@@ -9,6 +9,33 @@
     <link rel="stylesheet" th:href="@{../assets/css/styles.min.css}" />
 </head>
 
+<script th:inline="javascript">
+        /*<![CDATA[*/
+
+        $.ajax({
+            url: /*[[@{/admin/dashboard/chart}]]*/,
+            method: "GET",
+            success: function(data) {
+                var options = {
+                    series: [{
+                        name: 'sales',
+                        data: data.map(item => item.averageMonth)
+                    }],
+                };
+
+                var chart = new ApexCharts(document.querySelector("#chart"), options);
+                chart.render();
+            },
+            error: function(error) {
+                console.error("Failed to fetch inflation data:", error);
+            }
+        });
+
+
+
+        /*]]>*/
+    </script>
+
 <body>
 <!--  Body Wrapper -->
 <div class="page-wrapper" id="main-wrapper" data-layout="vertical" data-navbarbg="skin6" data-sidebartype="full"
@@ -161,7 +188,7 @@
                             <!-- Yearly Breakup -->
                             <div class="card overflow-hidden">
                                 <div class="card-body p-4">
-                                    <h5 class="card-title mb-9 fw-semibold">연간 매출</h5>
+                                    <h5 class="card-title mb-9 fw-semibold">연매출</h5>
                                     <div class="row align-items-center">
                                         <div class="col-8">
                                             <h4 class="fw-semibold mb-3"></h4>
@@ -171,7 +198,7 @@
                                 </span>
                                                 <div th:if="${getSalesAvgMonth != null}">
                                                     <p class="text-dark me-1 fs-3 mb-0" th:each="paymentDetailDTO : ${getPriceYear}" th:text="${paymentDetailDTO.year}"></p>
-                                                    <p class="fs-3 mb-0" th:each="paymentDetailDTO : ${getPriceYear}" th:text="${paymentDetailDTO.averageYear}"></p>
+                                                    <p class="fs-3 mb-0" th:each="paymentDetailDTO : ${getPriceYear}" th:text="₩ +${paymentDetailDTO.averageYear}"></p>
                                                 </div>
                                             </div>
 
@@ -211,7 +238,7 @@
                           </span>
                                                 <div th:if="${getSalesAvgMonth != null}">
                                                     <p class="text-dark me-1 fs-3 mb-0" th:each="paymentDetailDTO : ${getSalesAvgMonth}" th:text="${paymentDetailDTO.month}"></p>
-                                                    <p class="fs-3 mb-0" th:each="paymentDetailDTO : ${getSalesAvgMonth}" th:text="${paymentDetailDTO.averageMonth}"></p>
+                                                    <p class="fs-3 mb-0" th:each="paymentDetailDTO : ${getSalesAvgMonth}" th:text="₩ + ${paymentDetailDTO.averageMonth}"></p>
                                                 </div>
                                             </div>
                                         </div>
@@ -270,7 +297,7 @@
                                             <h6 class="fw-semibold mb-0">주문상세번호</h6>
                                         </th>
                                         <th class="border-bottom-0">
-                                            <h6 class="fw-semibold mb-0">상품번호</h6>
+                                            <h6 class="fw-semibold mb-0">상품명/상품번호</h6>
                                         </th>
                                         <th class="border-bottom-0">
                                             <h6 class="fw-semibold mb-0">수량</h6>
@@ -299,7 +326,7 @@
                                             </div>
                                         </td>
                                         <td class="border-bottom-0">
-                                            <h6 class="fw-semibold mb-0 fs-4" th:text="${PaymentDetailDTO.productPrice}"></h6>
+                                            <h6 class="fw-semibold mb-0 fs-4" th:text="₩ + ${PaymentDetailDTO.productPrice}"></h6>
                                         </td>
                                     </tr>
                                     </tbody>
