@@ -5,8 +5,6 @@ import lombok.*;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
-@ToString
 public class PaymentDetailDTO {
     private int paymentDetailNumber;
     private int productCount;
@@ -15,4 +13,12 @@ public class PaymentDetailDTO {
     private int productNumber;
     private int paymentNumber;
     private String productName;
+    private String paymentDate;
+    private int totalProductPrice;
+    private int averageMonth;
+    private int averageYear;
+    private String month;
+    private String year;
+
+
 }

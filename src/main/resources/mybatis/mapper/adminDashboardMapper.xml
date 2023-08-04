@@ -5,6 +5,8 @@
 
 <mapper namespace="kr.co.jhta.bang.finalproject.dao.PaymentDetailDAO">
 
+
+<!-- 대시보드에 최신 주문 가져오는 쿼리 -->
     <select id="getFourPaymentDetail" resultType="PaymentDetailDTO">
         SELECT
         pd.payment_detail_number AS paymentDetailNumber,
@@ -16,9 +18,53 @@
         pr.product_name AS productName
         FROM payment_detail pd
         INNER JOIN payment p ON pd.payment_number = p.payment_number
-        INNER JOIN product pr ON pd.product_number = pr.product_number -- Use the correct column name here
+        INNER JOIN product pr ON pd.product_number = pr.product_number
         ORDER BY pd.payment_detail_number DESC
         LIMIT 4;
 
+    </select>
+
+
+
+    <select id="getPriceYear" resultType="PaymentDetailDTO">
+        SELECT
+        DATE_FORMAT(p.payment_date, '%Y 년') AS year,
+        SUM(pd.product_price) / COUNT(DISTINCT pd.payment_number) AS averageYear
+        FROM
+        bang.payment_detail pd
+        INNER JOIN
+        bang.payment p ON pd.payment_number = p.payment_number
+        GROUP BY
+        DATE_FORMAT(p.payment_date, '%Y')
+        ORDER BY year DESC
+        LIMIT 1;
+    </select>
+
+
+    <select id="getSalesAvgMonth" resultType="PaymentDetailDTO">
+        SELECT
+        DATE_FORMAT(p.payment_date, '%m 월') AS month,
+        SUM(pd.product_price) / COUNT(DISTINCT pd.payment_number) AS averageMonth
+        FROM
+        bang.payment_detail pd
+        INNER JOIN
+        bang.payment p ON pd.payment_number = p.payment_number
+        GROUP BY
+        DATE_FORMAT(p.payment_date, '%Y-%m')
+        ORDER BY month DESC
+        LIMIT 1;
+    </select>
+
+<!-- 대시보드에 최신 QNA 가져오는 쿼리 -->
+    <select id="getDashboardQna" resultType="QnaDTO">
+        SELECT
+        qna_number as qnaNumber,
+        qna_title as qnaTitle,
+        qna_writer as qnaWriter,
+        qna_type as qnaType
+        FROM qna
+        WHERE qna_step = 0
+        ORDER BY qna_number DESC
+        LIMIT 5;
     </select>
 </mapper>
