@@ -19,6 +19,8 @@ public class MemberService {
     @Autowired
     CompanyDAO companyDao;
 
+    public MemberDTO selectMemberDetail(String memberId) { return memberDao.selectOneDetail(memberId);}
+
 
     public void insertMemberOne(MemberDTO memberDto) {
         memberDao.insertOne(memberDto);
