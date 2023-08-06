@@ -11,7 +11,6 @@ import java.util.Collection;
 import java.util.List;
 
 // security session 에 들어갈 객체
-
 @Slf4j
 public class PrincipalDetails implements UserDetails {
 

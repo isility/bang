@@ -22,9 +22,16 @@
         FROM member
         WHERE member_id = #{member_id}
     </select>
+
     <select id="selectOne" parameterType="String" resultType="MemberDTO">
         select member_name, member_postal, member_address1, member_address2, member_phone, member_email
         from member
+        where member_id = #{member_id}
+    </select>
+
+    <select id="selectOneDetail" parameterType="String" resultType="MemberDTO">
+        select member_id, member_pw, member_token, member_name, member_email, role_number, grade_number, platformtype_number
+        FROM member
         where member_id = #{member_id}
     </select>
 
