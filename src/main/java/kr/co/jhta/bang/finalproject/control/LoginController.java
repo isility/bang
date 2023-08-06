@@ -1,32 +1,22 @@
 package kr.co.jhta.bang.finalproject.control;
 
-import kr.co.jhta.bang.finalproject.service.MemberService;
-import kr.co.jhta.bang.finalproject.service.MemberUserDetailService;
+import kr.co.jhta.bang.finalproject.service.MemberUserTokenService;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import javax.servlet.http.HttpSession;
 
 @Controller
+@RequiredArgsConstructor
 @Slf4j
 public class LoginController {
 
-    @Autowired
-    MemberService memberService;
-
-    @Autowired
-    MemberUserDetailService memberDetailService;
-
-    @Autowired
-    PasswordEncoder passwordEncoder;
+    private final MemberUserTokenService tokenService;
 
     @GetMapping("/login")
-    public String login(@AuthenticationPrincipal User user, HttpSession session) {
+    public String login() {
         return "login/login.html";
     }
 
@@ -40,4 +30,11 @@ public class LoginController {
 
     }
 
+ /*   @PostMapping("/login")
+    public ResponseEntity<String> loginToken(@RequestParam("username")String username,
+                                             @RequestParam("password")String password) {
+
+        return ResponseEntity.ok(tokenService.loginToken(username, password));
+    }
+*/
 }
