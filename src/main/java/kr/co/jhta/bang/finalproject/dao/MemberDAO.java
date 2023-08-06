@@ -14,6 +14,4 @@ public interface MemberDAO {
     String pwCheck(String memberId);
 
     MemberDTO selectOne(String id);
-
-    MemberDTO selectOneDetail(String memberId);
 }
