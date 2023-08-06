@@ -1,5 +1,6 @@
 <!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <head>
 	<meta charset="utf-8">
@@ -30,6 +31,9 @@
 
 	<!-- Modernizr JS -->
 	<script src="js/modernizr-2.6.2.min.js"></script>
+
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
 </head>
 
 <style>
@@ -72,6 +76,30 @@
 
 </style>
 
+<script>
+	$(document).ready(function() {
+		$.ajax({
+			url: "/index", // 서버의 사용자 정보를 반환하는 API 엔드포인트
+			type: "POST",
+			dataType: "json",
+			success: function(response) {
+				var username = response.username;
+
+				$("[th\\:text]").text(username + " 님");
+
+				$("#username").after($("#mypage"));
+        		$("#username").after($("#logout"));
+        		$("#mypage, #logout").show();
+        		$("#login, #join").hide();
+
+			},
+			error: function(request, status, error) {
+				console.error("AJAX 요청 실패: " + error);
+			}
+		});
+	});
+
+</script>
 <body>
 <!-- ===================================================================================================================================================== -->
 <!-- 카테고리 네비게이션 -->
@@ -105,10 +133,22 @@
 					<ul>
 						<li class="shopping-cart menu-2"><a href="#" class="cart"><span><small>0</small><i
 								class="icon-shopping-cart"></i></span></a></li>
-						<li class="login menu-2">라이언 님</li>
-						<li class="login menu-2"><a href="join" id="join">JOIN</a></li>
-						<li class="login menu-2"><a href="login" id="login">login</a></li>
-						<li class="login menu-2"><a href="logout" id="logout">logout</a></li>
+						<li class="login menu-2" th:if="${username}" th:text="" id="username"></li>
+						<!-- 로그인 상태일 때 -->
+						<li class="login menu-2" style="display: none;" id="mypage">
+							<a href="mypage">mypage</a>
+						</li>
+						<li class="login menu-2" style="display: none;" id="logout">
+							<a href="logout">logout</a>
+						</li>
+
+						<!-- 로그인 상태가 아닐 때 -->
+						<li class="login menu-2" sec:authorize="isAnonymous()" id="join">
+							<a href="join">JOIN</a>
+						</li>
+						<li class="login menu-2" sec:authorize="isAnonymous()" id="login">
+							<a href="login">login</a>
+						</li>
 						<li class="search menu-2">
 							<div class="input-group">
 								<input type="text" placeholder="SEARCH">

@@ -1,4 +1,4 @@
-package kr.co.jhta.bang.finalproject.config;
+package kr.co.jhta.bang.finalproject.service;
 
 import kr.co.jhta.bang.finalproject.dto.MemberDTO;
 import lombok.extern.slf4j.Slf4j;
@@ -12,11 +12,11 @@ import java.util.List;
 
 // security session 에 들어갈 객체
 @Slf4j
-public class PrincipalDetails implements UserDetails {
+public class MemberUserDetails implements UserDetails {
 
     private MemberDTO memberDto;
 
-    public PrincipalDetails(MemberDTO memberDto) {
+    public MemberUserDetails(MemberDTO memberDto) {
         this.memberDto = memberDto;
     }
 
@@ -48,7 +48,7 @@ public class PrincipalDetails implements UserDetails {
 
     @Override
     public String getUsername() {
-        log.info("username : " + memberDto.getMember_name());
+        log.info("getUsername() 메서드 username : " + memberDto.getMember_name());
         return memberDto.getMember_name();
     }
 

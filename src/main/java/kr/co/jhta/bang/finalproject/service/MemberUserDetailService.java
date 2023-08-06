@@ -1,6 +1,5 @@
 package kr.co.jhta.bang.finalproject.service;
 
-import kr.co.jhta.bang.finalproject.config.PrincipalDetails;
 import kr.co.jhta.bang.finalproject.dto.MemberDTO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,13 +25,13 @@ public class MemberUserDetailService implements UserDetailsService {
 
         MemberDTO memberDto = memberService.selectMemberDetail(username);
 
-        log.info("사용자 정보 : {} ", memberDto);
-
-        if (memberDto == null) {
+        if (memberDto != null) {
+            log.info("사용자 정보 : {} ", memberDto);
+        } else {
             throw new UsernameNotFoundException("사용자를 찾을 수 없습니다.");
         }
 
-        PrincipalDetails principalDetails = new PrincipalDetails(memberDto);
+        MemberUserDetails principalDetails = new MemberUserDetails(memberDto);
 
         return principalDetails;
     }
