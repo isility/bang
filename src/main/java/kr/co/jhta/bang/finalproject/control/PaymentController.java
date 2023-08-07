@@ -43,14 +43,14 @@ public class PaymentController {
 
         int tp = 0;
 
-        List<CartDTO> list =  payService.cartlist(principal.getName());
+        List<CartDTO> list =  payService.cartlist("cpy222");
         for(CartDTO dto : list) {
             tp += dto.getProductPrice() * dto.getCartQuantity();
         }
 
         session.setAttribute("totalPrice",tp);
-        session.setAttribute("cartList",payService.cartlist(principal.getName()));
-        session.setAttribute("member", memberDAO.selectOne(principal.getName()));
+        session.setAttribute("cartList",payService.cartlist("cpy222"));
+        session.setAttribute("member", memberDAO.selectOne("cpy222"));
 
         log.info("카카페 래디1");
         return "payment/kakaoPay";
