@@ -121,9 +121,11 @@ position:relative;
 font-size: 150%;
 color: #D3C48B;
 }
+
 </style>
 
-		<script type="text/javascript" th:inline="javascript">
+<!--수량에 따라 총 금액 변동-->
+<script type="text/javascript" th:inline="javascript">
     /*<![CDATA[*/
     $(function() {
       // 상품 가격 가져오기
@@ -147,7 +149,23 @@ console.dir($("#quantity"));
     /*]]>*/
   </script>
 
+<!--장바구니 버튼 누르면 팝업창 띄우기-->
+<script>
+function show() {
+		var w = 400;
+		var h = 200;
+		var x = 550;
+		var y = 400;
+
+		var spec = "width=" + w + ", height=" + h + ", left=" + x + ", top="
+				+ y + ", menubar=0,resizeable=0,scrollbar=0,status=0,toolbar=0";
+
+		window.open("/product/cartpopup", "_blank", spec);
+	}
+</script>
 	</head>
+
+
 
 	<body>
 	<!--======================================================================================================  -->
@@ -233,26 +251,27 @@ console.dir($("#quantity"));
 
 					<div class="row animate-box">
 						<div class="col-md-8 col-md-offset-2 text-center fh5co-heading">
-							<h2 th:text="${productDto.productName}">베오릿20</h2>
-							<h3 style="color: #D1C286;" th:text="${productDto.productPrice}+ '원'">679,000원</h3>
+							<h2 th:text="${productDto.productName}" style="color:#808080">베오릿20</h2>
+							<h3 style="color: #D1C286;" th:text="|${#numbers.formatInteger(productDto.productPrice,0,'COMMA')}|+ '원'">679,000원</h3>
 							<span>배송방법 택배  |  배송비 무료 </span>
 
 							<hr>
 							<!-- 상품 수량 입력 폼 -->
 							<div>
 							  <span><label for="quantity" class="col-md-3 col-md-push-2">수량</label>
-							  <input type="number" id="quantity" min="1" value="1" style="width:50px"></span>
+							  <input type="number" id="quantity" min="1" value="1"
+									 style="width:50px;border: 1px solid #D9D9D9; border-radius: 3px;"></span>
 							</div>
 
 							<hr>
 								<!-- 가격 표시 부분 -->
 							<div>
 								<span id="total" class="col-md-3 col-md-push-2">총 상품 금액</span>
-								<span id="totalPrice" th:utext="${productDto.productPrice} + ' 원'"></span>
+								<span id="totalPrice" th:utext="|${#numbers.formatInteger(productDto.productPrice,0,'COMMA')}|+ '원'"></span>
 							</div>
 
 							<p>
-								<a href="/payment/kakaoPay" class="btn btn-primary btn-outline btn-lg">장바구니</a>
+								<a href="#" class="btn btn-primary btn-outline btn-lg" id="open-popup-btn" onclick="show();">장바구니</a>
 								<a href="/payment" class="btn btn-primary btn btn-lg">구매하기</a>
 								<a href="#" class="icon btn btn-primary btn-outline btn-lg" style="width:30px"><i class="icon-heart"></i></a>
 							</p>

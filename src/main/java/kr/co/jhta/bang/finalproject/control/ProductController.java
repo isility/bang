@@ -88,4 +88,10 @@ public class ProductController {
         model.addAttribute("cartList", payService.cartlist(principal.getName()));
         return "product/cart";
     }
+
+    //장바구니 팝업
+    @GetMapping("/cartpopup")
+    public String showCartPopupPage() {
+        return "product/cartpopup";
+    }
 }
