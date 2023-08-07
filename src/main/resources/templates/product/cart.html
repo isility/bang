@@ -103,11 +103,11 @@
   width:100px;
   height: 100px;
 
-<!--	====================================================================-->
+<!--	====================================================================================-->
 
 </style>
-</head>
 
+</head>
 
 <body>
 <div id="page">
@@ -155,20 +155,35 @@
     </div>
   </nav>
 
-  <!-- =========================================================================================== -->
+  <!-- ============================================================================================= -->
 <!--  장바구니  -->
-  <div id="fh5co-contact">
+  <div id="fh5co-contact" >
     <div class="container">
-      <h2 style="text-align:left;color:#808080">장바구니</h2>
+      <div class="animate-box">
+     <h2 style="text-align:left;color:#808080" >장바구니</h2>
+
+<!--   장바구니에 담긴 총 수량 -->
+      <div class="circle"
+      style=" width: 35px;
+      height: 35px;
+      border-radius: 50%;
+      background-color: #D1C286;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-weight: bold;
+      font-size: 20px; position:relative; bottom:55px; left:130px;" >
+        2</div>
+      </div>
+
       <br>
 
+<!--      장바구니 리스트 -->
       <section class="cart">
-        <div class="cart__information">
-        </div>
-
-        <table class="table table-striped cart_list ">
+        <table class="table table-striped cart_list animate-box">
           <form>
-            <thead>
+            <thead style="color:#C1C1C1">
             <tr>
               <td><input type="checkbox"></td>
               <td colspan="2">상품정보</td>
@@ -185,17 +200,18 @@
               <td style="width: 35%;"><span/><br>
                 <span th:text=" ${cart.productName}"></span></td>
               <td class="cart__list__option" style="width: 19%;"><span/><br>
-                <span><input type="number" id="quantity" min="1" th:value="${cart.cartQuantity}" style="width:50px"></span></span><br><br>
+                <span><input type="number" id="quantity" min="1" th:value="${cart.cartQuantity}"
+                             style="width:50px;border: 1px solid #D9D9D9; border-radius: 3px;"></span></span><br><br>
                 <button class=" btn btn-primary btn-outline btn-xxs countbtn"
                 style="font-size:13px;width:80px;height:35px;padding:11px;padding-top:7px">수량 변경</button>
               </td>
-
               <td style="width: 15%;"><span class="price"></span><br>
-                <span id="totalPrice" th:utext="${cart.productPrice} + ' 원'"></span>
-                <button class="countbtn btn btn-primary btn-outline orderbtn"
+
+
+                <span id="totalPrice" th:utext="|${#numbers.formatInteger(cart.productPrice*cart.cartQuantity,0,'COMMA')}| + ' 원'"  style="font-weight: bolder;" ></span><br><br>
+                <button class="countbtn btn btn-primary  orderbtn"
                         style="font-size:13px;width:80px;height:35px;padding:11px;padding-top:7px">바로 구매</button>
               </td>
-
               <td style="width: 15%;"><span/><br>
                 <p>무료</p>
               </td>
@@ -204,28 +220,71 @@
 
             <tfoot>
             <tr>
-              <td colspan="3"><button class=" btn btn-primary btn-outline">선택상품 삭제</button></td>
-
-              <td></td>
-              <td></td>
-              <td></td>
+              <td colspan="6"><button class=" btn btn-primary btn-outline"
+                                      style="font-size:13px;width:107px;height:35px;padding:11px;padding-top:7px">선택상품 삭제</button></td>
             </tr>
             </tfoot>
           </form>
-
-
-
         </table>
 
-        <div class="cart__mainbtns">
+<!--        =======================================================================================-->
+        <table class="animate-box">
+          <thead>
+          <tr>
+            <hr>
+            <th>총 주문 상품 <span>2</span>개</th>
+          </tr>
+          </thead>
 
-          <button class=" btn btn-primary btn-lg" >주문하기</button>
-          <br>
-          <a href="">쇼핑계속하기</a>
+          <tbody>
+          <tr>
+            <div style=" align-items: center; ">
+            <td>
+                  <span  style="position:relative; left:220px">
+                    <h2 style="color:#D1C286;">918000원</h2>
+                    <p style=" align-items: center; text-align: center; ">상품금액</p>
+                  </span>
+            </td>
+            <td>
+                  <span style="position:relative; left:270px">
+                    <h2 style="color:#808080;">+</h2>
+                  </span>
+            </td>
+            <td>
+                  <span  style="position:relative; left:370px">
+                    <h2 style="color:#D1C286;">무료</h2>
+                    <p style=" align-items: center; text-align: center;">배송비</p>
+                  </span>
+            </td>
+            <td>
+                  <span  style="position:relative; left:470px">
+                    <h2 style="color:#808080;">=</h2>
+                  </span>
+            </td>
+            <td>
+                  <span  style="position:relative; left:500px">
+                    <h2 style="color:#D1C286;">918000원</h2>
+                    <p style=" align-items: center; text-align: center;">총 주문금액</p>
+                  </span>
+            </td>
+            </div>
+          </tr>
+          </tbody>
+        </table>
+        <br>
+
+<!--        주문하기 버튼 & 쇼핑 계속하기 버튼-->
+        <div class="cart__mainbtns animate-box" >
+          <hr>
+<!--          <button class=" btn btn-primary btn-lg" >주문하기</button>-->
+          <div class="form-group">
+            <input type="submit" value="주문하기" class="btn btn-primary"
+                   style="width: 500px;height: 54px;position:relative;left:300px;">
+          </div>
+
+          <a href="" style="position:relative;left:500px;">쇼핑계속하기</a>
         </div>
       </section>
-
-
 
     </div>
   </div>
