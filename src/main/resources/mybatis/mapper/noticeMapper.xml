@@ -4,6 +4,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="kr.co.jhta.bang.finalproject.dao.NoticeDAO">
+
     <select id="getAll" resultType="NoticeDTO" parameterType="StartEnd">
         SELECT rn AS rowNumber, notice_number AS noticeNumber, notice_title AS noticeTitle, notice_contents AS noticeContents, notice_writer AS noticeWriter, notice_date AS noticeDate, member_id AS memberId
         FROM ( SELECT ROW_NUMBER() OVER (ORDER BY notice_number DESC) AS rn, notice_number, notice_title, notice_contents, notice_writer, notice_date, member_id
@@ -13,7 +14,7 @@
     </select>
     <select id="getTotal" resultType="int">
         SELECT count(*)cnt
-        FROM qna
+        FROM notice
     </select>
     <select id="selectOne" parameterType="int" resultType="NoticeDTO">
         SELECT notice_number AS noticeNumber, notice_title AS noticeTitle, notice_contents AS noticeContents, notice_writer AS noticeWriter, notice_date AS noticeDate, member_id AS memberId

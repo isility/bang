@@ -66,17 +66,16 @@
 <div id="page">
     <nav class="fh5co-nav" role="navigation">
         <div class="container">
-            <div class="row" style="width:1200px;">
-                <div class="col-md-3 col-xs-2" style="width:200px;">
-                    <div id="fh5co-logo" style="width:200px;"><a th:href="@{/index.html}">Bang & Oops</a></div>
+            <div class="row">
+                <div class="col-md-3 col-xs-2" >
+                    <div id="fh5co-logo" ><a th:href="@{/index.html}">Bang & Oops</a></div>
                 </div>
-                <div class="col-md-6 col-xs-6 text-center menu-1" style="width:700px;">
+                <div class="col-md-6 col-xs-6 text-center menu-1" >
                     <ul>
-                        <li><a th:href="@{/productList.html}">SPEAKER</a></li>
-                        <li><a th:href="@{/productList.html}">EARPHONE</a></li>
-                        <li><a th:href="@{/productList.html}">HEADPHONE</a></li>
-                        <li><a th:href="@{/productList.html}">ACCESSORIES</a></li>
-                        <li><a th:href="@{/services.html}">SERVICE</a></li>
+                        <li><a th:href="@{/product/productList?categoryNumber=1}">SPEAKER</a></li>
+                        <li><a th:href="@{/product/productList?categoryNumber=2}">EARPHONE</a></li>
+                        <li><a th:href="@{/product/productList?categoryNumber=3}">HEADPHONE</a></li>
+                        <li><a th:href="@{/product/productList?categoryNumber=4}">ACCESSORIES</a></li>
                         <li class="has-dropdown">
                             <a th:href="@{/community.html}">COMMUNITY</a>
                             <ul class="dropdown">
@@ -133,7 +132,7 @@
             <div><h2>NOTICE</h2></div>
             <div class="row" >
                 <div>
-                    <a th:href="@{noticeWrite}"><input type="button" style="float:right;" class="btn btn-outline-primary" value="글쓰기" /></a>
+                    <a th:href="@{/notice/noticeWrite}"><input type="button" style="float:right;" class="btn btn-outline-primary" value="글쓰기" /></a>
                 </div>
                 <table class="table">
                     <tr>
@@ -144,7 +143,7 @@
                     </tr>
                     <tr th:each="board:${list}">
                         <td th:text="${board.noticeNumber}"></td>
-                        <td><a th:href="@{noticeDetail(noticeNumber=${board.noticeNumber})}" th:text="${board.noticeTitle}"></a></td>
+                        <td><a th:href="@{/notice/noticeDetail(noticeNumber=${board.noticeNumber})}" th:text="${board.noticeTitle}"></a></td>
                         <td th:text="${board.noticeWriter}"></td>
                         <td th:text="${board.noticeDate}"></td>
                     </tr>
