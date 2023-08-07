@@ -106,6 +106,7 @@
 <!--	====================================================================================-->
 
 </style>
+
 </head>
 
 <body>
@@ -178,6 +179,7 @@
 
       <br>
 
+<!--      장바구니 리스트 -->
       <section class="cart">
         <table class="table table-striped cart_list animate-box">
           <form>
@@ -192,7 +194,6 @@
             </thead>
 
             <tbody>
-<!--            장바구니 리스트  -->
             <tr class="cart_list_detail" th:each="cart:${cartList}">
               <td style="width: 2%;"><input type="checkbox"></td>
               <td style="width: 13%;"><img th:src="@{/images/__${cart.img}__.jpg}"></td>
@@ -205,7 +206,9 @@
                 style="font-size:13px;width:80px;height:35px;padding:11px;padding-top:7px">수량 변경</button>
               </td>
               <td style="width: 15%;"><span class="price"></span><br>
-                <span id="totalPrice" th:utext="${cart.productPrice} + ' 원'"  style="font-weight: bolder;" ></span><br><br>
+
+
+                <span id="totalPrice" th:utext="|${#numbers.formatInteger(cart.productPrice*cart.cartQuantity,0,'COMMA')}| + ' 원'"  style="font-weight: bolder;" ></span><br><br>
                 <button class="countbtn btn btn-primary  orderbtn"
                         style="font-size:13px;width:80px;height:35px;padding:11px;padding-top:7px">바로 구매</button>
               </td>
@@ -224,14 +227,7 @@
           </form>
         </table>
 
-<!--        <div>-->
-<!--        <hr>-->
-<!--          <span>총 주문 상품 2개</span><br><br>-->
-<!--        <h2 style="position:relative;left:340px;">1000000원 + 무료 = 10000000원</h2><br>-->
-<!--          <hr>-->
-<!--        </div>-->
-
-<!--        ===============================================-->
+<!--        =======================================================================================-->
         <table class="animate-box">
           <thead>
           <tr>
@@ -246,7 +242,7 @@
             <td>
                   <span  style="position:relative; left:220px">
                     <h2 style="color:#D1C286;">918000원</h2>
-                    <p style=" align-items: center; text-align: center;">상품금액</p>
+                    <p style=" align-items: center; text-align: center; ">상품금액</p>
                   </span>
             </td>
             <td>
