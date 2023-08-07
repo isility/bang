@@ -36,10 +36,14 @@ public class PaymentDetailService {
 
     public List<PaymentDetailDTO> getPaging(int startNo, int endNo) {
         StartEnd se = new StartEnd(startNo, endNo);
-        return dao.getPaging(se);
+        return dao.getPaymentPaging(se);
     }
 
     public int getTotal(){
         return dao.getTotal();
+    }
+
+    public void updatePaymentList(PaymentDetailDTO paymentDetailDTO){
+        dao.updatePaymentList(paymentDetailDTO);
     }
 }

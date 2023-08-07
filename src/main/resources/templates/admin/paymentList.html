@@ -154,16 +154,17 @@
                       <td th:text="${paymentDetailDTO.productPrice}"></td>
                       <td>
                         <div>
-                          <select class="form-select">
-                            <option value="1">입금대기</option>
-                            <option value="2">입금확인</option>
-                            <option value="3">상품준비</option>
-                            <option value="4">배송중</option>
-                            <option value="5">배송완료</option>
+                          <select class="form-select" th:id="'statusSelect-' + ${paymentDetailDTO.paymentDetailNumber}">
+                            <option th:value="입금대기" th:selected="${paymentDetailDTO.paymentDetailStatus == '입금대기'}">입금대기</option>
+                            <option th:value="입금확인" th:selected="${paymentDetailDTO.paymentDetailStatus == '입금확인'}">입금확인</option>
+                            <option th:value="상품준비" th:selected="${paymentDetailDTO.paymentDetailStatus == '상품준비'}">상품준비</option>
+                            <option th:value="배송중" th:selected="${paymentDetailDTO.paymentDetailStatus == '배송중'}">배송중</option>
+                            <option th:value="배송완료" th:selected="${paymentDetailDTO.paymentDetailStatus == '배송완료'}">배송완료</option>
                           </select>
                         </div>
                       </td>
                     </tr>
+
 
 
                     </tbody>
@@ -192,6 +193,39 @@
       </div>
     </div>
   </div>
+  <script th:inline="javascript">
+    /*<![CDATA[*/
+    $(document).ready(function () {
+        $("select.form-select").change(function () {
+            var selectedValue = $(this).val();
+            var paymentDetailNumber = $(this).attr("id").split("-")[1];
+            sendDataToController(paymentDetailNumber, selectedValue);
+        });
+    });
+
+    function sendDataToController(paymentDetailNumber, selectedValue) {
+    $.ajax({
+        type: "POST",
+        url: "/admin/paymentList",
+        data: {
+            paymentDetailNumber: paymentDetailNumber,
+            paymentDetailStatus: selectedValue
+        },
+        success: function (response) {
+            // 요청이 성공하면 결과를 출력
+            $("#resultDiv").text(response);
+        },
+        error: function (xhr, status, error) {
+            // 요청이 실패하면 에러 메시지 출력
+            console.log("AJAX Error: " + status + " - " + error);
+        }
+    });
+}
+
+
+    /*]]>*/
+</script>
+
   <script th:src="@{../assets/libs/jquery/dist/jquery.min.js}"></script>
   <script th:src="@{../assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js}"></script>
   <script th:src="@{../assets/js/sidebarmenu.js}"></script>

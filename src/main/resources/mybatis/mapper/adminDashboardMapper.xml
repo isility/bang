@@ -74,7 +74,7 @@
     </select>
 
 
-    <select id="getPaging" resultType="PaymentDetailDTO" parameterType="StartEnd">
+    <select id="getPaymentPaging" resultType="PaymentDetailDTO" parameterType="StartEnd">
         SELECT rn AS rowNumber,
         payment_detail_number AS paymentDetailNumber,
         product_count AS productCount,
@@ -93,4 +93,10 @@
         WHERE rn BETWEEN #{startNo} AND #{endNo}
 
     </select>
+
+    <update id="updatePaymentList" parameterType="PaymentDetailDTO">
+        UPDATE payment_detail
+        SET payment_detail_status = #{paymentDetailStatus}
+        WHERE payment_detail_number = #{paymentDetailNumber};
+    </update>
 </mapper>

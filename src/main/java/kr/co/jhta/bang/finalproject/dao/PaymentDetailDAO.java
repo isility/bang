@@ -21,7 +21,9 @@ public interface PaymentDetailDAO {
 
     List<QnaDTO> getDashboardQna();
 
-    List<PaymentDetailDTO> getPaging(StartEnd se);
+    List<PaymentDetailDTO> getPaymentPaging(StartEnd se);
 
     int getTotal();
+
+    void updatePaymentList(PaymentDetailDTO paymentDetailDTO);
 }
