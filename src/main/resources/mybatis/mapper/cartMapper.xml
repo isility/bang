@@ -24,5 +24,11 @@
         WHERE product_number = #{productNumber};
 
     </delete>
+    <update id="updateQuantityOne" parameterType="CartQuantityModifyDTO">
+        update cart
+        set cart_quantity = #{newQuantity}
+        where member_id = #{memberID}
+        and product_number = #{productNumber};
+    </update>
 
 </mapper>

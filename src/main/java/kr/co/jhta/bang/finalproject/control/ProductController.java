@@ -1,13 +1,16 @@
 package kr.co.jhta.bang.finalproject.control;
 
+import kr.co.jhta.bang.finalproject.dto.CartDTO;
 import kr.co.jhta.bang.finalproject.dto.ProductListDTO;
 import kr.co.jhta.bang.finalproject.service.PaymentService;
 import kr.co.jhta.bang.finalproject.service.ProductService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -85,9 +88,29 @@ public class ProductController {
     //장바구니---------------------------------------------------------------------------------------------
     @GetMapping("/cart")
     public String cart(Model model, Principal principal){
-        model.addAttribute("cartList", payService.cartlist(principal.getName()));
+        int cnt = 0;
+
+        model.addAttribute("cartList", payService.cartlist("cpy222"));
+        List<CartDTO> list = payService.cartlist("cpy222");
+        for (CartDTO dto : list)
+            cnt+=1;
+        model.addAttribute("cartListCount",cnt);
+
         return "product/cart";
     }
+
+    //장바구니 수량 수정
+    @RequestMapping("/updateQuantity")
+    public ResponseEntity<String> updateQuantity(@RequestParam("newQuantity")int newQuantity,
+                                                 @RequestParam("pno")int pno,
+                                                 @RequestParam("id")String id){
+
+        service.cartQuantityUpdateOne(newQuantity, pno, id );
+
+        return ResponseEntity.ok("");
+    }
+
+
 
     //장바구니 팝업
     @GetMapping("/cartpopup")
