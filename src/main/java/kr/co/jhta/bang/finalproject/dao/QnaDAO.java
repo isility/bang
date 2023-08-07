@@ -22,4 +22,6 @@ public interface QnaDAO {
     void updateOne(QnaDTO dto);
 
     void deleteOne(int qnaNumber);
+
+
 }

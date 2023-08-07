@@ -6,12 +6,14 @@ import kr.co.jhta.bang.finalproject.dto.StartEnd;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+
 import java.util.List;
 
 @Service
 public class QnaAwsService implements QnaService{
     @Autowired
     private QnaDAO dao;
+
 
     @Override
     public List<QnaDTO> selectAll(int startNo, int endNo) {
@@ -49,4 +51,8 @@ public class QnaAwsService implements QnaService{
     public void removeOne(int qnaNumber) {
         dao.deleteOne(qnaNumber);
     }
+
+
+
+
 }

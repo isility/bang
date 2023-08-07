@@ -19,4 +19,5 @@ public interface QnaService {
     public void modifyOne(QnaDTO dto);
 
     public void removeOne(int qnaNumber);
+
 }
