@@ -99,17 +99,28 @@
 	left: 940px;
 	}
 
-
+	#wishPop, #cartPop{
+	position:relative;
+	top:130px;
 </style>
-		<script type="text/javascript" th:inline="javascript">
+
+<!--위시리스트 모달창-->
+<script type="text/javascript" th:inline="javascript">
   $(document).ready(function () {
-    $('#wish_modal').click(function () {
-      $('#wishModal').modal('show');
+    $('.wishPop').click(function () {
+      $('#wishPop').modal('show');
     });
   });
 </script>
 
-
+<!--장바구니 모달창-->
+<script type="text/javascript" th:inline="javascript">
+  $(document).ready(function () {
+    $('.cartPop').click(function () {
+      $('#cartPop').modal('show');
+    });
+  });
+</script>
 	</head>
 
 	<body>
@@ -120,33 +131,46 @@
 	<div id="page">
 		<nav class="fh5co-nav" role="navigation">
 			<div class="container">
-				<div class="row" style="width:1200px;">
-					<div class="col-md-3 col-xs-2" style="width:200px;">
-						<div id="fh5co-logo" style="width:200px;"><a href="/">Bang & Oops</a></div>
+				<div class="row">
+					<div class="col-md-3 col-xs-2" >
+						<div id="fh5co-logo" ><a href="/">Bang & Oops</a></div>
 					</div>
-					<div class="col-md-6 col-xs-6 text-center menu-1" style="width:700px;">
+					<div class="col-md-6 col-xs-6 text-center menu-1" >
 						<ul>
 							<li><a  href="/product/productList?categoryNumber=1">SPEAKER</a></li>
 							<li><a href="/product/productList?categoryNumber=2" >EARPHONE</a></li>
 							<li><a href="/product/productList?categoryNumber=3" >HEADPHONE</a></li>
 							<li><a href="/product/productList?categoryNumber=4" >ACCESSORIES</a></li>
-							<li><a href="/product/productList?categoryNumber=5" >SERVICE</a></li>
-							<li class="nav-item dropdown">
-								<a class="nav-link dropdown-toggle" href="community.html" role="button" data-bs-toggle="dropdown" aria-expanded="false">COMMUNITY</a>
-								<ul class="dropdown-menu">
-									<li><a class="dropdown-item" href="notice.html">공지사항</a></li>
-									<li><a class="dropdown-item" href="review.html">REVIEW</a></li>
-									<li><a class="dropdown-item" href="qnaList">Q&A</a></li>
+							<li class="has-dropdown">
+								<a href="/community.html">COMMUNITY</a>
+								<ul class="dropdown">
+									<li><a href="/notice/noticeList">공지사항</a></li>
+									<li><a href="/review/reviewList">REVIEW</a></li>
+									<li><a href="/qna/qnaList">Q&A</a></li>
 								</ul>
 							</li>
 						</ul>
 					</div>
 					<div class="col-md-3 col-xs-4 text-right hidden-xs menu-2">
 						<ul>
-							<li class="shopping-cart menu-2"><a href="/product/cart" class="cart"><span><small>0</small><i
+							<li class="shopping-cart menu-2"><a href="#" class="cart"><span><small>0</small><i
 									class="icon-shopping-cart"></i></span></a></li>
-							<li class="login menu-2"><a href="join">JOIN</a></li>
-							<li class="login menu-2"><a href="login">login</a></li>
+							<li class="login menu-2" th:if="${username}" th:text="" id="username"></li>
+							<!-- 로그인 상태일 때 -->
+							<li class="login menu-2" style="display: none;" id="mypage">
+								<a href="mypage">mypage</a>
+							</li>
+							<li class="login menu-2" style="display: none;" id="logout">
+								<a href="logout">logout</a>
+							</li>
+
+							<!-- 로그인 상태가 아닐 때 -->
+							<li class="login menu-2" sec:authorize="isAnonymous()" id="join">
+								<a href="join">JOIN</a>
+							</li>
+							<li class="login menu-2" sec:authorize="isAnonymous()" id="login">
+								<a href="login">login</a>
+							</li>
 							<li class="search menu-2">
 								<div class="input-group">
 									<input type="text" placeholder="SEARCH">
@@ -207,10 +231,9 @@
 							<div class="product-grid" th:style="'background-image: url(/images/'+${dto.imageSrc}+'.jpg);'">
 									<div class="inner">
 										<p>
-<!--											<a th:href="@{/product/productDetail(productNumber=${dto.productNumber})}" class="icon"><i class="icon-shopping-cart"></i></a>-->
-<!--											<a th:href="wish.html"  class="icon"><i class="icon-heart"></i></a>-->
-											<span class="icon"><i class="icon-shopping-cart"></i></span>
-											<span id="wish_modal" class="icon"><i class="icon-heart" ></i></span>
+
+											<span class="icon cartPop"><i class="icon-shopping-cart"></i></span>
+											<span  class="icon wishPop"><i class="icon-heart" ></i></span>
 										</p>
 									</div>
 							</div>
@@ -222,14 +245,12 @@
 							</div>
 						</div>
 					</div>
-
 			</div>
-
 		</div>
 	</div>
 
 		<!--	위시리스트 모달 팝업-->
-		<div class="modal fade" id="wishModal" tabindex="-1" role="dialog" aria-labelledby="wishModalLabel" aria-hidden="true">
+		<div class="modal fade" id="wishPop" tabindex="-1" role="dialog" aria-labelledby="wishModalLabel" aria-hidden="true">
 			<div class="modal-dialog" role="document">
 				<div class="modal-content">
 
@@ -242,6 +263,28 @@
 				</div>
 			</div>
 		</div>
+
+		<!--	카트 모달 팝업-->
+		<div class="modal fade" id="cartPop" tabindex="-1" role="dialog" aria-labelledby="wishModalLabel" aria-hidden="true">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+
+					<div class="modal-body text-center">
+						<br>
+						<p style="text-align: center;">상품을 장바구니에 담았습니다.</p>
+						<br>
+						<a href="/product/cart">
+							<button class=" btn btn-primary btn-xxs countbtn"
+									style="font-size:13px;width:110px;height:35px;padding:11px;padding-top:7px;
+											position:relative;right:50px">장바구니 이동</button></a>
+
+						<button onclick="window.close()" class=" btn btn-primary btn-outline btn-xxs countbtn"
+								style="font-size:13px;width:110px;height:35px;padding:11px;padding-top:7px" data-dismiss="modal">쇼핑 계속하기</button>
+					</div>
+				</div>
+			</div>
+		</div>
+
 
 <!--====================================================================================================================================-->
 	<footer id="fh5co-footer" role="contentinfo">
