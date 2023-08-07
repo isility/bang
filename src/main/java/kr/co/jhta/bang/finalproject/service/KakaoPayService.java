@@ -1,7 +1,13 @@
 package kr.co.jhta.bang.finalproject.service;
 
+import kr.co.jhta.bang.finalproject.dao.CartDAO;
+import kr.co.jhta.bang.finalproject.dto.CartDTO;
 import kr.co.jhta.bang.finalproject.dto.KakaoPayApprovalDTO;
 import kr.co.jhta.bang.finalproject.dto.KakaoPayReadyDTO;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
@@ -11,11 +17,19 @@ import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 
+import javax.servlet.http.HttpSession;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.List;
 
+@Slf4j
 @Service
 public class KakaoPayService {
+
+    @Autowired
+    @Getter
+    HttpSession session;
+
 
 
     private static final String HOST = "https://kapi.kakao.com";
@@ -24,6 +38,8 @@ public class KakaoPayService {
     private KakaoPayApprovalDTO KakaoPayApprovalDTO;
 
     public String kakaoPayReady() {
+
+
 
         RestTemplate restTemplate = new RestTemplate();
 
@@ -38,13 +54,38 @@ public class KakaoPayService {
         params.add("cid", "TC0ONETIME");
         params.add("partner_order_id", "1001");
         params.add("partner_user_id", "gorany");
-        params.add("item_name", "갤럭시S9");
-        params.add("quantity", "1");
+
+        List<CartDTO> CartDTOList = (List<CartDTO>) session.getAttribute("cartList");
+        int cnt = 0;
+        if (CartDTOList != null && !CartDTOList.isEmpty()) {
+            CartDTO dto = CartDTOList.get(0);  // 첫 번째 항목을 가져온다
+            String productName = dto.getProductName();
+            for(CartDTO cdto : CartDTOList)
+                cnt +=1;
+            if(cnt == 0)
+                params.add("item_name", productName);
+            else
+                params.add("item_name", productName +" 등 " +  cnt + "건");
+            log.info("--------------------------------------상품이름" + productName +" 등 " +  cnt + "건");
+        }else
+            return "kakaoPaySuccessFail";
+
+        List<CartDTO> cartList = (List<CartDTO>) session.getAttribute("cartList");
+        int cartQuantity = 0;
+        if (cartList != null && !cartList.isEmpty()) {
+            for(CartDTO cdto : cartList){
+                cartQuantity += cdto.getCartQuantity();
+            }
+            params.add("quantity", Integer.toString(cartQuantity));
+        } else {
+            return "kakaoPaySuccessFail";
+        }
+
         params.add("total_amount", "2100");
         params.add("tax_free_amount", "100");
         params.add("approval_url", "http://localhost:8082/payment/kakaoPaySuccess");
-        params.add("cancel_url", "http://localhost:8082/kakaoPayCancel");
-        params.add("fail_url", "http://localhost:8082/kakaoPaySuccessFail");
+        params.add("cancel_url", "http://localhost:8082/payment/kakaoPayCancel");
+        params.add("fail_url", "http://localhost:8082/payment/kakaoPaySuccessFail");
 
         HttpEntity<MultiValueMap<String, String>> body = new HttpEntity<MultiValueMap<String, String>>(params, headers);
 
