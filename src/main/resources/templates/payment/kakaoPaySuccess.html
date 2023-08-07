@@ -13,7 +13,9 @@
 상품명:    [[${info.item_name}]]<br/>
 상품수량:    [[${info.quantity}]]<br/>
 결제금액:    [[${info.amount.total}]]<br/>
-결제방법:    [[${info.payment_method_type}]]<br/>
+결제방법:    [[${info.payment_method_type}]]
+
+<div th:text="${session.cartList}"></div>
 
 
 
