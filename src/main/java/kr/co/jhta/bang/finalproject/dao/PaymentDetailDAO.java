@@ -2,6 +2,8 @@ package kr.co.jhta.bang.finalproject.dao;
 
 import kr.co.jhta.bang.finalproject.dto.PaymentDetailDTO;
 import kr.co.jhta.bang.finalproject.dto.QnaDTO;
+import kr.co.jhta.bang.finalproject.dto.ReviewDTO;
+import kr.co.jhta.bang.finalproject.dto.StartEnd;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
@@ -19,5 +21,9 @@ public interface PaymentDetailDAO {
 
     List<QnaDTO> getDashboardQna();
 
+    List<PaymentDetailDTO> getPaymentPaging(StartEnd se);
 
+    int getTotal();
+
+    void updatePaymentList(PaymentDetailDTO paymentDetailDTO);
 }
