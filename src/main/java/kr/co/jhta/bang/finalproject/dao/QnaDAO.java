@@ -23,5 +23,7 @@ public interface QnaDAO {
 
     void deleteOne(int qnaNumber);
 
+    List<QnaDTO> getQnaListByType(String qnaType);
+
 
 }

@@ -5,6 +5,14 @@
 
 <mapper namespace="kr.co.jhta.bang.finalproject.dao.QnaDAO">
 
+    <select id="getQnaListByType" resultType="QnaDTO" parameterType="String">
+        SELECT qna_number AS qnaNumber, qna_title AS qnaTitle, qna_contents AS qnaContents, qna_writer AS qnaWriter, qna_date AS qnaDate, qna_ref AS qnaRef, qna_step AS qnaStep, qna_ref_order AS qnaRefOrder, qna_answer_number AS qnaAnswerNumber, qna_parent_number AS qnaParentNumber, qna_type AS qnaType, qna_status AS qnaStatus, qna_secret AS qnaSecret, member_id AS memberId
+        FROM qna
+        WHERE qna_step = 0 AND qna_type = #{qnaType}
+        ORDER BY qna_ref DESC;
+    </select>
+
+
     <select id="getAll" resultType="QnaDTO" parameterType="StartEnd">
         SELECT rn AS rowNumber, qna_number AS qnaNumber, qna_title AS qnaTitle, qna_contents AS qnaContents, qna_writer AS qnaWriter, qna_date AS qnaDate, qna_ref AS qnaRef, qna_step AS qnaStep, qna_ref_order AS qnaRefOrder, qna_answer_number AS qnaAnswerNumber, qna_parent_number AS qnaParentNumber, qna_type AS qnaType, qna_status AS qnaStatus, qna_secret AS qnaSecret, member_id AS memberId
         FROM ( SELECT ROW_NUMBER() OVER (ORDER BY qna_ref DESC) AS rn, qna_number, qna_title, qna_contents, qna_writer, qna_date, qna_ref, qna_step, qna_ref_order, qna_answer_number, qna_parent_number, qna_type, qna_status, qna_secret, member_id

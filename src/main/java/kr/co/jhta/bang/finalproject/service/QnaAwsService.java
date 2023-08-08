@@ -7,7 +7,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class QnaAwsService implements QnaService{
@@ -52,7 +55,10 @@ public class QnaAwsService implements QnaService{
         dao.deleteOne(qnaNumber);
     }
 
-
+    @Override
+    public List<QnaDTO> getQnaListByType(String qnaType) {
+        return dao.getQnaListByType(qnaType);
+    }
 
 
 }

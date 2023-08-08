@@ -56,6 +56,51 @@
 	<![endif]-->
 	<script th:src="@{/js/modernizr-2.6.2.min.js}"></script>
 
+	<script th:src="@{https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js}"></script>
+
+	<script>
+	$(document).ready(function() {
+		// qnaType Select 엘리먼트의 값 변경 시
+		$('#qna-type-select').change(function() {
+			var selectedValue = $(this).val(); // 선택된 값을 가져옴
+
+			// 값 조회 AJAX 요청
+			$.ajax({
+				url: '/qna/getQnaTypeValues', // 값 조회 API 엔드포인트
+				type: 'GET',
+				data: { value: selectedValue }, // 선택된 값을 데이터로 전송
+				dataType: 'json',
+				success: function(response) {
+					var qnaTableBody = $('#qna-table-body'); // 결과를 표시할 테이블 tbody 선택
+
+					// 응답 데이터를 이용하여 결과를 테이블에 추가
+					var qnaList = response;
+					var tableRowsHtml = '';
+					for (var i = 0; i < qnaList.length; i++) {
+						var qna = qnaList[i];
+						var rowHtml = '<tr>' +
+							'<td>' + qna.qnaRef + '</td>' +
+							'<td>' + qna.qnaType + '</td>' +
+							'<td><a href="/qna/qnaDetail?qnaNumber=' + qna.qnaNumber + '">' + qna.qnaTitle + '</a></td>' +
+							'<td>' + qna.qnaWriter + '</td>' +
+							'<td>' + qna.qnaDate + '</td>' +
+							'</tr>';
+						tableRowsHtml += rowHtml;
+					}
+
+					// 결과를 테이블에 삽입
+					qnaTableBody.html(tableRowsHtml);
+				},
+				error: function(error) {
+					console.log('Error: ' + error);
+				}
+			});
+		});
+	});
+</script>
+
+
+
 
 </head>
 
@@ -139,12 +184,12 @@
 						<tr id="title">
 							<th>NO</th>
 							<th>
-								<select name="qnaType" id="category">
-									<option value="카테고리" id="all" onclick="getCategory">카테고리</option>
-									<option value="상품문의" id="product" onclick="getCategory">상품문의</option>
-									<option value="결제/배송문의" id="delivery" onclick="getCategory">결제/배송문의</option>
-									<option value="회원정보문의" id="member" onclick="getCategory">회원정보문의</option>
-									<option value="기타문의" id="etc" onclick="getCategory">기타문의</option>
+								<select name="qnaType" id="qna-type-select">
+									<option value="카테고리" id="all">카테고리</option>
+									<option value="상품문의" id="product">상품문의</option>
+									<option value="결제/배송문의" id="delivery">결제/배송문의</option>
+									<option value="회원정보문의" id="member">회원정보문의</option>
+									<option value="기타문의" id="etc">기타문의</option>
 								</select>
 							</th>
 							<th>제목</th>
@@ -156,9 +201,8 @@
 						<td class="text-left">
 							<a th:href="@{/board/view.do( idx=${row.idx} )}" th:text="${row.title}"></a>
 						</td>-->
-
-
-						<tr class="cate" th:each="board:${list}">
+						<tbody id="qna-table-body">
+						<tr th:each="board:${list}">
 							<td th:text="${board.qnaRef}"></td>
 							<td th:text="${board.qnaType}"></td>
 <!--							<td><a th:href="@{/qna/qnaDetail(qna_number=${board.qna_number})}" th:text="${board.qna_title}"></a>비밀글입니다</td>-->
@@ -171,6 +215,9 @@
 							<td th:text="${board.qnaWriter}"></td>
 							<td th:text="${board.qnaDate}"></td>
 						</tr>
+
+						<!-- 결과가 여기에 추가될 예정 -->
+						</tbody>
 					</table>
 					<div class="centered">
 						<nav aria-label="Page navigation example">
@@ -227,32 +274,6 @@
 <!-- Main -->
 <script th:src="@{/js/main.js}"></script>
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
-<script>
-	function getCategory(){
-	$.ajax({
-		type: 'GET',
-		url : "/getCategory",
-		data : $("form[name=search-form]").serialize(),
-		success : function(result){
-			//테이블 초기화
-			$('#boardtable > tbody').empty();
-			if(result.length>=1){
-				result.forEach(function(item){
-					str='<tr>'
-					str += "<td>"+item.idx+"</td>";
-					str+="<td>"+item.writer+"</td>";
-					str+="<td><a href = '/board/detail?idx=" + item.idx + "'>" + item.title + "</a></td>";
-					str+="<td>"+item.date+"</td>";
-					str+="<td>"+item.hit+"</td>";
-					str+="</tr>"
-					$('#boardtable').append(str);
-        		})
-			}
-		}
-	})
-}
-</script>
 
 </body>
 </html>

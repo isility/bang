@@ -20,4 +20,6 @@ public interface QnaService {
 
     public void removeOne(int qnaNumber);
 
+    List<QnaDTO> getQnaListByType(String qnaType);
+
 }
