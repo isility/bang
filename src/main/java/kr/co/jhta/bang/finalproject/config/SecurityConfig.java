@@ -30,7 +30,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/login").permitAll() // 로그인 페이지는 모두 접근 가능하도록 허용
                 .antMatchers("/join/**").permitAll() // 회원가입 페이지는 모두 접근 가능하도록 허용
                 .antMatchers("/mypage/**").access("hasRole('ROLE_USER')")
-                //.antMatchers("/admin/**").access("hasRole('ROLE_ADMIN')")
+                .antMatchers("/admin/**").access("hasRole('ROLE_ADMIN')")
                 .anyRequest().permitAll()
                 .and()
                 .formLogin()
