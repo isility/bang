@@ -16,4 +16,8 @@ public interface MemberDAO {
     MemberDTO selectOne(String id);
 
     MemberDTO selectOneDetail(String memberId);
+
+    int emailCheck(String memberEmail);
+
+    int idSocialCheck(String socialMemberId);
 }

@@ -17,10 +17,22 @@
         WHERE member_id = #{member_id}
     </select>
 
+    <select id="idSocialCheck" parameterType="String" resultType="int">
+        SELECT COUNT(*)
+        FROM member
+        WHERE member_id = #{member_id}
+    </select>
+
     <select id="pwCheck" parameterType="String" resultType="String">
         SELECT member_pw
         FROM member
         WHERE member_id = #{member_id}
+    </select>
+
+    <select id="emailCheck" parameterType="String" resultType="int">
+        SELECT COUNT(*)
+        FROM member
+        WHERE member_email = #{member_email}
     </select>
 
     <select id="selectOne" parameterType="String" resultType="MemberDTO">

@@ -3,7 +3,6 @@ package kr.co.jhta.bang.finalproject.service;
 import kr.co.jhta.bang.finalproject.dto.MemberDTO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
@@ -20,20 +19,18 @@ public class MemberUserDetailService implements UserDetailsService {
 
 
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        log.info("username : " + username);
+    public MemberUserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        log.info("MemberUserDetailService username : " + username);
 
         MemberDTO memberDto = memberService.selectMemberDetail(username);
 
         if (memberDto != null) {
-            log.info("사용자 정보 : {} ", memberDto);
+            log.info("MemberUserDetailService 사용자 정보 : {} ", memberDto);
         } else {
+            log.info("사용자를 찾을 수 없습니다.");
             throw new UsernameNotFoundException("사용자를 찾을 수 없습니다.");
         }
 
-        MemberUserDetails principalDetails = new MemberUserDetails(memberDto);
-
-        return principalDetails;
+        return  new MemberUserDetails(memberDto);
     }
-
 }

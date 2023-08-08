@@ -5,12 +5,13 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-// security session 에 들어갈 객체
+@Service
 @Slf4j
 public class MemberUserDetails implements UserDetails {
 
@@ -35,20 +36,20 @@ public class MemberUserDetails implements UserDetails {
                 authority = "ROLE_SELLER";
             }
             authorities.add(new SimpleGrantedAuthority(authority));
-            log.info("Collection 메서드 : " + authorities);
+            log.info("MemberUserDetails Collection 메서드 : " + authorities);
         }
         return authorities;
     }
 
     @Override
     public String getPassword() {
-        log.info("pw : " + memberDto.getMember_pw());
+        log.info("MemberUserDetails pw : " + memberDto.getMember_pw());
         return memberDto.getMember_pw();
     }
 
     @Override
     public String getUsername() {
-        log.info("getUsername() 메서드 username : " + memberDto.getMember_name());
+        log.info("MemberUserDetails username : " + memberDto.getMember_name());
         return memberDto.getMember_name();
     }
 
@@ -72,3 +73,5 @@ public class MemberUserDetails implements UserDetails {
         return true;
     }
 }
+
+// security session 에 들어갈 객체
