@@ -66,4 +66,10 @@ public class LoginController {
         return "login/login.html";
 
     }
+
+
+    @GetMapping("/loginError")
+    public String loginError() {
+        return "login/loginError.html";
+    }
 }

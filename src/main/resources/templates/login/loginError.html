@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>LoginError</title>
+
+    <script>
+        function redirectToLoginPage() {
+            if (confirm("아이디 또는 비밀번호 오류입니다. 다시 시도해주세요.")) {
+                window.location.href = "/login";
+            }
+        }
+        // 페이지 로드 시 함수 호출
+        redirectToLoginPage();
+    </script>
+</head>
+<body>
+</body>
+</html>
