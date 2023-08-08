@@ -2,6 +2,7 @@ package kr.co.jhta.bang.finalproject.control;
 
 import kr.co.jhta.bang.finalproject.dto.MemberDTO;
 import kr.co.jhta.bang.finalproject.dto.PaymentDetailDTO;
+import kr.co.jhta.bang.finalproject.dto.ProductDTO;
 import kr.co.jhta.bang.finalproject.dto.ServiceDTO;
 import kr.co.jhta.bang.finalproject.service.AdminService;
 import kr.co.jhta.bang.finalproject.util.PageUtil;
@@ -43,7 +44,7 @@ public class AdminController {
     public String getPaymentList(Model model,
                                  @RequestParam(name = "currentPage", defaultValue = "1") int currentPage) {
         // 총 게시물 수
-        int totalNumber = service.getTotal();
+        int totalNumber = service.getTotalPaymentDetail();
         // 페이지당 게시물 수
         int countPerPage = 10;
 
@@ -80,7 +81,7 @@ public class AdminController {
     @GetMapping("/memberList")
     public String getMemberList(Model model, @RequestParam(name = "currentPage", defaultValue = "1") int currentPage) {
         // 총 게시물 수
-        int totalNumber = service.getTotal();
+        int totalNumber = service.getTotalMember();
         // 페이지당 게시물 수
         int countPerPage = 10;
 
@@ -122,7 +123,7 @@ public class AdminController {
     @GetMapping("/serviceList")
     public String getServiceList(Model model, @RequestParam(name = "currentPage", defaultValue = "1") int currentPage){
         // 총 게시물 수
-        int totalNumber = service.getTotal();
+        int totalNumber = service.getTotalService();
         // 페이지당 게시물 수
         int countPerPage = 10;
 
@@ -167,12 +168,59 @@ public class AdminController {
     }
 
 
+
+
+
+
+
     @GetMapping("/productList")
-    public String getProductList(){
-        log.info(">>>>>>>>move to serviceList<<<<<<<< ");
-        return "/admin/productList";
+    public String getProductList(Model model, @RequestParam(name = "currentPage", defaultValue = "1") int currentPage){
+        // 총 게시물 수
+        int totalNumber = service.getTotalProduct();
+        // 페이지당 게시물 수
+        int countPerPage = 10;
+
+        log.info("총 게시물 수 >>>>>>>" + totalNumber);
+        log.info("페이지당 게시물 수 >>>>>>>" + countPerPage);
+        log.info("현재 페이지 번호 >>>>>>>" + currentPage);
+        Map<String, Object> map = PageUtil.getPageData(totalNumber, countPerPage, currentPage);
+        int startNo = (int) map.get("startNo");
+        int endNo = (int) map.get("endNo");
+
+        List<ProductDTO> productList = service.getProductPaging(startNo, endNo);
+        log.info(">>>>>>>>>>>>>>>>페이징 {}", productList);
+        model.addAttribute("list", productList);
+        model.addAttribute("map", map);
+        log.info(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>{}",productList);
+        return "admin/productList";
+    }
+    @PostMapping("/productList")
+    public String updateProductList( @RequestParam("productNumber")int productNumber, @RequestParam("productDetail")String productDetail){
+        ProductDTO dto = new ProductDTO();
+        dto.setProductNumber(productNumber);
+        dto.setProductDetail(productDetail);
+        service.updateProductList(dto);
+        log.info(">>>>>> serviceDTO : {}", dto);
+        return "redirect:/admin/productList";
     }
 
+    @GetMapping("/productDelete")
+    public String productDelete(@RequestParam("productNumber")int productNumber){
+        service.productDelete(productNumber);
+        return "redirect:/admin/productList" ;
+    }
+
+    @GetMapping("/productModify")
+    public String productModify(Model model, @RequestParam("productNumber")int productNumber){
+        model.addAttribute("productDTO", service.productDetail(productNumber));
+        return "admin/productModify";
+    }
+
+    @PostMapping("/productModify")
+    public String productModifyOk(@ModelAttribute ProductDTO dto){
+        service.updateProductModify(dto);
+        return "redirect:/admin/productList";
+    }
 
 
 
