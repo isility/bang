@@ -28,5 +28,13 @@ public interface AdminDAO {
 
     void memberDelete(String member_id);
 
-    List<MemberDTO> memberDetail(String member_id);
+    MemberDTO memberDetail(String member_id);
+
+    void updateMemberDetail(MemberDTO dto);
+
+    List<ServiceDTO> getServicePaging(StartEnd se);
+
+    void updateServiceList(ServiceDTO dto);
+
+    void serviceDelete(int serviceNumber);
 }

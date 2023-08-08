@@ -8,7 +8,29 @@
   <link rel="shortcut icon" type="image/png" th:href="@{../assets/images/logos/favicon.png}" />
   <link rel="stylesheet" th:href="@{../assets/css/styles.min.css}" />
 </head>
+<script th:inline="javascript">
+        function optionChanged(selectElement) {
+            var selectedValue = selectElement.value;
+            var selectedNumber = selectElement.id;
 
+            $.ajax({
+                type: "POST",
+                url: "/admin/serviceList",
+                data: {
+                    serviceNumber: selectedNumber,
+                    serviceType: selectedValue
+                },
+                success: function (response) {
+                    // 성공적으로 서버와 통신한 후 수행할 동작
+                    console.log("Data sent successfully!");
+                },
+                error: function (error) {
+                    // 서버와 통신 중 에러가 발생한 경우 처리
+                    console.log("Error sending data: " + error);
+                }
+            });
+        }
+    </script>
 <body>
   <!--  Body Wrapper -->
   <div class="page-wrapper" id="main-wrapper" data-layout="vertical" data-navbarbg="skin6" data-sidebartype="full"
@@ -137,33 +159,41 @@
                   <table class="table table-hover">
                     <thead>
                     <tr>
-                      <th scope="col">주문상세번호</th>
+                      <th scope="col">서비스번호</th>
                       <th scope="col">내용</th>
                       <th scope="col">이메일</th>
+                      <th scope="col">주문상세번호</th>
                       <th scope="col">서비스유형</th>
                       <th scope="col">X</th>
                     </tr>
                     </thead>
 
                     <tbody>
-                    <tr>
-                      <th scope="row">1</th>
-                      <td>검은색으로 바꾸고싶어요</td>
-                      <td>anjfqk@naver.com</td>
+                    <tr th:each="serviceDTO : ${list}">
+                      <th scope="row" th:text="${serviceDTO.serviceNumber}"></th>
+                      <td th:text="${serviceDTO.serviceContents}"></td>
+                      <td th:text="${serviceDTO.serviceEmail}"></td>
+                      <td th:text="${serviceDTO.paymentDetailNumber}"></td>
                       <td>
                         <div>
-                        <select class="form-select">
-                          <option value="1">교환</option>
-                          <option value="2">환불</option>
-                          <option value="3">취소</option>
-                          <option value="4">처리완료</option>
-                        </select>
+                          <select class="form-select" th:id="${serviceDTO.serviceNumber}" onchange="optionChanged(this)">
+                            <option th:value="교환" th:selected="${serviceDTO.serviceType == '교환'}">교환</option>
+                            <option th:value="환불" th:selected="${serviceDTO.serviceType == '환불'}">환불</option>
+                            <option th:value="취소" th:selected="${serviceDTO.serviceType == '취소'}">취소</option>
+                            <option th:value="처리완료" th:selected="${serviceDTO.serviceType == '처리완료'}">처리완료</option>
+                          </select>
                       </div>
                       </td>
-                      <td><svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
-                        <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6Z"/>
-                        <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1ZM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118ZM2.5 3h11V2h-11v1Z"/>
-                      </svg></td>
+                      <td>
+                        <a th:href="@{/admin/serviceDelete(serviceNumber=${serviceDTO.serviceNumber})}"
+                           class="btn btn-primary m-1" style="font-size: 9px;"
+                           onclick="return confirm('진짜 진짜 삭제할거야?');">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+                            <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6Z"/>
+                            <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1ZM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118ZM2.5 3h11V2h-11v1Z"/>
+                          </svg>
+                        </a>
+                      </td>
                     </tr>
 
 
@@ -172,6 +202,20 @@
                     </tbody>
 
                   </table>
+
+                  <nav aria-label="Page navigation example">
+                    <ul class="pagination">
+                      <li th:if="${map.prev}">
+                        <a th:href="@{/admin/serviceList(currentPage=${map.currentPage-5})}" class="page-link">이전</a>
+                      </li>
+                      <li th:each="i : ${#numbers.sequence(map.startPageNo, map.endPageNo)}">
+                        <a th:href="@{/admin/serviceList(currentPage=${i})}" class="page-link" th:text="${i}"></a>
+                      </li>
+                      <li th:if="${map.next}">
+                        <a th:href="@{/admin/serviceList(currentPage=${map.currentPage+5})}" class="page-link">다음</a>
+                      </li>
+                    </ul>
+                  </nav>
                 </div>
               </div>
 

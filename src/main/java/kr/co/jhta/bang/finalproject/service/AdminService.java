@@ -1,10 +1,7 @@
 package kr.co.jhta.bang.finalproject.service;
 
 import kr.co.jhta.bang.finalproject.dao.AdminDAO;
-import kr.co.jhta.bang.finalproject.dto.MemberDTO;
-import kr.co.jhta.bang.finalproject.dto.PaymentDetailDTO;
-import kr.co.jhta.bang.finalproject.dto.QnaDTO;
-import kr.co.jhta.bang.finalproject.dto.StartEnd;
+import kr.co.jhta.bang.finalproject.dto.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -53,12 +50,26 @@ public class AdminService {
         return dao.getMemberPaging(se);
     }
 
-    public List<MemberDTO> memberDetail(String member_id){
+    public MemberDTO memberDetail(String member_id){
 
         return dao.memberDetail(member_id);
     }
-
     public void memberDelete(String member_id) {
         dao.memberDelete(member_id);
+    }
+
+    public void updateMemberDetail(MemberDTO dto){dao.updateMemberDetail(dto);}
+
+    public List<ServiceDTO> getServicePaging(int startNo, int endNo){
+        StartEnd se = new StartEnd(startNo, endNo);
+        return dao.getServicePaging(se);
+    }
+
+    public void updateServiceList(ServiceDTO dto){
+        dao.updateServiceList(dto);
+    }
+
+    public void serviceDelete(int serviceNumber){
+        dao.serviceDelete(serviceNumber);
     }
 }

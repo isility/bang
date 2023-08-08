@@ -8,7 +8,6 @@
   <link rel="shortcut icon" type="image/png" th:href="@{../assets/images/logos/favicon.png}" />
   <link rel="stylesheet" th:href="@{../assets/css/styles.min.css}" />
 </head>
-
 <body>
   <!--  Body Wrapper -->
   <div class="page-wrapper" id="main-wrapper" data-layout="vertical" data-navbarbg="skin6" data-sidebartype="full"
@@ -137,32 +136,40 @@
 
                   <form action="memberModify" method="post">
                     <div class="mb-3">
-                      <label for="member_id" class="form-label">Email address</label>
+                      <label for="member_id" class="form-label">ID</label>
                       <input type="text" class="form-control" name="member_id" id="member_id" th:value="${memberDTO.member_id}">
                     </div>
                     <div class="mb-3">
                       <label for="member_pw" class="form-label" >Password</label>
-                      <input type="password" class="form-control" id="member_pw" name="member_pw">
+                      <input type="text" class="form-control" id="member_pw" name="member_pw" th:value="${memberDTO.member_pw}">
                     </div>
                     <div class="mb-3">
                       <label for="member_name" class="form-label">Name</label>
-                      <input type="text" class="form-control" id="member_name" name="member_name">
+                      <input type="text" class="form-control" id="member_name" name="member_name" th:value="${memberDTO.member_name}">
+                    </div>
+                    <div class="mb-3">
+                      <label for="member_phone" class="form-label">Phone</label>
+                      <input type="text" class="form-control" id="member_phone" name="member_phone" th:value="${memberDTO.member_phone}">
                     </div>
                     <div class="mb-3">
                       <label for="member_email" class="form-label">Email address</label>
-                      <input type="text" class="form-control" id="member_email" name="member_email">
+                      <input type="text" class="form-control" id="member_email" name="member_email" th:value="${memberDTO.member_email}">
                     </div>
                     <div class="mb-3">
                       <label for="member_address1" class="form-label">Address 1</label>
-                      <input type="text" class="form-control" id="member_address1" name="member_address1">
+                      <input type="text" class="form-control" id="member_address1" name="member_address1" th:value="${memberDTO.member_address1}">
                     </div>
                     <div class="mb-3">
                       <label for="member_address2" class="form-label">Address 2</label>
-                      <input type="text" class="form-control" id="member_address2" name="member_address2">
+                      <input type="text" class="form-control" id="member_address2" name="member_address2" th:value="${memberDTO.member_address2}">
                     </div>
-                    <div class="mb-3 form-check">
-                      <input type="checkbox" class="form-check-input" id="exampleCheck1" name="exampleCheck1">
-                      <label class="form-check-label" for="exampleCheck1">Check me out</label>
+                    <div class="mb-3">
+                      <label for="role_number" class="form-label">Role</label>
+                      <input type="text" class="form-control" id="role_number" name="role_number" th:value="${memberDTO.role_number}">
+                    </div>
+                    <div class="mb-3">
+                      <label for="grade_number" class="form-label">Grade</label>
+                      <input type="text" class="form-control" id="grade_number" name="grade_number" th:value="${memberDTO.grade_number}">
                     </div>
                     <button type="submit" class="btn btn-primary">Submit</button>
                   </form>
