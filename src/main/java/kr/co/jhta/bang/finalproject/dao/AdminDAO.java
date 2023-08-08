@@ -1,9 +1,6 @@
 package kr.co.jhta.bang.finalproject.dao;
 
-import kr.co.jhta.bang.finalproject.dto.PaymentDetailDTO;
-import kr.co.jhta.bang.finalproject.dto.QnaDTO;
-import kr.co.jhta.bang.finalproject.dto.ReviewDTO;
-import kr.co.jhta.bang.finalproject.dto.StartEnd;
+import kr.co.jhta.bang.finalproject.dto.*;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
@@ -11,7 +8,7 @@ import java.util.List;
 
 @Repository
 @Mapper
-public interface PaymentDetailDAO {
+public interface AdminDAO {
     List<PaymentDetailDTO> getFourPaymentDetail();
 
     List<PaymentDetailDTO> getPriceYear();
@@ -25,5 +22,11 @@ public interface PaymentDetailDAO {
 
     int getTotal();
 
-    void updatePaymentList(PaymentDetailDTO paymentDetailDTO);
+    void updatePaymentList(PaymentDetailDTO dto);
+
+    List<MemberDTO> getMemberPaging(StartEnd se);
+
+    void memberDelete(String member_id);
+
+    List<MemberDTO> memberDetail(String member_id);
 }

@@ -1,6 +1,7 @@
 package kr.co.jhta.bang.finalproject.service;
 
-import kr.co.jhta.bang.finalproject.dao.PaymentDetailDAO;
+import kr.co.jhta.bang.finalproject.dao.AdminDAO;
+import kr.co.jhta.bang.finalproject.dto.MemberDTO;
 import kr.co.jhta.bang.finalproject.dto.PaymentDetailDTO;
 import kr.co.jhta.bang.finalproject.dto.QnaDTO;
 import kr.co.jhta.bang.finalproject.dto.StartEnd;
@@ -12,10 +13,10 @@ import java.util.List;
 
 @Slf4j
 @Service
-public class PaymentDetailService {
+public class AdminService {
 
     @Autowired
-    private PaymentDetailDAO dao;
+    private AdminDAO dao;
     public List<PaymentDetailDTO> getFourTable(){
 //        log.info("service : {}",dao.getFourPaymentDetail());
         return dao.getFourPaymentDetail();
@@ -43,7 +44,21 @@ public class PaymentDetailService {
         return dao.getTotal();
     }
 
-    public void updatePaymentList(PaymentDetailDTO paymentDetailDTO){
-        dao.updatePaymentList(paymentDetailDTO);
+    public void updatePaymentList(PaymentDetailDTO dto){
+        dao.updatePaymentList(dto);
+    }
+
+    public List<MemberDTO> getMemberPaging(int startNo, int endNo) {
+        StartEnd se = new StartEnd(startNo, endNo);
+        return dao.getMemberPaging(se);
+    }
+
+    public List<MemberDTO> memberDetail(String member_id){
+
+        return dao.memberDetail(member_id);
+    }
+
+    public void memberDelete(String member_id) {
+        dao.memberDelete(member_id);
     }
 }
