@@ -113,4 +113,26 @@ public class AdminController {
         return "redirect:/admin/memberList" ;
     }
 
+
+
+    @GetMapping("/communityList")
+    public String getCommunity(){
+        log.info(">>>>>>>>move to community<<<<<<<< ");
+        return "/admin/communityList";
+    }
+
+
+    @GetMapping("/productList")
+    public String getProductList(){
+        log.info(">>>>>>>>move to serviceList<<<<<<<< ");
+        return "/admin/productList";
+    }
+
+
+    @GetMapping("/serviceList")
+    public String getServiceList(){
+        log.info(">>>>>>>>move to serviceList<<<<<<<< ");
+        return "/admin/serviceList";
+    }
+
 }
