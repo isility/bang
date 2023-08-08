@@ -8,7 +8,29 @@
   <link rel="shortcut icon" type="image/png" th:href="@{../assets/images/logos/favicon.png}" />
   <link rel="stylesheet" th:href="@{../assets/css/styles.min.css}" />
 </head>
+<script th:inline="javascript">
+        function optionChanged(selectElement) {
+            var selectedValue = selectElement.value;
+            var selectedNumber = selectElement.id;
 
+            $.ajax({
+                type: "POST",
+                url: "/admin/productList",
+                data: {
+                    productNumber: selectedNumber,
+                    productDetail: selectedValue
+                },
+                success: function (response) {
+                    // 성공적으로 서버와 통신한 후 수행할 동작
+                    console.log("Data sent successfully!");
+                },
+                error: function (error) {
+                    // 서버와 통신 중 에러가 발생한 경우 처리
+                    console.log("Error sending data: " + error);
+                }
+            });
+        }
+    </script>
 <body>
   <!--  Body Wrapper -->
   <div class="page-wrapper" id="main-wrapper" data-layout="vertical" data-navbarbg="skin6" data-sidebartype="full"
@@ -149,35 +171,55 @@
                     </thead>
 
                     <tbody>
-                    <tr>
-                      <th scope="row">1001</th>
-                      <td>베오사운드A1 2세대</td>
-                      <td>419000</td>
-                      <td>1000</td>
-                      <td>22-05-10</td>
+                    <tr th:each="productDTO : ${list}">
+                      <th scope="row" th:text="${productDTO.productNumber}"></th>
+                      <td th:text="${productDTO.productName}"></td>
+                      <td th:text="${productDTO.productPrice}"></td>
+                      <td th:text="${productDTO.productStock}"></td>
+                      <td th:text="${productDTO.productRegist}"></td>
                       <td>
                         <div>
-                          <select class="form-select">
-                            <option value="1">블루투스 스피커</option>
-                            <option value="2">블루투스 이어폰</option>
-                            <option value="3">블루투스 헤드폰</option>
-                            <option value="4">악세서리</option>
+                          <select class="form-select" th:id="${productDTO.productNumber}" onchange="optionChanged(this)">
+                            <option th:value="블루투스스피커" th:selected="${productDTO.productDetail == '블루투스 스피커'}">블루투스스피커</option>
+                            <option th:value="블루투스이어폰" th:selected="${productDTO.productDetail == '블루투스 이어폰'}">블루투스이어폰</option>
+                            <option th:value="블루투스헤드폰" th:selected="${productDTO.productDetail == '블루투스 헤드폰'}">블루투스헤드폰</option>
+                            <option th:value="사운드바" th:selected="${productDTO.productDetail == '사운드바'}">사운드바</option>
+                            <option th:value="악세사리" th:selected="${productDTO.productDetail == '악세사리'}">악세사리</option>
                           </select>
                         </div>
                       </td>
-                      <td><button type="button" class="btn btn-primary m-1">상품수정</button></td>
-                      <td><svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
-                        <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6Z"/>
-                        <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1ZM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118ZM2.5 3h11V2h-11v1Z"/>
-                      </svg></td>
+                      <td>
+                        <a th:href="@{/admin/productModify(productNumber=${productDTO
+							.productNumber})}" class="btn btn-primary m-1" style="font-size: 17px;">상품수정</a>
+                      </td>
+                      <td>
+                        <a th:href="@{/admin/productDelete(productNumber=${productDTO.productNumber})}"
+                           class="btn btn-primary m-1" style="font-size: 9px;"
+                           onclick="return confirm('진짜 진짜 삭제할거야?');">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+                            <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6Z"/>
+                            <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1ZM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118ZM2.5 3h11V2h-11v1Z"/>
+                          </svg>
+                        </a>
+                      </td>
                     </tr>
-
-
-
-
                     </tbody>
 
                   </table>
+
+                  <nav aria-label="Page navigation example">
+                    <ul class="pagination">
+                      <li th:if="${map.prev}">
+                        <a th:href="@{/admin/productList(currentPage=${map.currentPage-5})}" class="page-link">이전</a>
+                      </li>
+                      <li th:each="i : ${#numbers.sequence(map.startPageNo, map.endPageNo)}">
+                        <a th:href="@{/admin/productList(currentPage=${i})}" class="page-link" th:text="${i}"></a>
+                      </li>
+                      <li th:if="${map.next}">
+                        <a th:href="@{/admin/productList(currentPage=${map.currentPage+5})}" class="page-link">다음</a>
+                      </li>
+                    </ul>
+                  </nav>
                 </div>
               </div>
 
@@ -188,11 +230,12 @@
       </div>
     </div>
   </div>
-  <script src="../assets/libs/jquery/dist/jquery.min.js"></script>
-  <script src="../assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-  <script src="../assets/js/sidebarmenu.js"></script>
-  <script src="../assets/js/app.min.js"></script>
-  <script src="../assets/libs/simplebar/dist/simplebar.js"></script>
+  <script th:src="@{../assets/libs/jquery/dist/jquery.min.js}"></script>
+  <script th:src="@{../assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js}"></script>
+  <script th:src="@{../assets/js/sidebarmenu.js}"></script>
+  <script th:src="@{../assets/js/app.min.js}"></script>
+  <script th:src="@{../assets/libs/simplebar/dist/simplebar.js}"></script>
+
 </body>
 
 </html>

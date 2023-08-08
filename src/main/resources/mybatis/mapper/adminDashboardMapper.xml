@@ -55,6 +55,14 @@
         LIMIT 1;
     </select>
 
+    <select id="memberCount" resultType="MemberDTO">
+        SELECT DATE_FORMAT(member_insertdate, '%m') AS month,
+        COUNT(*) AS cnt
+        FROM member
+        GROUP BY month
+        ORDER BY month DESC;
+    </select>
+
 <!-- 대시보드에 최신 QNA 가져오는 쿼리 -->
     <select id="getDashboardQna" resultType="QnaDTO">
         SELECT
@@ -68,9 +76,25 @@
         LIMIT 5;
     </select>
 
-    <select id="getTotal" resultType="int">
+    <select id="getTotalReply" resultType="int">
         SELECT count(*)cnt
         FROM product_reply
+    </select>
+    <select id="getTotalPaymentDetail" resultType="int">
+        SELECT count(*)cnt
+        FROM payment_detail
+    </select>
+    <select id="getTotalMember" resultType="int">
+        SELECT count(*)cnt
+        FROM member
+    </select>
+    <select id="getTotalService" resultType="int">
+        SELECT count(*)cnt
+        FROM service
+    </select>
+    <select id="getTotalProduct" resultType="int">
+        SELECT count(*)cnt
+        FROM product
     </select>
 
 
@@ -190,7 +214,66 @@
     </update>
 
     <delete id="serviceDelete" parameterType="int">
-        DELETE FROM service
+        DELETE FROM servicegetProductPaging
         where service_number = #{serviceNumber}
     </delete>
+
+
+
+    <select id="getProductPaging" resultType="ProductDTO" parameterType="StartEnd">
+        SELECT rn AS rowNumber,
+        product_number AS productNumber,
+        product_name AS productName,
+        product_price AS productPrice,
+        product_stock AS productStock,
+        product_detail AS productDetail,
+        product_regist AS productRegist,
+        category_number AS categoryNumber
+        FROM (
+        SELECT ROW_NUMBER() OVER (ORDER BY product_number DESC) AS rn,
+        product_number,
+        product_name,
+        product_price,
+        product_stock,
+        product_detail,
+        product_regist,
+        category_number
+        FROM product
+        ) AS derived
+        WHERE rn BETWEEN #{startNo} AND #{endNo}
+    </select>
+
+
+
+    <update id="updateProductList" parameterType="ProductDTO">
+        UPDATE product
+        SET product_detail = #{productDetail}
+        WHERE product_number = #{productNumber};
+    </update>
+
+    <delete id="productDelete" parameterType="int">
+        DELETE FROM product
+        where product_number = #{productNumber}
+    </delete>
+
+
+    <select id="productDetail" parameterType="int" resultType="ProductDTO">
+        select
+        product_number AS productNumber,
+        product_name AS productName,
+        product_price AS productPrice,
+        product_stock AS productStock,
+        product_detail AS productDetail,
+        product_regist AS productRegist,
+        category_number AS categoryNumber
+        FROM product
+        where product_number = #{productNumber}
+    </select>
+
+    <update id="updateProductModify" parameterType="ProductDTO">
+        UPDATE product
+        SET product_number = #{productNumber}, product_name = #{productName}, product_price = #{productPrice},product_stock = #{productStock},  product_detail = #{productDetail}
+        , product_regist = #{productRegist}, category_number = #{categoryNumber}
+        WHERE product_number = #{productNumber}
+    </update>
 </mapper>

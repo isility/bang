@@ -20,7 +20,11 @@ public interface AdminDAO {
 
     List<PaymentDetailDTO> getPaymentPaging(StartEnd se);
 
-    int getTotal();
+    int getTotalReply();
+    int getTotalPaymentDetail();
+    int getTotalMember();
+    int getTotalService();
+    int getTotalProduct();
 
     void updatePaymentList(PaymentDetailDTO dto);
 
@@ -37,4 +41,16 @@ public interface AdminDAO {
     void updateServiceList(ServiceDTO dto);
 
     void serviceDelete(int serviceNumber);
+
+    List<ProductDTO> getProductPaging(StartEnd se);
+
+    void updateProductList(ProductDTO dto);
+
+    void productDelete(int productNumber);
+
+    ProductDTO productDetail(int productNumber);
+
+    void updateProductModify(ProductDTO dto);
+
+    List<MemberDTO> memberCount();
 }

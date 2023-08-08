@@ -33,6 +33,7 @@ public class ReviewService {
         return dao.getTotal();
     }
 
+
     // review 작성 로직
     public void writeReply(ReviewDTO dto){
         dao.writeReply(dto);

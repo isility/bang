@@ -37,8 +37,20 @@ public class AdminService {
         return dao.getPaymentPaging(se);
     }
 
-    public int getTotal(){
-        return dao.getTotal();
+    public int getTotalReply(){
+        return dao.getTotalReply();
+    }
+    public int getTotalPaymentDetail(){
+        return dao.getTotalPaymentDetail();
+    }
+    public int getTotalMember(){
+        return dao.getTotalMember();
+    }
+    public int getTotalService(){
+        return dao.getTotalService();
+    }
+    public int getTotalProduct(){
+        return dao.getTotalProduct();
     }
 
     public void updatePaymentList(PaymentDetailDTO dto){
@@ -71,5 +83,30 @@ public class AdminService {
 
     public void serviceDelete(int serviceNumber){
         dao.serviceDelete(serviceNumber);
+    }
+
+    public List<ProductDTO> getProductPaging(int startNo, int endNo) {
+        StartEnd se = new StartEnd(startNo, endNo);
+        return dao.getProductPaging(se);
+    }
+
+    public void updateProductList(ProductDTO dto) {
+        dao.updateProductList(dto);
+    }
+
+    public void productDelete(int productNumber) {
+        dao.productDelete(productNumber);
+    }
+
+    public ProductDTO productDetail(int productNumber) {
+        return dao.productDetail(productNumber);
+    }
+
+    public void updateProductModify(ProductDTO dto) {
+        dao.updateProductModify(dto);
+    }
+
+    public List<MemberDTO> memberCount(){
+        return dao.memberCount();
     }
 }
