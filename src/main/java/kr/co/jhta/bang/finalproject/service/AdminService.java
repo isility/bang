@@ -105,4 +105,8 @@ public class AdminService {
     public void updateProductModify(ProductDTO dto) {
         dao.updateProductModify(dto);
     }
+
+    public List<MemberDTO> memberCount(){
+        return dao.memberCount();
+    }
 }

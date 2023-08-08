@@ -55,6 +55,14 @@
         LIMIT 1;
     </select>
 
+    <select id="memberCount" resultType="MemberDTO">
+        SELECT DATE_FORMAT(member_insertdate, '%m') AS month,
+        COUNT(*) AS cnt
+        FROM member
+        GROUP BY month
+        ORDER BY month DESC;
+    </select>
+
 <!-- 대시보드에 최신 QNA 가져오는 쿼리 -->
     <select id="getDashboardQna" resultType="QnaDTO">
         SELECT

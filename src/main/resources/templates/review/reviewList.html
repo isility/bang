@@ -67,6 +67,23 @@
     th.reviewNo, td.reviewNo {
         width: 30px; /* 작성자 칼럼의 너비를 조정합니다 */
     }
+
+	.star-rating {
+    font-size: 30px;
+    direction: ltr; /* 왼쪽 정렬 */
+}
+
+label {
+    color: orange;
+    cursor: pointer;
+    display: inline-block;
+    unicode-bidi: bidi-override;
+    direction: ltr;
+    font-size: 15px;
+    text-align: left; /* 왼쪽 정렬 */
+}
+
+
 	</style>
 	<script th:inline="javascript">
   function truncateText(text, maxLength) {
@@ -158,7 +175,13 @@
 								</a>
 							</td>
 							<td class="writer" th:text="${reviewDTO.replyWriter}"></td>
-							<td class="score" th:text="${reviewDTO.replyScore}"></td>
+							<td>
+								<div class="star-rating">
+									<th:block th:each="score : ${#numbers.sequence(1, reviewDTO.replyScore)}">
+										<label for="star">&#9733;</label>
+									</th:block>
+								</div>
+							</td>
 							<td class="date" th:text="${reviewDTO.replyDate}"></td>
 
 							<td><a th:href="@{/review/reviewModify(replyNumber=${reviewDTO.replyNumber})}" class="btn btn-primary" style="font-size: 9px;">수정</a></td>

@@ -51,4 +51,6 @@ public interface AdminDAO {
     ProductDTO productDetail(int productNumber);
 
     void updateProductModify(ProductDTO dto);
+
+    List<MemberDTO> memberCount();
 }
