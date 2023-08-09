@@ -3,10 +3,9 @@ package kr.co.jhta.bang.finalproject.control;
 import kr.co.jhta.bang.finalproject.dto.MemberDTO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpServletRequest;
 
 @Slf4j
 @Controller
@@ -21,9 +20,12 @@ public class SearchIdPwController {
     
     
     @PostMapping("/id")
-    /*@ResponseBody*/
-    public String searchIdResult() {
-        
+    public String searchIdResult(HttpServletRequest request) {
+
+        log.info("email : {} ", request.getParameter("member_email"));
+        log.info("name : {} ", request.getParameter("member_name"));
+        log.info("phone : {} ", request.getParameter("member_phone"));
+
         // 가져온 값이 이메일 == 값 있음, 이름 ==null, 전화번호 == null
         // id, 이메일이 있는 지 찾아보고 (MemberDTO 리턴)
         // 있으면 *** 처리해서 이메일 리턴
