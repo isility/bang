@@ -38,7 +38,7 @@ public class SearchIdPwController {
         
         
         
-        return "login/searchIdPw.html";
+        return "login/getId.html";
     }
 
     @PostMapping("/pw")
@@ -52,7 +52,7 @@ public class SearchIdPwController {
         // 없으면 null 리턴
 
 
-        return "login/searchIdPw.html";
+        return "login/resetPw.html";
     }
 
 }
