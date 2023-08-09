@@ -9,21 +9,6 @@
     <meta name="keywords" content="free website templates, free html5, free template, free bootstrap, free website template, html5, css3, mobile first, responsive" />
     <meta name="author" content="gettemplates.co" />
 
-
-    <!-- Facebook and Twitter integration -->
-    <meta property="og:title" content=""/>
-    <meta property="og:image" content=""/>
-    <meta property="og:url" content=""/>
-    <meta property="og:site_name" content=""/>
-    <meta property="og:description" content=""/>
-    <meta name="twitter:title" content="" />
-    <meta name="twitter:image" content="" />
-    <meta name="twitter:url" content="" />
-    <meta name="twitter:card" content="" />
-
-    <!-- <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet"> -->
-    <!-- <link href="https://fonts.googleapis.com/css?family=Playfair+Display:400,400i" rel="stylesheet"> -->
-
     <!-- Animate.css -->
     <link rel="stylesheet" th:href="@{/css/animate.css}">
     <!-- Icomoon Icon Fonts-->
@@ -49,7 +34,9 @@
     <![endif]-->
     <script th:src="@{/js/modernizr-2.6.2.min.js}"></script>
 
-
+    <style>
+        input::placeholder {color:#D1C286;}
+    </style>
 </head>
 
 <body>
@@ -102,6 +89,7 @@
         </div>
     </nav>
 
+<!--    ==============================================================================================-->
     <header id="fh5co-header" class="fh5co-cover fh5co-cover-sm" role="banner" style="background-image:url(/images/category_img2.jpg); background-position: bottom center;">
         <div class="overlay"></div>
         <div class="container">
@@ -117,15 +105,20 @@
         </div>
     </header>
 
-    <div id="fh5co-services" class="fh5co-bg-section">
+<!--    =============================================================================================-->
+    <div id="fh5co-services" class="">
         <div class="container">
-            <div class="row">
+            <div class="col-md-12 animate-box fadeInUp animated-fast">
+            <div class="row" >
                 <div><h2>REVIEW</h2></div>
+                <br><br>
+
                 <div>
-                    <a th:href="@{/review/reviewDelete(replyNumber=${reviewDTO.replyNumber})}"><input type="button" class="btn btn-primary btn-outline" style="font-size: 14px;" value="삭제" /></a>
-                    <a th:href="@{/review/reviewModify(replyNumber=${reviewDTO.replyNumber})}"><input type="button" class="btn btn-primary" style="font-size: 14px;" value="수정" /></a>
-                    <a th:href="@{/review/reviewList}"><input type="button" class="btn btn-primary" style="font-size: 14px;" value="목록" /></a>
+                    <a th:href="@{/review/reviewDelete(replyNumber=${reviewDTO.replyNumber})}"><input type="button" class="btn btn-primary btn-outline" style="font-size: 14px; float:right;" value="삭제" /></a>
+                    <a th:href="@{/review/reviewModify(replyNumber=${reviewDTO.replyNumber})}"><input type="button" class="btn btn-primary" style="font-size: 14px;float:right;" value="수정" /></a>
+                    <a th:href="@{/review/reviewList}"><input type="button" class="btn btn-primary" style="font-size: 14px;float:right;" value="목록" /></a>
                 </div>
+
                     <table class="table">
                         <tr>
                             <th>게시물번호</th>
@@ -143,42 +136,60 @@
                             <th>내용</th>
                             <td colspan="4" th:text="${reviewDTO.replyContents}"></td>
                         </tr>
-
                     </table>
 
-                <br>
-                <br>
-                <br>
+                <br><br><br><br><br><br><br><br>
+                <hr style="border:1px solid #EEEEEE">
+                <strong style="margin-left:10px">댓글</strong> <br><br>
 
 
+<!--                댓글 작성폼-->
                 <div style="text-align: left;">
-                    <input type="text" id="replyContents" placeholder="내용" style="width: 800px; height: 38px; text-align: center; font-size: 14px; border: 2px solid #D1C286; vertical-align: top;">
-                    <input type="text" id="replyWriter" placeholder="작성자" style="width: 90px; height: 38px; text-align: center; font-size: 14px; border: 2px solid #D1C286; vertical-align: top;">
-                    <button id="comment-write-btn" th:onclick="commentWrite()" class="btn btn-primary" style="font-size: 12px; vertical-align: top;">댓글작성</button>
+                    <input type="text" id="replyWriter" placeholder="작성자"
+                           style="width: 100px; height: 40px; text-align: center; font-size: 14px;  border: 2px solid #E4E4E4; border-radius: 5px; vertical-align: top; margin-left:10px">
+                    <input type="text" id="replyContents" placeholder="댓글을 입력해주세요."
+                           style="width: 920px; height: 40px; text-align: center; font-size: 14px; border: 2px solid #E4E4E4; border-radius: 5px; vertical-align: top;margin-left:10px ;">
+                    <button id="comment-write-btn" th:onclick="commentWrite()" class="btn btn-primary"
+                            style="font-size: 12px; vertical-align: top; margin-left:20px">등록</button>
+
+<!--                    <input type="text" id="replyContents" placeholder="내용" style="width: 800px; height: 38px; text-align: center; font-size: 14px; border: 2px solid #D1C286; vertical-align: top;">-->
+<!--                    <input type="text" id="replyWriter" placeholder="작성자" style="width: 90px; height: 38px; text-align: center; font-size: 14px; border: 2px solid #D1C286; vertical-align: top;">-->
+<!--                    <button id="comment-write-btn" th:onclick="commentWrite()" class="btn btn-primary" style="font-size: 12px; vertical-align: top;">댓글작성</button>-->
                 </div>
-                        <br>
-                    </div>
-
+                <br>
+            </div>
+            </div>
                 <hr>
-
+<!--        ======================================================================================-->
             <div id="comment-list" style="text-align: left;">
-                <table>
-                    <tr th:each="reviewDTO2 : ${list}">
-                        <td id="comment-contents" th:text="${reviewDTO2.replyContents}" style="width: 800px; height: 38px; text-align: center; font-size: 14px; border: 2px solid #D1C286; padding: 10px;border-right: none;"></td>
-                        <td id="comment-writer" th:text="${reviewDTO2.replyWriter}" style="width: 90px; height: 38px; text-align: center; font-size: 14px; border: 2px solid #D1C286; padding: 10px;border-left: none; border-right: none;"></td>
-                        <td id="comment-date" th:text="${reviewDTO2.replyDate}" style="width: 90px; height: 38px; text-align: center; font-size: 14px; border: 2px solid #D1C286; padding: 10px;border-left: none;"></td>
-                    </tr>
+                <table class="table table-striped">
+
+                    <div class="col-md-12 animate-box fadeInUp animated-fast" th:each="reviewDTO2 : ${list}"
+                    style="">
+
+                        <div class="col-md-1" id="comment-writer" th:text="${reviewDTO2.replyWriter}"></div>
+                        <div class="col-md-2" id="comment-date" th:text="${reviewDTO2.replyDate}" style="color:#D2D2D2" ></div>
+                        <div  id="comment-contents" th:text="${reviewDTO2.replyContents}"></div>
+                        <hr>
+
+<!--                        테이블-->
+<!--                        <td id="comment-contents" th:text="${reviewDTO2.replyContents}" ></td>-->
+<!--                        <td id="comment-writer" th:text="${reviewDTO2.replyWriter}" ></td>-->
+<!--                        <td id="comment-date" th:text="${reviewDTO2.replyDate}" ></td>-->
+
+<!--                        기존-->
+<!--                        <td id="comment-contents" th:text="${reviewDTO2.replyContents}" style="width: 800px; height: 38px; text-align: center; font-size: 14px; border: 2px solid #D1C286; padding: 10px;border-right: none;"></td>-->
+<!--                        <td id="comment-writer" th:text="${reviewDTO2.replyWriter}" style="width: 90px; height: 38px; text-align: center; font-size: 14px; border: 2px solid #D1C286; padding: 10px;border-left: none; border-right: none;"></td>-->
+<!--                        <td id="comment-date" th:text="${reviewDTO2.replyDate}" style="width: 90px; height: 38px; text-align: center; font-size: 14px; border: 2px solid #D1C286; padding: 10px;border-left: none;"></td>-->
+<!--                    -->
+                    </div>
                 </table>
             </div>
-
-
-
-
-
 
         </div>
         </div>
     </div>
+
 
     <div id="fh5co-started">
         <div class="container">
@@ -203,60 +214,17 @@
                     </form>
                 </div>
             </div>
-        </div>게
+        </div>
     </div>
 
     <footer id="fh5co-footer" role="contentinfo">
         <div class="container">
-            <div class="row row-pb-md">
-                <div class="col-md-4 fh5co-widget">
-                    <h3>Shop.</h3>
-                    <p>Facilis ipsum reprehenderit nemo molestias. Aut cum mollitia reprehenderit. Eos cumque dicta adipisci architecto culpa amet.</p>
-                </div>
-                <div class="col-md-2 col-sm-4 col-xs-6 col-md-push-1">
-                    <ul class="fh5co-footer-links">
-                        <li><a th:href="@{#}">About</a></li>
-                        <li><a th:href="@{#}">Help</a></li>
-                        <li><a th:href="@{#}">Contact</a></li>
-                        <li><a th:href="@{#}">Terms</a></li>
-                        <li><a th:href="@{#}">Meetups</a></li>
-                    </ul>
-                </div>
-
-                <div class="col-md-2 col-sm-4 col-xs-6 col-md-push-1">
-                    <ul class="fh5co-footer-links">
-                        <li><a th:href="@{#}">Shop</a></li>
-                        <li><a th:href="@{#}">Privacy</a></li>
-                        <li><a th:href="@{#}">Testimonials</a></li>
-                        <li><a th:href="@{#}">Handbook</a></li>
-                        <li><a th:href="@{#}">Held Desk</a></li>
-                    </ul>
-                </div>
-
-                <div class="col-md-2 col-sm-4 col-xs-6 col-md-push-1">
-                    <ul class="fh5co-footer-links">
-                        <li><a th:href="@{#}">Find Designers</a></li>
-                        <li><a th:href="@{#}">Find Developers</a></li>
-                        <li><a th:href="@{#}">Teams</a></li>
-                        <li><a th:href="@{#}">Advertise</a></li>
-                        <li><a th:href="@{#}">API</a></li>
-                    </ul>
-                </div>
-            </div>
 
             <div class="row copyright">
                 <div class="col-md-12 text-center">
                     <p>
-                        <small class="block">&copy; 2016 Free HTML5. All Rights Reserved.</small>
+                        <small class="block">&copy; 2023 Free HTML5. All Rights Reserved.</small>
                         <small class="block">Designed by <a th:href="@{http://freehtml5.co/}" target="_blank">FreeHTML5.co</a> Demo Images: <a th:href="@{http://blog.gessato.com/}" target="_blank">Gessato</a> &amp; <a th:href="@{http://unsplash.co/}" target="_blank">Unsplash</a></small>
-                    </p>
-                    <p>
-                    <ul class="fh5co-social-icons">
-                        <li><a th:href="@{#}"><i class="icon-twitter"></i></a></li>
-                        <li><a th:href="@{#}"><i class="icon-facebook"></i></a></li>
-                        <li><a th:href="@{#}"><i class="icon-linkedin"></i></a></li>
-                        <li><a th:href="@{#}"><i class="icon-dribbble"></i></a></li>
-                    </ul>
                     </p>
                 </div>
             </div>
