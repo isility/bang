@@ -49,8 +49,8 @@ public class MemberUserDetails implements UserDetails {
 
     @Override
     public String getUsername() {
-        log.info("MemberUserDetails username : " + memberDto.getMember_name());
-        return memberDto.getMember_name();
+        log.info("MemberUserDetails id : " + memberDto.getMember_id());
+        return memberDto.getMember_id();
     }
 
     @Override

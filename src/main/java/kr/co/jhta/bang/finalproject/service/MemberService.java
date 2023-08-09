@@ -11,6 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @Slf4j
 public class MemberService {
@@ -67,4 +69,5 @@ public class MemberService {
         return member;
     }
 
+    public List<MemberDTO> findByidEmail(String email) { return memberDao.findByidEmail(email); }
 }

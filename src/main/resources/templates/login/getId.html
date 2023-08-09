@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 
 <head>
   <meta charset="utf-8">
@@ -327,58 +327,25 @@
             <a href="/search/id" class="btn btn-primary btn-outline" id="searchId">아이디 찾기</a>
             <div class="feature-center animate-box" data-animate-effect="fadeIn">
 
-              <span>어떤 방법으로 찾아볼까요?</span>
-
-              <hr>
-
-              <br>
-
               <div class="row form-group">
                 <div class="col-md-12">
-                  <div class="form-check">
-                    <input class="form__radio" type="radio" name="selectEmailorPhone" value="email" id="selectEmail" checked="checked">
-                    <label class="text__label" for="selectEmail" id="selectEmailMessage">
-                      가입한 이메일로 찾기
-                    </label>
-                  </div>
-                  <br>
-                  <input type="text" id="member_email" name="member_email" class="form-control" placeholder="이메일(Email)" style="width: 500px;height: 54px;">
-                  <p class="text-success" style="display: none;" id="emailCorrect">올바른 이메일 형식입니다.</p>
-                  <p class="text-danger" style="display: none;" id="emailNotCorrect">올바른 이메일 형식이 아닙니다.</p>
+
+                    <ul class="" th:each="dto : ${dtolist}">
+                      <li th:text="${dto.member_email}">
+                        <a class="#" ></a>
+                      </li>
+                    </ul>
+
                 </div>
               </div>
 
-              <br>
-              <hr>
-
-              <div class="row form-group">
-                <div class="col-md-12">
-                  <div class="form-check">
-                    <input class="form__radio" type="radio" name="selectEmailorPhone" value="phone" id="selectPhone">
-                    <label class="text__label" for="selectPhone">
-                      가입한 전화번호로 찾기
-                    </label>
-                  </div>
-                </div>
-                <br>
-                <input type="text" id="member_name" name="member_name" class="form-control" placeholder="이름(name)" style="width: 500px;height: 54px;" disabled>
-                <input type="text" id="member_phone" name="member_phone" class="form-control" placeholder="전화번호(phone)" style="width: 500px;height: 54px;" disabled>
-                <p class="text-success" style="display: none;" id="phoneCorrect">올바른 전화번호 형식입니다.</p>
-                <p class="text-danger" style="display: none;" id="phoneNotCorrect">올바른 전화번호 형식이 아닙니다.</p>
-              </div>
               <input type="submit" id="selectCorrect" class="btn btn-primary btn-outline" value="아이디 찾기">
             </div>
 
           </div>
-
-          <div class="col-md-4 col-sm-4 text-center">
-            <a href="/search/pw" class="btn btn-primary btn-outline" id="searchPw">비밀번호 찾기</a>
-          </div>
-
         </form>
+
       </div>
-
-
     </div>
   </div>
 </div>
