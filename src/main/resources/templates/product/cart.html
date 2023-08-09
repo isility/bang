@@ -106,37 +106,153 @@
 <!--	====================================================================================-->
 
 
-
-
-
     </style>
 
 </head>
-<script >
-     $(document).ready(function() {
-            $(".countbtn").click(function() {
-                var newQuantity = $(".quantity").text();
+<script>
+    let total = 0;
+    let cnt = 0;
+    let pnoList = [];
 
-                // Ajax 요청 보내기
-                $.ajax({
-                    type: "POST",
-                    url: "/product/updateQuantity",  // 업데이트를 처리할 서버의 URL
-                    data: {
-                        newQuantity: newQuantity,
-                        pno : $(".productNumber"),
-                        id : "cpy222"
-                    },
-                    success: function(response) {
-                        console.log("성공");
-                        $(".quantity").text(newQuantity);
-                    },
-                    error: function(xhr) {
-                        console.log("실패");
-                        // 에러 처리
+    $(function() {
+        $(".cart_list_detail").each(function(){
+            if($(this).find($("[name=pno]")).prop("checked")){
+                cnt++;
+                var currentQuantity = $(this).find($(".quantity")).val();
+                var currentPrice = $(this).find($(".price")).val();
+                total += currentQuantity * currentPrice;
+            }
+        });
+
+        $('[name=totalPrice]').text(total.toLocaleString() + ' 원');
+        $('[name = selectedProduct]').text(cnt + '개');
+
+
+        $('[name=deleteProductBtn]').on("click", function(){
+
+            $("input:checkbox").each(function(index){
+                if(index != 0){
+                    if($(this).is(":checked")){
+                        pnoList.push(parseInt($(this).val()));
+                        console.log(pnoList);
                     }
-                });
+                }
+            });
+
+            $.ajax({
+                type : "POST",
+                url : "/product/deleteCart",
+                data : {
+                    pnoList : pnoList
+                },
+                success : function(response){
+                    alert(response + '개의 상품이 삭제되었습니다.');
+
+                }
             });
         });
+
+        $('[name=pno]').on("click", function(){
+            total = 0;
+            $(".cart_list_detail").each(function(){
+                if($(this).find($("[name=pno]")).prop("checked")){
+                    var currentQuantity = $(this).find($(".quantity")).val();
+                    var currentPrice = $(this).find($(".price")).val();
+                    total += currentQuantity * currentPrice;
+                }
+            });
+            $('[name=totalPrice]').text(total.toLocaleString() + ' 원');
+        });
+
+        $('[name=countbtn]').on("click", function() {
+            total = 0;
+            var clickedButton = $(this);
+            var newQuantity = clickedButton.parent().find(".quantity").val();
+            var pno = clickedButton.parent().parent().find('[name=pno]').val();
+
+            $(".cart_list_detail").each(function(){
+                if($(this).find($("[name=pno]")).prop("checked")){
+                    var currentQuantity = $(this).find($(".quantity")).val();
+                    var currentPrice = $(this).find($(".price")).val();
+                    total += currentQuantity * currentPrice;
+                }
+            });
+
+            $('[name=totalPrice]').text(total.toLocaleString() + ' 원');
+
+            $.ajax({
+                type: "POST",
+                url: "/product/updateQuantity",
+                data: {
+                    newQuantity: newQuantity,
+                    pno : pno
+                },
+                success: function(response) {
+                    var productTotalPriceElement = clickedButton.closest('tr').find('[name=productTotalPrice]');
+                    var updatedTotalPrice = response * newQuantity;
+                    productTotalPriceElement.text(updatedTotalPrice.toLocaleString() + ' 원');
+
+
+                    console.log("변경");
+                },
+                error: function(xhr) {
+                    console.log("실패");
+                    // 에러 처리
+                }
+            });
+        });
+    });
+
+function checkSelectAll()  {
+    total = 0;
+    cnt = 0;
+    // 전체 체크박스
+    const checkboxes = document.querySelectorAll('input[name="pno"]');
+    // 선택된 체크박스
+    const checked = document.querySelectorAll('input[name="pno"]:checked');
+    // select all 체크박스
+    const selectAll = document.querySelector('input[name="selectAll"]');
+
+    if(checkboxes.length === checked.length)  {
+        selectAll.checked = true;
+    }else {
+        selectAll.checked = false;
+    }
+    $(".cart_list_detail").each(function(){
+        if($(this).find($("[name=pno]")).prop("checked")){
+            cnt += 1;
+        }
+    });
+
+    $('[name = selectedProduct]').text(cnt + '개');
+
+}
+
+function selectAll(selectAll) {
+    total = 0;
+    cnt = 0;
+
+    const checkboxes = document.getElementsByName('pno');
+
+    checkboxes.forEach((checkbox) => {
+        checkbox.checked = selectAll.checked
+    })
+
+    $(".cart_list_detail").each(function(){
+        if($(this).find($("[name=pno]")).prop("checked")){
+            cnt += 1;
+            var currentQuantity = $(this).find($(".quantity")).val();
+            var currentPrice = $(this).find($(".price")).val();
+            total += currentQuantity * currentPrice;
+        }
+    });
+
+    $('[name=totalPrice]').text(total.toLocaleString() + ' 원');
+    $('[name = selectedProduct]').text(cnt + '개');
+
+}
+
+
 </script>
 <body>
 <div id="page">
@@ -212,62 +328,62 @@
 
             <!--      장바구니 리스트 -->
             <section class="cart">
-                <table class="table table-striped cart_list animate-box">
-                    <form>
-                        <thead style="color:#C1C1C1">
-                        <tr>
-                            <td><input type="checkbox"></td>
-                            <td colspan="2">상품정보</td>
-                            <td>수량</td>
-                            <td>상품금액</td>
-                            <td>배송비</td>
-                        </tr>
-                        </thead>
+                <table class="table-striped cart_list animate-box">
+                    <thead style="color:#C1C1C1">
+                    <tr>
+                        <td><input name="selectAll" type="checkbox" onclick='selectAll(this)' value="selectAll"
+                                   checked="true"></td>
+                        <td colspan="2">상품정보</td>
+                        <td>수량</td>
+                        <td>상품금액</td>
+                        <td>배송비</td>
+                    </tr>
+                    </thead>
 
-                        <tbody>
+                    <tbody>
 
-                        <tr class="cart_list_detail" th:each="cart:${cartList}">
-                            <input type="hidden" class="productNumber" name="pno" th:value="${cart.productNumber}">
+                    <tr class="cart_list_detail" th:each="cart:${cartList}">
+                        <td style="width: 2%;"><input name="pno" type="checkbox" th:value="${cart.productNumber}"
+                                                      onclick='checkSelectAll(this)' checked="true"></td>
+                        <td style="width: 13%;"><img th:src="@{/images/__${cart.img}__.jpg}"></td>
+                        <td style="width: 35%;"><br>
+                            <span th:text=" ${cart.productName}"></span></td>
+                        <td class="cart__list__option" style="width: 19%;"><br>
+                            <span><input class="quantity" type="number" min="1" th:value="${cart.cartQuantity}"
+                                         style="width:50px;border: 1px solid #D9D9D9; border-radius: 3px;"></span>
+                            <br>
+                            <br>
+                            <button class="btn btn-primary btn-outline btn-xxs countbtn" name="countbtn"
+                                    style="font-size:13px;width:80px;height:35px;padding:11px;padding-top:7px">수량 변경
+                            </button>
+                        </td>
+                        <td style="width: 15%;"><br>
 
-                            <td style="width: 2%;"><input type="checkbox"></td>
-                            <td style="width: 13%;"><img th:src="@{/images/__${cart.img}__.jpg}"></td>
-                            <td style="width: 35%;"><span/><br>
-                                <span th:text=" ${cart.productName}"></span></td>
-                            <td class="cart__list__option" style="width: 19%;"><span/><br>
-                                <span><input class="quantity" type="number" min="1" th:value="${cart.cartQuantity}"
-                                             style="width:50px;border: 1px solid #D9D9D9; border-radius: 3px;"></span></span>
-                                <br><br>
-                                <button class="btn btn-primary btn-outline btn-xxs countbtn"
-                                        style="font-size:13px;width:80px;height:35px;padding:11px;padding-top:7px">수량 변경
-                                </button>
-                            </td>
-                            <td style="width: 15%;"><span class="price"></span><br>
+                            <input type="hidden" class="price" name="productTotalPrice" th:value="${cart.productPrice}">
+                            <span name="productTotalPrice"
+                                  th:text="|${#numbers.formatInteger(cart.productPrice*cart.cartQuantity, 0, 'COMMA')}| + ' 원'"
+                                  style="font-weight: bolder;"></span><br><br>
+                            <button class="btn btn-primary orderbtn"
+                                    style="font-size:13px;width:80px;height:35px;padding:11px;padding-top:7px">바로 구매
+                            </button>
+                        </td>
+                        <td style="width: 15%;"><br>
+                            <p>무료</p>
+                        </td>
+                    </tr>
+                    </tbody>
 
-
-                                <span id="totalPrice"
-                                      th:utext="|${#numbers.formatInteger(cart.productPrice*cart.cartQuantity,0,'COMMA')}| + ' 원'"
-                                      style="font-weight: bolder;"></span><br><br>
-                                <button class="btn btn-primary  orderbtn"
-                                        style="font-size:13px;width:80px;height:35px;padding:11px;padding-top:7px">바로 구매
-                                </button>
-                            </td>
-                            <td style="width: 15%;"><span/><br>
-                                <p>무료</p>
-                            </td>
-                        </tr>
-                        </tbody>
-
-                        <tfoot>
-                        <tr>
-                            <td colspan="6">
-                                <button class=" btn btn-primary btn-outline"
-                                        style="font-size:13px;width:107px;height:35px;padding:11px;padding-top:7px">선택상품
-                                    삭제
-                                </button>
-                            </td>
-                        </tr>
-                        </tfoot>
-                    </form>
+                    <tfoot>
+                    <tr>
+                        <td colspan="6">
+                            <button class=" btn btn-primary btn-outline"
+                                    style="font-size:13px;width:107px;height:35px;padding:11px;padding-top:7px"
+                                    name="deleteProductBtn">
+                                선택상품 삭제
+                            </button>
+                        </td>
+                    </tr>
+                    </tfoot>
                 </table>
 
                 <!--        =======================================================================================-->
@@ -275,7 +391,7 @@
                     <thead>
                     <tr>
                         <hr>
-                        <th>총 주문 상품 <span>2</span>개</th>
+                        <th>총 주문 상품 <span name="selectedProduct"></span></th>
                     </tr>
                     </thead>
 
@@ -284,7 +400,8 @@
                         <div style=" align-items: center; ">
                             <td>
                   <span style="position:relative; left:220px">
-                    <h2 style="color:#D1C286;">918000원</h2>
+                    <h2 name="totalPrice" style="color:#D1C286;"
+                        th:text="|${#numbers.formatInteger(totalPrice, 0, 'COMMA')}| + ' 원'"></h2>
                     <p style=" align-items: center; text-align: center; ">상품금액</p>
                   </span>
                             </td>
@@ -306,7 +423,8 @@
                             </td>
                             <td>
                   <span style="position:relative; left:500px">
-                    <h2 style="color:#D1C286;">918000원</h2>
+                    <h2 name="totalPrice" style="color:#D1C286;"
+                        th:text="|${#numbers.formatInteger(totalPrice, 0, 'COMMA')}| + ' 원'"></h2>
                     <p style=" align-items: center; text-align: center;">총 주문금액</p>
                   </span>
                             </td>
@@ -321,8 +439,11 @@
                     <hr>
                     <!--          <button class=" btn btn-primary btn-lg" >주문하기</button>-->
                     <div class="form-group">
-                        <input type="submit" value="주문하기" class="btn btn-primary"
-                               style="width: 500px;height: 54px;position:relative;left:300px;">
+                        <button value="주문하기" class="btn btn-primary"
+                                style="width: 500px;height: 54px;position:relative;left:300px;">
+                            주문하기
+                        </button>
+
                     </div>
 
                     <a href="" style="position:relative;left:500px;">쇼핑계속하기</a>

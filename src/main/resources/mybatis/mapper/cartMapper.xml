@@ -6,24 +6,35 @@
 <mapper namespace="kr.co.jhta.bang.finalproject.dao.CartDAO">
     <select id="selectAll" resultType="CartDTO" parameterType="String">
         SELECT c.product_number AS productNumber,
-        cart_quantity AS cartQuantity,
-        p.product_name AS productName,
-        image_src AS img,
-        p.product_price AS productPrice
+                c.cart_quantity AS cartQuantity,
+                p.product_name AS productName,
+                i.image_src AS img,
+                p.product_price AS productPrice
         FROM cart c
         INNER JOIN product p ON c.product_number = p.product_number
         INNER JOIN image i ON c.product_number = i.product_number AND image_order = 1
         WHERE c.member_id = #{memberID};
     </select>
+
+    <select id="allPrice" parameterType="String" resultType="CartDTO">
+        select p.product_price as productPrice,
+                c.cart_quantity as cartQuantity
+        from cart c
+        inner join product p on c.product_number = p.product_number
+        where member_id = #{memberID};
+    </select>
+
     <insert id="insertOne" parameterType="CartDTO">
         INSERT INTO cart (product_number, member_id, cart_quantity)
         VALUES (#{productNumber}, #{memberID}, #{cartQuantity});
     </insert>
-    <delete id="deleteOne" parameterType="int">
-        DELETE from cart
-        WHERE product_number = #{productNumber};
 
+    <delete id="deleteOne" parameterType="CartQuantityModifyDTO">
+        DELETE from cart
+        WHERE product_number = #{productNumber}
+        and member_id = #{memberID};
     </delete>
+
     <update id="updateQuantityOne" parameterType="CartQuantityModifyDTO">
         update cart
         set cart_quantity = #{newQuantity}

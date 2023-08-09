@@ -2,14 +2,17 @@ package kr.co.jhta.bang.finalproject.service;
 
 import kr.co.jhta.bang.finalproject.dao.CartDAO;
 import kr.co.jhta.bang.finalproject.dao.ProductListDAO;
+import kr.co.jhta.bang.finalproject.dto.CartDTO;
 import kr.co.jhta.bang.finalproject.dto.CartQuantityModifyDTO;
 import kr.co.jhta.bang.finalproject.dto.ImageDTO;
 import kr.co.jhta.bang.finalproject.dto.ProductListDTO;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Slf4j
 @Service
 public class ProductService {
 
@@ -37,10 +40,21 @@ public class ProductService {
         return dao.selectList(productNumber);
     }
 
-    public void cartQuantityUpdateOne(int pno, int quan, String id){
+    public void cartQuantityUpdateOne(int quan,int pno,String id){
         QuantityDTO = new CartQuantityModifyDTO(quan,pno,id);
-
+        log.info(id);
         cartDAO.updateQuantityOne(QuantityDTO);
+    }
+    public int allPrice(String id){
+        int totalPrice = 0;
+            for(CartDTO dto : cartDAO.allPrice(id))
+                totalPrice += dto.getProductPrice() * dto.getCartQuantity();
+        return totalPrice;
+    }
+
+    public void cartDeleteOne(CartQuantityModifyDTO dto){
+
+        cartDAO.deleteOne(dto);
     }
 
 }
