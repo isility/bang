@@ -41,9 +41,14 @@ public class MemberService {
         return memberDao.idCheck(memberId);
     }
 
+    public int idSocialCheck(String socialMemberId) { return memberDao.idSocialCheck(socialMemberId); }
+
     public int nicknameCheck(String nickname) { return personDao.nicknameCheck(nickname); }
 
     public String pwCheck(String memberId) { return memberDao.pwCheck(memberId); }
+
+
+    public int emailCheck(String memberEmail) { return memberDao.emailCheck(memberEmail); }
 
 
     public MemberDTO login(final String loginId, final String password) {

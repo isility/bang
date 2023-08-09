@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"></meta>
     <title>내 정보</title>
@@ -23,6 +24,35 @@
     <link rel="stylesheet" href="/css/style.css">
     <!-- Modernizr JS -->
     <script src="/js/modernizr-2.6.2.min.js"></script>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            $.ajax({
+                url: "/mypage",
+                type: "POST",
+                dataType: "json",
+                success: function(data) {
+                    var username = data.username;
+
+                    $("#username").text(username + " 님   ");
+
+                    $("#username").after($("#logout"));
+                    $("#username").after($("#mypage"));
+                    $("#mypage, #logout").show();
+                    $("#login, #join").hide();
+
+                },
+                error: function(request, status, error) {
+                    console.error("AJAX 요청 실패: " + error);
+                }
+            });
+        });
+
+</script>
+
+
 </head>
 <body>
 <!--상단 네비게이션-->
@@ -45,15 +75,29 @@
                 <ul>
                     <li class="shopping-cart menu-2"><a href="#" class="cart"><span><small>0</small><i
                             class="icon-shopping-cart"></i></span></a></li>
-                    <li class="login menu-2"><a href="#">JOIN</a></li>
-                    <li class="login menu-2"><a href="#">login</a></li>
+                    <li class="login menu-2" id="username"></li>
+                    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+                    <!-- 로그인 상태일 때 -->
+                    <li class="login menu-2" style="display: none;" id="logout">
+                        <a href="logout">logout</a>
+                    </li>
+                    <li class="login menu-2" style="display: none;" id="mypage">
+                        <a href="mypage">mypage</a>
+                    </li>
+
+                    <!-- 로그인 상태가 아닐 때 -->
+                    <li class="login menu-2" sec:authorize="isAnonymous()" id="join">
+                        <a href="join">JOIN</a>
+                    </li>
+                    <li class="login menu-2" sec:authorize="isAnonymous()" id="login">
+                        <a href="login">login</a>
+                    </li>
                     <li class="search menu-2">
                         <div class="input-group">
                             <input type="text" placeholder="SEARCH">
                             <span class="input-group-btn">
-										<button class="btn btn-primary" type="button">
-                                            <i class="icon-search"></i>
-                                        </button>
+										<button class="btn btn-primary" type="button"><i
+                                                class="icon-search"></i></button>
 									</span>
                         </div>
                     </li>

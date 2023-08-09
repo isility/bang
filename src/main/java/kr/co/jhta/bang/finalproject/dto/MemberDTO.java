@@ -1,12 +1,14 @@
 package kr.co.jhta.bang.finalproject.dto;
 
 import lombok.*;
+import org.springframework.stereotype.Component;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
 @ToString
+@Component
 public class MemberDTO {
     String member_id;
     String member_pw;

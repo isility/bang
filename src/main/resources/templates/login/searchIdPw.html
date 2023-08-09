@@ -1,0 +1,426 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>SearchIdPw</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Free HTML5 Website Template by gettemplates.co" />
+  <meta name="keywords"
+        content="free website templates, free html5, free template, free bootstrap, free website template, html5, css3, mobile first, responsive" />
+  <meta name="author" content="gettemplates.co" />
+
+  <link rel="stylesheet" type="text/css" href="//script.gmarket.com/signup/css/app.css?t=0803" />
+
+  <!-- Animate.css -->
+  <link rel="stylesheet" href="/css/animate.css">
+  <!-- Icomoon Icon Fonts-->
+  <link rel="stylesheet" href="/css/icomoon.css">
+
+  <!-- Flexslider  -->
+  <link rel="stylesheet" href="/css/flexslider.css">
+
+  <!-- Owl Carousel  -->
+  <link rel="stylesheet" href="/css/owl.carousel.min.css">
+  <link rel="stylesheet" href="/css/owl.theme.default.min.css">
+
+  <!-- Theme style  -->
+  <link rel="stylesheet" href="/css/style.css">
+
+  <!-- Modernizr JS -->
+  <script src="/js/modernizr-2.6.2.min.js"></script>
+
+  <!-- Bootstrap  -->
+  <link rel="stylesheet" href="/css/bootstrap.css">
+
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+  <style>
+	#fh5co-hero .flexslider .slides li {
+		background-size: cover;
+		/* 이미지를 컨테이너에 맞추어 확대/축소 */
+		background-position: center center;
+		/* 이미지를 가운데로 정렬 */
+	}
+
+	#fh5co-services {
+	    position: relative;
+	}
+
+	#warranty, .rowcontents{
+		position: relative;
+		left: 140px;
+	}
+
+	#as {
+		position: relative;
+		left: 230px;
+	}
+
+	#purchase-btn {
+		position: relative;
+		left: 50%;
+		transform: translateX(-50%);
+
+	}
+
+	.input-group {
+		position: relative;
+		left: 48px;
+	}
+
+	#searchId, #searchPw {
+	    width: 200px;
+        height: 45px;
+        margin-bottom: 20px;
+    }
+
+	#selectCorrect {
+	    width: 200px;
+	    height: 45px;
+	    margin-left: 250px;
+        margin-top: 30px;
+    }
+
+	.feature-center.animate-box.fadeIn.animated-fast {
+        width: 750px;
+        height: 450px;
+        border: 1px solid tan;
+        border-radius: 20px;
+        padding: 20px;
+        text-align: left;
+        margin-bottom: 20px;
+    }
+
+    h4 {
+        margin-top: 30px;
+    }
+
+    .form-control {
+        width: 500px;
+        height: 54px;
+        margin: auto;
+    }
+
+    span {
+        margin-top: 15px;
+        margin-bottom: 25px;
+    }
+
+    .text__label {
+        margin-top: 15px;
+    }
+
+    .form__radio + .text__label {
+        color: #D1C286;
+    }
+
+    .feature-center p, .feature-center h3 {
+        margin-bottom: -20px;
+        margin-left: 110px;
+    }
+
+</style>
+
+  <script>
+    $(document).ready(function() {
+        // 현재 URL 가져오기
+        var currentUrl = window.location.href;
+        var selectedValue = "";
+
+        if (currentUrl.indexOf("/search/id") !== -1) {
+            // 아이디 찾기 페이지의 스크립트
+            $("#searchIdorPwForm").attr("action", "/search/id");
+
+
+            $(".form__radio").on("click", function () {
+                $("#selectCorrect").val("아이디 찾기");
+                selectedValue = $(this).val();
+
+                var email = $("#member_email");
+                var name = $("#member_name");
+                var phone = $("#member_phone");
+
+                if (selectedValue == "email") {
+                    email.prop("disabled", false);
+                    name.prop("disabled", true);
+                    phone.prop("disabled", true);
+                    name.val("");
+                    phone.val("");
+                    $("#phoneCorrect").css("display", "none");
+                    $("#phoneNotCorrect").css("display", "none");
+                } else if (selectedValue == "phone") {
+                    email.prop("disabled", true);
+                    name.prop("disabled", false);
+                    phone.prop("disabled", false);
+                    email.val("");
+                    $("#emailCorrect").css("display", "none");
+                    $("#emailNotCorrect").css("display", "none");
+                }
+            });
+
+            // 필수 입력 알림
+            $("#selectCorrect").on("click", function () {
+                if (selectedValue == "email" && $("#selectCorrect").val() == "아이디 찾기") {
+                    if ($("#member_email").val() == "") {
+                        alert("이메일을 입력해주세요.");
+                        $("#member_email").focus();
+                        return false;
+                    }
+                } else if (selectedValue == "phone" && $("#selectCorrect").val() == "아이디 찾기") {
+                    if ($("#member_name").val() == "") {
+                        alert("이름을 입력해주세요.");
+                        $("#member_name").focus();
+                        return false;
+                    }
+                    if ($("#member_phone").val() == "") {
+                        alert("전화번호를 입력해주세요.");
+                        $("#member_phone").focus();
+                        return false;
+                    }
+                }
+
+                if (selectedValue == "email" && ($("#member_email").val() == "" || $("#emailCorrect").css("display") == "none")) {
+                    alert("이메일 형식이 올바르지 않습니다.");
+                    return false;
+                } else if (selectedValue == "phone" && ($("#member_phone").val() == "" || $("#phoneCorrect").css("display") == "none")) {
+                    alert("전화번호 형식이 올바르지 않습니다.");
+                    return false;
+                } else if ($("#emailCorrect").css("display") == "block" && $("#emailNotCorrect").css("display") == "none") {
+                    // 유효성 검사를 모두 완료했을 때 조회 처리
+                    $("#searchIdorPwForm").submit();
+                } else if ($("#phoneCorrect").css("display") == "block" && $("#phoneNotCorrect").css("display") == "none") {
+                    // 유효성 검사를 모두 완료했을 때 조회 처리
+                    $("#searchIdorPwForm").submit();
+                }
+            });
+
+        }
+
+
+        if (currentUrl.indexOf("/search/pw") !== -1) {
+            $("#searchIdorPwForm").attr("action", "/search/pw");
+
+
+            // 비밀번호 찾기 페이지의 스크립트
+            $("#member_email").prop("disabled", false);
+            $("span").hide();
+            $(".form__radio").hide();
+            $(".text__label").hide();
+            $("#selectEmailMessage").show();
+            $("#member_name").hide();
+            $("#member_phone").hide();
+            $("#selectCorrect").val("비밀번호 찾기");
+
+            // 필수 입력 알림
+            $("#selectCorrect").on("click", function () {
+                if ($("#selectCorrect").val() == "비밀번호 찾기") {
+                    if ($("#member_email").val() == "") {
+                        alert("이메일을 입력해주세요.");
+                        $("#member_email").focus();
+                        return false;
+                    }
+                }
+
+                if ($("#member_email").val() == "" || $("#emailCorrect").css("display") == "none") {
+                    alert("이메일 형식이 올바르지 않습니다.");
+                    return false;
+                } else if ($("#emailCorrect").css("display") == "block" && $("#emailNotCorrect").css("display") == "none") {
+                    // 유효성 검사를 모두 완료했을 때 조회 처리
+                    $("#searchIdorPwForm").submit();
+                }
+            });
+
+        }
+
+
+
+
+        <!-- email 형식이 적절한지 확인 -->
+        $("#member_email").on("input", function() {
+            var email = $("#member_email").val();
+            if (/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+                $("#emailCorrect").css("display", "block");
+                $("#emailNotCorrect").css("display", "none");
+            } else {
+                $("#emailCorrect").css("display", "none");
+                $("#emailNotCorrect").css("display", "block");
+            }
+        })
+
+
+        <!-- 전화번호 형식이 적절한지 확인 -->
+        $("#member_phone").on("input", function() {
+            var phone = $("#member_phone").val();
+            if (/^\d{10,11}$/.test(phone)) {
+                $("#phoneCorrect").css("display", "block");
+                $("#phoneNotCorrect").css("display", "none");
+            } else {
+                $("#phoneCorrect").css("display", "none");
+                $("#phoneNotCorrect").css("display", "block");
+            }
+        })
+
+
+
+
+    });
+</script>
+
+
+</head>
+
+<body>
+<!-- ===================================================================================================================================================== -->
+<!-- 카테고리 네비게이션 -->
+<div class="fh5co-loader"></div>
+
+<div id="page">
+  <nav class="fh5co-nav" role="navigation">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-3 col-xs-2">
+          <div id="fh5co-logo"><a href="/index.html">Bang & Oops</a></div>
+        </div>
+        <div class="col-md-6 col-xs-6 text-center menu-1">
+          <ul>
+            <li><a href="/productList.html">SPEAKER</a></li>
+            <li><a href="/productList.html">EARPHONE</a></li>
+            <li><a href="/productList.html">HEADPHONE</a></li>
+            <li><a href="/productList.html">ACCESSORIES</a></li>
+            <li><a href="/services.html">SERVICE</a></li>
+          </ul>
+        </div>
+        <div class="col-md-3 col-xs-4 text-right hidden-xs menu-2">
+          <ul>
+            <li class="shopping-cart menu-2"><a href="#" class="cart"><span><small>0</small><i
+                    class="icon-shopping-cart"></i></span></a></li>
+            <li class="login menu-2"><a href="/join">JOIN</a></li>
+            <li class="login menu-2"><a href="/login">login</a></li>
+            <li class="search menu-2">
+              <div class="input-group">
+                <input type="text" placeholder="SEARCH">
+                <span class="input-group-btn">
+										<button class="btn btn-primary" type="button"><i
+                                                class="icon-search"></i></button>
+									</span>
+              </div>
+            </li>
+
+          </ul>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- 구매목적의 일반 회원, 판매목적의 사업자 회원 -->
+  <div id="fh5co-services" class="fh5co-bg-section">
+
+    <div class="container">
+      <div class="rowcontents">
+
+        <form action="/search/id" id="searchIdorPwForm" method="post">
+
+
+        <div class="col-md-4 col-sm-4 text-center">
+          <a href="/search/id" class="btn btn-primary btn-outline" id="searchId">아이디 찾기</a>
+          <div class="feature-center animate-box" data-animate-effect="fadeIn">
+
+            <span>어떤 방법으로 찾아볼까요?</span>
+
+            <hr>
+
+            <br>
+
+            <div class="row form-group">
+              <div class="col-md-12">
+                <div class="form-check">
+                  <input class="form__radio" type="radio" name="selectEmailorPhone" value="email" id="selectEmail" checked="checked">
+                  <label class="text__label" for="selectEmail" id="selectEmailMessage">
+                    가입한 이메일로 찾기
+                  </label>
+                </div>
+                <br>
+                <input type="text" id="member_email" name="member_email" class="form-control" placeholder="이메일(Email)" style="width: 500px;height: 54px;">
+                <p class="text-success" style="display: none;" id="emailCorrect">올바른 이메일 형식입니다.</p>
+                <p class="text-danger" style="display: none;" id="emailNotCorrect">올바른 이메일 형식이 아닙니다.</p>
+              </div>
+            </div>
+
+            <br>
+            <hr>
+
+            <div class="row form-group">
+              <div class="col-md-12">
+                <div class="form-check">
+                  <input class="form__radio" type="radio" name="selectEmailorPhone" value="phone" id="selectPhone">
+                  <label class="text__label" for="selectPhone">
+                    가입한 전화번호로 찾기
+                  </label>
+                </div>
+              </div>
+              <br>
+              <input type="text" id="member_name" name="member_name" class="form-control" placeholder="이름(name)" style="width: 500px;height: 54px;" disabled>
+              <input type="text" id="member_phone" name="member_phone" class="form-control" placeholder="전화번호(phone)" style="width: 500px;height: 54px;" disabled>
+              <p class="text-success" style="display: none;" id="phoneCorrect">올바른 전화번호 형식입니다.</p>
+              <p class="text-danger" style="display: none;" id="phoneNotCorrect">올바른 전화번호 형식이 아닙니다.</p>
+            </div>
+            <input type="submit" id="selectCorrect" class="btn btn-primary btn-outline" value="아이디 찾기">
+          </div>
+
+          </div>
+
+          <div class="col-md-4 col-sm-4 text-center">
+            <a href="/search/pw" class="btn btn-primary btn-outline" id="searchPw">비밀번호 찾기</a>
+          </div>
+
+        </form>
+      </div>
+
+
+      </div>
+    </div>
+  </div>
+
+  <footer id="fh5co-footer" role="contentinfo">
+    <div class="container">
+      <div class="row copyright">
+        <div class="col-md-12 text-center">
+          <p>
+            <small class="block">&copy; 2023 Free HTML5. All Rights Reserved.</small>
+            <small class="block">Designed by <a href="http://freehtml5.co/"
+                                                target="_blank">FreeHTML5.co</a> Demo Images: <a href="http://blog.gessato.com/"
+                                                                                                 target="_blank">Gessato</a> &amp; <a href="http://unsplash.co/"
+                                                                                                                                      target="_blank">Unsplash</a></small>
+          </p>
+        </div>
+      </div>
+    </div>
+  </footer>
+</div>
+
+<div class="gototop js-top">
+  <a href="#" class="js-gotop"><i class="icon-arrow-up"></i></a>
+</div>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js"></script>
+<!-- jQuery Easing -->
+<script src="/js/jquery.easing.1.3.js"></script>
+<!-- Bootstrap -->
+<script src="/js/bootstrap.min.js"></script>
+<!-- Waypoints -->
+<script src="/js/jquery.waypoints.min.js"></script>
+<!-- Carousel -->
+<script src="/js/owl.carousel.min.js"></script>
+<!-- countTo -->
+<script src="/js/jquery.countTo.js"></script>
+<!-- Flexslider -->
+<script src="/js/jquery.flexslider-min.js"></script>
+<!-- Main -->
+<script src="/js/main.js"></script>
+
+</body>
+
+</html>

@@ -66,10 +66,6 @@
 		left: 48px;
 	}
 
-	.col-md-3 col-xs-2 {
-
-	}
-
 	a {
   	text-decoration-line: none;
 	}
@@ -79,7 +75,7 @@
 <script>
 	$(document).ready(function() {
 		$.ajax({
-			url: "/index", // 서버의 사용자 정보를 반환하는 API 엔드포인트
+			url: "/index",
 			type: "POST",
 			dataType: "json",
 			success: function(response) {

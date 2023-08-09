@@ -2,7 +2,6 @@ package kr.co.jhta.bang.finalproject.control;
 
 import kr.co.jhta.bang.finalproject.dto.MemberDTO;
 import kr.co.jhta.bang.finalproject.service.MemberService;
-import kr.co.jhta.bang.finalproject.service.MemberUserTokenService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +21,6 @@ public class LoginController {
     @Autowired
     MemberService memberService;
 
-    private final MemberUserTokenService tokenService;
 
     @GetMapping("/login")
     public String login() {
@@ -67,5 +65,11 @@ public class LoginController {
 
         return "login/login.html";
 
+    }
+
+
+    @GetMapping("/loginError")
+    public String loginError() {
+        return "login/loginError.html";
     }
 }
