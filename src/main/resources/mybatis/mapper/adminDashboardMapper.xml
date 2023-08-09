@@ -3,7 +3,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="kr.co.jhta.bang.finalproject.dao.PaymentDetailDAO">
+<mapper namespace="kr.co.jhta.bang.finalproject.dao.AdminDAO">
 
 
 <!-- 대시보드에 최신 주문 가져오는 쿼리 -->
@@ -55,6 +55,14 @@
         LIMIT 1;
     </select>
 
+    <select id="memberCount" resultType="MemberDTO">
+        SELECT DATE_FORMAT(member_insertdate, '%m') AS month,
+        COUNT(*) AS cnt
+        FROM member
+        GROUP BY month
+        ORDER BY month DESC;
+    </select>
+
 <!-- 대시보드에 최신 QNA 가져오는 쿼리 -->
     <select id="getDashboardQna" resultType="QnaDTO">
         SELECT
@@ -68,5 +76,204 @@
         LIMIT 5;
     </select>
 
+    <select id="getTotalReply" resultType="int">
+        SELECT count(*)cnt
+        FROM product_reply
+    </select>
+    <select id="getTotalPaymentDetail" resultType="int">
+        SELECT count(*)cnt
+        FROM payment_detail
+    </select>
+    <select id="getTotalMember" resultType="int">
+        SELECT count(*)cnt
+        FROM member
+    </select>
+    <select id="getTotalService" resultType="int">
+        SELECT count(*)cnt
+        FROM service
+    </select>
+    <select id="getTotalProduct" resultType="int">
+        SELECT count(*)cnt
+        FROM product
+    </select>
 
+
+    <select id="getPaymentPaging" resultType="PaymentDetailDTO" parameterType="StartEnd">
+        SELECT rn AS rowNumber,
+        payment_detail_number AS paymentDetailNumber,
+        product_count AS productCount,
+        product_price AS productPrice,
+        payment_detail_status AS paymentDetailStatus,
+        product_number AS productNumber
+        FROM (
+        SELECT ROW_NUMBER() OVER (ORDER BY payment_number DESC) AS rn,
+        payment_detail_number,
+        product_count,
+        product_price,
+        payment_detail_status,
+        product_number
+        FROM payment_detail
+        ) AS derived
+        WHERE rn BETWEEN #{startNo} AND #{endNo}
+
+    </select>
+
+    <update id="updatePaymentList" parameterType="PaymentDetailDTO">
+        UPDATE payment_detail
+        SET payment_detail_status = #{paymentDetailStatus}
+        WHERE payment_detail_number = #{paymentDetailNumber};
+    </update>
+
+    <select id="getMemberPaging" resultType="MemberDTO" parameterType="StartEnd">
+        SELECT rn AS rowNumber,
+        member_id,
+        member_pw,
+        member_token,
+        member_name,
+        member_phone,
+        member_postal,
+        member_address1,
+        member_address2,
+        member_email,
+        email_check,
+        member_insertdate,
+        member_type,
+        member_profile,
+        role_number,
+        grade_number,
+        platformtype_number
+        FROM (
+        SELECT ROW_NUMBER() OVER (ORDER BY member_id DESC) AS rn,
+        member_id,
+        member_pw,
+        member_token,
+        member_name,
+        member_phone,
+        member_postal,
+        member_address1,
+        member_address2,
+        member_email,
+        email_check,
+        member_insertdate,
+        member_type,
+        member_profile,
+        role_number,
+        grade_number,
+        platformtype_number
+        FROM member
+        ) AS derived
+        WHERE rn BETWEEN #{startNo} AND #{endNo}
+
+    </select>
+
+    <delete id="memberDelete" parameterType="String">
+        DELETE FROM member
+        where member_id = #{member_id}
+    </delete>
+
+    <select id="memberDetail" parameterType="String" resultType="MemberDTO">
+        select member_id, member_pw, member_token, member_name, member_email, role_number, grade_number, platformtype_number,
+        member_address1, member_address2, member_phone
+        FROM member
+        where member_id = #{member_id}
+    </select>
+
+    <update id="updateMemberDetail" parameterType="MemberDTO">
+        UPDATE member
+        SET member_id = #{member_id}, member_pw = #{member_pw}, member_name = #{member_name},member_phone = #{member_phone},  member_email = #{member_email}
+        , role_number = #{role_number}, grade_number = #{grade_number}, member_address1 = #{member_address1}, member_address2 = #{member_address2}
+        WHERE member_id = #{member_id};
+    </update>
+
+
+
+
+    <select id="getServicePaging" resultType="ServiceDTO" parameterType="StartEnd">
+        SELECT rn AS rowNumber,
+        service_number AS serviceNumber,
+        service_contents AS serviceContents,
+        service_email AS serviceEmail,
+        service_type AS serviceType,
+        payment_detail_number AS paymentDetailNumber
+        FROM (
+        SELECT ROW_NUMBER() OVER (ORDER BY service_number DESC) AS rn,
+        service_number,
+        service_contents,
+        service_email,
+        service_type,
+        payment_detail_number
+        FROM service
+        ) AS derived
+        WHERE rn BETWEEN #{startNo} AND #{endNo}
+
+    </select>
+    <update id="updateServiceList" parameterType="ServiceDTO">
+        UPDATE service
+        SET service_type = #{serviceType}
+        WHERE service_number = #{serviceNumber};
+    </update>
+
+    <delete id="serviceDelete" parameterType="int">
+        DELETE FROM servicegetProductPaging
+        where service_number = #{serviceNumber}
+    </delete>
+
+
+
+    <select id="getProductPaging" resultType="ProductDTO" parameterType="StartEnd">
+        SELECT rn AS rowNumber,
+        product_number AS productNumber,
+        product_name AS productName,
+        product_price AS productPrice,
+        product_stock AS productStock,
+        product_detail AS productDetail,
+        product_regist AS productRegist,
+        category_number AS categoryNumber
+        FROM (
+        SELECT ROW_NUMBER() OVER (ORDER BY product_number DESC) AS rn,
+        product_number,
+        product_name,
+        product_price,
+        product_stock,
+        product_detail,
+        product_regist,
+        category_number
+        FROM product
+        ) AS derived
+        WHERE rn BETWEEN #{startNo} AND #{endNo}
+    </select>
+
+
+
+    <update id="updateProductList" parameterType="ProductDTO">
+        UPDATE product
+        SET product_detail = #{productDetail}
+        WHERE product_number = #{productNumber};
+    </update>
+
+    <delete id="productDelete" parameterType="int">
+        DELETE FROM product
+        where product_number = #{productNumber}
+    </delete>
+
+
+    <select id="productDetail" parameterType="int" resultType="ProductDTO">
+        select
+        product_number AS productNumber,
+        product_name AS productName,
+        product_price AS productPrice,
+        product_stock AS productStock,
+        product_detail AS productDetail,
+        product_regist AS productRegist,
+        category_number AS categoryNumber
+        FROM product
+        where product_number = #{productNumber}
+    </select>
+
+    <update id="updateProductModify" parameterType="ProductDTO">
+        UPDATE product
+        SET product_number = #{productNumber}, product_name = #{productName}, product_price = #{productPrice},product_stock = #{productStock},  product_detail = #{productDetail}
+        , product_regist = #{productRegist}, category_number = #{categoryNumber}
+        WHERE product_number = #{productNumber}
+    </update>
 </mapper>

@@ -2,7 +2,7 @@ package kr.co.jhta.bang.finalproject.dto;
 
 import lombok.*;
 
-@Getter @Setter //@Data 로 쓰는 건 위험
+@Data
 @AllArgsConstructor
 @NoArgsConstructor
 

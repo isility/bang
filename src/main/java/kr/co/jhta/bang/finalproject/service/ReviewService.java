@@ -33,6 +33,7 @@ public class ReviewService {
         return dao.getTotal();
     }
 
+
     // review 작성 로직
     public void writeReply(ReviewDTO dto){
         dao.writeReply(dto);
@@ -50,7 +51,6 @@ public class ReviewService {
         log.info("reviewDTO: {}", reviewDTO);
         dao.setReplyFirst(reviewDTO);
 
-        // 저장 결과를 얻는 로직 (dao에 따라 다를 수 있음)
         List<ReviewDTO> savedReviews = dao.findAllByReplyRef(reviewDTO.getReplyNumber());
 
         return savedReviews;

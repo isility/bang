@@ -8,33 +8,39 @@
     <link rel="shortcut icon" type="image/png" th:href="@{../assets/images/logos/favicon.png}" />
     <link rel="stylesheet" th:href="@{../assets/css/styles.min.css}" />
 </head>
-
 <script th:inline="javascript">
-        /*<![CDATA[*/
+    /*<![CDATA[*/
+    var memberCount = /*[[${memberCount}]]*/ [];
+    /*]]>*/
 
-        $.ajax({
-            url: /*[[@{/admin/dashboard/chart}]]*/,
-            method: "GET",
-            success: function(data) {
-                var options = {
-                    series: [{
-                        name: 'sales',
-                        data: data.map(item => item.averageMonth)
-                    }],
-                };
+    var options = {
+        chart: {
+            type: 'line'
+        },
+        series: [{
+            name: 'memberCount',
+            data: memberCount
+        }],
+        xaxis: {
+            categories: [memberCount]
+        }
+    };
 
-                var chart = new ApexCharts(document.querySelector("#chart"), options);
-                chart.render();
-            },
-            error: function(error) {
-                console.error("Failed to fetch inflation data:", error);
-            }
-        });
+    $.ajax({
+        url: "/admin/dashboard",
+        method: "GET",
+        data: { memberCount: memberCount },
+        success: function(response) {
+            var chart = new ApexCharts(document.querySelector("#chart"), options);
+            chart.render();
+        },
+        error: function(error) {
+            console.error("Failed to fetch data:", error);
+        }
+    });
+</script>
 
 
-
-        /*]]>*/
-    </script>
 
 <body>
 <!--  Body Wrapper -->

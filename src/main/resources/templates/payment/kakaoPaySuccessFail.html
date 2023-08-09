@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+</head>
+<body>
+<script>
+	alert("결제에 실패하였습니다. ");
+	location.href = "/payment";
+
+swal('결제에 실패하였습니다.'," ",'error')
+.then(function(){
+	location.href="/payment";
+})
+
+</script>
+</body>
+</html>

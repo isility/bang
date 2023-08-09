@@ -130,35 +130,53 @@
         <div class="container-fluid">
           <div class="card">
             <div class="card-body">
-              <h5 class="card-title fw-semibold mb-4">게시글관리</h5>
-              <div>
-                <select class="form-select" id="categorySelect">
-                  <option value="1">Q&A</option>
-                  <option value="2">NOTICE</option>
-                  <option value="3">REVIEW</option>
-                </select>
-              </div>
-              <br>
+              <h5 class="card-title fw-semibold mb-4">회원정보 수정</h5>
               <div class="card">
                 <div class="card-body">
-                  <table class="table table-hover" id="dataTable">
-                    <thead>
-                    <tr>
-                      <th scope="col">No</th>
-                      <th scope="col">제목</th>
-                      <th scope="col">내용</th>
-                      <th scope="col">작성자</th>
-                      <th scope="col">작성일</th>
-                      <th scope="col">#</th>
-                      <th scope="col">X</th>
-                    </tr>
-                    </thead>
 
-                    <tbody>
+                  <form action="memberModify" method="post">
+                    <div class="mb-3">
+                      <label for="member_id" class="form-label">ID</label>
+                      <input type="text" class="form-control" name="member_id" id="member_id" th:value="${memberDTO.member_id}">
+                    </div>
+                    <div class="mb-3">
+                      <label for="member_pw" class="form-label" >Password</label>
+                      <input type="text" class="form-control" id="member_pw" name="member_pw" th:value="${memberDTO.member_pw}">
+                    </div>
+                    <div class="mb-3">
+                      <label for="member_name" class="form-label">Name</label>
+                      <input type="text" class="form-control" id="member_name" name="member_name" th:value="${memberDTO.member_name}">
+                    </div>
+                    <div class="mb-3">
+                      <label for="member_phone" class="form-label">Phone</label>
+                      <input type="text" class="form-control" id="member_phone" name="member_phone" th:value="${memberDTO.member_phone}">
+                    </div>
+                    <div class="mb-3">
+                      <label for="member_email" class="form-label">Email address</label>
+                      <input type="text" class="form-control" id="member_email" name="member_email" th:value="${memberDTO.member_email}">
+                    </div>
+                    <div class="mb-3">
+                      <label for="member_address1" class="form-label">Address 1</label>
+                      <input type="text" class="form-control" id="member_address1" name="member_address1" th:value="${memberDTO.member_address1}">
+                    </div>
+                    <div class="mb-3">
+                      <label for="member_address2" class="form-label">Address 2</label>
+                      <input type="text" class="form-control" id="member_address2" name="member_address2" th:value="${memberDTO.member_address2}">
+                    </div>
+                    <div class="mb-3">
+                      <label for="role_number" class="form-label">Role</label>
+                      <input type="text" class="form-control" id="role_number" name="role_number" th:value="${memberDTO.role_number}">
+                    </div>
+                    <div class="mb-3">
+                      <label for="grade_number" class="form-label">Grade</label>
+                      <input type="text" class="form-control" id="grade_number" name="grade_number" th:value="${memberDTO.grade_number}">
+                    </div>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                  </form>
 
-                    </tbody>
 
-                  </table>
+
+
                 </div>
               </div>
 
@@ -169,11 +187,13 @@
       </div>
     </div>
   </div>
-  <script src="../assets/libs/jquery/dist/jquery.min.js"></script>
-  <script src="../assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-  <script src="../assets/js/sidebarmenu.js"></script>
-  <script src="../assets/js/app.min.js"></script>
-  <script src="../assets/libs/simplebar/dist/simplebar.js"></script>
+  <script th:src="@{../assets/libs/jquery/dist/jquery.min.js}"></script>
+  <script th:src="@{../assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js}"></script>
+  <script th:src="@{../assets/js/sidebarmenu.js}"></script>
+  <script th:src="@{../assets/js/app.min.js}"></script>
+  <script th:src="@{../assets/libs/simplebar/dist/simplebar.js}"></script>
 </body>
 
 </html>
+
+

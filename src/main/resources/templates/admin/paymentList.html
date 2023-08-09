@@ -9,6 +9,32 @@
   <link rel="stylesheet" th:href="@{../assets/css/styles.min.css}" />
 </head>
 
+<script th:inline="javascript">
+        function optionChanged(selectElement) {
+            var selectedValue = selectElement.value;
+            var selectedNumber = selectElement.id;
+
+            $.ajax({
+                type: "POST",
+                url: "/admin/paymentList",
+                data: {
+                    paymentDetailNumber: selectedNumber,
+                    paymentDetailStatus: selectedValue
+                },
+                success: function (response) {
+                    // 성공적으로 서버와 통신한 후 수행할 동작
+                    console.log("Data sent successfully!");
+                },
+                error: function (error) {
+                    // 서버와 통신 중 에러가 발생한 경우 처리
+                    console.log("Error sending data: " + error);
+                }
+            });
+        }
+    </script>
+
+
+
 <body>
   <!--  Body Wrapper -->
   <div class="page-wrapper" id="main-wrapper" data-layout="vertical" data-navbarbg="skin6" data-sidebartype="full"
@@ -147,46 +173,44 @@
 
                     <tbody>
 
-                    <tr>
-                      <th scope="row">1</th>
-                      <td>2</td>
-                      <td>1234</td>
-                      <td>12340,12340</td>
+                    <tr th:each="paymentDetailDTO : ${list}">
+                      <th scope="row" th:text="${paymentDetailDTO.paymentDetailNumber}"></th>
+                      <td th:text="${paymentDetailDTO.productNumber}"></td>
+                      <td th:text="${paymentDetailDTO.productCount}"></td>
+                      <td th:text="${paymentDetailDTO.productPrice}"></td>
                       <td>
                         <div>
-                          <select class="form-select">
-                            <option value="1">입금대기</option>
-                            <option value="2">입금확인</option>
-                            <option value="3">상품준비</option>
-                            <option value="4">배송중</option>
-                            <option value="5">배송완료</option>
+                          <select class="form-select" th:id="${paymentDetailDTO.paymentDetailNumber}" onchange="optionChanged(this)">
+                            <option th:value="입금대기" th:selected="${paymentDetailDTO.paymentDetailStatus == '입금대기'}">입금대기</option>
+                            <option th:value="입금확인" th:selected="${paymentDetailDTO.paymentDetailStatus == '입금확인'}">입금확인</option>
+                            <option th:value="상품준비" th:selected="${paymentDetailDTO.paymentDetailStatus == '상품준비'}">상품준비</option>
+                            <option th:value="배송중" th:selected="${paymentDetailDTO.paymentDetailStatus == '배송중'}">배송중</option>
+                            <option th:value="배송완료" th:selected="${paymentDetailDTO.paymentDetailStatus == '배송완료'}">배송완료</option>
                           </select>
                         </div>
                       </td>
                     </tr>
 
-                    <tr>
-                      <th scope="row">1</th>
-                      <td>2</td>
-                      <td>1234</td>
-                      <td>12340,12340</td>
-                      <td>
-                        <div>
-                          <select class="form-select">
-                            <option value="1">입금대기</option>
-                            <option value="2">입금확인</option>
-                            <option value="3">상품준비</option>
-                            <option value="4">배송중</option>
-                            <option value="5">배송완료</option>
-                          </select>
-                        </div>
-                      </td>
-                    </tr>
 
 
                     </tbody>
-
                   </table>
+
+
+
+                  <nav aria-label="Page navigation example">
+                    <ul class="pagination">
+                      <li th:if="${map.prev}">
+                        <a th:href="@{/admin/paymentList(currentPage=${map.currentPage-5})}" class="page-link">이전</a>
+                      </li>
+                      <li th:each="i : ${#numbers.sequence(map.startPageNo, map.endPageNo)}">
+                        <a th:href="@{/admin/paymentList(currentPage=${i})}" class="page-link" th:text="${i}"></a>
+                      </li>
+                      <li th:if="${map.next}">
+                        <a th:href="@{/admin/paymentList(currentPage=${map.currentPage+5})}" class="page-link">다음</a>
+                      </li>
+                    </ul>
+                  </nav>
                 </div>
               </div>
 
@@ -197,11 +221,13 @@
       </div>
     </div>
   </div>
-  <script src="../assets/libs/jquery/dist/jquery.min.js"></script>
-  <script src="../assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-  <script src="../assets/js/sidebarmenu.js"></script>
-  <script src="../assets/js/app.min.js"></script>
-  <script src="../assets/libs/simplebar/dist/simplebar.js"></script>
+
+
+  <script th:src="@{../assets/libs/jquery/dist/jquery.min.js}"></script>
+  <script th:src="@{../assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js}"></script>
+  <script th:src="@{../assets/js/sidebarmenu.js}"></script>
+  <script th:src="@{../assets/js/app.min.js}"></script>
+  <script th:src="@{../assets/libs/simplebar/dist/simplebar.js}"></script>
 </body>
 
 </html>
