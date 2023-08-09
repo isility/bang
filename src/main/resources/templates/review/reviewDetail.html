@@ -138,12 +138,24 @@
                         </tr>
                     </table>
 
+
+
+                여기!!!!!!!!!!!베이지색 입력창 찾는 중이었음!!!!!!!!!!!!!!!!
+
+                <br><br><br>
+
+                                <input type="text" id="id" name="username" class="form-control" style="width: 500px;height: 54px;">
+
+
+
+
+
+                <!--================================================================================================-->
+                <!--                댓글 작성폼-->
                 <br><br><br><br><br><br><br><br>
                 <hr style="border:1px solid #EEEEEE">
                 <strong style="margin-left:10px">댓글</strong> <br><br>
 
-
-<!--                댓글 작성폼-->
                 <div style="text-align: left;">
                     <input type="text" id="replyWriter" placeholder="작성자"
                            style="width: 100px; height: 40px; text-align: center; font-size: 14px;  border: 2px solid #E4E4E4; border-radius: 5px; vertical-align: top; margin-left:10px">
@@ -152,11 +164,30 @@
                     <button id="comment-write-btn" th:onclick="commentWrite()" class="btn btn-primary"
                             style="font-size: 12px; vertical-align: top; margin-left:20px">등록</button>
 
+
+                    <!--                    <input type="text" id="replyContents" placeholder="내용" style="width: 800px; height: 38px; text-align: center; font-size: 14px; border: 2px solid #D1C286; vertical-align: top;">-->
+                    <!--                    <input type="text" id="replyWriter" placeholder="작성자" style="width: 90px; height: 38px; text-align: center; font-size: 14px; border: 2px solid #D1C286; vertical-align: top;">-->
+                    <!--                    <button id="comment-write-btn" th:onclick="commentWrite()" class="btn btn-primary" style="font-size: 12px; vertical-align: top;">댓글작성</button>-->
+
+
+<!--                -->
+<!--                <div class="col-md-12" style="text-align: left;">-->
+<!--                    <div></div>-->
+<!--                     <input type="text" id="replyWriter"  class=""  placeholder="작성자"-->
+<!--                           style="width: 100px; height: 40px; text-align: center; font-size: 14px;  vertical-align: top; margin-left:10px">-->
+
+<!--                    <input type="text" id="replyContents" class="" placeholder="댓글을 입력해주세요."-->
+<!--                           style="width: 920px; height: 40px; text-align: center; font-size: 14px;  vertical-align: top;margin-left:10px ;">-->
+
+<!--                    <button id="comment-write-btn" th:onclick="commentWrite()" class="btn btn-primary"-->
+<!--                            style="font-size: 12px; vertical-align: top; margin-left:20px">등록</button>-->
+
 <!--                    <input type="text" id="replyContents" placeholder="내용" style="width: 800px; height: 38px; text-align: center; font-size: 14px; border: 2px solid #D1C286; vertical-align: top;">-->
 <!--                    <input type="text" id="replyWriter" placeholder="작성자" style="width: 90px; height: 38px; text-align: center; font-size: 14px; border: 2px solid #D1C286; vertical-align: top;">-->
 <!--                    <button id="comment-write-btn" th:onclick="commentWrite()" class="btn btn-primary" style="font-size: 12px; vertical-align: top;">댓글작성</button>-->
                 </div>
-                <br>
+
+                <br> <br>
             </div>
             </div>
                 <hr>
@@ -284,20 +315,22 @@ const commentWrite = () => {
         success: function(commentList) {
             console.log("작성성공");
             console.log(commentList);
-            let output = "<table>";
-            for(let i in commentList){
-               output += '<tr>';
-               output += `<td style="width: 800px; height: 38px; text-align: center; font-size: 14px; border: 2px solid #D1C286; padding: 10px; border-right: none;" id="comment-contents">${commentList[i].replyContents}</td>`;
-               output += `<td style="width: 90px; height: 38px; text-align: center; font-size: 14px; border: 2px solid #D1C286; padding: 10px;border-left: none; border-right: none;" id="comment-writer">${commentList[i].replyWriter}</td>`;
-               output += `<td style="width: 90px; height: 38px; text-align: center; font-size: 14px; border: 2px solid #D1C286; padding: 10px;border-left: none;" id="comment-date">${commentList[i].replyDate}</td>`;
-               output += '</tr>';
+             let output = "";
+
+            for (let i in commentList) {
+                output += '<div class="col-md-12 animate-box fadeInUp animated-fast">';
+                output += '<div class="col-md-1" id="comment-writer">' + commentList[i].replyWriter + '</div>';
+                output += '<div class="col-md-2" id="comment-date" style="color:#D2D2D2">' + commentList[i].replyDate + '</div>';
+                output += '<div id="comment-contents">' + commentList[i].replyContents + '</div>';
+                output += '<hr>';
+                output += '</div>';
             }
-           output += "</table>";
-           document.getElementById('comment-list').innerHTML = output;
-           document.getElementById('commentWriter').value = '';
-           document.getElementById('commentContents').innerHTML = '';
+
+            document.getElementById('comment-list').innerHTML = output;
+            document.getElementById('replyWriter').value = ''; // 입력 필드 초기화
+            document.getElementById('replyContents').value = ''; // 입력 필드 초기화
         },
-        error: function(){
+        error: function() {
             console.log("실패");
         }
     });
