@@ -90,6 +90,10 @@
         cursor: pointer;
     }
 
+    .text-primary{
+    color: #D1C286;
+    }
+
 
     </style>
 
@@ -733,25 +737,32 @@
             <div class="row">
 
                 <div class="col-md-6 animate-box" style="position: relative; left: 300px;">
-                    <h2 style="color:#7E7E7E ; font-weight: bold; position: relative; text-align: center;">일반회원 가입정보</h2>
+                    <h2 style="color:#7E7E7E ; font-weight: bold; position: relative; text-align: center;color:#D1C286">일반회원 가입정보</h2>
 
                     <hr>
-                    <br>
+                    <br><br>
 
                     <div class="alert alert-warning" style="font-weight: bold; width: 500px;height: 54px; margin: 30px; margin-top: -30px;">
                         * 표시되어 있는 칸은 필수 입력입니다.
                     </div>
 
+                    <br>
                     <form action="/join/costomerJoinForm" method="post" id="joinForm">
 
                         <h4 style="color:#7E7E7E ; font-weight: bold; position: relative;">계정</h4>
                         <div class="row form-group">
                             <div class="col-md-12">
+                                <div class="col-md-8" style="padding:0px;">
                                 <input type="text" id="member_id" name="member_id" class="form-control"
-                                       placeholder="아이디 *" style="width: 500px;height: 54px;">
-                                <p class="text-primary">영어 소문자, 숫자만 허용. 6자 이상 ~ 20자 이하 (특수문자 제외. 단, _ 가능)</p>
+                                       placeholder="아이디 *" style="width: 330px;height: 45px;">
+                                </div>
+                                <div class="col-md-4">
                                 <input type="button" class="btn btn-outline-warning" id="idCheck" value="아이디 중복확인">
-                            </div>
+                                </div>
+                                <div class="col-md-12" style="padding:0px;    margin-top: 7px;">
+                                    <p class="text-primary">영어 소문자, 숫자만 허용. 6자 이상 ~ 20자 이하 (특수문자 제외. 단, _ 가능)</p>
+                                </div>
+                                </div>
                         </div>
 
                         <div class="row form-group">
@@ -759,7 +770,7 @@
 
                                 <div class="password form-group">
                                     <input type="password" id="member_pw" name="member_pw" class="form-control"
-                                       placeholder="비밀번호 *" value="" style="width: 500px; height: 54px;">
+                                       placeholder="비밀번호 *" value="" style="width: 500px; height: 45px;">
                                     <i class="fa fa-eye fa-lg" aria-hidden="true"></i>
                                 </div>
 
@@ -769,7 +780,7 @@
                                     <div class="col-md-12">
                                         <div class="password form-group">
                                             <input type="password" id="pwCheck" class="form-control" placeholder="비밀번호 확인 *" value=""
-                                               style="width: 500px;height: 54px; display: none;">
+                                               style="width: 500px;height: 45px; display: none;">
                                             <i class="fa fa-eye fa-lg" aria-hidden="true" id="showPwCheck" style="display: none;"></i>
                                         </div>
                                         <p class="text-success" style="display: none;" id="pwCorrect">비밀번호가 일치합니다. 비밀번호를 사용할 수
@@ -805,7 +816,7 @@
                             </div>
                         </div>
 
-
+                        <br><br>
 
 
                         <h4 style="color:#7E7E7E ; font-weight: bold; position: relative;">Email</h4>
@@ -813,38 +824,45 @@
                             <div class="col-md-12">
                                 <!-- <label for="email">Email</label> -->
                                 <input type="text" id="email" name="member_email" class="form-control"
-                                       placeholder="이메일 *" style="width: 500px;height: 54px;">
+                                       placeholder="이메일 *" style="width: 500px;height: 45px;">
                                 <p class="text-success" style="display: none;" id="emailCorrect">완벽한 이메일!</p>
                                 <p class="text-danger" style="display: none;" id="emailNotCorrect">올바른 이메일 형식이 아닙니다.</p>
-                                <input type="button" class="btn btn-outline-warning" id="emailCheck" value="본인 인증하기">
+                                <input type="button" class="btn btn-outline-warning" id="emailCheck" value="본인 인증하기" style="margin-top:7px">
                                 <p class="text-primary" style="display: none;" id="emailCheckResultmsg">발송된 이메일을 확인하시고, 6자리 코드를 아래에 입력해주세요.</p>
                                 <input type="text" id="emailCheckResult" name="email" class="form-control"
-                                    placeholder="인증코드 6자리" maxlength="6" style="width: 500px;height: 54px; display: none;">
+                                    placeholder="인증코드 6자리" maxlength="6" style="width: 500px;height: 45px; display: none;">
                                 <input type="button" class="btn btn-outline-warning" style="display: none;" id="emailCodeCheck" value="확인">
                                 <span class="text-success" style="display: none;" id="emailCodeCorrect">인증되었습니다!</span>
                                 <span class="text-danger" style="display: none;" id="emailCodeNotCorrect">인증번호를 다시 확인해주세요.</span>
                             </div>
                         </div>
 
-                        <br>
+                        <br><br>
 
                         <h4 style="color:#7E7E7E ; font-weight: bold; position: relative;">회원정보</h4>
                         <div class="row form-group">
                             <div class="col-md-12">
                                 <!-- <label for="subject">Subject</label> -->
                                 <input type="text" id="name" name="member_name" class="form-control" placeholder="이름 *"
-                                       style="width: 500px;height: 54px;">
+                                       style="width: 500px;height: 45px;">
                             </div>
                         </div>
 
                         <div class="row form-group">
                             <div class="col-md-12">
                                 <!-- <label for="subject">Subject</label> -->
+                                <div class="col-md-8" style="padding:0px;">
                                 <input type="text" id="nickname" name="person_nickname" class="form-control"
-                                       placeholder="닉네임 *" style="width: 500px;height: 54px;">
-                                <p id="error_msg3" style="color: green; display: none;">유효한 닉네임 입니다.</p>
-                                <p class="text-primary">한글, 영어 대/소문자, 숫자만 가능. 2자 이상 ~ 10자 이하. (특수문자 제외. 단, _ 가능)</p>
+                                       placeholder="닉네임 *" style="width: 330px;height: 45px;">
+                                </div>
+                                <div class="col-md-4">
                                 <input type="button" class="btn btn-outline-warning" id="nicknameCheck" value="닉네임 중복확인">
+                                </div>
+                                <p id="error_msg3" style="color: green; display: none;">유효한 닉네임 입니다.</p>
+
+                                <div class="col-md-12" style="padding:0px;    margin-top: 7px;">
+                                    <p class="text-primary">한글, 영어 대/소문자, 숫자만 가능. 2자 이상 ~ 10자 이하. (특수문자 제외. 단, _ 가능)</p>
+                                </div>
                             </div>
                         </div>
 
@@ -853,21 +871,21 @@
                                 <!-- <label for="subject">Subject</label> -->
                                 <input type="text" id="phone" name="member_phone" class="form-control"
                                        placeholder="연락처 * (-를 제외, 01011112222, 0266667777)"
-                                       style="width: 500px;height: 54px;">
+                                       style="width: 500px;height: 45px;">
                             </div>
                         </div>
 
                         <div class="row form-group">
                             <div class="col-md-12">
                                 <!-- <label for="subject">Subject</label> -->
-                                <h5 style="color:#7E7E7E ; font-weight: bold; position: relative;">생년월일<input
-                                        type="date" id="birth" name="person_birth" value="생년월일" class="form-control"
-                                        style="width: 500px;height: 54px;"></h5>
+                                <h5 style="color:#7E7E7E ; font-weight: bold; position: relative;">생년월일
+                                    <input type="date" id="birth" name="person_birth" value="생년월일" class="form-control"
+                                        style="width: 500px;height: 45px;  margin-top:7px"></h5>
                             </div>
                         </div>
 
 
-                        <br>
+                        <br><br>
 
 
                         <h4 style="color:#7E7E7E ; font-weight: bold; position: relative;">주소 *</h4>
@@ -876,16 +894,17 @@
                                 <input type="button" class="btn btn-outline-warning" id="addressSearch" value="주소검색">
                                 <p class="text-success">'주소검색' 버튼을 통해 간편하게 입력하세요</p>
                                 <input type="text" id="postal" name="member_postal" class="form-control"
-                                       placeholder="우편번호" style="width: 500px;height: 54px;">
+                                       placeholder="우편번호" style="width: 500px;height: 45px;">
                                 <input type="text" id="address1" name="member_address1" class="form-control"
-                                       placeholder="기본주소" style="width: 500px;height: 54px;">
+                                       placeholder="기본주소" style="width: 500px;height: 45px;">
                                 <input type="text" id="address2" name="member_address2" class="form-control"
-                                       placeholder="상세주소 (ex: 101동 101호)" style="width: 500px;height: 54px;">
+                                       placeholder="상세주소 (ex: 101동 101호)" style="width: 500px;height: 45px;">
                                 <input type="text" id="address3" name="address3" class="form-control" placeholder="참고주소"
-                                       style="width: 500px;height: 54px;">
+                                       style="width: 500px;height: 45px;">
                             </div>
                         </div>
 
+                        <br><br>
 
                         <div class="form-check">
                             <input class="form-check-input" type="checkbox" value="1" id="email_check"
@@ -903,7 +922,7 @@
 
                         <div class="form-group">
                             <input type="submit" id="joinCorrect" value="SIGN IN" class="btn btn-outline-warning"
-                                   style="width: 500px; height: 54px;">
+                                   style="width: 500px; height: 54px; background:#D1C286;color:white" >
                         </div>
 
                     </form>
