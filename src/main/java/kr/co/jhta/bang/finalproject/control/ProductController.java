@@ -1,16 +1,18 @@
 package kr.co.jhta.bang.finalproject.control;
 
+import kr.co.jhta.bang.finalproject.dto.CartDTO;
+import kr.co.jhta.bang.finalproject.dto.CartQuantityModifyDTO;
 import kr.co.jhta.bang.finalproject.dto.ProductListDTO;
 import kr.co.jhta.bang.finalproject.service.PaymentService;
 import kr.co.jhta.bang.finalproject.service.ProductService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.security.Principal;
 import java.util.List;
 
@@ -85,9 +87,49 @@ public class ProductController {
     //장바구니---------------------------------------------------------------------------------------------
     @GetMapping("/cart")
     public String cart(Model model, Principal principal){
-        model.addAttribute("cartList", payService.cartlist(principal.getName()));
+        int cnt = 0;
+
+        model.addAttribute("cartList", payService.cartlist("cpy222"));
+        List<CartDTO> list = payService.cartlist("cpy222");
+        for (CartDTO dto : list)
+            cnt+=1;
+        model.addAttribute("cartListCount",cnt);
+        model.addAttribute("totalPrice",service.allPrice("cpy222"));
+
         return "product/cart";
     }
+
+    //장바구니 수량 수정
+    @RequestMapping("/updateQuantity")
+    @ResponseBody
+    public int updateQuantity(@RequestParam("newQuantity")int newQuantity,
+                              @RequestParam("pno")int pno,
+                              Principal principal
+                              ){
+
+        service.cartQuantityUpdateOne(newQuantity, pno, principal.getName());
+
+        return service.selectOne(pno).getProductPrice();
+    }
+
+    @PostMapping("/deleteCart")
+    @ResponseBody
+//    public int cartDeleteProduct(@RequestParam("pnoList")Integer[] pnoList, Principal principal){
+    public int cartDeleteProduct(@RequestParam(value = "pnoList[]")int[] pnoList, Principal principal){
+        int cnt = 0;
+        log.info(principal.getName());
+
+        for(int pno : pnoList){
+            CartQuantityModifyDTO dto = new CartQuantityModifyDTO();
+            dto.setProductNumber(pno);
+            dto.setMemberID(principal.getName());
+            service.cartDeleteOne(dto);
+            cnt ++;
+        }
+        return cnt;
+    }
+
+
 
     //장바구니 팝업
     @GetMapping("/cartpopup")

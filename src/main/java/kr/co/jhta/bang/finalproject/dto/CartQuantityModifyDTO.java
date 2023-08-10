@@ -4,16 +4,11 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class CartDTO {
-    int cartNumber;
+public class CartQuantityModifyDTO {
+    int newQuantity;
     int productNumber;
-    int cartQuantity;
-    String productName;
-    String img;
-    int productPrice;
-    int totalPrice;
+    String memberID;
 }
