@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>FindError</title>
+
+    <script>
+        function redirectToLoginPage() {
+            if (confirm("검색결과가 없습니다.")) {
+                window.location.href = "/search/id";
+            }
+        }
+        // 페이지 로드 시 함수 호출
+        redirectToLoginPage();
+    </script>
+</head>
+<body>
+</body>
+</html>

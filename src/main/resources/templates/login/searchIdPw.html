@@ -44,6 +44,10 @@
 		/* 이미지를 가운데로 정렬 */
 	}
 
+	.fh5co-bg-section {
+	    background-color: white;
+	}
+
 	#fh5co-services {
 	    position: relative;
 	}
@@ -85,7 +89,7 @@
 
 	.feature-center.animate-box.fadeIn.animated-fast {
         width: 750px;
-        height: 450px;
+        height: 500px;
         border: 1px solid tan;
         border-radius: 20px;
         padding: 20px;
@@ -138,23 +142,27 @@
                 $("#selectCorrect").val("아이디 찾기");
                 selectedValue = $(this).val();
 
-                var email = $("#member_email");
-                var name = $("#member_name");
-                var phone = $("#member_phone");
+                var emailName = $("#email_member_name");
+                var emailEmail = $("#email_member_email");
+                var phoneName = $("#phone_member_name");
+                var phonePhone = $("#phone_member_phone");
 
                 if (selectedValue == "email") {
-                    email.prop("disabled", false);
-                    name.prop("disabled", true);
-                    phone.prop("disabled", true);
-                    name.val("");
-                    phone.val("");
+                    emailName.prop("disabled", false);
+                    emailEmail.prop("disabled", false);
+                    phoneName.prop("disabled", true);
+                    phonePhone.prop("disabled", true);
+                    phoneName.val("");
+                    phonePhone.val("");
                     $("#phoneCorrect").css("display", "none");
                     $("#phoneNotCorrect").css("display", "none");
                 } else if (selectedValue == "phone") {
-                    email.prop("disabled", true);
-                    name.prop("disabled", false);
-                    phone.prop("disabled", false);
-                    email.val("");
+                    emailName.prop("disabled", true);
+                    emailEmail.prop("disabled", true);
+                    phoneName.prop("disabled", false);
+                    phonePhone.prop("disabled", false);
+                    emailName.val("");
+                    emailEmail.val("");
                     $("#emailCorrect").css("display", "none");
                     $("#emailNotCorrect").css("display", "none");
                 }
@@ -163,28 +171,38 @@
             // 필수 입력 알림
             $("#selectCorrect").on("click", function () {
                 if (selectedValue == "email" && $("#selectCorrect").val() == "아이디 찾기") {
-                    if ($("#member_email").val() == "") {
+                    if ($("#email_member_name").val() == "") {
+                        alert("이름을 입력해주세요.");
+                        $("#email_member_name").focus();
+                        return false;
+                    }
+                    if ($("#email_member_email").val() == "") {
                         alert("이메일을 입력해주세요.");
-                        $("#member_email").focus();
+                        $("#email_member_email").focus();
                         return false;
                     }
                 } else if (selectedValue == "phone" && $("#selectCorrect").val() == "아이디 찾기") {
-                    if ($("#member_name").val() == "") {
+                    if ($("#phone_member_name").val() == "") {
                         alert("이름을 입력해주세요.");
-                        $("#member_name").focus();
+                        $("#phone_member_name").focus();
                         return false;
                     }
-                    if ($("#member_phone").val() == "") {
+                    if ($("#phone_member_phone").val() == "") {
                         alert("전화번호를 입력해주세요.");
-                        $("#member_phone").focus();
+                        $("#phone_member_phone").focus();
                         return false;
                     }
                 }
 
-                if (selectedValue == "email" && ($("#member_email").val() == "" || $("#emailCorrect").css("display") == "none")) {
+                if (selectedValue == "") {
+                    alert("값을 입력해주셔야 합니다!");
+                    return false;
+                }
+
+                if (selectedValue == "email" && ($("#email_member_email").val() == "" || $("#emailCorrect").css("display") == "none")) {
                     alert("이메일 형식이 올바르지 않습니다.");
                     return false;
-                } else if (selectedValue == "phone" && ($("#member_phone").val() == "" || $("#phoneCorrect").css("display") == "none")) {
+                } else if (selectedValue == "phone" && ($("#phone_member_phone").val() == "" || $("#phoneCorrect").css("display") == "none")) {
                     alert("전화번호 형식이 올바르지 않습니다.");
                     return false;
                 } else if ($("#emailCorrect").css("display") == "block" && $("#emailNotCorrect").css("display") == "none") {
@@ -204,26 +222,32 @@
 
 
             // 비밀번호 찾기 페이지의 스크립트
-            $("#member_email").prop("disabled", false);
+            $("#email_member_name").prop("disabled", false);
+            $("#email_member_email").prop("disabled", false);
             $("span").hide();
             $(".form__radio").hide();
             $(".text__label").hide();
             $("#selectEmailMessage").show();
-            $("#member_name").hide();
-            $("#member_phone").hide();
+            $("#phone_member_name").hide();
+            $("#phone_member_phone").hide();
             $("#selectCorrect").val("비밀번호 찾기");
 
             // 필수 입력 알림
             $("#selectCorrect").on("click", function () {
                 if ($("#selectCorrect").val() == "비밀번호 찾기") {
-                    if ($("#member_email").val() == "") {
+                    if ($("#email_member_name").val() == "") {
+                        alert("이름을 입력해주세요.");
+                        $("#email_member_name").focus();
+                        return false;
+                    }
+                    if ($("#email_member_email").val() == "") {
                         alert("이메일을 입력해주세요.");
-                        $("#member_email").focus();
+                        $("#email_member_email").focus();
                         return false;
                     }
                 }
 
-                if ($("#member_email").val() == "" || $("#emailCorrect").css("display") == "none") {
+                if ($("#email_member_email").val() == "" || $("#emailCorrect").css("display") == "none") {
                     alert("이메일 형식이 올바르지 않습니다.");
                     return false;
                 } else if ($("#emailCorrect").css("display") == "block" && $("#emailNotCorrect").css("display") == "none") {
@@ -238,8 +262,8 @@
 
 
         <!-- email 형식이 적절한지 확인 -->
-        $("#member_email").on("input", function() {
-            var email = $("#member_email").val();
+        $("#email_member_email").on("input", function() {
+            var email = $("#email_member_email").val();
             if (/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
                 $("#emailCorrect").css("display", "block");
                 $("#emailNotCorrect").css("display", "none");
@@ -251,8 +275,8 @@
 
 
         <!-- 전화번호 형식이 적절한지 확인 -->
-        $("#member_phone").on("input", function() {
-            var phone = $("#member_phone").val();
+        $("#phone_member_phone").on("input", function() {
+            var phone = $("#phone_member_phone").val();
             if (/^\d{10,11}$/.test(phone)) {
                 $("#phoneCorrect").css("display", "block");
                 $("#phoneNotCorrect").css("display", "none");
@@ -261,10 +285,6 @@
                 $("#phoneNotCorrect").css("display", "block");
             }
         })
-
-
-
-
     });
 </script>
 
@@ -336,13 +356,14 @@
             <div class="row form-group">
               <div class="col-md-12">
                 <div class="form-check">
-                  <input class="form__radio" type="radio" name="selectEmailorPhone" value="email" id="selectEmail" checked="checked">
+                  <input class="form__radio" type="radio" name="selectEmailorPhone" value="email" id="selectEmail">
                   <label class="text__label" for="selectEmail" id="selectEmailMessage">
                     가입한 이메일로 찾기
                   </label>
                 </div>
                 <br>
-                <input type="text" id="member_email" name="member_email" class="form-control" placeholder="이메일(Email)" style="width: 500px;height: 54px;">
+                <input type="text" id="email_member_name" name="email_member_name" class="form-control" placeholder="이름(name)" style="width: 500px;height: 54px;" disabled>
+                <input type="text" id="email_member_email" name="email_member_email" class="form-control" placeholder="이메일(Email)" style="width: 500px;height: 54px;" disabled>
                 <p class="text-success" style="display: none;" id="emailCorrect">올바른 이메일 형식입니다.</p>
                 <p class="text-danger" style="display: none;" id="emailNotCorrect">올바른 이메일 형식이 아닙니다.</p>
               </div>
@@ -361,8 +382,8 @@
                 </div>
               </div>
               <br>
-              <input type="text" id="member_name" name="member_name" class="form-control" placeholder="이름(name)" style="width: 500px;height: 54px;" disabled>
-              <input type="text" id="member_phone" name="member_phone" class="form-control" placeholder="전화번호(phone)" style="width: 500px;height: 54px;" disabled>
+              <input type="text" id="phone_member_name" name="phone_member_name" class="form-control" placeholder="이름(name)" style="width: 500px;height: 54px;" disabled>
+              <input type="text" id="phone_member_phone" name="phone_member_phone" class="form-control" placeholder="전화번호(phone)" style="width: 500px;height: 54px;" disabled>
               <p class="text-success" style="display: none;" id="phoneCorrect">올바른 전화번호 형식입니다.</p>
               <p class="text-danger" style="display: none;" id="phoneNotCorrect">올바른 전화번호 형식이 아닙니다.</p>
             </div>

@@ -48,6 +48,10 @@
 	    position: relative;
 	}
 
+	.fh5co-bg-section {
+	    background-color: white;
+	}
+
 	#warranty, .rowcontents{
 		position: relative;
 		left: 140px;
@@ -76,7 +80,7 @@
         margin-bottom: 20px;
     }
 
-	#selectCorrect {
+	.btn btn-primary btn-outline {
 	    width: 200px;
 	    height: 45px;
 	    margin-left: 250px;
@@ -91,21 +95,18 @@
         padding: 20px;
         text-align: left;
         margin-bottom: 20px;
+        text-align: center;
     }
 
-    h4 {
-        margin-top: 30px;
+    h2, .h2 {
+        width: 750px;
+        color: #D1C286;
     }
 
     .form-control {
         width: 500px;
         height: 54px;
         margin: auto;
-    }
-
-    span {
-        margin-top: 15px;
-        margin-bottom: 25px;
     }
 
     .text__label {
@@ -122,152 +123,6 @@
     }
 
 </style>
-
-  <script>
-    $(document).ready(function() {
-        // 현재 URL 가져오기
-        var currentUrl = window.location.href;
-        var selectedValue = "";
-
-        if (currentUrl.indexOf("/search/id") !== -1) {
-            // 아이디 찾기 페이지의 스크립트
-            $("#searchIdorPwForm").attr("action", "/search/id");
-
-
-            $(".form__radio").on("click", function () {
-                $("#selectCorrect").val("아이디 찾기");
-                selectedValue = $(this).val();
-
-                var email = $("#member_email");
-                var name = $("#member_name");
-                var phone = $("#member_phone");
-
-                if (selectedValue == "email") {
-                    email.prop("disabled", false);
-                    name.prop("disabled", true);
-                    phone.prop("disabled", true);
-                    name.val("");
-                    phone.val("");
-                    $("#phoneCorrect").css("display", "none");
-                    $("#phoneNotCorrect").css("display", "none");
-                } else if (selectedValue == "phone") {
-                    email.prop("disabled", true);
-                    name.prop("disabled", false);
-                    phone.prop("disabled", false);
-                    email.val("");
-                    $("#emailCorrect").css("display", "none");
-                    $("#emailNotCorrect").css("display", "none");
-                }
-            });
-
-            // 필수 입력 알림
-            $("#selectCorrect").on("click", function () {
-                if (selectedValue == "email" && $("#selectCorrect").val() == "아이디 찾기") {
-                    if ($("#member_email").val() == "") {
-                        alert("이메일을 입력해주세요.");
-                        $("#member_email").focus();
-                        return false;
-                    }
-                } else if (selectedValue == "phone" && $("#selectCorrect").val() == "아이디 찾기") {
-                    if ($("#member_name").val() == "") {
-                        alert("이름을 입력해주세요.");
-                        $("#member_name").focus();
-                        return false;
-                    }
-                    if ($("#member_phone").val() == "") {
-                        alert("전화번호를 입력해주세요.");
-                        $("#member_phone").focus();
-                        return false;
-                    }
-                }
-
-                if (selectedValue == "email" && ($("#member_email").val() == "" || $("#emailCorrect").css("display") == "none")) {
-                    alert("이메일 형식이 올바르지 않습니다.");
-                    return false;
-                } else if (selectedValue == "phone" && ($("#member_phone").val() == "" || $("#phoneCorrect").css("display") == "none")) {
-                    alert("전화번호 형식이 올바르지 않습니다.");
-                    return false;
-                } else if ($("#emailCorrect").css("display") == "block" && $("#emailNotCorrect").css("display") == "none") {
-                    // 유효성 검사를 모두 완료했을 때 조회 처리
-                    $("#searchIdorPwForm").submit();
-                } else if ($("#phoneCorrect").css("display") == "block" && $("#phoneNotCorrect").css("display") == "none") {
-                    // 유효성 검사를 모두 완료했을 때 조회 처리
-                    $("#searchIdorPwForm").submit();
-                }
-            });
-
-        }
-
-
-        if (currentUrl.indexOf("/search/pw") !== -1) {
-            $("#searchIdorPwForm").attr("action", "/search/pw");
-
-
-            // 비밀번호 찾기 페이지의 스크립트
-            $("#member_email").prop("disabled", false);
-            $("span").hide();
-            $(".form__radio").hide();
-            $(".text__label").hide();
-            $("#selectEmailMessage").show();
-            $("#member_name").hide();
-            $("#member_phone").hide();
-            $("#selectCorrect").val("비밀번호 찾기");
-
-            // 필수 입력 알림
-            $("#selectCorrect").on("click", function () {
-                if ($("#selectCorrect").val() == "비밀번호 찾기") {
-                    if ($("#member_email").val() == "") {
-                        alert("이메일을 입력해주세요.");
-                        $("#member_email").focus();
-                        return false;
-                    }
-                }
-
-                if ($("#member_email").val() == "" || $("#emailCorrect").css("display") == "none") {
-                    alert("이메일 형식이 올바르지 않습니다.");
-                    return false;
-                } else if ($("#emailCorrect").css("display") == "block" && $("#emailNotCorrect").css("display") == "none") {
-                    // 유효성 검사를 모두 완료했을 때 조회 처리
-                    $("#searchIdorPwForm").submit();
-                }
-            });
-
-        }
-
-
-
-
-        <!-- email 형식이 적절한지 확인 -->
-        $("#member_email").on("input", function() {
-            var email = $("#member_email").val();
-            if (/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-                $("#emailCorrect").css("display", "block");
-                $("#emailNotCorrect").css("display", "none");
-            } else {
-                $("#emailCorrect").css("display", "none");
-                $("#emailNotCorrect").css("display", "block");
-            }
-        })
-
-
-        <!-- 전화번호 형식이 적절한지 확인 -->
-        $("#member_phone").on("input", function() {
-            var phone = $("#member_phone").val();
-            if (/^\d{10,11}$/.test(phone)) {
-                $("#phoneCorrect").css("display", "block");
-                $("#phoneNotCorrect").css("display", "none");
-            } else {
-                $("#phoneCorrect").css("display", "none");
-                $("#phoneNotCorrect").css("display", "block");
-            }
-        })
-
-
-
-
-    });
-</script>
-
 
 </head>
 
@@ -320,30 +175,39 @@
     <div class="container">
       <div class="rowcontents">
 
-        <form action="/search/id" id="searchIdorPwForm" method="post">
-
-
           <div class="col-md-4 col-sm-4 text-center">
-            <a href="/search/id" class="btn btn-primary btn-outline" id="searchId">아이디 찾기</a>
+            <h2 class="text__box-title"><strong class="text__emphasis">아이디 찾기 결과입니다.</strong></h2>
             <div class="feature-center animate-box" data-animate-effect="fadeIn">
 
               <div class="row form-group">
                 <div class="col-md-12">
 
-                    <ul class="" th:each="dto : ${dtolist}">
-                      <li th:text="${dto.member_email}">
-                        <a class="#" ></a>
+                    <br>
+
+                    <ul class="" th:each="dto, index : ${dtoList}">
+                      <li>
+                        <span th:text="${#strings.substring(dto.member_id, 0, 5)} + '****'"></span>
+                        &nbsp; &nbsp; &nbsp; 가입한 날 : <span th:text="${dto.member_insertdate}"></span>
+
+                        <input type="hidden" th:id="'hidden_id' + ${index.index + 1}" th:value="${dto.member_id}" />
+                        <input type="hidden" th:id="'hidden_email' + ${index.index + 1}" th:value="${dto.member_email}" />
+
+                        <!-- 아이디를 찾았는데 소셜 로그인한 사람이면 버튼 내용 변경 -->
+                        <button type="button" th:id="'button_' + ${index.index + 1}" class="btn btn-primary btn-outline" style="margin-left: 50px;">
+                          <!-- 버튼에 값 설정 -->
+                          <span th:text="${isSocialLogin} ? '소셜로그인 회원' : '이메일로 정확한 아이디 발송'"></span>
+                        </button>
+
                       </li>
                     </ul>
 
                 </div>
               </div>
-
-              <input type="submit" id="selectCorrect" class="btn btn-primary btn-outline" value="아이디 찾기">
+              <a href="/search/pw"><input type="button" class="btn btn-primary btn-outline" value="비밀번호 재설정"></a>
+              <a href="/login"><input type="button" class="btn btn-primary btn-outline" value="로그인"></a>
             </div>
 
           </div>
-        </form>
 
       </div>
     </div>
@@ -387,6 +251,43 @@
 <script src="/js/jquery.flexslider-min.js"></script>
 <!-- Main -->
 <script src="/js/main.js"></script>
+
+
+<script>
+    $(document).ready(function() {
+        for (var i = 1; i <= 100; i++) {
+            (function(index) {
+                $("#button_" + index).on("click", function() {
+                    var id = $("#hidden_id" + index).val();
+                    var email = $("#hidden_email" + index).val();
+                    console.log(id);
+                    console.log(email);
+
+                    <!-- 이메일 보내기 -->
+                    $.ajax({
+                        url: "/search/searchDetailId",
+                        type: "post",
+                        dataType: "text",
+                        data: { "member_id": id,
+                                "member_email": email
+                                },
+                        success: function(data) {
+                            if (data == "success") {
+                                alert("메일이 발송되었습니다! 메일을 확인해주세요.");
+                            } else {
+                                alert("메일 발송에 실패했습니다. 오류가 반복되면, 고객센터로 문의해주세요.");
+                            }
+                        },
+                        error: function(xhr, status, error) {
+                            // 서버에서 에러 응답을 받은 경우
+                            alert("메일 발송에 실패했습니다. 오류가 반복되면, 고객센터로 문의해주세요.");
+                        }
+                    });
+                });
+            })(i);
+        }
+    });
+</script>
 
 </body>
 

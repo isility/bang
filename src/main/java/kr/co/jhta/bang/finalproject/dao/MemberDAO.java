@@ -2,6 +2,7 @@ package kr.co.jhta.bang.finalproject.dao;
 
 import kr.co.jhta.bang.finalproject.dto.MemberDTO;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -23,5 +24,5 @@ public interface MemberDAO {
 
     int idSocialCheck(String socialMemberId);
 
-    List<MemberDTO> findByidEmail(String email);
+    List<MemberDTO> findByidEmail(@Param("member_name") String memberName, @Param("member_email") String memberEmail);
 }
