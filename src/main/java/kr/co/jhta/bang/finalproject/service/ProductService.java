@@ -3,7 +3,6 @@ package kr.co.jhta.bang.finalproject.service;
 import kr.co.jhta.bang.finalproject.dao.CartDAO;
 import kr.co.jhta.bang.finalproject.dao.ProductListDAO;
 import kr.co.jhta.bang.finalproject.dto.CartDTO;
-import kr.co.jhta.bang.finalproject.dto.CartQuantityModifyDTO;
 import kr.co.jhta.bang.finalproject.dto.ImageDTO;
 import kr.co.jhta.bang.finalproject.dto.ProductListDTO;
 import lombok.extern.slf4j.Slf4j;
@@ -22,7 +21,6 @@ public class ProductService {
     @Autowired
     CartDAO cartDAO;
 
-    CartQuantityModifyDTO QuantityDTO;
 
     public List<ProductListDTO> selectAll(int categoryNumber){
         return dao.selectAll(categoryNumber);
@@ -41,9 +39,12 @@ public class ProductService {
     }
 
     public void cartQuantityUpdateOne(int quan,int pno,String id){
-        QuantityDTO = new CartQuantityModifyDTO(quan,pno,id);
+        CartDTO dto = new CartDTO();
+        dto.setCartQuantity(quan);
+        dto.setProductNumber(pno);
+        dto.setMemberID(id);
 
-        cartDAO.updateQuantityOne(QuantityDTO);
+        cartDAO.updateQuantityOne(dto);
     }
     public int allPrice(String id){
         int totalPrice = 0;
@@ -67,8 +68,7 @@ public class ProductService {
             }
         }
         if(flag) {
-            CartQuantityModifyDTO quantityModifyDTO = new CartQuantityModifyDTO(dto.getCartQuantity(), dto.getProductNumber(), dto.getMemberID());
-            cartDAO.updateQuantityOne(quantityModifyDTO);
+            cartDAO.updateQuantityOne(dto);
             flag = false;
         }
         else {

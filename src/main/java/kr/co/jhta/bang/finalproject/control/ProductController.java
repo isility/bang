@@ -1,7 +1,6 @@
 package kr.co.jhta.bang.finalproject.control;
 
 import kr.co.jhta.bang.finalproject.dto.CartDTO;
-import kr.co.jhta.bang.finalproject.dto.CartQuantityModifyDTO;
 import kr.co.jhta.bang.finalproject.dto.ProductListDTO;
 import kr.co.jhta.bang.finalproject.service.PaymentService;
 import kr.co.jhta.bang.finalproject.service.ProductService;
@@ -114,7 +113,6 @@ public class ProductController {
 
     @PostMapping("/deleteCart")
     @ResponseBody
-//    public int cartDeleteProduct(@RequestParam("pnoList")Integer[] pnoList, Principal principal){
     public int cartDeleteProduct(@RequestParam(value = "pnoList[]")int[] pnoList, Principal principal){
         int cnt = 0;
         log.info(principal.getName());
