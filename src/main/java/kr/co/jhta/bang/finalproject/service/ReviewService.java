@@ -35,8 +35,9 @@ public class ReviewService {
 
 
     // review 작성 로직
-    public void writeReply(ReviewDTO dto){
+    public int writeReply(ReviewDTO dto){
         dao.writeReply(dto);
+        return dto.getReplyNumber();
     }
 
     // review 삭제

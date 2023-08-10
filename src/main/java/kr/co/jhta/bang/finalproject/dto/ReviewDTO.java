@@ -3,7 +3,10 @@ package kr.co.jhta.bang.finalproject.dto;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.util.ArrayList;
+import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -20,4 +23,5 @@ public class ReviewDTO {
     private int replyParentNumber; // 부모 댓글 ID ( 대댓글일 경우 )
     private int replyScore; // 리뷰점수
     private int productNumber; // 리뷰가 작성 될 상품 번호
+    private List<MultipartFile> files = new ArrayList<>(); // 첨부파일 리스트
 }
