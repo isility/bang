@@ -15,5 +15,7 @@ public interface CartDAO {
     void updateQuantityOne(CartQuantityModifyDTO dto);
     List<CartDTO> allPrice(String id);
 
-    void deleteOne(CartQuantityModifyDTO dto);
+    void deleteOne(CartDTO dto);
+
+    void insertOne(CartDTO dto);
 }

@@ -120,7 +120,7 @@ public class ProductController {
         log.info(principal.getName());
 
         for(int pno : pnoList){
-            CartQuantityModifyDTO dto = new CartQuantityModifyDTO();
+            CartDTO dto = new CartDTO();
             dto.setProductNumber(pno);
             dto.setMemberID(principal.getName());
             service.cartDeleteOne(dto);
@@ -128,6 +128,15 @@ public class ProductController {
         }
 
         return cnt;
+    }
+    @PostMapping("/cartInsertOne")
+    @ResponseBody
+    public void cartInsertOne(Principal principal, @RequestParam("pno")int pno, @RequestParam("quantity")int quantity){
+        CartDTO dto = new CartDTO();
+        dto.setCartQuantity(quantity);
+        dto.setProductNumber(pno);
+        dto.setMemberID(principal.getName());
+        service.cartInsertOne(dto);
     }
 
 

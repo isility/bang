@@ -27,9 +27,10 @@
     <insert id="insertOne" parameterType="CartDTO">
         INSERT INTO cart (product_number, member_id, cart_quantity)
         VALUES (#{productNumber}, #{memberID}, #{cartQuantity});
+
     </insert>
 
-    <delete id="deleteOne" parameterType="CartQuantityModifyDTO">
+    <delete id="deleteOne" parameterType="CartDTO">
         DELETE from cart
         WHERE product_number = #{productNumber}
         and member_id = #{memberID};

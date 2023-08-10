@@ -42,7 +42,7 @@ public class ProductService {
 
     public void cartQuantityUpdateOne(int quan,int pno,String id){
         QuantityDTO = new CartQuantityModifyDTO(quan,pno,id);
-        log.info(id);
+
         cartDAO.updateQuantityOne(QuantityDTO);
     }
     public int allPrice(String id){
@@ -52,9 +52,27 @@ public class ProductService {
         return totalPrice;
     }
 
-    public void cartDeleteOne(CartQuantityModifyDTO dto){
+    public void cartDeleteOne(CartDTO dto){
 
         cartDAO.deleteOne(dto);
     }
 
+    public void cartInsertOne(CartDTO dto) {
+        List<CartDTO> list = cartDAO.selectAll(dto.getMemberID());
+
+        boolean flag = false;
+        for(CartDTO cdto : list) {
+            if (cdto.getProductNumber() == dto.getProductNumber()) {
+                flag = true;
+            }
+        }
+        if(flag) {
+            CartQuantityModifyDTO quantityModifyDTO = new CartQuantityModifyDTO(dto.getCartQuantity(), dto.getProductNumber(), dto.getMemberID());
+            cartDAO.updateQuantityOne(quantityModifyDTO);
+            flag = false;
+        }
+        else {
+            cartDAO.insertOne(dto);
+        }
+    }
 }

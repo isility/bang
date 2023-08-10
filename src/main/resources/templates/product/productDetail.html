@@ -23,7 +23,7 @@
 		<!-- jQuery -->
 		<script src="/js/jquery.min.js"></script>
 		<!-- jQuery Easing -->
-		<script src="js/jquery.easing.1.3.js"></script>
+		<script src="/js/jquery.easing.1.3.js"></script>
 		<!-- Bootstrap -->
 		<script src="/js/bootstrap.min.js"></script>
 		<!-- Waypoints -->
@@ -67,11 +67,11 @@
 		<link rel="stylesheet" th:href="@{/css/style.css}">
 
 		<!-- Modernizr JS -->
-		<script src="@{/js/modernizr-2.6.2.min.js}"></script>
+		<script src="/js/modernizr-2.6.2.min.js"></script>
 
 		<!-- FOR IE9 below -->
 		<!--[if lt IE 9]>
-		<script src="@{/js/respond.min.js}"></script>
+		<script src="/js/respond.min.js"></script>
 		<![endif]-->
 
 
@@ -131,14 +131,14 @@ color: #D3C48B;
 <script type="text/javascript" th:inline="javascript">
     /*<![CDATA[*/
     $(function() {
-      // 상품 가격 가져오기
-      const productPrice = /*[[${productDto.productPrice}]]*/; // 상품의 기본 가격
-      // 가격 단위
-      const priceUnit = "원";
-console.dir($("#quantity"));
-      // 수량을 바꾸면
-      $("#quantity").on("change", function () {
-      console.log("ddd");
+      	// 상품 가격 가져오기
+      	const productPrice = /*[[${productDto.productPrice}]]*/; // 상품의 기본 가격
+      	// 가격 단위
+      	const priceUnit = "원";
+		console.dir($("#quantity"));
+      	// 수량을 바꾸면
+      	$("#quantity").on("change", function () {
+      	console.log("ddd");
         // 입력된 수량 가져오기
         const quantity = parseInt($("#quantity").val());
 
@@ -146,7 +146,7 @@ console.dir($("#quantity"));
         const totalPrice = productPrice * quantity;
 
         // 가격을 화면에 업데이트
-        $("#totalPrice").html( totalPrice + " " + priceUnit);
+        $("#totalPrice").html( totalPrice.toLocaleString() + ' 원');
       });
     });
     /*]]>*/
@@ -168,21 +168,40 @@ console.dir($("#quantity"));
 <!--</script>-->
 
 <!--위시리스트 모달창-->
-<script type="text/javascript" th:inline="javascript">
-  $(document).ready(function () {
-    $('.wishPop').click(function () {
-      $('#wishPop').modal('show');
-    });
-  });
+<script type="text/javascript">
+  	$(document).ready(function () {
+    	$('.wishPop').click(function () {
+    		$.ajax({
+    			type:"POST",
+    			url: "/product/wish",
+    			data : {
+    				pno : $('#pno').val()
+    			},
+    			success : function(){
+    				$('#wishPop').modal('show');
+    			}
+    		});
+		});
+	});
 </script>
 
 <!--장바구니 모달창-->
-<script type="text/javascript" th:inline="javascript">
-  $(document).ready(function () {
-    $('.cartPop').click(function () {
-      $('#cartPop').modal('show');
-    });
-  });
+<script>
+	$(document).ready(function () {
+		$('.cartPop').click(function () {
+    		$.ajax({
+    			type : "POST",
+    			url : "/product/cartInsertOne",
+    			data : {
+    				pno : $('#pno').val(),
+    				quantity : $('#quantity').val()
+    			},
+    			success : function(){
+    				$('#cartPop').modal('show');
+    			}
+    		});
+    	});
+  	});
 </script>
 	</head>
 
@@ -282,6 +301,7 @@ console.dir($("#quantity"));
 
 					<div class="row animate-box">
 						<div class="col-md-8 col-md-offset-2 text-center fh5co-heading">
+							<input type="hidden" id="pno" th:value="${productDto.productNumber}">
 							<h2 th:text="${productDto.productName}" style="color:#808080">베오릿20</h2>
 							<h3 style="color: #D1C286;" th:text="|${#numbers.formatInteger(productDto.productPrice,0,'COMMA')}|+ '원'">679,000원</h3>
 							<span>배송방법 택배  |  배송비 무료 </span>
@@ -302,7 +322,7 @@ console.dir($("#quantity"));
 							</div>
 
 							<p>
-								<a href="#" class="btn btn-primary btn-outline btn-lg cartPop" id="open-popup-btn" onclick="show();">장바구니</a>
+								<a href="#" class="btn btn-primary btn-outline btn-lg cartPop" id="open-popup-btn">장바구니</a>
 								<a href="/payment" class="btn btn-primary btn btn-lg">구매하기</a>
 								<a href="#" class="icon btn btn-primary btn-outline btn-lg wishPop" style="width:30px"><i class="icon-heart"></i></a>
 							</p>
