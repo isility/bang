@@ -17,4 +17,6 @@ public interface CartDAO {
     void deleteOne(CartDTO dto);
 
     void insertOne(CartDTO dto);
+
+    List<CartDTO> selectList(CartDTO dto);
 }

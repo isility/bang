@@ -16,4 +16,8 @@ public class PaymentService {
     public List<CartDTO> cartlist(String id){
         return CartDAO.selectAll(id);
     }
+
+    public List<CartDTO> selectList(CartDTO dto){
+        return CartDAO.selectList(dto);
+    }
 }

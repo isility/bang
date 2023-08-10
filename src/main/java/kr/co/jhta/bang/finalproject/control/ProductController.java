@@ -102,13 +102,13 @@ public class ProductController {
     @RequestMapping("/updateQuantity")
     @ResponseBody
     public int updateQuantity(@RequestParam("newQuantity")int newQuantity,
-                              @RequestParam("pno")int pno,
+                              @RequestParam("pno")int productNumber,
                               Principal principal
                               ){
 
-        service.cartQuantityUpdateOne(newQuantity, pno, principal.getName());
+        service.cartQuantityUpdateOne(newQuantity, productNumber, principal.getName());
 
-        return service.selectOne(pno).getProductPrice();
+        return service.selectOne(productNumber).getProductPrice();
     }
 
     @PostMapping("/deleteCart")

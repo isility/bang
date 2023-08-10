@@ -116,7 +116,7 @@
                             <h4 style="margin-bottom:20px;">주문 상품 정보</h4>
                             <div class="row" th:each="cart : ${session.cartList}">
                                 <div class="col-md-4">
-                                    <img th:src="@{/images/__${cart.img}__.jpg}" class="img-thumbnail">
+                                    <img th:src="@{/images/__${cart.imageSrc}__.jpg}" class="img-thumbnail">
                                 </div>
                                 <div class="col-md-8">
                                     <p th:text="${cart.productName}"></p>

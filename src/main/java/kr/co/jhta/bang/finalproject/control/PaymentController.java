@@ -1,5 +1,6 @@
 package kr.co.jhta.bang.finalproject.control;
 
+import kr.co.jhta.bang.finalproject.dao.CartDAO;
 import kr.co.jhta.bang.finalproject.dao.MemberDAO;
 import kr.co.jhta.bang.finalproject.dto.CartDTO;
 import kr.co.jhta.bang.finalproject.dto.ProductDTO;
@@ -12,10 +13,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 import java.security.Principal;
@@ -34,23 +32,28 @@ public class PaymentController {
     @Setter
     @Autowired
     PaymentService payService;
+
+    @Autowired
+    ProductService productService;
     @Autowired
     MemberDAO memberDAO;
 
 
     @RequestMapping("")
-    public String kakaoPayGet(HttpSession session, Principal principal) {
-
+    public String kakaoPayGet(@RequestParam("pnoList[]")int[] pnoList,@RequestParam("quantityList[]")int[] quantityList, HttpSession session, Principal principal) {
+        log.info("pnoList : {} , quantityList : {}",pnoList, quantityList);
         int tp = 0;
 
-        List<CartDTO> list =  payService.cartlist("cpy222");
-        for(CartDTO dto : list) {
-            tp += dto.getProductPrice() * dto.getCartQuantity();
+        List<CartDTO> list = new ArrayList<>();
+
+        for(int pno : pnoList) {
+
         }
+        log.info("list : " + list);
 
         session.setAttribute("totalPrice",tp);
-        session.setAttribute("cartList",payService.cartlist("cpy222"));
-        session.setAttribute("member", memberDAO.selectOne("cpy222"));
+        session.setAttribute("cartList",list);
+        session.setAttribute("member", memberDAO.selectOne(principal.getName()));
 
         log.info("카카페 래디1");
         return "payment/kakaoPay";
