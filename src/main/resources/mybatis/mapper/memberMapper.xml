@@ -48,9 +48,9 @@
     </select>
 
     <select id="findByidEmail" parameterType="String" resultType="MemberDTO">
-        select member_id, member_email, platformtype_number
+        select member_id, member_email, member_insertdate, platformtype_number
         FROM member
-        where member_email = #{member_email}
+        where member_name = #{member_name} and member_email = #{member_email}
     </select>
 
 </mapper>

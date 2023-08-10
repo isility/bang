@@ -69,5 +69,5 @@ public class MemberService {
         return member;
     }
 
-    public List<MemberDTO> findByidEmail(String email) { return memberDao.findByidEmail(email); }
+    public List<MemberDTO> findByidEmail(String name, String email) { return memberDao.findByidEmail(name, email); }
 }
