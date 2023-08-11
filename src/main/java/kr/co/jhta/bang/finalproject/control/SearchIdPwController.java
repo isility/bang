@@ -40,23 +40,26 @@ public class SearchIdPwController {
         String phoneandPhone = request.getParameter("phone_member_phone");
 
 
-
         log.info("email : {} ", emailandName);
         log.info("email : {} ", emailandEmail);
         log.info("phone : {} ", phoneandName);
         log.info("phone : {} ", phoneandPhone);
 
-        List<MemberDTO> dtoList = memberService.findByidEmail(emailandName, emailandEmail);
+        List<MemberDTO> emailList = memberService.findByIdEmail(emailandName, emailandEmail);
+        List<MemberDTO> phoneList = memberService.findByIdPhone(phoneandName, phoneandPhone);
 
-        // 이메일로 찾기: 가져온 값이 이메일 == 값 있음, 이름 == null, 전화번호 == null
-        if (dtoList != null && !dtoList.isEmpty()) {
+
+        if ((emailList != null && !emailList.isEmpty()) || (phoneList != null && !phoneList.isEmpty())) {
+            
+            // 이메일로 찾기
             // id, 이메일이 있는 지 찾아보고 (MemberDTO 리턴)
-            model.addAttribute("dtoList", dtoList);
+            model.addAttribute("dtoList", emailList);
+            
 
             // 소셜 로그인 여부 확인
             boolean isSocialLogin = false;
 
-            for (MemberDTO dto : dtoList) {
+            for (MemberDTO dto : emailList) {
                 String id = dto.getMember_id();
 
                 if (id.startsWith("Kakao_") || id.startsWith("Google_") || id.startsWith("Naver_")) {
@@ -67,9 +70,27 @@ public class SearchIdPwController {
                 }
             }
 
+            // 전화번호로 찾기
+            // id, 이메일이 있는 지 찾아보고 (MemberDTO 리턴)
+            model.addAttribute("dtoList", phoneList);
+            
+            
+            // 소셜 로그인 여부 확인
+            for (MemberDTO dto : phoneList) {
+                String id = dto.getMember_id();
+
+                if (id.startsWith("Kakao_") || id.startsWith("Google_") || id.startsWith("Naver_")) {
+                    isSocialLogin = true;
+                    model.addAttribute("isSocialLogin", true);
+                } else {
+                    model.addAttribute("isSocialLogin", false);
+                }
+            }
+
+
             return "login/getId";
 
-        } else if (dtoList == null || dtoList.isEmpty()) {
+        } else if ((emailList == null || emailList.isEmpty()) && (phoneList == null || phoneList.isEmpty())) {
 
             return "login/findError";
         }

@@ -112,7 +112,7 @@ public class JoinController {
             memberService.insertMemberOne(memberDto);
             memberService.insertPersonOne(personDto);
 
-            return "redirect:/login/login.html";
+            return "redirect:/login";
         }
         return "redirect:index.html";
     }
@@ -143,7 +143,7 @@ public class JoinController {
             memberService.insertMemberOne(memberDto);
             memberService.insertCompanyOne(companyDto);
 
-            return "redirect:/login/login.html";
+            return "redirect:/login";
         }
         return "redirect:index.html";
     }

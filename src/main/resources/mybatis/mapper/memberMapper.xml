@@ -47,10 +47,16 @@
         where member_id = #{member_id}
     </select>
 
-    <select id="findByidEmail" parameterType="String" resultType="MemberDTO">
+    <select id="findByIdEmail" parameterType="String" resultType="MemberDTO">
         select member_id, member_email, member_insertdate, platformtype_number
         FROM member
         where member_name = #{member_name} and member_email = #{member_email}
+    </select>
+
+    <select id="findByIdPhone" parameterType="String" resultType="MemberDTO">
+        select member_id, member_email, member_insertdate, platformtype_number
+        FROM member
+        where member_name = #{member_name} and member_phone = #{member_phone}
     </select>
 
 </mapper>
