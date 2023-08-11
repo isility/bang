@@ -88,12 +88,12 @@ public class ProductController {
     public String cart(Model model, Principal principal){
         int cnt = 0;
 
-        model.addAttribute("cartList", payService.cartlist("cpy222"));
-        List<CartDTO> list = payService.cartlist("cpy222");
+        model.addAttribute("cartList", payService.cartlist(principal.getName()));
+        List<CartDTO> list = payService.cartlist(principal.getName());
         for (CartDTO dto : list)
             cnt+=1;
         model.addAttribute("cartListCount",cnt);
-        model.addAttribute("totalPrice",service.allPrice("cpy222"));
+        model.addAttribute("totalPrice",service.allPrice(principal.getName()));
 
         return "product/cart";
     }
@@ -138,10 +138,11 @@ public class ProductController {
     }
 
 
-
     //장바구니 팝업
     @GetMapping("/cartpopup")
     public String showCartPopupPage() {
         return "product/cartpopup";
     }
+
+
 }
