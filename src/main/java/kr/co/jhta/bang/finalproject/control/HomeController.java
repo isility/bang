@@ -1,29 +1,45 @@
 package kr.co.jhta.bang.finalproject.control;
 
+import kr.co.jhta.bang.finalproject.dto.ProductListDTO;
+import kr.co.jhta.bang.finalproject.service.IndexService;
+import kr.co.jhta.bang.finalproject.service.ProductService;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.RequestContextUtils;
 
 import javax.servlet.http.HttpServletRequest;
 import java.security.Principal;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Controller
 @Slf4j
 public class HomeController {
 
-    @RequestMapping("/index")
-    public String home(){
+    @Autowired
+    IndexService service;
+
+    @GetMapping ("/")
+    public String home(Model model){
         log.info(">>>>>>>>> home ");
-        return "index";
+
+        model.addAttribute("speakerList", service.selectAllSpeaker());
+        log.info(""+service.selectAllSpeaker());
+
+        model.addAttribute("earphonelist", service.selectAllEarphone());
+        List<ProductListDTO> earphonelist =  service.selectAllEarphone();
+
+        model.addAttribute("headphonelist", service.selectAllHeadphone());
+        List<ProductListDTO> headphonelist =  service.selectAllHeadphone();
+
+        return "/index3";
     }
 
     @PostMapping("/index")
@@ -46,6 +62,9 @@ public class HomeController {
 
         return ResponseEntity.ok(userInfo);
     }
+
+
+//    =========================================================================
 
 
 }

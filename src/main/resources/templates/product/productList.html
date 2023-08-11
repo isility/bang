@@ -1,80 +1,81 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
-	<head>
-	<meta charset="utf-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>Bang&Oops</title>
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<meta name="description" content="Free HTML5 Website Template by gettemplates.co" />
-	<meta name="keywords" content="free website templates, free html5, free template, free bootstrap, free website template, html5, css3, mobile first, responsive" />
-	<meta name="author" content="gettemplates.co" />
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Bang&Oops</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Free HTML5 Website Template by gettemplates.co"/>
+    <meta name="keywords"
+          content="free website templates, free html5, free template, free bootstrap, free website template, html5, css3, mobile first, responsive"/>
+    <meta name="author" content="gettemplates.co"/>
 
-  	<!-- Facebook and Twitter integration -->
-	<meta property="og:title" content=""/>
-	<meta property="og:image" content=""/>
-	<meta property="og:url" content=""/>
-	<meta property="og:site_name" content=""/>
-	<meta property="og:description" content=""/>
-	<meta name="twitter:title" content="" />
-	<meta name="twitter:image" content="" />
-	<meta name="twitter:url" content="" />
-	<meta name="twitter:card" content="" />
+    <!-- Facebook and Twitter integration -->
+    <meta property="og:title" content=""/>
+    <meta property="og:image" content=""/>
+    <meta property="og:url" content=""/>
+    <meta property="og:site_name" content=""/>
+    <meta property="og:description" content=""/>
+    <meta name="twitter:title" content=""/>
+    <meta name="twitter:image" content=""/>
+    <meta name="twitter:url" content=""/>
+    <meta name="twitter:card" content=""/>
 
-		<!-- jQuery -->
-		<script src="/js/jquery.min.js"></script>
-		<!-- jQuery Easing -->
-		<script src="js/jquery.easing.1.3.js"></script>
-		<!-- Bootstrap -->
-		<script src="/js/bootstrap.min.js"></script>
-		<!-- Waypoints -->
-		<script src="/js/jquery.waypoints.min.js"></script>
-		<!-- Carousel -->
-		<script src="/js/owl.carousel.min.js"></script>
-		<!-- countTo -->
-		<script src="/js/jquery.countTo.js"></script>
-		<!-- Flexslider -->
-		<script src="/js/jquery.flexslider-min.js"></script>
-		<!-- Main -->
-		<script src="/js/main.js"></script>
+    <!-- jQuery -->
+    <script src="/js/jquery.min.js"></script>
+    <!-- jQuery Easing -->
+    <script src="js/jquery.easing.1.3.js"></script>
+    <!-- Bootstrap -->
+    <script src="/js/bootstrap.min.js"></script>
+    <!-- Waypoints -->
+    <script src="/js/jquery.waypoints.min.js"></script>
+    <!-- Carousel -->
+    <script src="/js/owl.carousel.min.js"></script>
+    <!-- countTo -->
+    <script src="/js/jquery.countTo.js"></script>
+    <!-- Flexslider -->
+    <script src="/js/jquery.flexslider-min.js"></script>
+    <!-- Main -->
+    <script src="/js/main.js"></script>
 
 
-	<!-- <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet"> -->
-	<!-- <link href="https://fonts.googleapis.com/css?family=Playfair+Display:400,400i" rel="stylesheet"> -->
-	
-	<!-- Animate.css -->
+    <!-- <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet"> -->
+    <!-- <link href="https://fonts.googleapis.com/css?family=Playfair+Display:400,400i" rel="stylesheet"> -->
 
-		<link rel="stylesheet"  th:href="@{/css/animate.css}">
-	<!-- Icomoon Icon Fonts-->
-<!--	<link rel="stylesheet" href="../../static/css/icomoon.css">-->
-		<link rel="stylesheet"  th:href="@{/css/icomoon.css}">
-	<!-- Bootstrap  -->
-<!--	<link rel="stylesheet" href="../../static/css/bootstrap.css">-->
-		<link rel="stylesheet"  th:href="@{/css/bootstrap.css}">
+    <!-- Animate.css -->
 
-	<!-- Flexslider  -->
-<!--	<link rel="stylesheet" href="../../static/css/flexslider.css">-->
-		<link rel="stylesheet"  th:href="@{/css/flexslider.css}">
+    <link rel="stylesheet" th:href="@{/css/animate.css}">
+    <!-- Icomoon Icon Fonts-->
+    <!--	<link rel="stylesheet" href="../../static/css/icomoon.css">-->
+    <link rel="stylesheet" th:href="@{/css/icomoon.css}">
+    <!-- Bootstrap  -->
+    <!--	<link rel="stylesheet" href="../../static/css/bootstrap.css">-->
+    <link rel="stylesheet" th:href="@{/css/bootstrap.css}">
 
-	<!-- Owl Carousel  -->
-<!--	<link rel="stylesheet" href="../../static/css/owl.carousel.min.css">-->
-		<link rel="stylesheet"  th:href="@{/css/owl.carousel.min.css}">
-<!--	<link rel="stylesheet" href="../../static/css/owl.theme.default.min.css">-->
-		<link rel="stylesheet"  th:href="@{/css/owl.theme.default.min.css}">
+    <!-- Flexslider  -->
+    <!--	<link rel="stylesheet" href="../../static/css/flexslider.css">-->
+    <link rel="stylesheet" th:href="@{/css/flexslider.css}">
 
-	<!-- Theme style  -->
-<!--	<link rel="stylesheet" href="../../static/css/style.css">-->
-<!--		<link rel="stylesheet" type="text/css" th:href="@{/css/style.css}">-->
-		<link rel="stylesheet" th:href="@{/css/style.css}">
+    <!-- Owl Carousel  -->
+    <!--	<link rel="stylesheet" href="../../static/css/owl.carousel.min.css">-->
+    <link rel="stylesheet" th:href="@{/css/owl.carousel.min.css}">
+    <!--	<link rel="stylesheet" href="../../static/css/owl.theme.default.min.css">-->
+    <link rel="stylesheet" th:href="@{/css/owl.theme.default.min.css}">
 
-	<!-- Modernizr JS -->
-	<script src="@{/js/modernizr-2.6.2.min.js}"></script>
+    <!-- Theme style  -->
+    <!--	<link rel="stylesheet" href="../../static/css/style.css">-->
+    <!--		<link rel="stylesheet" type="text/css" th:href="@{/css/style.css}">-->
+    <link rel="stylesheet" th:href="@{/css/style.css}">
 
-		<!-- FOR IE9 below -->
-		<!--[if lt IE 9]>
-		<script src="@{/js/respond.min.js}"></script>
-		<![endif]-->
+    <!-- Modernizr JS -->
+    <script src="@{/js/modernizr-2.6.2.min.js}"></script>
 
-		<style>
+    <!-- FOR IE9 below -->
+    <!--[if lt IE 9]>
+    <script src="@{/js/respond.min.js}"></script>
+    <![endif]-->
+
+    <style>
 	#fh5co-hero .flexslider .slides li {
 		background-size: cover;
 		/* 이미지를 컨테이너에 맞추어 확대/축소 */
@@ -102,209 +103,257 @@
 	#wishPop, #cartPop{
 	position:relative;
 	top:130px;
-</style>
+    </style>
 
-<!--위시리스트 모달창-->
-<script type="text/javascript" th:inline="javascript">
-  $(document).ready(function () {
-    $('.wishPop').click(function () {
-      $('#wishPop').modal('show');
-    });
-  });
-</script>
 
-<!--장바구니 모달창-->
-<script type="text/javascript" th:inline="javascript">
-  $(document).ready(function () {
-    $('.cartPop').click(function () {
-      $('#cartPop').modal('show');
-    });
-  });
-</script>
-	</head>
+<!--    ===============================================================================-->
+    <!--위시리스트 모달창-->
+    <!--<script type="text/javascript" th:inline="javascript">-->
+    <!--  $(document).ready(function () {-->
+    <!--    $('.wishPop').click(function () {-->
+    <!--      $('#wishPop').modal('show');-->
+    <!--    });-->
+    <!--  });-->
+    <!--</script>-->
 
-	<body>
-	<!--======================================================================================================  -->
-	<!-- 상단부분 -->
+    <script>
+	$(document).ready(function () {
+		$('.wishPop').click(function () {
+
+		    var pno = parseInt($(this).closest('.product').attr('data-pno'));
+
+    		$.ajax({
+    			type : "POST",
+    			url : "/product/wishInsertOne",
+    			data : {
+    				pno : pno,
+    				quantity : 1
+    			},
+    			success : function(){
+    				$('#wishPop').modal('show');
+    			}
+    		});
+    	});
+  	});
+    </script>
+
+
+    <!--장바구니 모달창-->
+    <script>
+	$(document).ready(function () {
+		$('.cartPop').click(function () {
+
+		    var pno = parseInt($(this).closest('.product').attr('data-pno'));
+
+    		$.ajax({
+    			type : "POST",
+    			url : "/product/cartInsertOne",
+    			data : {
+    				pno : pno,
+    				quantity : 1
+    			},
+    			success : function(){
+    				$('#cartPop').modal('show');
+    			}
+    		});
+    	});
+  	});
+    </script>
+
+</head>
+
+<body>
+<!--======================================================================================================  -->
+<!-- 상단부분 -->
 <!--		<div class="fh5co-loader"></div>-->
-	
-	<div id="page">
-		<nav class="fh5co-nav" role="navigation">
-			<div class="container">
-				<div class="row">
-					<div class="col-md-3 col-xs-2" >
-						<div id="fh5co-logo" ><a href="/">Bang & Oops</a></div>
-					</div>
-					<div class="col-md-6 col-xs-6 text-center menu-1" >
-						<ul>
-							<li><a  href="/product/productList?categoryNumber=1">SPEAKER</a></li>
-							<li><a href="/product/productList?categoryNumber=2" >EARPHONE</a></li>
-							<li><a href="/product/productList?categoryNumber=3" >HEADPHONE</a></li>
-							<li><a href="/product/productList?categoryNumber=4" >ACCESSORIES</a></li>
-							<li class="has-dropdown">
-								<a href="/community.html">COMMUNITY</a>
-								<ul class="dropdown">
-									<li><a href="/notice/noticeList">공지사항</a></li>
-									<li><a href="/review/reviewList">REVIEW</a></li>
-									<li><a href="/qna/qnaList">Q&A</a></li>
-								</ul>
-							</li>
-						</ul>
-					</div>
-					<div class="col-md-3 col-xs-4 text-right hidden-xs menu-2">
-						<ul>
-							<li class="shopping-cart menu-2"><a href="#" class="cart"><span><small>0</small><i
-									class="icon-shopping-cart"></i></span></a></li>
-							<li class="login menu-2" th:if="${username}" th:text="" id="username"></li>
-							<!-- 로그인 상태일 때 -->
-							<li class="login menu-2" style="display: none;" id="mypage">
-								<a href="mypage">mypage</a>
-							</li>
-							<li class="login menu-2" style="display: none;" id="logout">
-								<a href="logout">logout</a>
-							</li>
 
-							<!-- 로그인 상태가 아닐 때 -->
-							<li class="login menu-2" sec:authorize="isAnonymous()" id="join">
-								<a href="join">JOIN</a>
-							</li>
-							<li class="login menu-2" sec:authorize="isAnonymous()" id="login">
-								<a href="login">login</a>
-							</li>
-							<li class="search menu-2">
-								<div class="input-group">
-									<input type="text" placeholder="SEARCH">
-									<span class="input-group-btn">
+<div id="page">
+    <nav class="fh5co-nav" role="navigation">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3 col-xs-2">
+                    <div id="fh5co-logo"><a href="/">Bang & Oops</a></div>
+                </div>
+                <div class="col-md-6 col-xs-6 text-center menu-1">
+                    <ul>
+                        <li><a href="/product/productList?categoryNumber=1">SPEAKER</a></li>
+                        <li><a href="/product/productList?categoryNumber=2">EARPHONE</a></li>
+                        <li><a href="/product/productList?categoryNumber=3">HEADPHONE</a></li>
+                        <li><a href="/product/productList?categoryNumber=4">ACCESSORIES</a></li>
+                        <li class="has-dropdown">
+                            <a href="/community.html">COMMUNITY</a>
+                            <ul class="dropdown">
+                                <li><a href="/notice/noticeList">공지사항</a></li>
+                                <li><a href="/review/reviewList">REVIEW</a></li>
+                                <li><a href="/qna/qnaList">Q&A</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-md-3 col-xs-4 text-right hidden-xs menu-2">
+                    <ul>
+                        <li class="shopping-cart menu-2"><a href="#" class="cart"><span><small>0</small><i
+                                class="icon-shopping-cart"></i></span></a></li>
+                        <li class="login menu-2" th:if="${username}" th:text="" id="username"></li>
+                        <!-- 로그인 상태일 때 -->
+                        <li class="login menu-2" style="display: none;" id="mypage">
+                            <a href="mypage">mypage</a>
+                        </li>
+                        <li class="login menu-2" style="display: none;" id="logout">
+                            <a href="logout">logout</a>
+                        </li>
+
+                        <!-- 로그인 상태가 아닐 때 -->
+                        <li class="login menu-2" sec:authorize="isAnonymous()" id="join">
+                            <a href="join">JOIN</a>
+                        </li>
+                        <li class="login menu-2" sec:authorize="isAnonymous()" id="login">
+                            <a href="login">login</a>
+                        </li>
+                        <li class="search menu-2">
+                            <div class="input-group">
+                                <input type="text" placeholder="SEARCH">
+                                <span class="input-group-btn">
 										<button class="btn btn-primary" type="button"><i
-												class="icon-search"></i></button>
+                                                class="icon-search"></i></button>
 									</span>
-								</div>
-							</li>
+                            </div>
+                        </li>
 
-						</ul>
-					</div>
-				</div>
-			</div>
-		</nav>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </nav>
 
-	<!-- ======================================================================================================================================== -->
-	<!-- 메인 배너 -->
-	<header id="fh5co-header" class="fh5co-cover fh5co-cover-sm" role="banner" th:style="'background-image:url('+${img}+');'">
-		<div class="overlay"></div>
-		<div class="container">
-			<div class="row">
-				<div class="col-md-8 col-md-offset-2 text-center">
-					<div class="display-t">
-						<div class="display-tc animate-box" data-animate-effect="fadeIn">
-							<h1 th:text="${banner}">SPEAKER</h1>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</header>
+    <!-- ======================================================================================================================================== -->
+    <!-- 메인 배너 -->
+    <header id="fh5co-header" class="fh5co-cover fh5co-cover-sm" role="banner"
+            th:style="'background-image:url('+${img}+');'">
+        <div class="overlay"></div>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8 col-md-offset-2 text-center">
+                    <div class="display-t">
+                        <div class="display-tc animate-box" data-animate-effect="fadeIn">
+                            <h1 th:text="${banner}">SPEAKER</h1>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
 
-	<!-- ======================================================================================================================================== -->
-	<!-- 상품리스트 -->
-	<div id="fh5co-product">
-		<div class="container">
+    <!-- ======================================================================================================================================== -->
+    <!-- 상품리스트 -->
+    <div id="fh5co-product">
+        <div class="container">
 
-			<!-- 총 상품 수	-->
-			<p th:text="${banner + ' ' + total}"></p>
+            <!-- 총 상품 수	-->
+            <p th:text="${banner + ' ' + total}"></p>
 
-			<!--	정렬	옵션 선택을 위한 셀렉트 박스	-->
-			<select id="sort" name="sortType" >
-				<option value="latest">신상품순</option>
-				<option value="review">리뷰수 많은 순</option>
-				<option value="priceLowToHigh">낮은가격순</option>
-				<option value="priceHighToLow">높은가격순</option>
-			</select>
+            <!--	정렬	옵션 선택을 위한 셀렉트 박스	-->
+            <select id="sort" name="sortType">
+                <option value="latest">신상품순</option>
+                <option value="review">리뷰수 많은 순</option>
+                <option value="priceLowToHigh">낮은가격순</option>
+                <option value="priceHighToLow">높은가격순</option>
+            </select>
 
-			<div class="row" >
-				<div class="col-md-4 text-center animate-box" th:each="dto:${list}">
+            <div class="row">
+                <div class="col-md-4 text-center animate-box" th:each="dto:${list}">
 
-				<!--	왜 안찍히지... sql문이 잘못됐나?		>> 변수명의 _ 때문...		-->
-				<!--	<h1 th:text="${dto.img}"></h1>-->
+                    <!--	왜 안찍히지... sql문이 잘못됐나?		>> 변수명의 _ 때문...		-->
+                    <!--	<h1 th:text="${dto.img}"></h1>-->
 
-						<div class="product" >
-							<div class="product-grid" th:style="'background-image: url(/images/'+${dto.imageSrc}+'.jpg);'">
-									<div class="inner">
-										<p>
+                    <div class="product" th:data-pno="${dto.productNumber}">
+                        <div class="product-grid" th:style="'background-image: url(/images/'+${dto.imageSrc}+'.jpg);'">
+                            <div class="inner">
+                                <p>
+                                    <span class="icon cartPop"><i class="icon-shopping-cart"></i></span>
+                                    <span class="icon wishPop"><i class="icon-heart"></i></span>
+                                </p>
+                            </div>
+                        </div>
+                        <div class="desc">
+                            <h3><a th:href="@{/product/productDetail(productNumber=${dto.productNumber})}"
+                                   th:text="${dto.productName}"></a></h3>
+                            <span class="price"
+                                  th:text="|${#numbers.formatInteger(dto.productPrice,0,'COMMA')}|+ '원'"></span>
 
-											<span class="icon cartPop"><i class="icon-shopping-cart"></i></span>
-											<span  class="icon wishPop"><i class="icon-heart" ></i></span>
-										</p>
-									</div>
-							</div>
-							<div class="desc">
-								<h3><a th:href="@{/product/productDetail(productNumber=${dto.productNumber})}" th:text="${dto.productName}"></a></h3>
-								<span class="price" th:text="|${#numbers.formatInteger(dto.productPrice,0,'COMMA')}|+ '원'"></span>
+                            <p style="color:#BFBFBF;">리뷰 4</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
-								<p style="color:#BFBFBF;">리뷰 4</p>
-							</div>
-						</div>
-					</div>
-			</div>
-		</div>
-	</div>
+    <!--	위시리스트 모달 팝업-->
+    <div class="modal fade" id="wishPop" tabindex="-1" role="dialog" aria-labelledby="wishModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
 
-		<!--	위시리스트 모달 팝업-->
-		<div class="modal fade" id="wishPop" tabindex="-1" role="dialog" aria-labelledby="wishModalLabel" aria-hidden="true">
-			<div class="modal-dialog" role="document">
-				<div class="modal-content">
+                <div class="modal-body">
+                    <p style="text-align: center;">위시리스트에 담았습니다</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">닫기</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
-					<div class="modal-body">
-						<p style="text-align: center;">위시리스트에 담았습니다</p>
-					</div>
-					<div class="modal-footer">
-						<button type="button" class="btn btn-secondary" data-dismiss="modal">닫기</button>
-					</div>
-				</div>
-			</div>
-		</div>
+    <!--	카트 모달 팝업-->
+    <div class="modal fade" id="cartPop" tabindex="-1" role="dialog" aria-labelledby="wishModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
 
-		<!--	카트 모달 팝업-->
-		<div class="modal fade" id="cartPop" tabindex="-1" role="dialog" aria-labelledby="wishModalLabel" aria-hidden="true">
-			<div class="modal-dialog" role="document">
-				<div class="modal-content">
+                <div class="modal-body text-center">
+                    <br>
+                    <p style="text-align: center;">상품을 장바구니에 담았습니다.</p>
+                    <br>
+                    <a href="/product/cart">
+                        <button class=" btn btn-primary btn-xxs countbtn"
+                                style="font-size:13px;width:110px;height:35px;padding:11px;padding-top:7px;
+											position:relative;right:50px">장바구니 이동
+                        </button>
+                    </a>
 
-					<div class="modal-body text-center">
-						<br>
-						<p style="text-align: center;">상품을 장바구니에 담았습니다.</p>
-						<br>
-						<a href="/product/cart">
-							<button class=" btn btn-primary btn-xxs countbtn"
-									style="font-size:13px;width:110px;height:35px;padding:11px;padding-top:7px;
-											position:relative;right:50px">장바구니 이동</button></a>
-
-						<button onclick="window.close()" class=" btn btn-primary btn-outline btn-xxs countbtn"
-								style="font-size:13px;width:110px;height:35px;padding:11px;padding-top:7px" data-dismiss="modal">쇼핑 계속하기</button>
-					</div>
-				</div>
-			</div>
-		</div>
-
-
-<!--====================================================================================================================================-->
-	<footer id="fh5co-footer" role="contentinfo">
-		<div class="container">
-			<div class="row copyright">
-				<div class="col-md-12 text-center">
-					<p>
-						<small class="block">&copy; 2023 Free HTML5. All Rights Reserved.</small> 
-						<small class="block">Designed by <a href="http://freehtml5.co/" target="_blank">FreeHTML5.co</a> Demo Images: <a href="http://blog.gessato.com/" target="_blank">Gessato</a> &amp; <a href="http://unsplash.co/" target="_blank">Unsplash</a></small>
-					</p>
-				</div>
-			</div>
-		</div>
-	</footer>
-	</div>
-
-	<div class="gototop js-top">
-		<a href="#" class="js-gotop"><i class="icon-arrow-up"></i></a>
-	</div>
+                    <button onclick="window.close()" class=" btn btn-primary btn-outline btn-xxs countbtn"
+                            style="font-size:13px;width:110px;height:35px;padding:11px;padding-top:7px"
+                            data-dismiss="modal">쇼핑 계속하기
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
 
 
-	</body>
+    <!--====================================================================================================================================-->
+    <footer id="fh5co-footer" role="contentinfo">
+        <div class="container">
+            <div class="row copyright">
+                <div class="col-md-12 text-center">
+                    <p>
+                        <small class="block">&copy; 2023 Free HTML5. All Rights Reserved.</small>
+                        <small class="block">Designed by <a href="http://freehtml5.co/" target="_blank">FreeHTML5.co</a>
+                            Demo Images: <a href="http://blog.gessato.com/" target="_blank">Gessato</a> &amp; <a
+                                    href="http://unsplash.co/" target="_blank">Unsplash</a></small>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </footer>
+</div>
+
+<div class="gototop js-top">
+    <a href="#" class="js-gotop"><i class="icon-arrow-up"></i></a>
+</div>
+
+
+</body>
 </html>
 

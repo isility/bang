@@ -13,24 +13,24 @@
     <meta name="author" content="gettemplates.co"/>
 
     <!-- Animate.css -->
-    <link rel="stylesheet" href="css/animate.css">
+    <link rel="stylesheet" href="/css/animate.css">
     <!-- Icomoon Icon Fonts-->
-    <link rel="stylesheet" href="css/icomoon.css">
+    <link rel="stylesheet" href="/css/icomoon.css">
     <!-- Bootstrap  -->
-    <link rel="stylesheet" href="css/bootstrap.css">
+    <link rel="stylesheet" href="/css/bootstrap.css">
 
     <!-- Flexslider  -->
-    <link rel="stylesheet" href="css/flexslider.css">
+    <link rel="stylesheet" href="/css/flexslider.css">
 
     <!-- Owl Carousel  -->
-    <link rel="stylesheet" href="css/owl.carousel.min.css">
-    <link rel="stylesheet" href="css/owl.theme.default.min.css">
+    <link rel="stylesheet" href="/css/owl.carousel.min.css">
+    <link rel="stylesheet" href="/css/owl.theme.default.min.css">
 
     <!-- Theme style  -->
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="/css/style.css">
 
     <!-- Modernizr JS -->
-    <script src="js/modernizr-2.6.2.min.js"></script>
+    <script src="/js/modernizr-2.6.2.min.js"></script>
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
@@ -43,6 +43,11 @@
 		background-position: center center;
 		/* 이미지를 가운데로 정렬 */
 	}
+
+.fh5co-product{
+padding-top: 112px;
+}
+
 
 	#warranty {
 		position: relative;
@@ -82,7 +87,9 @@
 			success: function(response) {
 				var username = response.username;
 
-				$("[th\\:text]").text(username + " 님");
+<!--타임리프 텍스트가 전부 바껴서 임시 수정!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!-->
+            $("[th\\:text]").text(username + " 님");
+<!--				$('#username').text(username + " 님");-->
 
 				$("#username").after($("#mypage"));
         		$("#username").after($("#logout"));
@@ -133,7 +140,7 @@
                         <li class="login menu-2" th:if="${username}" th:text="" id="username"></li>
                         <!-- 로그인 상태일 때 -->
                         <li class="login menu-2" style="display: none;" id="mypage">
-                            <a href="mypage">mypage</a>
+                            <a href="/mypage">mypage</a>
                         </li>
                         <li class="login menu-2" style="display: none;" id="logout">
                             <a href="logout">logout</a>
@@ -146,15 +153,7 @@
                         <li class="login menu-2" sec:authorize="isAnonymous()" id="login">
                             <a href="login">login</a>
                         </li>
-                        <li class="search menu-2">
-                            <div class="input-group">
-                                <input type="text" placeholder="SEARCH">
-                                <span class="input-group-btn">
-										<button class="btn btn-primary" type="button"><i
-                                                class="icon-search"></i></button>
-									</span>
-                            </div>
-                        </li>
+
                     </ul>
                 </div>
             </div>
@@ -231,7 +230,7 @@
                                         여러분을 좋아하는 &nbsp; &nbsp; &nbsp; 아티스트에 좀더 가까이 데려갑니다.</p> <br>
                                     <p><a href="product/productDetail?productNumber=2001"
                                           class="btn btn-primary btn-outline  btn-lg"
-                                          id="purchase-btn">구매하러가기</a></p>
+                                          name="purchase-btn">구매하러가기</a></p>
                                 </div>
                             </div>
                         </div>
@@ -333,7 +332,7 @@
 
     <!-- ===================================================================================================================================================== -->
     <!-- 상품리스트 - 헤드폰 -->
-    <div id="fh5co-product">
+    <div class="fh5co-product">
         <div class="container">
             <div class="row animate-box">
                 <div class="col-md-8 col-md-offset-2 text-center fh5co-heading">
@@ -342,112 +341,53 @@
             </div>
 
             <div class="row">
-                <div class="col-md-4 text-center animate-box">
-                    <div class="product">
-                        <div class="product-grid" style="background-image:url(images/product-1.jpg);">
-                            <a href="../templates/product/productDetail.html">
-                                <div class="inner">
-                                    <p>
-                                        <a href="cart.html" class="icon"><i class="icon-shopping-cart"></i></a>
-                                        <a href="wish.html" class="icon"><i class="icon-heart"></i></a> -->
 
-                                    </p>
-                                </div>
-                            </a>
+                <div class="col-md-4 text-center animate-box" th:each="headphonelist:${headphonelist}">
+
+                    <div class="product" th:data-pno="${headphonelist.productNumber}">
+                        <div class="product-grid" th:style="'background-image: url(/images/'+${headphonelist.imageSrc}+'.jpg);'">
+                            <div class="inner">
+                                <p>
+                                    <span class="icon cartPop"><i class="icon-shopping-cart"></i></span>
+                                    <span class="icon wishPop"><i class="icon-heart"></i></span>
+                                </p>
+                            </div>
                         </div>
                         <div class="desc">
-                            <h3><a href="../templates/product/productDetail.html">베오릿20</a></h3>
-                            <span class="price">679,000원</span>
+                            <h3><a th:href="@{/product/productDetail(productNumber=${headphonelist.productNumber})}"
+                                   th:text="${headphonelist.productName}"></a></h3>
+                            <span class="price"
+                                  th:text="|${#numbers.formatInteger(headphonelist.productPrice,0,'COMMA')}|+ '원'"></span>
+
                             <p style="color:#BFBFBF;">리뷰 4</p>
                         </div>
                     </div>
                 </div>
 
-                <div class="col-md-4 text-center animate-box">
-                    <div class="product">
-                        <div class="product-grid" style="background-image:url(images/product-1.jpg);">
-                            <a href="../templates/product/productDetail.html">
 
-                                <div class="inner">
-                                    <p>
-                                        <a href="cart.html" class="icon"><i class="icon-shopping-cart"></i></a>
-                                        <a href="wish.html" class="icon"><i class="icon-heart"></i></a> -->
-                                    </p>
-                                </div>
-                            </a>
-                        </div>
-                        <div class="desc">
-                            <h3><a href="../templates/product/productDetail.html">베오릿20</a></h3>
-                            <span class="price">679,000원</span>
-                            <p style="color:#BFBFBF;">리뷰 4</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-md-4 text-center animate-box">
-                    <div class="product">
-                        <div class="product-grid" style="background-image:url(images/product-1.jpg);">
-                            <a href="../templates/product/productDetail.html">
-
-                                <div class="inner">
-                                    <p>
-                                        <a href="cart.html" class="icon"><i class="icon-shopping-cart"></i></a>
-                                        <a href="wish.html" class="icon"><i class="icon-heart"></i></a> -->
-                                    </p>
-                                </div>
-                            </a>
-                        </div>
-                        <div class="desc">
-                            <h3><a href="../templates/product/productDetail.html">베오릿20</a></h3>
-                            <span class="price">679,000원</span>
-                            <p style="color:#BFBFBF;">리뷰 4</p>
-                        </div>
-                    </div>
-                </div>
             </div>
+
             <p><a href="/product/productList?categoryNumber=3" class="btn btn-primary btn-outline animate-box"
                   style="position: relative; left: 525px;">All View</a></p>
+
+            <br><br><br>
         </div>
     </div>
 
     <!-- ======================================================================================== -->
     <!-- footer -->
-    <div id="fh5co-started">
-        <div class="container">
-            <div class="row animate-box">
-                <div class="col-md-8 col-md-offset-2 text-center fh5co-heading">
-                    <h2>Newsletter</h2>
-                    <p>Just stay tune for our latest Product. Now you can subscribe</p>
-                </div>
-            </div>
-            <div class="row animate-box">
-                <div class="col-md-8 col-md-offset-2">
-                    <form class="form-inline">
-                        <div class="col-md-6 col-sm-6">
-                            <div class="form-group">
-                                <label for="email" class="sr-only">Email</label>
-                                <input type="email" class="form-control" id="email" placeholder="Email">
-                            </div>
-                        </div>
-                        <div class="col-md-6 col-sm-6">
-                            <button type="submit" class="btn btn-default btn-block">Subscribe</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
 
-    <footer id="fh5co-footer" role="contentinfo">
+
+    <footer id="fh5co-footer" role="contentinfo" style="background: #D1C286">
         <div class="container">
             <div class="row copyright">
                 <div class="col-md-12 text-center">
                     <p>
                         <small class="block">&copy; 2023 Free HTML5. All Rights Reserved.</small>
-                        <small class="block">Designed by <a href="http://freehtml5.co/" target="_blank">FreeHTML5.co</a>
+                        <small class="block">Designed by <a href="http://freehtml5.co/" target="_blank" style="color:white">FreeHTML5.co</a>
                             Demo Images: <a href="http://blog.gessato.com/"
-                                            target="_blank">Gessato</a> &amp; <a href="http://unsplash.co/"
-                                                                                 target="_blank">Unsplash</a></small>
+                                            target="_blank" style="color:white">Gessato</a> &amp; <a href="http://unsplash.co/"
+                                                                                 target="_blank" style="color:white">Unsplash</a></small>
                     </p>
                 </div>
             </div>
