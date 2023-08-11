@@ -276,4 +276,100 @@
         , product_regist = #{productRegist}, category_number = #{categoryNumber}
         WHERE product_number = #{productNumber}
     </update>
+
+
+    <select id="getAllNotice" resultType="NoticeDTO" parameterType="StartEnd">
+        SELECT rn AS rowNumber, notice_number AS noticeNumber, notice_title AS noticeTitle, notice_contents AS noticeContents, notice_writer AS noticeWriter, notice_date AS noticeDate, member_id AS memberId
+        FROM ( SELECT ROW_NUMBER() OVER (ORDER BY notice_number DESC) AS rn, notice_number, notice_title, notice_contents, notice_writer, notice_date, member_id
+        FROM notice
+        ) AS derived
+        WHERE rn BETWEEN #{startNo} AND #{endNo}
+    </select>
+    <select id="getTotalNotice" resultType="int">
+        SELECT count(*)cnt
+        FROM notice
+    </select>
+    <select id="selectOneNotice" parameterType="int" resultType="NoticeDTO">
+        SELECT notice_number AS noticeNumber, notice_title AS noticeTitle, notice_contents AS noticeContents, notice_writer AS noticeWriter, notice_date AS noticeDate, member_id AS memberId
+        FROM notice
+        WHERE notice_number = #{noticeNumber}
+    </select>
+    <insert id="insertOneNotice" parameterType="NoticeDTO">
+        INSERT INTO notice (notice_title, notice_contents, notice_writer, notice_date, member_id)
+        VALUES (#{noticeTitle}, #{noticeContents}, #{noticeWriter}, DATE_FORMAT(NOW(), '%y-%m-%d'), 'b')
+    </insert>
+    <update id="updateOneNotice" parameterType="NoticeDTO">
+        UPDATE notice
+        SET notice_writer = #{noticeWriter}, notice_title = #{noticeTitle}, notice_contents = #{noticeContents}
+        WHERE notice_number = #{noticeNumber}
+    </update>
+    <delete id="deleteOneNotice" parameterType="int">
+        DELETE FROM notice
+        WHERE notice_number = #{noticeNumber}
+    </delete>
+
+    <select id="findAllReply" resultType="ReviewDTO" parameterType="StartEnd">
+        SELECT rn AS rowNumber,
+        reply_number AS replyNumber,
+        reply_contents AS replyContents,
+        reply_writer AS replyWriter,
+        reply_date AS replyDate,
+        reply_step AS replyStep,
+        reply_ref_order AS replyRefOrder,
+        reply_ref AS replyRef,
+        reply_answer_number AS replyAnswerNumber,
+        reply_parent_number AS replyParentNumber,
+        reply_score AS replyScore,
+        product_number AS productNumber
+        FROM (
+        SELECT ROW_NUMBER() OVER (ORDER BY reply_ref DESC) AS rn,
+        reply_number,
+        reply_contents,
+        reply_writer,
+        reply_date,
+        reply_step,
+        reply_ref_order,
+        reply_ref,
+        reply_answer_number,
+        reply_parent_number,
+        reply_score,
+        product_number
+        FROM product_reply
+        WHERE reply_step = 0
+        ) AS derived
+        WHERE rn BETWEEN #{startNo} AND #{endNo}
+        AND reply_step = 0;
+
+    </select>
+    <select id="getTotalReview" resultType="int">
+        SELECT count(*)cnt
+        FROM product_reply
+    </select>
+
+    <select id="findByReply_number" resultType="ReviewDTO">
+        SELECT reply_number AS replyNumber,
+        reply_contents AS replyContents,
+        reply_writer AS replyWriter,
+        reply_date AS replyDate,
+        reply_ref AS replyRef,
+        reply_step AS replyStep,
+        reply_ref_order AS replyRefOrder,
+        reply_answer_number AS replyAnswerNumber,
+        reply_parent_number AS replyParentNumber,
+        reply_score AS replyScore,
+        product_number AS productNumber
+        FROM product_reply
+        WHERE reply_number = #{replyNumber};
+    </select>
+    <delete id="deleteReview" parameterType="int">
+        DELETE FROM product_reply
+        WHERE reply_number = #{replyNumber};
+    </delete>
+
+    <update id="modifyReview" parameterType="ReviewDTO">
+        UPDATE product_reply
+        SET reply_contents = #{replyContents}, reply_score = #{replyScore}
+        WHERE reply_number = #{replyNumber};
+    </update>
+
 </mapper>

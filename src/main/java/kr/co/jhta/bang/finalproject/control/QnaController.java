@@ -30,7 +30,7 @@ public class QnaController {
     }
 
 
-    @GetMapping("qna/qnaList")
+    /*@GetMapping("qna/qnaList")
     public String list(Model model, @RequestParam(name = "currentPage", defaultValue = "1")int currentPage){
         // 총 게시물 수
         int totalNumber = service.getTotal();
@@ -45,10 +45,11 @@ public class QnaController {
 
         return "qna/qnaList";
 
-    }
+    }*/
 
-   /* @GetMapping("qna/qnaList")
-    public String list(Model model, @RequestParam(name = "currentPage", defaultValue = "1") int currentPage,
+    @GetMapping("qna/qnaList")
+    public String list(Model model,
+                       @RequestParam(name = "currentPage", defaultValue = "1") int currentPage,
                        @RequestParam(name = "qnaType", defaultValue = "카테고리") String qnaType) {
         // 총 게시물 수
         int totalNumber = service.getTotal();
@@ -69,8 +70,12 @@ public class QnaController {
 
         model.addAttribute("list", qnaList);
         model.addAttribute("map", map);
+        model.addAttribute("qnaType", qnaType); // qnaType을 모델에 추가하여 View에서 사용할 수 있도록 함
         return "qna/qnaList";
-    }*/
+    }
+
+
+
 
 
     @GetMapping("qna/qnaDetail")

@@ -53,4 +53,26 @@ public interface AdminDAO {
     void updateProductModify(ProductDTO dto);
 
     List<MemberDTO> memberCount();
+
+    int getTotalNotice();
+
+    List<NoticeDTO> getAllNotice(StartEnd se);
+
+    NoticeDTO selectOneNotice(int noticeNumber);
+
+    void insertOneNotice(NoticeDTO dto);
+
+    void updateOneNotice(NoticeDTO dto);
+
+    void deleteOneNotice(int noticeNumber);
+
+    int getTotalReview();
+
+    List<ReviewDTO> findAllReply(StartEnd se);
+
+    ReviewDTO findByReply_number(int replyNumber);
+
+    void modifyReview(ReviewDTO dto);
+
+    void deleteReview(int replyNumber);
 }

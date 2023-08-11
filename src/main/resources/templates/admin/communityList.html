@@ -131,12 +131,18 @@
           <div class="card">
             <div class="card-body">
               <h5 class="card-title fw-semibold mb-4">게시글관리</h5>
-              <div>
-                <select class="form-select" id="categorySelect">
+              <div style="text-align: center">
+                <!--<select class="form-select" id="categorySelect">
                   <option value="1">Q&A</option>
                   <option value="2">NOTICE</option>
                   <option value="3">REVIEW</option>
-                </select>
+                </select>-->
+                <a th:href="@{/admin/communityList}"><input type="button" class="btn btn-primary" value="NOTICE" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
+                <a th:href="@{/admin/reviewList}"><input type="button" class="btn btn-outline-primary" value="REVIEW" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
+                <a href=""><input type="button" class="btn btn-outline-primary" value="Q&A" /></a>
+                <div>
+                  <a th:href="@{/admin/noticeWrite}"><input type="button" style="float:right;" class="btn btn-outline-primary" value="글쓰기" /></a>
+                </div>
               </div>
               <br>
               <div class="card">
@@ -155,10 +161,47 @@
                     </thead>
 
                     <tbody>
-
+                      <tr th:each="board:${list}">
+                        <td th:text="${board.noticeNumber}"></td>
+                        <td th:text="${board.noticeTitle}"></td>
+                        <td th:text="${board.noticeContents}"></td>
+                        <td th:text="${board.noticeWriter}"></td>
+                        <td th:text="${board.noticeDate}"></td>
+                        <td>
+                          <a th:href="@{/admin/noticeModify(noticeNumber=${board.noticeNumber})}" class="btn btn-primary m-1" style="font-size: 12px;">정보수정</a>
+                        </td>
+                        <td>
+                          <a th:href="@{/admin/noticeDelete(noticeNumber=${board.noticeNumber})}"
+                             class="btn btn-primary m-1" style="font-size: 9px;"
+                             onclick="return confirm('정말 삭제하시겠습까?');">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+                              <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6Z"/>
+                              <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1ZM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118ZM2.5 3h11V2h-11v1Z"/>
+                            </svg>
+                          </a>
+                        </td>
+                      </tr>
                     </tbody>
-
                   </table>
+
+
+                  <div class="centered">
+                    <nav aria-label="Page navigation example">
+                      <ul class="pagination">
+                        <li th:if="${map.prev}">
+                          <a th:href="@{/admin/communityList(currentPage=${map.currentPage-5})}" class="page-link">이전</a>
+                        </li>
+                        <li th:each="i : ${#numbers.sequence(map.startPageNo, map.endPageNo)}">
+                          <a th:href="@{/admin/communityList(currentPage=${i})}" class="page-link" th:text="${i}"></a>
+                        </li>
+                        <li th:if="${map.next}">
+                          <a th:href="@{/admin/communityList(currentPage=${map.currentPage+5})}" class="page-link">다음</a>
+                        </li>
+                      </ul>
+                    </nav>
+                  </div>
+
+
                 </div>
               </div>
 

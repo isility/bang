@@ -9,9 +9,16 @@
         SELECT qna_number AS qnaNumber, qna_title AS qnaTitle, qna_contents AS qnaContents, qna_writer AS qnaWriter, qna_date AS qnaDate, qna_ref AS qnaRef, qna_step AS qnaStep, qna_ref_order AS qnaRefOrder, qna_answer_number AS qnaAnswerNumber, qna_parent_number AS qnaParentNumber, qna_type AS qnaType, qna_status AS qnaStatus, qna_secret AS qnaSecret, member_id AS memberId
         FROM qna
         WHERE qna_step = 0 AND qna_type = #{qnaType}
-        ORDER BY qna_ref DESC;
+        ORDER BY qna_ref DESC
+        LIMIT 0, 10; <!-- 여기서 10은 조회할 최대 개수를 나타냅니다. -->
     </select>
 
+    <!--<select id="getQnaListByType" resultType="QnaDTO" parameterType="String">
+        SELECT qna_number AS qnaNumber, qna_title AS qnaTitle, qna_contents AS qnaContents, qna_writer AS qnaWriter, qna_date AS qnaDate, qna_ref AS qnaRef, qna_step AS qnaStep, qna_ref_order AS qnaRefOrder, qna_answer_number AS qnaAnswerNumber, qna_parent_number AS qnaParentNumber, qna_type AS qnaType, qna_status AS qnaStatus, qna_secret AS qnaSecret, member_id AS memberId
+        FROM qna
+        WHERE qna_step = 0 AND qna_type = #{qnaType}
+        ORDER BY qna_ref DESC;
+    </select>-->
 
     <select id="getAll" resultType="QnaDTO" parameterType="StartEnd">
         SELECT rn AS rowNumber, qna_number AS qnaNumber, qna_title AS qnaTitle, qna_contents AS qnaContents, qna_writer AS qnaWriter, qna_date AS qnaDate, qna_ref AS qnaRef, qna_step AS qnaStep, qna_ref_order AS qnaRefOrder, qna_answer_number AS qnaAnswerNumber, qna_parent_number AS qnaParentNumber, qna_type AS qnaType, qna_status AS qnaStatus, qna_secret AS qnaSecret, member_id AS memberId
@@ -21,10 +28,15 @@
         ) AS derived
         WHERE rn BETWEEN #{startNo} AND #{endNo}
         AND qna_step = 0;
-
     </select>
-    <select id="getTotal" resultType="int">
+
+    <!--<select id="getTotal" resultType="int">
         SELECT count(*)cnt
+        FROM qna
+    </select>-->
+
+    <select id="getTotal" resultType="int">
+        SELECT count(*) AS cnt
         FROM qna
     </select>
 

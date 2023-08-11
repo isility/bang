@@ -1,9 +1,6 @@
 package kr.co.jhta.bang.finalproject.control;
 
-import kr.co.jhta.bang.finalproject.dto.MemberDTO;
-import kr.co.jhta.bang.finalproject.dto.PaymentDetailDTO;
-import kr.co.jhta.bang.finalproject.dto.ProductDTO;
-import kr.co.jhta.bang.finalproject.dto.ServiceDTO;
+import kr.co.jhta.bang.finalproject.dto.*;
 import kr.co.jhta.bang.finalproject.service.AdminService;
 import kr.co.jhta.bang.finalproject.util.PageUtil;
 import lombok.extern.slf4j.Slf4j;
@@ -13,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 import java.util.Map;
 @Controller
@@ -157,16 +155,91 @@ public class AdminController {
     }
 
 
-
-
-
-
     @GetMapping("/communityList")
-    public String getCommunity(){
-        log.info(">>>>>>>>move to community<<<<<<<< ");
-        return "/admin/communityList";
+    public String noticeList(Model model, @RequestParam(name = "currentPage", defaultValue = "1")int currentPage){
+        // 총 게시물 수
+        int totalNumber = service.getTotalNotice();
+        // 페이지당 게시물 수
+        int countPerPage = 10;
+
+        Map<String,Object> map = PageUtil.getPageData(totalNumber, countPerPage, currentPage);
+        int startNo = (int)map.get("startNo");
+        int endNo = (int)map.get("endNo");
+        model.addAttribute("list", service.selectAllNotice(startNo, endNo));
+        model.addAttribute("map", map);
+
+        return "admin/communityList";
     }
 
+    @GetMapping("/noticeWrite")
+    public String writeNoticeForm(){
+        return "admin/noticeWrite";
+    }
+
+    @PostMapping("/noticeWrite")
+    public String writeNoticeOk(@ModelAttribute NoticeDTO dto, HttpServletRequest req){
+        service.addOneNotice(dto);
+        return "redirect:/admin/communityList";
+    }
+
+    @GetMapping("/noticeModify")
+    public String modifyNoticeForm(@RequestParam("noticeNumber")int noticeNumber, Model model) {
+        model.addAttribute("dto", service.selectOneNotice(noticeNumber));
+        return "admin/noticeModify";
+    }
+
+    @PostMapping("/noticeModify")
+    public String modifyNoticeOk(@ModelAttribute NoticeDTO dto) {
+        service.modifyOneNotice(dto);
+        return "redirect:/admin/communityList";
+    }
+
+    @GetMapping("/noticeDelete")
+    public String deleteNoticeOk(@RequestParam("noticeNumber")int noticeNumber) {
+        service.removeOneNotice(noticeNumber);
+        return "redirect:/admin/communityList";
+    }
+
+    @GetMapping("/reviewList")
+    public String reviewList(
+            Model model,
+            @RequestParam(name="currentPage", defaultValue = "1")int currentPage
+    ){
+        // 총 게시물 수
+        int totalNumber = service.getTotalReview();
+        // 페이지당 게시물 수
+        int countPerPage = 10;
+
+        log.info("총 게시물 수 >>>>>>>" + totalNumber);
+        log.info("페이지당 게시물 수 >>>>>>>" + countPerPage);
+        log.info("현재 페이지 번호 >>>>>>>" + currentPage);
+        Map<String,Object> map = PageUtil.getPageData(totalNumber, countPerPage, currentPage);
+        int startNo = (int)map.get("startNo");
+        int endNo = (int)map.get("endNo");
+        model.addAttribute("list", service.findAllReply(startNo, endNo));
+        model.addAttribute("map", map);
+        return "admin/reviewList";
+    }
+
+    @GetMapping("/reviewModify")
+    public String modifyForm(@RequestParam("replyNumber")int replyNumber, Model model){
+        model.addAttribute("reviewDTO", service.findByReply_number(replyNumber));
+        return "admin/reviewModify";
+    }
+
+    @PostMapping("/reviewModify")
+    public String modifyReply(@ModelAttribute ReviewDTO reviewDTO, @RequestParam("star") int star){
+        reviewDTO.setReplyScore(star);
+        service.modifyReview(reviewDTO);
+        log.info(">>>>>>>>>>>>>dto {} ", reviewDTO);
+        return "redirect:/admin/reviewList";
+    }
+
+    @GetMapping("/reviewDelete")
+    public String reviewDelete(@RequestParam("replyNumber")int replyNumber){
+        service.deleteReview(replyNumber);
+        return "redirect:/admin/reviewList";
+    }
 
 
 

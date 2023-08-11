@@ -109,4 +109,47 @@ public class AdminService {
     public List<MemberDTO> memberCount(){
         return dao.memberCount();
     }
+
+
+
+    public int getTotalNotice() {
+        return  dao.getTotalNotice();
+    }
+
+    public List<NoticeDTO> selectAllNotice(int startNo, int endNo) {
+        StartEnd se = new StartEnd(startNo, endNo);
+        return dao.getAllNotice(se);
+    }
+    public NoticeDTO selectOneNotice(int noticeNumber) {
+        return dao.selectOneNotice(noticeNumber);
+    }
+
+    public void modifyOneNotice(NoticeDTO dto) { dao.updateOneNotice(dto);
+    }
+    public void removeOneNotice(int noticeNumber) { dao.deleteOneNotice(noticeNumber);
+    }
+
+    public void addOneNotice(NoticeDTO dto) { dao.insertOneNotice(dto);
+    }
+
+
+    public int getTotalReview() { return dao.getTotalReview();
+    }
+
+    public List<ReviewDTO> findAllReply(int startNo, int endNo) {
+        StartEnd se = new StartEnd(startNo, endNo);
+        return dao.findAllReply(se);
+    }
+
+    public ReviewDTO findByReply_number(int replyNumber) {
+        return dao.findByReply_number(replyNumber);
+    }
+
+    public void modifyReview(ReviewDTO reviewDTO) {
+        dao.modifyReview(reviewDTO);
+    }
+
+    public void deleteReview(int replyNumber) {
+        dao.deleteReview(replyNumber);
+    }
 }
