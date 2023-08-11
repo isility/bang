@@ -86,10 +86,58 @@ label {
 
 	</style>
 	<script th:inline="javascript">
-  function truncateText(text, maxLength) {
-    return text.length > maxLength ? text.slice(0, maxLength) + '...' : text;
-  }
+    function truncateText(text, maxLength) {
+        return text.length > maxLength ? text.slice(0, maxLength) + '...' : text;
+    }
+
+    function deleteReview(element) {
+        var replyNumber = $(element).parent().find('[name=replyNumber]').val();
+        console.log(replyNumber);
+        var member_id = $(element).parent().find('[name=member_id]').val();
+        console.log(member_id);
+
+        $.ajax({
+            type: "GET",
+            url: "/review/reviewDelete",
+            data: {
+                replyNumber: replyNumber.trim(),
+                member_id: member_id.trim()
+            },
+            success: function(response) {
+                alert(response);
+                location.href = "/review/reviewList"
+            },
+            error: function() {
+                confirm('진짜 진짜 삭제할거야?');
+                location.href = "/review/reviewList"
+            }
+        });
+    }
+
+     function modifyReview(element) {
+        var replyNumber = $(element).parent().find('[name=replyNumber]').val();
+        console.log(replyNumber);
+        var member_id = $(element).parent().find('[name=member_id]').val();
+        console.log(member_id);
+
+        $.ajax({
+            type: "POST",
+            url: "/review/reviewModify",
+            data: {
+                replyNumber: replyNumber.trim(),
+                member_id: member_id.trim()
+            },
+            success : function(response){
+            location.href = "/review/reviewModify?replyNumber=" + replyNumber;
+			}
+        });
+    }
 </script>
+
+
+
+
+	</script>
 
 	<body>
 	<!--======================================================================================================  -->
@@ -171,7 +219,7 @@ label {
 							<td class="productNumber" th:text="${reviewDTO.productNumber}"></td>
 							<td>
 								<a th:href="@{/review/reviewDetail(replyNumber=${reviewDTO.replyNumber})}" style="">
-									<span th:utext="${#strings.length(reviewDTO.replyContents) > 20 ? #strings.substring(reviewDTO.replyContents, 0, 20) + '...' : reviewDTO.replyContents} + '  (' + ${reviewDTO.replyAnswerNumber} + ')'"></span>
+									<span th:utext="${#strings.length(reviewDTO.replyContents) > 20 ? #strings.substring(reviewDTO.replyContents, 0, 20) + '...' : reviewDTO.replyContents}"></span>
 								</a>
 							</td>
 							<td class="writer" th:text="${reviewDTO.replyWriter}"></td>
@@ -184,9 +232,21 @@ label {
 							</td>
 							<td class="date" th:text="${reviewDTO.replyDate}"></td>
 
-							<td><a th:href="@{/review/reviewModify(replyNumber=${reviewDTO.replyNumber})}" class="btn btn-primary" style="font-size: 9px;">수정</a></td>
-							<td><a th:href="@{/review/reviewDelete(replyNumber=${reviewDTO
-							.replyNumber})}" class="btn btn-primary btn-outline" style="font-size: 9px;">삭제</a></td>
+							<td>
+								<input type="hidden" name="member_id" th:value="${reviewDTO.member_id}">
+								<input type="hidden" name="replyNumber" th:value="${reviewDTO.replyNumber}">
+								<a href="#" onclick="modifyReview(this)" class="btn btn-primary" style="font-size: 9px;">수정</a>
+							</td>
+							<td>
+								<input type="hidden" name="member_id" th:value="${reviewDTO.member_id}">
+								<input type="hidden" name="replyNumber" th:value="${reviewDTO.replyNumber}">
+
+								<a href="#" onclick="deleteReview(this)" class="btn btn-primary btn-outline" style="font-size:9px;">
+									삭제
+								</a>
+							</td>
+
+
 
 
 						</tr>

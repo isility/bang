@@ -99,6 +99,8 @@ x
 	</style>
 
 
+
+
 <body>
 <!--======================================================================================================  -->
 <!-- 상단부분 -->
@@ -147,10 +149,10 @@ x
 
         <main class="form-signin" style="max-width: 100%;">
             <div class="container border rounded flex-md-row mb-4 shadow-sm h-md-250">
-                <form action="reviewModify" method="post">
+                <form action="reviewModifyOk" method="post">
                     <h1>리뷰 수정</h1>
                     <div class="star-rating">
-                        <input type="radio" name="star" class="star" id="star5" value="5" />
+                        <input type="radio" name="star" class="star" id="star5" checked="checked" value="5" />
                         <label for="star5">&#9733;</label>
                         <input type="radio" name="star" class="star" id="star4" value="4" />
                         <label for="star4">&#9733;</label>
@@ -160,7 +162,7 @@ x
                         <label for="star2">&#9733;</label>
                         <input type="radio" name="star" class="star" id="star1" value="1" />
                         <label for="star1">&#9733;</label>
-                        <input type="radio" name="star" class="star" id="star0" value="0" checked="checked" style="display: none;" />
+                        <input type="radio" name="star" class="star" id="star0" value="0" style="display: none;" />
                     </div>
                     <div class="form-floating m-3">
                         <p>리뷰내용</p>

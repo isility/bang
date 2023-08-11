@@ -61,7 +61,10 @@ public class ReviewService {
         return dao.findAllByReplyRef(refNumber);
     }
 
-
+//    public ReviewDTO getProductDetail(ReviewDTO reviewDTO){
+//
+//        return dao.getProductDetail(reviewDTO);
+//    }
 
 
 
