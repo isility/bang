@@ -1,14 +1,24 @@
 package kr.co.jhta.bang.finalproject.control;
 
 import kr.co.jhta.bang.finalproject.dto.ReviewDTO;
+import kr.co.jhta.bang.finalproject.file.FileValidator;
+import kr.co.jhta.bang.finalproject.file.UploadFile;
 import kr.co.jhta.bang.finalproject.service.ReviewService;
 import kr.co.jhta.bang.finalproject.util.PageUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
@@ -18,6 +28,12 @@ import java.util.Map;
 public class ReviewController {
     @Autowired
     ReviewService service;
+
+    @Autowired
+    FileValidator fileValidator;
+
+
+
     @GetMapping("/reviewList")
     public String reviewList(
             Model model,
@@ -56,6 +72,9 @@ public class ReviewController {
         log.info("reviewDTO :   {} ", reviewDTO);
         //service.firstCommentsSave(reviewDTO);
         List<ReviewDTO> savedReviewList = service.firstCommentsSave(reviewDTO);
+
+
+
         return savedReviewList;
     }
 
@@ -65,11 +84,45 @@ public class ReviewController {
     }
 
     @PostMapping("/reviewWrite")
-    public String reviewWriteOk(@ModelAttribute ReviewDTO reviewDTO, @RequestParam("star") int star){
+    public ModelAndView reviewWriteOk(HttpServletRequest req, @ModelAttribute UploadFile file, BindingResult result,
+                                      @ModelAttribute ReviewDTO reviewDTO, @RequestParam("star") int star, Model model){
         reviewDTO.setReplyScore(star);
         service.writeReply(reviewDTO); // reviewDTO 객체에는 사용자가 작성한 리뷰 데이터가 담겨있음
         log.info(">>>>>>>>>>>>>>>>>>>>reviewDTO {}", reviewDTO);
-        return "redirect:/review/reviewList"; // 리뷰 리스트 페이지로 리다이렉트
+
+
+
+        fileValidator.validate(file,result);
+        if(result.hasErrors()){
+            return new ModelAndView("review/reviewWrite");
+        }
+
+        HttpSession session  = req.getSession();
+        ServletContext application = session.getServletContext();
+
+        String filePath = application.getRealPath("/data");
+
+        System.out.println("file : " + file);
+        System.out.println("file.getFile() : " + file.getFile());
+
+        MultipartFile mfile = file.getFile();
+
+        String fileName = mfile.getOriginalFilename();
+
+        File f = new File(filePath + "/" + fileName);
+        try {
+            mfile.transferTo(f);
+        } catch(IllegalStateException e) {
+            e.printStackTrace();
+        } catch(IOException e) {
+        }
+
+        ModelAndView mav = new ModelAndView();
+        mav.addObject("fileName",f.getName());
+        mav.addObject("filePath", "../data/" + f.getName());
+        mav.setViewName("redirect:review/reviewList");
+
+        return mav; // 리뷰 리스트 페이지로 리다이렉트
     }
 
     @GetMapping("/reviewDelete")

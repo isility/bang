@@ -320,8 +320,8 @@
                                     <tr th:each="PaymentDetailDTO : ${PaymentDetailDTO}">
                                         <td class="border-bottom-0"><h6 class="fw-semibold mb-0" th:text="${PaymentDetailDTO.paymentDetailNumber}"></h6></td>
                                         <td class="border-bottom-0">
-                                            <h6 class="fw-semibold mb-1" th:text="${PaymentDetailDTO.productName}"></h6>
-                                            <span class="fw-normal" th:text="${PaymentDetailDTO.productNumber}"></span>
+                                            <a th:href="@{/product/productDetail(productNumber=${PaymentDetailDTO.productNumber})}" th:text="${PaymentDetailDTO.productName}"><h6 class="fw-semibold mb-1" th:text="${PaymentDetailDTO.productName}"></h6></a>
+                                            <span class="fw-normal" th:text=" ' / ' + ${PaymentDetailDTO.productNumber}"></span>
                                         </td>
                                         <td class="border-bottom-0">
                                             <p class="mb-0 fw-normal" th:text="${PaymentDetailDTO.productCount}"></p>
