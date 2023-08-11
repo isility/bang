@@ -16,7 +16,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.File;
 import java.io.IOException;
@@ -86,7 +85,7 @@ public class ReviewController {
 
     @PostMapping("/reviewWrite")
     public ModelAndView reviewWriteOk(HttpServletRequest req, @ModelAttribute UploadFile file, BindingResult result,
-                                @ModelAttribute ReviewDTO reviewDTO, @RequestParam("star") int star, Model model){
+                                      @ModelAttribute ReviewDTO reviewDTO, @RequestParam("star") int star, Model model){
         reviewDTO.setReplyScore(star);
         service.writeReply(reviewDTO); // reviewDTO 객체에는 사용자가 작성한 리뷰 데이터가 담겨있음
         log.info(">>>>>>>>>>>>>>>>>>>>reviewDTO {}", reviewDTO);
@@ -100,7 +99,8 @@ public class ReviewController {
 
         HttpSession session  = req.getSession();
         ServletContext application = session.getServletContext();
-        String filePath = application.getRealPath("/");
+
+        String filePath = application.getRealPath("/data");
 
         System.out.println("file : " + file);
         System.out.println("file.getFile() : " + file.getFile());
@@ -119,7 +119,7 @@ public class ReviewController {
 
         ModelAndView mav = new ModelAndView();
         mav.addObject("fileName",f.getName());
-        mav.addObject("filePath", "../" + f.getName());
+        mav.addObject("filePath", "../data/" + f.getName());
         mav.setViewName("redirect:review/reviewList");
 
         return mav; // 리뷰 리스트 페이지로 리다이렉트
