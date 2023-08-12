@@ -4,21 +4,12 @@ import kr.co.jhta.bang.finalproject.dto.ProductListDTO;
 import kr.co.jhta.bang.finalproject.service.IndexService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.support.RequestContextUtils;
 
-import javax.servlet.http.HttpServletRequest;
 import java.security.Principal;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @Controller
 @Slf4j
@@ -28,7 +19,7 @@ public class HomeController {
     IndexService service;
 
     @GetMapping ("/")
-    public String home(Model model){
+    public String home(Model model, Principal principal){
         log.info(">>>>>>>>> home ");
 
         model.addAttribute("speakerList", service.selectAllSpeaker());
@@ -40,32 +31,14 @@ public class HomeController {
         model.addAttribute("headphonelist", service.selectAllHeadphone());
         List<ProductListDTO> headphonelist =  service.selectAllHeadphone();
 
+        if (principal != null) {
+            if (principal.getName() != null) {
+                model.addAttribute("username", principal.getName());
+            }
+        } else {
+            model.addAttribute("username", "Guest"); // 로그인하지 않은 사용자는 "Guest"라는 이름으로 보내기
+        }
+
         return "/index3";
     }
-
-    @PostMapping("/index")
-    @ResponseBody
-    public ResponseEntity<Map<String, Object>> getUserInfo(Principal principal,
-                                                           HttpServletRequest request,
-                                                           Model model) {
-        String username = principal.getName();
-        model.addAttribute("username", username);
-
-        Map<String, Object> userInfo = new HashMap<>();
-        userInfo.put("username", username);
-
-        // 사용자가 인증된 상태인지 확인
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        boolean isAuthenticated = authentication.isAuthenticated();
-
-        // 인증 상태를 타임리프 컨텍스트에 추가
-        RequestContextUtils.getOutputFlashMap(request).put("isAuthenticated", isAuthenticated);
-
-        return ResponseEntity.ok(userInfo);
-    }
-
-
-//    =========================================================================
-
-
 }
