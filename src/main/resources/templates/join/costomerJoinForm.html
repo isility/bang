@@ -380,11 +380,18 @@
 
         <!-- 비밀번호 숨기기/보이기 처리 -->
         $(".password.form-group i").on("click",function(){
-            $("input").toggleClass('active');
-            if($(".password.form-group input").hasClass('active')){
-                $(this).attr("class","fa fa-eye-slash fa-lg").prev(".password.form-group input").attr("type","text");
+            $("#member_pw").toggleClass('active');
+            if($(".password.form-group #member_pw").hasClass('active')){
+                $(this).attr("class","fa fa-eye fa-lg").prev(".password.form-group input").attr("type","text");
             }else{
-                $(this).attr("class","fa fa-eye fa-lg").prev(".password.form-group input").attr("type","password");
+                $(this).attr("class","fa fa-eye-slash fa-lg").prev(".password.form-group input").attr("type","password");
+            }
+
+            $("#pwCheck").toggleClass('active');
+            if($(".password.form-group #pwCheck").hasClass('active')){
+                $(this).attr("class","fa fa-eye fa-lg").prev(".password.form-group input").attr("type","text");
+            }else{
+                $(this).attr("class","fa fa-eye-slash fa-lg").prev(".password.form-group input").attr("type","password");
             }
         });
 
@@ -603,6 +610,20 @@
         }
 
 
+        <!-- 전화번호 형식이 적절한지 확인 -->
+        $("#phone").on("input", function() {
+            var phone = $("#phone").val();
+            if (/^\d{10,11}$/.test(phone)) {
+                $("#phoneCorrect").css("display", "block");
+                $("#phoneNotCorrect").css("display", "none");
+            } else {
+                $("#phoneCorrect").css("display", "none");
+                $("#phoneNotCorrect").css("display", "block");
+            }
+        })
+
+
+
 
 
 
@@ -658,6 +679,10 @@
             alert("비밀번호가 유효하지 않거나, 비밀번호 확인이 필요합니다.");
             $("#member_pw").focus();
             return false;
+        } else if ( $("#phoneCorrect").css("display") != "block" ) {
+            alert("전화번호 형식이 유효하지 않습니다.");
+            $("#phone").focus();
+            return false;
         } else if ( nicknameChkVal != "사용 가능") {
             alert("닉네임이 유효하지 않거나, 중복된 닉네임입니다.");
             $("#nickname").focus();
@@ -673,7 +698,7 @@
         }
 
 
-        if ( idChkVal == "사용 가능" && $("#pwCorrect").css("display") != "block" && nicknameChkVal == "사용 가능" && $("#emailCodeCorrect").css("display") != "block" && response.length != 0){
+        if ( idChkVal == "사용 가능" && $("#pwCorrect").css("display") != "block" && nicknameChkVal == "사용 가능" && $("#emailCodeCorrect").css("display") == "block" && response.length != 0 && $("#phoneCorrect").css("display") == "block"){
             <!-- 중복 확인과 유효성 검사를 모두 완료했을 때 가입 처리-->
             alert("가입이 완료되었습니다! 로그인을 진행하실 수 있습니다.");
             $("#joinForm").submit();
@@ -774,8 +799,8 @@
 
                                 <div class="password form-group">
                                     <input type="password" id="member_pw" name="member_pw" class="form-control"
-                                           placeholder="비밀번호 *" value="" style="width: 500px; height: 54px;">
-                                    <i class="fa fa-eye fa-lg" aria-hidden="true"></i>
+                                       placeholder="비밀번호 *" value="" style="width: 500px; height: 45px;">
+                                    <i class="fa fa-eye-slash fa-lg" aria-hidden="true"></i>
                                 </div>
 
                                 <p id="error_msg2" style="color: green; display: none;">유효한 비밀번호 입니다.</p>
@@ -783,11 +808,9 @@
                                 <div class="row form-group">
                                     <div class="col-md-12">
                                         <div class="password form-group">
-                                            <input type="password" id="pwCheck" class="form-control"
-                                                   placeholder="비밀번호 확인 *" value=""
-                                                   style="width: 500px;height: 54px; display: none;">
-                                            <i class="fa fa-eye fa-lg" aria-hidden="true" id="showPwCheck"
-                                               style="display: none;"></i>
+                                            <input type="password" id="pwCheck" class="form-control" placeholder="비밀번호 확인 *" value=""
+                                               style="width: 500px;height: 45px; display: none;">
+                                            <i class="fa fa-eye-slash fa-lg" aria-hidden="true" id="showPwCheck" style="display: none;"></i>
                                         </div>
                                         <p class="text-success" style="display: none;" id="pwCorrect">비밀번호가 일치합니다. 비밀번호를
                                             사용할 수
@@ -906,6 +929,9 @@
                                 <input type="text" id="phone" name="member_phone" class="form-control"
                                        placeholder="연락처 * (-를 제외, 01011112222, 0266667777)"
                                        style="width: 500px;height: 45px;">
+                                <p class="text-primary">-를 제외한 10~11자리를 입력해주세요. (예시 : 01011112222, 0266667777)</p>
+                                <p class="text-success" style="display: none;" id="phoneCorrect">올바른 전화번호 형식입니다.</p>
+                                <p class="text-danger" style="display: none;" id="phoneNotCorrect">올바른 전화번호 형식이 아닙니다.</p>
                             </div>
                         </div>
 
@@ -963,8 +989,8 @@
                         <br>
 
                         <div class="form-group">
-                            <input type="submit" id="joinCorrect" value="SIGN IN" class="btn btn-outline-warning"
-                                   style="width: 500px; height: 54px; background:#D1C286;color:white">
+                            <input type="submit" id="joinCorrect" value="SIGN IN" class="btn btn-primary btn-outline"
+                                   style="width: 500px; height: 54px; background:#D1C286;color:white" >
                         </div>
 
                     </form>

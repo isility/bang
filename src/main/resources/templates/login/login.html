@@ -55,6 +55,8 @@
     <script src="js/respond.min.js"></script>
     <![endif]-->
 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css" />
+
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 
@@ -74,10 +76,28 @@
             margin-left: 50px;
         }
 
+        div.row.form-group i{
+            position: absolute;
+            left: 90%;
+            top: 23px;
+            cursor: pointer;
+        }
+
     </style>
 
+    <script type="text/javascript">
+    $(document).ready(function(){
+        $(".row.form-group i").on("click",function(){
+            $("#pw").toggleClass('active');
+            if($(".row.form-group #pw").hasClass('active')){
+                $(this).attr("class","fa fa-eye fa-lg").prev(".row.form-group input").attr("type","text");
+            }else{
+                $(this).attr("class","fa fa-eye-slash fa-lg").prev(".row.form-group input").attr("type","password");
+            }
+        });
 
-
+    });
+    </script>
 </head>
 <body>
 
@@ -140,7 +160,8 @@
 
                         <div class="row form-group">
                             <div class="col-md-12">
-                                <input type="text" id="pw" name="password" class="form-control" placeholder="PW" style="width: 500px;height: 54px;">
+                                <input type="password" id="pw" name="password" class="form-control" placeholder="PW" style="width: 500px;height: 54px;">
+                                <i class="fa fa-eye-slash fa-lg" aria-hidden="true"></i>
                             </div>
                         </div>
 

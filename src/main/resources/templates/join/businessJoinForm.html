@@ -501,7 +501,17 @@
         }
 
 
-
+        <!-- 전화번호 형식이 적절한지 확인 -->
+        $("#phone").on("input", function() {
+            var phone = $("#phone").val();
+            if (/^\d{10,11}$/.test(phone)) {
+                $("#phoneCorrect").css("display", "block");
+                $("#phoneNotCorrect").css("display", "none");
+            } else {
+                $("#phoneCorrect").css("display", "none");
+                $("#phoneNotCorrect").css("display", "block");
+            }
+        })
 
 
         <!-- 필수 입력 알림 -->
@@ -561,6 +571,10 @@
             alert("비밀번호가 유효하지 않거나, 비밀번호 확인이 필요합니다.");
             $("#member_pw").focus();
             return false;
+        } else if ( $("#phoneCorrect").css("display") != "block" ) {
+            alert("전화번호 형식이 유효하지 않습니다.");
+            $("#phone").focus();
+            return false;
         } else if ($("#emailCodeCorrect").css("display") != "block") {
             alert("이메일 본인인증을 진행해주셔야 합니다.");
             $("#email").focus();
@@ -572,7 +586,7 @@
         }
 
 
-        if ( idChkVal == "사용 가능" && $("#pwCorrect").css("display") != "block" && $("#emailCodeCorrect").css("display") != "block" && response.length != 0){
+        if ( idChkVal == "사용 가능" && $("#pwCorrect").css("display") == "block" && $("#emailCodeCorrect").css("display") == "block" && response.length != 0 && $("#phoneCorrect").css("display") == "block" ){
             <!-- 중복 확인과 유효성 검사를 모두 완료했을 때 가입 처리-->
             $("#joinForm").submit();
         }
@@ -756,6 +770,9 @@
                 <input type="text" id="phone" name="company_managerphone" class="form-control"
                        placeholder="연락처 * (-를 제외, 01011112222, 0266667777)"
                        style="width: 500px;height: 54px;">
+                <p class="text-primary">-를 제외한 10~11자리를 입력해주세요. (예시 : 01011112222, 0266667777)</p>
+                <p class="text-success" style="display: none;" id="phoneCorrect">올바른 전화번호 형식입니다.</p>
+                <p class="text-danger" style="display: none;" id="phoneNotCorrect">올바른 전화번호 형식이 아닙니다.</p>
               </div>
             </div>
 
