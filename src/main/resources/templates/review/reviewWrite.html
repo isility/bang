@@ -31,7 +31,7 @@
 				integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 		<script th:src="@{/js/board.js}"></script>
 	</head>
-x
+
 
 		<link rel="stylesheet" th:href="@{/css/style.css}">
 	<!-- <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet"> -->
@@ -97,6 +97,90 @@ x
 	}
 
 	</style>
+	<script th:inline="javascript">
+    function truncateText(text, maxLength) {
+        return text.length > maxLength ? text.slice(0, maxLength) + '...' : text;
+    }
+
+    function deleteReview(element) {
+        var starSelected = false; // 별점 선택 여부 확인 변수 추가
+
+        // 별점이 선택되었는지 확인
+        var stars = document.getElementsByName("star");
+        for (var i = 0; i < stars.length; i++) {
+            if (stars[i].checked) {
+                starSelected = true;
+                break;
+            }
+        }
+
+        if (!starSelected) {
+            alert('별점을 선택해주세요');
+            return;
+        }
+
+        var replyNumber = $(element).parent().find('[name=replyNumber]').val();
+        var member_id = $(element).parent().find('[name=member_id]').val();
+
+        // 별점 선택이 확인되었을 때만 Ajax 요청 수행
+        $.ajax({
+            type: "GET",
+            url: "/review/reviewDelete",
+            data: {
+                replyNumber: replyNumber,
+                member_id: member_id
+            },
+            success: function(response) {
+                alert(response);
+            },
+            error: function() {
+                alert("권한이 없습니다");
+            }
+        });
+    }
+</script>
+	<script th:inline="javascript">
+    function truncateText(text, maxLength) {
+        return text.length > maxLength ? text.slice(0, maxLength) + '...' : text;
+    }
+
+    function deleteReview(element) {
+        var starSelected = false; // 별점 선택 여부 확인 변수 추가
+
+        // 별점이 선택되었는지 확인
+        var stars = document.getElementsByName("star");
+        for (var i = 0; i < stars.length; i++) {
+            if (stars[i].checked) {
+                starSelected = true;
+                break;
+            }
+        }
+
+        if (!starSelected) {
+            alert('별점을 선택해주세요');
+            return;
+        }
+
+        var replyNumber = $(element).parent().find('[name=replyNumber]').val();
+        var member_id = $(element).parent().find('[name=member_id]').val();
+
+        // 별점 선택이 확인되었을 때만 Ajax 요청 수행
+        $.ajax({
+            type: "GET",
+            url: "/review/reviewDelete",
+            data: {
+                replyNumber: replyNumber,
+                member_id: member_id
+            },
+            success: function(response) {
+                alert(response);
+            },
+            error: function() {
+                alert("권한이 없습니다");
+            }
+        });
+    }
+</script>
 
 
 	<body>
@@ -147,10 +231,10 @@ x
 
 			<main class="form-signin" style="max-width: 100%;">
 				<div class="container border rounded flex-md-row mb-4 shadow-sm h-md-250">
-					<form action="reviewWrite" method="post">
+					<form action="reviewWrite" method="post" enctype="multipart/form-data">
 						<h1>리뷰 작성</h1>
 						<div class="star-rating">
-							<input type="radio" name="star" class="star" id="star5" value="5" />
+							<input type="radio" name="star" class="star" id="star5" checked="checked" value="5" />
 							<label for="star5">&#9733;</label>
 							<input type="radio" name="star" class="star" id="star4" value="4" />
 							<label for="star4">&#9733;</label>
@@ -160,7 +244,7 @@ x
 							<label for="star2">&#9733;</label>
 							<input type="radio" name="star" class="star" id="star1" value="1" />
 							<label for="star1">&#9733;</label>
-							<input type="radio" name="star" class="star" id="star0" value="0" checked="checked" style="display: none;" />
+							<input type="radio" name="star" class="star" id="star0" value="0" style="display: none;" />
 						</div>
 						<div>
 							<p>구매이력</p>
@@ -171,18 +255,18 @@ x
 						<div class="form-floating m-3">
 							<p>작성자</p>
 							<textarea class="form-control" rows="5" id="summernote" style="height: 450px;" name="replyContents" th:text="${replyContents}"></textarea>
-							<input type="text" name="replyWriter" value="강아지">
+							<input type="hidden" name="member_id" th:value="${member_id}">
+							<input type="hidden" name="reviewWriter" th:value="${member_id}">
 						</div>
-						<div class="form-floating m-3">
-							<p></p>
-							<input type="text" name="replyWriter" value="강아지">
-						</div>
-						<div class="form-floating m-3">
-							<input type="file" name="file">
-
-						</div>
-						<input type="submit" class="btn btn-success" value="작성">
-					</form>
+							<!-- 다른 입력 필드들 -->
+<!--							<div class="row form-group">-->
+<!--								<div class="col-md-12">-->
+<!--									<h5 style="color:#7E7E7E ; font-weight: bold; position: relative;">리뷰이미지</h5>-->
+<!--									<input type="file" id="productReplyImg" name="file" accept="image/*" class="form-control" style="width: 500px;height: 54px;">-->
+<!--								</div>-->
+<!--							</div>-->
+							<input type="submit" class="btn btn-success" value="작성">
+						</form>
 				</div>
 			</main>
 		</div>

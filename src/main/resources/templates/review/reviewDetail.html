@@ -134,7 +134,8 @@
                         </tr>
                         <tr>
                             <th>내용</th>
-                            <td colspan="4" th:text="${reviewDTO.replyContents}"></td>
+                            <td colspan="4" th:utext="${reviewDTO.replyContents}"></td>
+
                         </tr>
                     </table>
 
@@ -325,8 +326,6 @@ const commentWrite = () => {
         }
     });
 };
-
-
 </script>
 
 </html>

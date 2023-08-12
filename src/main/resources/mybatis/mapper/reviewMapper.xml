@@ -34,7 +34,8 @@
         reply_answer_number AS replyAnswerNumber,
         reply_parent_number AS replyParentNumber,
         reply_score AS replyScore,
-        product_number AS productNumber
+        product_number AS productNumber,
+        derived.member_id
         FROM (
         SELECT ROW_NUMBER() OVER (ORDER BY reply_ref DESC) AS rn,
         reply_number,
@@ -47,14 +48,16 @@
         reply_answer_number,
         reply_parent_number,
         reply_score,
-        product_number
+        product_number,
+        member_id
         FROM product_reply
         WHERE reply_step = 0
         ) AS derived
+        INNER JOIN member m ON derived.member_id = m.member_id
         WHERE rn BETWEEN #{startNo} AND #{endNo}
         AND reply_step = 0;
-
     </select>
+
     <select id="getTotal" resultType="int">
         SELECT count(*)cnt
         FROM product_reply
@@ -80,9 +83,9 @@
     <insert id="writeReply" parameterType="ReviewDTO">
         INSERT INTO product_reply (reply_contents, reply_writer,
         reply_date, reply_ref, reply_step, reply_ref_order,
-        reply_answer_number, reply_parent_number, reply_score, product_number)
-        VALUES (#{replyContents}, #{replyWriter}, DATE_FORMAT(NOW(), '%y-%m-%d'),
-        (SELECT IFNULL(MAX_reply_ref, 0) + 1 FROM (SELECT MAX(reply_ref) AS MAX_reply_ref FROM product_reply) AS temp), 0, 0, 0, 0, #{replyScore}, #{productNumber});
+        reply_answer_number, reply_parent_number, reply_score, product_number, member_id)
+        VALUES (#{replyContents}, #{member_id}, DATE_FORMAT(NOW(), '%y-%m-%d'),
+        (SELECT IFNULL(MAX_reply_ref, 0) + 1 FROM (SELECT MAX(reply_ref) AS MAX_reply_ref FROM product_reply) AS temp), 0, 0, 0, 0, #{replyScore}, #{productNumber}, #{member_id})
 
     </insert>
 
@@ -108,13 +111,13 @@
     </select>
     <delete id="deleteReview" parameterType="int">
         DELETE FROM product_reply
-        WHERE reply_number = #{replyNumber};
+        WHERE reply_number = #{replyNumber}
     </delete>
 
     <update id="modifyReview" parameterType="ReviewDTO">
         UPDATE product_reply
         SET reply_contents = #{replyContents}, reply_score = #{replyScore}
-        WHERE reply_number = #{replyNumber};
+        WHERE reply_number = #{replyNumber}
     </update>
 
 
@@ -194,7 +197,30 @@
 
 
 
-
+<!--    <select id="getProductDetail" resultType="reviewDTO">-->
+<!--        SELECT-->
+<!--        pr.reply_contents AS replyContents,-->
+<!--        pr.reply_writer AS replyWriter,-->
+<!--        pr.reply_date AS replyDate,-->
+<!--        pr.reply_ref AS replyRef,-->
+<!--        pr.reply_step AS replyStep,-->
+<!--        pr.reply_ref_order AS replyRefOrder,-->
+<!--        pr.reply_answer_number AS replyAnswerNumber,-->
+<!--        pr.reply_parent_number AS replyParentNumber,-->
+<!--        pr.reply_score AS replyScore,-->
+<!--        pr.product_number AS productNumber,-->
+<!--        p.product_name AS productName,-->
+<!--        payD.product_detail_number AS productDetailNumber,-->
+<!--        payD.product_count AS productCount,-->
+<!--        payD.payment_detail_status-->
+<!--        FROM product_reply pr-->
+<!--        INNER JOIN product p ON pr.product_number = p.product_number-->
+<!--        INNER JOIN payment_detail payD ON pr.product_number = payD.product_number-->
+<!--        INNER JOIN payment pay ON payD.payment_number = pay.payment_number-->
+<!--        WHERE payD.payment_detail_number = #{paymentDetailNumber}-->
+<!--        AND pay.member_id = #{member_id}-->
+<!--        AND payD.payment_detail_status = '배송완료'-->
+<!--    </select>-->
 
 
 

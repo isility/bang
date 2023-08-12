@@ -38,4 +38,5 @@ public interface ReviewDAO {
     int findNvlRef(int replyNumber);
     int getReplyNumber(int replyNumber);
 
+  //  ReviewDTO getProductDetail(ReviewDTO reviewDTO);
 }

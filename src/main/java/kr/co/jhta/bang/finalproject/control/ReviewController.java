@@ -19,6 +19,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.io.File;
 import java.io.IOException;
+import java.security.Principal;
 import java.util.List;
 import java.util.Map;
 
@@ -52,6 +53,7 @@ public class ReviewController {
         int endNo = (int)map.get("endNo");
         model.addAttribute("list", service.findAllReply(startNo, endNo));
         model.addAttribute("map", map);
+
         return "review/reviewList";
     }
 
@@ -84,65 +86,57 @@ public class ReviewController {
     }
 
     @PostMapping("/reviewWrite")
-    public ModelAndView reviewWriteOk(HttpServletRequest req, @ModelAttribute UploadFile file, BindingResult result,
-                                      @ModelAttribute ReviewDTO reviewDTO, @RequestParam("star") int star, Model model){
-        reviewDTO.setReplyScore(star);
-        service.writeReply(reviewDTO); // reviewDTO 객체에는 사용자가 작성한 리뷰 데이터가 담겨있음
-        log.info(">>>>>>>>>>>>>>>>>>>>reviewDTO {}", reviewDTO);
+    public String reviewWriteOk(Principal principal,
+                                @ModelAttribute ReviewDTO reviewDTO, @RequestParam("star") int star, Model model) {
 
+            reviewDTO.setReplyScore(star);
+            reviewDTO.setMember_id(principal.getName());
+            reviewDTO.setReplyWriter(principal.getName());
 
+            service.writeReply(reviewDTO);
+            return "redirect:/review/reviewList";
 
-        fileValidator.validate(file,result);
-        if(result.hasErrors()){
-            return new ModelAndView("review/reviewWrite");
-        }
-
-        HttpSession session  = req.getSession();
-        ServletContext application = session.getServletContext();
-
-        String filePath = application.getRealPath("/data");
-
-        System.out.println("file : " + file);
-        System.out.println("file.getFile() : " + file.getFile());
-
-        MultipartFile mfile = file.getFile();
-
-        String fileName = mfile.getOriginalFilename();
-
-        File f = new File(filePath + "/" + fileName);
-        try {
-            mfile.transferTo(f);
-        } catch(IllegalStateException e) {
-            e.printStackTrace();
-        } catch(IOException e) {
-        }
-
-        ModelAndView mav = new ModelAndView();
-        mav.addObject("fileName",f.getName());
-        mav.addObject("filePath", "../data/" + f.getName());
-        mav.setViewName("redirect:review/reviewList");
-
-        return mav; // 리뷰 리스트 페이지로 리다이렉트
     }
+
+
 
     @GetMapping("/reviewDelete")
-    public String reviewDelete(@RequestParam("replyNumber")int replyNumber){
-        service.deleteReview(replyNumber);
-        return "redirect:/review/reviewList";
-    }
-
-    @GetMapping("/reviewModify")
-    public String modifyForm(@RequestParam("replyNumber")int replyNumber, Model model){
-        model.addAttribute("reviewDTO", service.findByReply_number(replyNumber));
-        return"review/reviewModify";
+    @ResponseBody
+    public String reviewDelete(@RequestParam("replyNumber")int replyNumber, @RequestParam("member_id")String member_id,
+                               Principal principal){
+        log.info(""+ member_id);
+        log.info(""+ replyNumber);
+        log.info(principal.getName());
+        if(principal.getName().equals(member_id)){
+            service.deleteReview(replyNumber);
+            return "삭제되었습니다.";
+        }else {
+            return "권한이 없습니다.";
+        }
     }
 
     @PostMapping("/reviewModify")
-    public String modifyReply(@ModelAttribute ReviewDTO reviewDTO, @RequestParam("star") int star){
+    @ResponseBody
+    public String modifyForm(@RequestParam("replyNumber")int replyNumber, @RequestParam("member_id")String member_id, Model model, Principal principal){
+        model.addAttribute("reviewDTO", service.findByReply_number(replyNumber));
+
+        if(principal.getName().equals(member_id)){
+            return "성공";
+        }else
+            return "fail";
+    }
+
+    @GetMapping("/reviewModify")
+    public String modifyReply(@RequestParam("replyNumber")int replyNumber, Model model){
+        model.addAttribute("reviewDTO", service.findByReply_number(replyNumber));
+        return "review/reviewModify";
+    }
+
+    @PostMapping("/reviewModifyOk")
+    public String modifyOk(@ModelAttribute ReviewDTO reviewDTO, @RequestParam("star")int star){
         reviewDTO.setReplyScore(star);
         service.modifyReview(reviewDTO);
-        log.info(">>>>>>>>>>>>>dto {} ", reviewDTO);
-        return "redirect:/review/reviewList";
+       return "redirect:/review/reviewList";
     }
 
 
