@@ -73,7 +73,7 @@ public class EmailService {
                 "                  <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"100%\" bgColor=\"#F8F9FA\" class=\"content\">\n" +
                 "                    <tbody>\n" +
                 "                      <tr style=\"display: block; margin-bottom: 32px;\"></tr>\n" +
-                "                      <tr>하단 인증번호를 확인하시고, 회원가입 절차를 이어서 진행해주세요!</tr>\n" +
+                "                      <tr>하단 인증번호를 확인해주세요!</tr>\n" +
                 "                      <tr ></tr>\n" +
                 "                      <tr>\n" +
                 "                        <td style=\"font-size: 20px; font-weight: bold;\">\n" +

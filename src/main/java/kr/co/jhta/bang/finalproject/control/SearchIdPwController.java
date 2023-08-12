@@ -5,6 +5,7 @@ import kr.co.jhta.bang.finalproject.service.EmailService;
 import kr.co.jhta.bang.finalproject.service.MemberService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -24,6 +25,10 @@ public class SearchIdPwController {
 
     @Autowired
     EmailService emailService;
+
+    @Autowired
+    PasswordEncoder passwordEncoder;
+
 
     @GetMapping(value = {"/id", "/pw"})
     public String searchIdorPw() {
@@ -99,18 +104,47 @@ public class SearchIdPwController {
     }
 
     @PostMapping("/pw")
-    /*@ResponseBody*/
-    public String searchPwResult() {
+    public String memberInfoCheck(@RequestParam("member_id") String id,
+                                  @RequestParam("member_name") String name,
+                                  @RequestParam("member_email") String email,
+                                  Model model) {
 
-        // 가져온 값이 이메일 == 값 있음, 이름 ==null, 전화번호 == null
-        // id, 이메일이 있는 지 찾아보고 (MemberDTO 리턴)
-        // 있으면 *** 처리해서 이메일 리턴
-        // 있는데 소셜 아이디라면 소셜 아이디라고 리턴
-        // 없으면 null 리턴
+        int rusult = memberService.searchPwMemberInfoCheck(id, name, email);
 
-
-        return "login/resetPw.html";
+        if(rusult == 1) {
+            model.addAttribute("member_id", id);
+            return "login/resetPw.html";
+        } else {
+            return "login/findError";
+        }
     }
+
+
+    @PostMapping("/resetPw")
+    public String resetPw(Model model,
+                          @RequestParam("member_id") String id,
+                          @RequestParam("member_pw") String pw) {
+
+        // 바꿀 패스워드를 인코딩
+        String member_pw = passwordEncoder.encode(pw);
+
+        log.info("비밀번호 바꾸려는 member id : {}", id);
+        log.info("비밀번호 바꾸려는 member pw : {}", pw);
+        log.info("비밀번호 바꾸려는 member pw 인코딩 : {}", member_pw);
+
+
+        if (id != null && member_pw != null) {
+            memberService.resetPw(id, member_pw);
+            return "redirect:/login";
+        } else {
+            return "login/findError";
+        }
+    }
+
+
+
+
+
 
 
     @PostMapping("/searchDetailId")
@@ -127,7 +161,5 @@ public class SearchIdPwController {
             return "error";
         }
     }
-
-
 
 }

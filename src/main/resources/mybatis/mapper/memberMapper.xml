@@ -35,6 +35,12 @@
         WHERE member_email = #{member_email}
     </select>
 
+    <select id="searchPwMemberInfoCheck" parameterType="String" resultType="int">
+        SELECT COUNT(*)
+        FROM member
+        WHERE member_id = #{member_id} and member_name = #{member_name} and member_email = #{member_email}
+    </select>
+
     <select id="selectOne" parameterType="String" resultType="MemberDTO">
         select member_name, member_postal, member_address1, member_address2, member_phone, member_email
         from member
@@ -58,5 +64,12 @@
         FROM member
         where member_name = #{member_name} and member_phone = #{member_phone}
     </select>
+
+
+    <update id="resetPw" parameterType="String">
+        UPDATE member
+        SET member_pw = #{member_pw}
+        WHERE member_id = #{member_id}
+    </update>
 
 </mapper>

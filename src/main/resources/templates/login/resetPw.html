@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 
 <head>
     <meta charset="utf-8">
@@ -34,6 +34,8 @@
     <!-- Bootstrap  -->
     <link rel="stylesheet" href="/css/bootstrap.css">
 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css" />
+
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
     <style>
@@ -46,6 +48,10 @@
 
 	#fh5co-services {
 	    position: relative;
+	}
+
+	.fh5co-bg-section {
+	    background-color: white;
 	}
 
 	#warranty, .rowcontents{
@@ -70,17 +76,12 @@
 		left: 48px;
 	}
 
-	#searchId, #searchPw {
-	    width: 200px;
-        height: 45px;
-        margin-bottom: 20px;
-    }
 
-	#selectCorrect {
+	#resetPw {
 	    width: 200px;
 	    height: 45px;
 	    margin-left: 250px;
-        margin-top: 30px;
+        margin-top: 20px;
     }
 
 	.feature-center.animate-box.fadeIn.animated-fast {
@@ -93,178 +94,227 @@
         margin-bottom: 20px;
     }
 
-    h4 {
-        margin-top: 30px;
-    }
-
-    .form-control {
-        width: 500px;
-        height: 54px;
-        margin: auto;
-    }
-
-    span {
-        margin-top: 15px;
-        margin-bottom: 25px;
-    }
-
-    .text__label {
-        margin-top: 15px;
-    }
-
-    .form__radio + .text__label {
-        color: #D1C286;
-    }
-
     .feature-center p, .feature-center h3 {
         margin-bottom: -20px;
         margin-left: 110px;
+    }
+
+    .form-control {
+        margin-left: 150px;
+    }
+
+    .progress {
+        margin-left: 150px;
+        margin-right: 40px;
+    }
+
+    h2, .h2 {
+        width: 750px;
+        color: #D1C286;
+    }
+
+    div.password.form-group{
+        position: relative;
+    }
+
+    div.password.form-group input{
+        width: 300px;
+        height: 30px;
+    }
+
+    div.password.form-group i{
+        position: absolute;
+        left: 80%;
+        top: 20px;
+        cursor: pointer;
+    }
+
+    #pwCorrect, #pwNotCorrect {
+        margin-top: -10px;
+        margin-bottom: 5px;
     }
 
 </style>
 
     <script>
     $(document).ready(function() {
-        // 현재 URL 가져오기
-        var currentUrl = window.location.href;
-        var selectedValue = "";
 
-        if (currentUrl.indexOf("/search/id") !== -1) {
-            // 아이디 찾기 페이지의 스크립트
-            $("#searchIdorPwForm").attr("action", "/search/id");
+        $("#member_id").val($("#thymeleafId").text());
 
+        <!-- 비밀번호 유효성 검사 -->
+        $("#member_pw").on("input", function() {
+            var memberPw = $("#member_pw").val();
 
-            $(".form__radio").on("click", function () {
-                $("#selectCorrect").val("아이디 찾기");
-                selectedValue = $(this).val();
+            // 조건이 충족되었을 경우 counting 할 변수
+            var conditionsMet = 0;
 
-                var email = $("#member_email");
-                var name = $("#member_name");
-                var phone = $("#member_phone");
-
-                if (selectedValue == "email") {
-                    email.prop("disabled", false);
-                    name.prop("disabled", true);
-                    phone.prop("disabled", true);
-                    name.val("");
-                    phone.val("");
-                    $("#phoneCorrect").css("display", "none");
-                    $("#phoneNotCorrect").css("display", "none");
-                } else if (selectedValue == "phone") {
-                    email.prop("disabled", true);
-                    name.prop("disabled", false);
-                    phone.prop("disabled", false);
-                    email.val("");
-                    $("#emailCorrect").css("display", "none");
-                    $("#emailNotCorrect").css("display", "none");
-                }
-            });
-
-            // 필수 입력 알림
-            $("#selectCorrect").on("click", function () {
-                if (selectedValue == "email" && $("#selectCorrect").val() == "아이디 찾기") {
-                    if ($("#member_email").val() == "") {
-                        alert("이메일을 입력해주세요.");
-                        $("#member_email").focus();
-                        return false;
-                    }
-                } else if (selectedValue == "phone" && $("#selectCorrect").val() == "아이디 찾기") {
-                    if ($("#member_name").val() == "") {
-                        alert("이름을 입력해주세요.");
-                        $("#member_name").focus();
-                        return false;
-                    }
-                    if ($("#member_phone").val() == "") {
-                        alert("전화번호를 입력해주세요.");
-                        $("#member_phone").focus();
-                        return false;
-                    }
-                }
-
-                if (selectedValue == "email" && ($("#member_email").val() == "" || $("#emailCorrect").css("display") == "none")) {
-                    alert("이메일 형식이 올바르지 않습니다.");
-                    return false;
-                } else if (selectedValue == "phone" && ($("#member_phone").val() == "" || $("#phoneCorrect").css("display") == "none")) {
-                    alert("전화번호 형식이 올바르지 않습니다.");
-                    return false;
-                } else if ($("#emailCorrect").css("display") == "block" && $("#emailNotCorrect").css("display") == "none") {
-                    // 유효성 검사를 모두 완료했을 때 조회 처리
-                    $("#searchIdorPwForm").submit();
-                } else if ($("#phoneCorrect").css("display") == "block" && $("#phoneNotCorrect").css("display") == "none") {
-                    // 유효성 검사를 모두 완료했을 때 조회 처리
-                    $("#searchIdorPwForm").submit();
-                }
-            });
-
-        }
-
-
-        if (currentUrl.indexOf("/search/pw") !== -1) {
-            $("#searchIdorPwForm").attr("action", "/search/pw");
-
-
-            // 비밀번호 찾기 페이지의 스크립트
-            $("#member_email").prop("disabled", false);
-            $("span").hide();
-            $(".form__radio").hide();
-            $(".text__label").hide();
-            $("#selectEmailMessage").show();
-            $("#member_name").hide();
-            $("#member_phone").hide();
-            $("#selectCorrect").val("비밀번호 찾기");
-
-            // 필수 입력 알림
-            $("#selectCorrect").on("click", function () {
-                if ($("#selectCorrect").val() == "비밀번호 찾기") {
-                    if ($("#member_email").val() == "") {
-                        alert("이메일을 입력해주세요.");
-                        $("#member_email").focus();
-                        return false;
-                    }
-                }
-
-                if ($("#member_email").val() == "" || $("#emailCorrect").css("display") == "none") {
-                    alert("이메일 형식이 올바르지 않습니다.");
-                    return false;
-                } else if ($("#emailCorrect").css("display") == "block" && $("#emailNotCorrect").css("display") == "none") {
-                    // 유효성 검사를 모두 완료했을 때 조회 처리
-                    $("#searchIdorPwForm").submit();
-                }
-            });
-
-        }
-
-
-
-
-        <!-- email 형식이 적절한지 확인 -->
-        $("#member_email").on("input", function() {
-            var email = $("#member_email").val();
-            if (/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-                $("#emailCorrect").css("display", "block");
-                $("#emailNotCorrect").css("display", "none");
-            } else {
-                $("#emailCorrect").css("display", "none");
-                $("#emailNotCorrect").css("display", "block");
+            if (memberPw == "") {
             }
-        })
 
-
-        <!-- 전화번호 형식이 적절한지 확인 -->
-        $("#member_phone").on("input", function() {
-            var phone = $("#member_phone").val();
-            if (/^\d{10,11}$/.test(phone)) {
-                $("#phoneCorrect").css("display", "block");
-                $("#phoneNotCorrect").css("display", "none");
+            // 1. 최소 8자 이상
+            if (memberPw.length < 8) {
+                $("#pw_condition1").css("color", "red");
             } else {
-                $("#phoneCorrect").css("display", "none");
-                $("#phoneNotCorrect").css("display", "block");
+                $("#pw_condition1").css("color", "green");
             }
-        })
+
+            // 2. 영문 대문자와 영문 소문자가 모두 포함
+            if (!/[a-z]/.test(memberPw) || !/[A-Z]/.test(memberPw)) {
+                $("#pw_condition2").css("color", "red");
+            } else {
+                $("#pw_condition2").css("color", "green");
+            }
+
+            // 3. 숫자가 적어도 1개 이상 포함
+            if (!/\d/.test(memberPw)) {
+                $("#pw_condition3").css("color", "red");
+            } else {
+                $("#pw_condition3").css("color", "green");
+            }
+
+            // 4. 특수문자가 적어도 1개 이상 포함
+            // 한글을 입력하면 특수문자로 인식되는 오류가 있어서 특수문자를 직접 입력
+            if (!/[!@#$%^&*()_+[\]{}|;:'",.<>?]/.test(memberPw)) {
+                $("#pw_condition4").css("color", "red");
+            } else {
+                $("#pw_condition4").css("color", "green");
+            }
+
+            // 5. 한글은 포함할 수 없음
+            if (/[ㄱ-ㅎㅏ-ㅣ가-힣]/g.test(memberPw)) {
+                $("#pw_condition5").css("color", "red");
+            } else {
+                $("#pw_condition5").css("color", "green");
+            }
+
+            // 조건 충족 여부를 확인하고, 만족하는 조건의 개수를 세어봅니다.
+              if (memberPw.length >= 8) {
+                conditionsMet++;
+              }
+
+              if (/[a-z]/.test(memberPw) && /[A-Z]/.test(memberPw)) {
+                conditionsMet++;
+              }
+
+              if (/\d/.test(memberPw)) {
+                conditionsMet++;
+              }
+
+              if (/[!@#$%^&*()_+[\]{}|;:'",.<>?]/.test(memberPw)) {
+                conditionsMet++;
+              }
+
+              if (!/[ㄱ-ㅎㅏ-ㅣ가-힣]/g.test(memberPw)) {
+                conditionsMet++;
+              }
+
+              // 조건 충족 여부에 따라 게이지 요소를 보여주거나 숨깁니다.
+              if (memberPw === "") {
+                $("#gauge30").hide();
+                $("#gauge60").hide();
+                $("#gauge100").hide();
+              } else if (conditionsMet <= 2) {
+                $("#gauge30").show(); // 30% 강도의 게이지를 보여줍니다.
+                $("#gauge60").hide();
+                $("#gauge100").hide();
+              } else if (conditionsMet <= 4) {
+                $("#gauge30").hide();
+                $("#gauge60").show(); // 65% 강도의 게이지를 보여줍니다.
+                $("#gauge100").hide();
+              } else {
+                $("#gauge30").hide();
+                $("#gauge60").hide();
+                $("#gauge100").show(); // 100% 강도의 게이지를 보여줍니다.
+            }
 
 
 
+            // 조건을 3가지 이상 만족하는 경우, 유효한 비밀번호로 간주
+            if (memberPw == "") {
+                $("#error_msg2").hide(); // 입력값이 빈칸인 경우 메시지를 숨김
+                $("#pwCheck").hide();
+                $("#showPwCheck").hide();
+            } else if (conditionsMet >= 3) {
+                $("#error_msg2").show(); // 조건을 모두 만족하는 경우 메시지를 보여줌
+                $("#pwCheck").show();
+                $("#showPwCheck").show();
+            } else {
+                $("#error_msg2").hide(); // 조건을 만족하지 않는 경우 메시지를 숨김
+                $("#pwCheck").hide();
+                $("#showPwCheck").hide();
+            }
+        });
 
+
+
+        <!-- 비밀번호 일치 -->
+        $("#pwCheck").on("input", function() {
+            var memberPw = $("#member_pw").val();
+            var pwCheck = $("#pwCheck").val();
+            var isPwValid = $("#error_msg2").is(":visible");
+
+            if (!isPwValid) {
+                // 비밀번호가 유효하지 않은 경우, 비밀번호 확인 메시지 숨기기
+                $("#pwCorrect").css("display", "none");
+                $("#pwNotCorrect").css("display", "none");
+                return;
+            }
+
+            if (pwCheck === "") {
+                // 비밀번호 확인 칸이 빈칸인 경우
+                $("#pwCorrect").css("display", "none");
+                $("#pwNotCorrect").css("display", "none");
+            } else if (memberPw === pwCheck) {
+                // 비밀번호가 일치하는 경우
+                $("#pwCorrect").css("display", "block");
+                $("#pwNotCorrect").css("display", "none");
+            } else {
+                // 비밀번호가 일치하지 않는 경우
+                $("#pwCorrect").css("display", "none");
+                $("#pwNotCorrect").css("display", "block");
+            }
+        });
+
+
+
+        <!-- 비밀번호 숨기기/보이기 처리 -->
+        $(".password.form-group i").on("click",function(){
+            $("#member_pw").toggleClass('active');
+            if($(".password.form-group #member_pw").hasClass('active')){
+                $(this).attr("class","fa fa-eye fa-lg").prev(".password.form-group input").attr("type","text");
+            }else{
+                $(this).attr("class","fa fa-eye-slash fa-lg").prev(".password.form-group input").attr("type","password");
+            }
+
+            $("#pwCheck").toggleClass('active');
+            if($(".password.form-group #pwCheck").hasClass('active')){
+                $(this).attr("class","fa fa-eye fa-lg").prev(".password.form-group input").attr("type","text");
+            }else{
+                $(this).attr("class","fa fa-eye-slash fa-lg").prev(".password.form-group input").attr("type","password");
+            }
+        });
+
+
+        <!-- 필수 입력 알림 -->
+        $("#resetPw").on("click", function () {
+            if ($("#member_pw").val() == "") {
+              alert("비밀번호를 입력해주세요.");
+              $("#member_pw").focus();
+              return false;
+            }
+
+            if ($("#pwCorrect").css("display") != "block") {
+                alert("비밀번호가 유효하지 않거나, 비밀번호 확인이 필요합니다.");
+                $("#member_pw").focus();
+                return false;
+            }
+
+
+
+            if ($("#pwCorrect").css("display") != "block"){
+                $("#correctPw").submit();
+            }
+        });
     });
 </script>
 
@@ -320,63 +370,91 @@
         <div class="container">
             <div class="rowcontents">
 
-                <form action="/search/id" id="searchIdorPwForm" method="post">
+                <form action="/search/resetPw" id="correctPw" method="post">
 
 
-                    <div class="col-md-4 col-sm-4 text-center">
-                        <a href="/search/id" class="btn btn-primary btn-outline" id="searchId">아이디 찾기</a>
+                    <div class="col-md-9 col-sm-4 text-center">
+                        <h2 class="text__box-title">
+                            <span th:text="${member_id}" id="thymeleafId"></span> 님, <strong class="text__emphasis">새 비밀번호를 입력해주세요.</strong>
+                        </h2>
+                        <input type="hidden" id="member_id" name="member_id" value="">
                         <div class="feature-center animate-box" data-animate-effect="fadeIn">
 
-                            <span>어떤 방법으로 찾아볼까요?</span>
+                            <div class="col-md-9 col-sm-4 text-center">
 
-                            <hr>
-
-                            <br>
-
-                            <div class="row form-group">
-                                <div class="col-md-12">
-                                    <div class="form-check">
-                                        <input class="form__radio" type="radio" name="selectEmailorPhone" value="email" id="selectEmail">
-                                        <label class="text__label" for="selectEmail" id="selectEmailMessage">
-                                            가입한 이메일로 찾기
-                                        </label>
-                                    </div>
+                                <div class="password form-group">
+                                    <input type="password" id="member_pw" name="member_pw" class="form-control"
+                                           placeholder="새 비밀번호" value="" style="width: 300px; height: 45px;">
+                                    <i class="fa fa-eye-slash fa-lg" aria-hidden="true"></i>
+                                    <p id="error_msg2" style="color: green; display: none;">유효한 비밀번호 입니다.</p>
                                     <br>
-                                    <input type="text" id="member_email" name="member_email" class="form-control" placeholder="이메일(Email)" style="width: 500px;height: 54px;" disabled>
-                                    <p class="text-success" style="display: none;" id="emailCorrect">올바른 이메일 형식입니다.</p>
-                                    <p class="text-danger" style="display: none;" id="emailNotCorrect">올바른 이메일 형식이 아닙니다.</p>
                                 </div>
+
+
                             </div>
 
-                            <br>
-                            <hr>
 
-                            <div class="row form-group">
-                                <div class="col-md-12">
-                                    <div class="form-check">
-                                        <input class="form__radio" type="radio" name="selectEmailorPhone" value="phone" id="selectPhone">
-                                        <label class="text__label" for="selectPhone">
-                                            가입한 전화번호로 찾기
-                                        </label>
+                            <div class="col-md-9 col-sm-4 text-center">
+
+                                <div class="password form-group">
+                                    <input type="password" id="pwCheck" class="form-control" placeholder="새 비밀번호 확인" value=""
+                                           style="width: 300px;height: 45px; display: block;">
+                                    <i class="fa fa-eye-slash fa-lg" aria-hidden="true" id="showPwCheck" style="display: block;"></i>
+                                    <br>
+                                    <p class="text-success" style="display: none;" id="pwCorrect">비밀번호가 일치합니다. 비밀번호를 사용할 수 있습니다!</p>
+                                    <p class="text-danger" style="display: none;" id="pwNotCorrect">비밀번호를 다시 확인해주세요.</p>
+                                    <p class="text-primary">조건이 충족되어 유효하다면, 초록색 글자로 변경됩니다.</p>
+                                    <br>
+                                    <p class="text-primary">조건을 3가지 이상 충족해야 비밀번호로 사용할 수 있습니다.</p>
+                                    <br>
+                                </div>
+
+                            </div>
+
+
+
+
+                            <div class="col-md-9 col-sm-4 text-center">
+
+                                <div class="progress" id="gauge30"  style="display: block;">
+                                    <div class="progress-bar bg-success" role="progressbar"
+                                         aria-label="Success example" style="width: 30%; background-color: #F8A1A4; color: black;" aria-valuenow="25"
+                                         aria-valuemin="0" aria-valuemax="100">보안 취약
                                     </div>
                                 </div>
-                                <br>
-                                <input type="text" id="member_name" name="member_name" class="form-control" placeholder="이름(name)" style="width: 500px;height: 54px;" disabled>
-                                <input type="text" id="member_phone" name="member_phone" class="form-control" placeholder="전화번호(phone)" style="width: 500px;height: 54px;" disabled>
-                                <p class="text-success" style="display: none;" id="phoneCorrect">올바른 전화번호 형식입니다.</p>
-                                <p class="text-danger" style="display: none;" id="phoneNotCorrect">올바른 전화번호 형식이 아닙니다.</p>
+
+                                <div class="progress" id="gauge60"  style="display: none;">
+                                    <div class="progress-bar bg-warning" role="progressbar"
+                                         aria-label="Warning example" style="width: 60%; background-color: #FFFA99; color: black;" aria-valuenow="75"
+                                         aria-valuemin="0" aria-valuemax="100">보안 좋음
+                                    </div>
+                                </div>
+
+                                <div class="progress" id="gauge100" style="display: none;">
+                                    <div class="progress-bar bg-danger" role="progressbar"
+                                         aria-label="Danger example" style="width: 100%;  background-color: #98E0AD; color: black;" aria-valuenow="100"
+                                         aria-valuemin="0" aria-valuemax="100">보안 최적
+                                    </div>
+                                </div>
+
                             </div>
-                            <input type="submit" id="selectCorrect" class="btn btn-primary btn-outline" value="아이디 찾기">
-                        </div>
+
+                            <div class="col-md-11 col-sm-4 text-center">
+
+                                <span id="pw_condition1" style="color: red;">1. 최소 8자 이상 <br></span>
+                                <span id="pw_condition2" style="color: red;">2. 영문 대문자와 영문 소문자가 모두 포함 <br></span>
+                                <span id="pw_condition3" style="color: red;">3. 숫자가 적어도 1개 이상 포함 <br></span>
+                                <span id="pw_condition4" style="color: red;">4. 특수문자가 적어도 1개 이상 포함 <br></span>
+                                <span id="pw_condition5" style="color: green;">5. 한글은 포함할 수 없음</span>
+
+                            </div>
+
+                            <input type="submit" id="resetPw" class="btn btn-primary btn-outline" value="완료">
 
                     </div>
 
-                    <div class="col-md-4 col-sm-4 text-center">
-                        <a href="/search/pw" class="btn btn-primary btn-outline" id="searchPw">비밀번호 찾기</a>
-                    </div>
-
-                </form>
-            </div>
+                </div>
+            </form>
 
 
         </div>

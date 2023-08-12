@@ -27,4 +27,8 @@ public interface MemberDAO {
     List<MemberDTO> findByIdEmail(@Param("member_name") String name, @Param("member_email") String email);
 
     List<MemberDTO> findByIdPhone(@Param("member_name") String name, @Param("member_phone") String phone);
+
+    int searchPwMemberInfoCheck(@Param("member_id") String id, @Param("member_name") String name, @Param("member_email") String email);
+
+    void resetPw(@Param("member_id") String id, @Param("member_pw") String pw);
 }

@@ -72,4 +72,8 @@ public class MemberService {
     public List<MemberDTO> findByIdEmail(String name, String email) { return memberDao.findByIdEmail(name, email); }
 
     public List<MemberDTO> findByIdPhone(String name, String phone) { return memberDao.findByIdPhone(name, phone); }
+
+    public int searchPwMemberInfoCheck(String id, String name, String email) { return memberDao.searchPwMemberInfoCheck(id, name, email); }
+
+    public void resetPw(String memberId, String memberPw) { memberDao.resetPw(memberId, memberPw); }
 }

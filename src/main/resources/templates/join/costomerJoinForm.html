@@ -379,15 +379,20 @@
 
         <!-- 비밀번호 숨기기/보이기 처리 -->
         $(".password.form-group i").on("click",function(){
-            $("input").toggleClass('active');
-            if($(".password.form-group input").hasClass('active')){
-                $(this).attr("class","fa fa-eye-slash fa-lg").prev(".password.form-group input").attr("type","text");
+            $("#member_pw").toggleClass('active');
+            if($(".password.form-group #member_pw").hasClass('active')){
+                $(this).attr("class","fa fa-eye fa-lg").prev(".password.form-group input").attr("type","text");
             }else{
-                $(this).attr("class","fa fa-eye fa-lg").prev(".password.form-group input").attr("type","password");
+                $(this).attr("class","fa fa-eye-slash fa-lg").prev(".password.form-group input").attr("type","password");
+            }
+
+            $("#pwCheck").toggleClass('active');
+            if($(".password.form-group #pwCheck").hasClass('active')){
+                $(this).attr("class","fa fa-eye fa-lg").prev(".password.form-group input").attr("type","text");
+            }else{
+                $(this).attr("class","fa fa-eye-slash fa-lg").prev(".password.form-group input").attr("type","password");
             }
         });
-
-
 
 
 
@@ -789,7 +794,7 @@
                                 <div class="password form-group">
                                     <input type="password" id="member_pw" name="member_pw" class="form-control"
                                        placeholder="비밀번호 *" value="" style="width: 500px; height: 45px;">
-                                    <i class="fa fa-eye fa-lg" aria-hidden="true"></i>
+                                    <i class="fa fa-eye-slash fa-lg" aria-hidden="true"></i>
                                 </div>
 
                                 <p id="error_msg2" style="color: green; display: none;">유효한 비밀번호 입니다.</p>
@@ -799,7 +804,7 @@
                                         <div class="password form-group">
                                             <input type="password" id="pwCheck" class="form-control" placeholder="비밀번호 확인 *" value=""
                                                style="width: 500px;height: 45px; display: none;">
-                                            <i class="fa fa-eye fa-lg" aria-hidden="true" id="showPwCheck" style="display: none;"></i>
+                                            <i class="fa fa-eye-slash fa-lg" aria-hidden="true" id="showPwCheck" style="display: none;"></i>
                                         </div>
                                         <p class="text-success" style="display: none;" id="pwCorrect">비밀번호가 일치합니다. 비밀번호를 사용할 수
                                             있습니다!</p>
@@ -942,7 +947,7 @@
                         <br>
 
                         <div class="form-group">
-                            <input type="submit" id="joinCorrect" value="SIGN IN" class="btn btn-outline-warning"
+                            <input type="submit" id="joinCorrect" value="SIGN IN" class="btn btn-primary btn-outline"
                                    style="width: 500px; height: 54px; background:#D1C286;color:white" >
                         </div>
 
