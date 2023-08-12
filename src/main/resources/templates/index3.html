@@ -44,9 +44,9 @@
 		/* 이미지를 가운데로 정렬 */
 	}
 
-.fh5co-product{
-padding-top: 112px;
-}
+    .fh5co-product{
+        padding-top: 112px;
+    }
 
 
 	#warranty {
@@ -72,39 +72,12 @@ padding-top: 112px;
 	}
 
 	a {
-  	text-decoration-line: none;
+  	    text-decoration-line: none;
 	}
 
 
 </style>
 
-<script>
-	$(document).ready(function() {
-		$.ajax({
-			url: "/index",
-			type: "POST",
-			dataType: "json",
-			success: function(response) {
-				var username = response.username;
-
-<!--타임리프 텍스트가 전부 바껴서 임시 수정!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!-->
-            $("[th\\:text]").text(username + " 님");
-<!--				$('#username').text(username + " 님");-->
-
-				$("#username").after($("#mypage"));
-        		$("#username").after($("#logout"));
-        		$("#mypage, #logout").show();
-        		$("#login, #join").hide();
-
-			},
-			error: function(request, status, error) {
-				console.error("AJAX 요청 실패: " + error);
-			}
-		});
-	});
-
-
-</script>
 <body>
 <!-- ===================================================================================================================================================== -->
 <!-- 카테고리 네비게이션 -->
@@ -137,12 +110,12 @@ padding-top: 112px;
                     <ul>
                         <li class="shopping-cart menu-2"><a href="/product/cart" class="cart"><span><small>0</small><i
                                 class="icon-shopping-cart"></i></span></a></li>
-                        <li class="login menu-2" th:if="${username}" th:text="" id="username"></li>
+                        <li class="login menu-2" th:text="${username}" id="username"></li> 님
                         <!-- 로그인 상태일 때 -->
-                        <li class="login menu-2" style="display: none;" id="mypage">
+                        <li class="login menu-2" sec:authorize="isAuthenticated()" id="mypage">
                             <a href="/mypage">mypage</a>
                         </li>
-                        <li class="login menu-2" style="display: none;" id="logout">
+                        <li class="login menu-2" sec:authorize="isAuthenticated()" id="logout">
                             <a href="logout">logout</a>
                         </li>
 

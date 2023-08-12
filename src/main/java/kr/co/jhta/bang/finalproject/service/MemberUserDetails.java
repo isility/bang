@@ -73,5 +73,3 @@ public class MemberUserDetails implements UserDetails {
         return true;
     }
 }
-
-// security session 에 들어갈 객체

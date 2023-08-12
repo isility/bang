@@ -44,10 +44,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/login").permitAll() // 로그인 페이지는 모두 접근 가능하도록 허용
-                .antMatchers("/join/**").permitAll() // 회원가입 페이지는 모두 접근 가능하도록 허용
-                .antMatchers("/search/**").permitAll() // id, pw 찾기 페이지는 모두 접근 가능하도록 허용
-                .antMatchers("/mypage/**").access("hasRole('ROLE_USER')")
+                .antMatchers("/login").permitAll()
+                .antMatchers("/join/**").permitAll()
+                .antMatchers("/search/**").permitAll()
+                .antMatchers("/product/**").permitAll()
+                .antMatchers("/review/**").permitAll()
+                .antMatchers("/payment/**").permitAll()
+                .antMatchers("/mypage/**").permitAll()
                 .antMatchers("/admin/**").access("hasRole('ROLE_ADMIN')")
                 .anyRequest().permitAll()
                 .and()

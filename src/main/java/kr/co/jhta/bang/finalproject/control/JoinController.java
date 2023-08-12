@@ -114,7 +114,7 @@ public class JoinController {
 
             return "redirect:/login";
         }
-        return "redirect:index.html";
+        return "redirect:index3";
     }
 
 
@@ -145,7 +145,7 @@ public class JoinController {
 
             return "redirect:/login";
         }
-        return "redirect:index.html";
+        return "redirect:index3";
     }
 
 
