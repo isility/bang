@@ -110,10 +110,10 @@
                     <ul>
                         <li class="shopping-cart menu-2"><a href="/product/cart" class="cart"><span><small>0</small><i
                                 class="icon-shopping-cart"></i></span></a></li>
-                        <li class="login menu-2" th:text="${username}" id="username"></li> 님
+                        <li class="login menu-2" th:text="${username}" id="username"></li>
                         <!-- 로그인 상태일 때 -->
                         <li class="login menu-2" sec:authorize="isAuthenticated()" id="mypage">
-                            <a href="/mypage">mypage</a>
+                            님 <a href="/mypage">mypage</a>
                         </li>
                         <li class="login menu-2" sec:authorize="isAuthenticated()" id="logout">
                             <a href="logout">logout</a>

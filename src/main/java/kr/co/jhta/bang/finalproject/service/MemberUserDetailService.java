@@ -31,6 +31,8 @@ public class MemberUserDetailService implements UserDetailsService {
             throw new UsernameNotFoundException("사용자를 찾을 수 없습니다.");
         }
 
-        return  new MemberUserDetails(memberDto);
+        MemberUserDetails memberUserDetails = new MemberUserDetails(memberDto);
+
+        return memberUserDetails;
     }
 }

@@ -5,22 +5,39 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
+import java.util.*;
 
 @Service
 @Slf4j
-public class MemberUserDetails implements UserDetails {
+public class MemberUserDetails implements UserDetails, OAuth2User {
 
     private MemberDTO memberDto;
+
+    private Map<String, Object> attributes;
+
+    public MemberUserDetails() {
+        // 기본 생성자
+    }
 
     public MemberUserDetails(MemberDTO memberDto) {
         this.memberDto = memberDto;
     }
 
+
+    public MemberUserDetails(MemberDTO memberDto, Map<String, Object> attributes) {
+        this.memberDto = memberDto;
+        this.attributes = attributes;
+    }
+
+
+
+    @Override
+    public Map<String, Object> getAttributes() {
+        return attributes;
+    }
 
     // 해당 user의 권한을 리턴
     @Override
@@ -71,5 +88,10 @@ public class MemberUserDetails implements UserDetails {
     @Override
     public boolean isEnabled() {
         return true;
+    }
+
+    @Override
+    public String getName() {
+        return memberDto.getMember_name();
     }
 }

@@ -2,6 +2,9 @@ package kr.co.jhta.bang.finalproject.control;
 
 import kr.co.jhta.bang.finalproject.dto.ProductListDTO;
 import kr.co.jhta.bang.finalproject.service.IndexService;
+import kr.co.jhta.bang.finalproject.service.MemberService;
+import kr.co.jhta.bang.finalproject.service.MemberUserDetailService;
+import kr.co.jhta.bang.finalproject.service.MemberUserDetails;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -18,6 +21,16 @@ public class HomeController {
     @Autowired
     IndexService service;
 
+    @Autowired
+    MemberUserDetails memberUserDetails;
+
+
+    @Autowired
+    MemberUserDetailService memberUserDetailService;
+
+    @Autowired
+    MemberService memberService;
+
     @GetMapping ("/")
     public String home(Model model, Principal principal){
         log.info(">>>>>>>>> home ");
@@ -32,10 +45,12 @@ public class HomeController {
         List<ProductListDTO> headphonelist =  service.selectAllHeadphone();
 
         if (principal != null) {
-            if (principal.getName() != null) {
-                model.addAttribute("username", principal.getName());
-            }
+            log.info("로그인된 사용자");
+            log.info("Authentication 의 반환객체 : {}", principal.getName());
+
+            model.addAttribute("username", principal.getName());
         } else {
+            log.info("로그인하지 않은 사용자");
             model.addAttribute("username", "Guest"); // 로그인하지 않은 사용자는 "Guest"라는 이름으로 보내기
         }
 

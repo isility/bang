@@ -4,16 +4,14 @@ import kr.co.jhta.bang.finalproject.dto.QnaDTO;
 import kr.co.jhta.bang.finalproject.service.QnaService;
 import kr.co.jhta.bang.finalproject.util.PageUtil;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.Banner;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import java.security.Principal;
 import java.util.List;
 import java.util.Map;
 
@@ -50,7 +48,8 @@ public class QnaController {
     @GetMapping("qna/qnaList")
     public String list(Model model,
                        @RequestParam(name = "currentPage", defaultValue = "1") int currentPage,
-                       @RequestParam(name = "qnaType", defaultValue = "카테고리") String qnaType) {
+                       @RequestParam(name = "qnaType", defaultValue = "카테고리") String qnaType,
+                       Principal principal) {
         // 총 게시물 수
         int totalNumber = service.getTotal();
         // 페이지당 게시물 수
@@ -71,6 +70,7 @@ public class QnaController {
         model.addAttribute("list", qnaList);
         model.addAttribute("map", map);
         model.addAttribute("qnaType", qnaType); // qnaType을 모델에 추가하여 View에서 사용할 수 있도록 함
+        model.addAttribute("username", principal.getName());
         return "qna/qnaList";
     }
 

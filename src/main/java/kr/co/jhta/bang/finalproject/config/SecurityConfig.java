@@ -1,10 +1,14 @@
 package kr.co.jhta.bang.finalproject.config;
 
 import kr.co.jhta.bang.finalproject.service.MemberOAuth2UserDetailService;
+import kr.co.jhta.bang.finalproject.service.MemberUserDetailService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
+import org.springframework.security.authentication.AuthenticationProvider;
+import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
@@ -19,6 +23,8 @@ import org.springframework.security.web.servletapi.SecurityContextHolderAwareReq
 @Slf4j
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
+    @Autowired
+    MemberUserDetailService memberUserDetailService;
 
     @Autowired
     MemberOAuth2UserDetailService oAuth2DetailService;
@@ -28,6 +34,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     PasswordEncoder passwordEncoder;
+
+    @Bean
+    public AuthenticationProvider authenticationProvider() {
+        DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
+        provider.setUserDetailsService(memberUserDetailService);
+        return provider;
+    }
+
+
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
