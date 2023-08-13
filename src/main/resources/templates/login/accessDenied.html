@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>accessDenied</title>
+
+  <script>
+        function redirectToLoginPage() {
+            if (confirm("접근할 수 없는 페이지 입니다. 고객센터로 문의해주세요.")) {
+                window.location.href = "/";
+            }
+        }
+        // 페이지 로드 시 함수 호출
+        redirectToLoginPage();
+    </script>
+</head>
+<body>
+</body>
+</html>

@@ -83,11 +83,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                     .deleteCookies("JSESSIONID")
                     .logoutSuccessUrl("/")
                 .and()
+                    .exceptionHandling().accessDeniedPage("/accessDenied")
+                .and()
                     .authenticationProvider(customAuthenticationProvider)
                     .oauth2Login()
                     .loginPage("/login/oauth2/**")
                     .userInfoEndpoint()
                     .userService(oAuth2DetailService);
+
 
     }
 

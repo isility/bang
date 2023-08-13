@@ -72,4 +72,9 @@ public class LoginController {
     public String loginError() {
         return "login/loginError.html";
     }
+
+    @GetMapping("/accessDenied")
+    public String accessDenied() {
+        return "login/accessDenied.html";
+    }
 }
