@@ -35,13 +35,20 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     PasswordEncoder passwordEncoder;
 
+    @Autowired
+    private CustomAuthenticationFailureHandler failureHandler;
+
+    @Autowired
+    private CustomAuthenticationSuccessHandler successHandler;
+
+
     @Bean
     public AuthenticationProvider authenticationProvider() {
+        log.info("[ BEAN ] : AuthenticationProvider");
         DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
         provider.setUserDetailsService(memberUserDetailService);
         return provider;
     }
-
 
 
     @Override
@@ -76,6 +83,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                     .loginProcessingUrl("/login")
                     .defaultSuccessUrl("/")
                     .failureUrl("/loginError")
+                    .failureHandler(failureHandler)
+                    .successHandler(successHandler)
                 .and()
                     .logout()
                     .logoutUrl("/logout")

@@ -76,4 +76,10 @@ public class MemberService {
     public int searchPwMemberInfoCheck(String id, String name, String email) { return memberDao.searchPwMemberInfoCheck(id, name, email); }
 
     public void resetPw(String memberId, String memberPw) { memberDao.resetPw(memberId, memberPw); }
+
+
+    public void loginFailures(String memberId) { memberDao.loginFailures(memberId); }
+
+    public void loginFailuresReset(String memberId) { memberDao.loginFailuresReset(memberId);
+    }
 }

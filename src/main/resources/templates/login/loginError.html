@@ -1,13 +1,15 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>LoginError</title>
-
-    <script>
+    <script th:inline="javascript">
+        var loginFailuresCount = [[${loginFailuresCount}]];
         function redirectToLoginPage() {
-            if (confirm("아이디 또는 비밀번호 오류입니다. 다시 시도해주세요.")) {
+            if (loginFailuresCount < 5 && confirm("아이디 또는 비밀번호 " + loginFailuresCount + "회 오류입니다. 다시 시도해주세요. ")) {
                 window.location.href = "/login";
+            } else if (loginFailuresCount >= 5 && confirm("아이디 또는 비밀번호 오류를 5회 이상 반복하셨습니다.\n아이디 찾기 또는 비밀번호 재설정을 이용해보세요.")) {
+                window.location.href = "/search/id";
             }
         }
         // 페이지 로드 시 함수 호출

@@ -31,4 +31,8 @@ public interface MemberDAO {
     int searchPwMemberInfoCheck(@Param("member_id") String id, @Param("member_name") String name, @Param("member_email") String email);
 
     void resetPw(@Param("member_id") String id, @Param("member_pw") String pw);
+
+    void loginFailures(String memberId);
+
+    void loginFailuresReset(String memberId);
 }

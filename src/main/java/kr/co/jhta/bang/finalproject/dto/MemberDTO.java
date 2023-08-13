@@ -26,4 +26,5 @@ public class MemberDTO {
     int role_number;
     int grade_number;
     int platformtype_number;
+    int member_loginFailures;
 }

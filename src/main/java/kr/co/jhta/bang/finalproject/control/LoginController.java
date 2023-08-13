@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -69,7 +70,14 @@ public class LoginController {
 
 
     @GetMapping("/loginError")
-    public String loginError() {
+    public String loginError(HttpServletRequest request, Model model) {
+
+        int loginFailuresCount = (int) request.getSession().getAttribute("loginFailuresCount");
+
+        log.info("loginError loginFailuresCount : {} ", loginFailuresCount);
+
+        model.addAttribute("loginFailuresCount", loginFailuresCount);
+
         return "login/loginError.html";
     }
 

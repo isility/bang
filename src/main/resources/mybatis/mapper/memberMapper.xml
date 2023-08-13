@@ -8,7 +8,7 @@
     <insert id="insertOne" parameterType="MemberDTO">
         INSERT INTO member
         VALUES (#{member_id}, #{member_pw}, #{member_token}, #{member_name}, #{member_phone}, #{member_postal}, #{member_address1}, #{member_address2},
-        #{member_email}, #{email_check}, DATE(NOW()), #{member_type}, #{member_profile}, #{role_number}, #{grade_number}, #{platformtype_number})
+        #{member_email}, #{email_check}, DATE(NOW()), #{member_type}, #{member_profile}, #{role_number}, #{grade_number}, #{platformtype_number}, #{member_loginFailures})
     </insert>
 
     <select id="idCheck" parameterType="String" resultType="int">
@@ -48,7 +48,7 @@
     </select>
 
     <select id="selectOneDetail" parameterType="String" resultType="MemberDTO">
-        select member_id, member_pw, member_token, member_name, member_email, role_number, grade_number, platformtype_number
+        select member_id, member_pw, member_token, member_name, member_email, role_number, grade_number, platformtype_number, member_loginFailures
         FROM member
         where member_id = #{member_id}
     </select>
@@ -69,6 +69,18 @@
     <update id="resetPw" parameterType="String">
         UPDATE member
         SET member_pw = #{member_pw}
+        WHERE member_id = #{member_id}
+    </update>
+
+    <update id="loginFailures" parameterType="String">
+        UPDATE member
+        SET member_loginFailures = member_loginFailures + 1
+        WHERE member_id = #{member_id}
+    </update>
+
+    <update id="loginFailuresReset" parameterType="String">
+        UPDATE member
+        SET member_loginFailures = 0
         WHERE member_id = #{member_id}
     </update>
 
