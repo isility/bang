@@ -51,7 +51,7 @@ public class HomeController {
             model.addAttribute("username", principal.getName());
         } else {
             log.info("로그인하지 않은 사용자");
-            model.addAttribute("username", "Guest"); // 로그인하지 않은 사용자는 "Guest"라는 이름으로 보내기
+            model.addAttribute("username", "Guest 님"); // 로그인하지 않은 사용자는 "Guest"라는 이름으로 보내기
         }
 
         return "/index3";
