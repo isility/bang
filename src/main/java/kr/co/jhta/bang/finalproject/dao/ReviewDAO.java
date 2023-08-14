@@ -42,7 +42,8 @@ public interface ReviewDAO {
 
     List<ReviewDTO> getOneByMemberId(String member_id);
 
-    int getProductNumberByName(String productName);
+    String getProductNumberByName(String member_id);
 
     String getProductName(int productNumber);
+
 }
