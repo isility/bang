@@ -4,6 +4,7 @@ import kr.co.jhta.bang.finalproject.dao.CartDAO;
 import kr.co.jhta.bang.finalproject.dto.CartDTO;
 import kr.co.jhta.bang.finalproject.dto.KakaoPayApprovalDTO;
 import kr.co.jhta.bang.finalproject.dto.KakaoPayReadyDTO;
+import kr.co.jhta.bang.finalproject.dto.MemberDTO;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
@@ -30,16 +31,12 @@ public class KakaoPayService {
     @Getter
     HttpSession session;
 
-
-
     private static final String HOST = "https://kapi.kakao.com";
 
     private KakaoPayReadyDTO KakaoPayReadyDTO;
     private KakaoPayApprovalDTO KakaoPayApprovalDTO;
 
     public String kakaoPayReady() {
-
-
 
         RestTemplate restTemplate = new RestTemplate();
 
@@ -62,7 +59,7 @@ public class KakaoPayService {
             String productName = dto.getProductName();
             for(CartDTO cdto : CartDTOList)
                 cnt +=1;
-            if(cnt == 0)
+            if(cnt == 1)
                 params.add("item_name", productName);
             else
                 params.add("item_name", productName +" 등 " +  cnt + "건");
@@ -76,14 +73,14 @@ public class KakaoPayService {
             for(CartDTO cdto : cartList){
                 cartQuantity += cdto.getCartQuantity();
             }
-            params.add("quantity", Integer.toString(cartQuantity));
+            params.add("quantity", ""+cartQuantity);
         } else {
             return "kakaoPaySuccessFail";
         }
+        int tax = (int)((int)session.getAttribute("totalPrice") * 0.1);
 
-        params.add("total_amount", ""+session.getAttribute("totalPrice"));
-
-        params.add("tax_free_amount", "100");
+        params.add("total_amount", Integer.toString((int)session.getAttribute("totalPrice")));
+        params.add("tax_free_amount", ""+tax);
         params.add("approval_url", "http://localhost:8082/payment/kakaoPaySuccess");
         params.add("cancel_url", "http://localhost:8082/payment/kakaoPayCancel");
         params.add("fail_url", "http://localhost:8082/payment/kakaoPaySuccessFail");
@@ -103,10 +100,13 @@ public class KakaoPayService {
             e.printStackTrace();
         }
 
-        return "/pay";
+        return "kakaoPaySuccessFail";
 
     }
     public KakaoPayApprovalDTO kakaoPayInfo(String pg_token) {
+
+        MemberDTO dto = (MemberDTO)session.getAttribute("member");
+        String memberID = dto.getMember_id();
 
         RestTemplate restTemplate = new RestTemplate();
 
@@ -116,14 +116,16 @@ public class KakaoPayService {
         headers.add("Accept", MediaType.APPLICATION_JSON_UTF8_VALUE);
         headers.add("Content-Type", MediaType.APPLICATION_FORM_URLENCODED_VALUE + ";charset=UTF-8");
 
+
+
         // 서버로 요청할 Body
         MultiValueMap<String, String> params = new LinkedMultiValueMap<String, String>();
         params.add("cid", "TC0ONETIME");
         params.add("tid", KakaoPayReadyDTO.getTid());
-        params.add("partner_order_id", "1001");
-        params.add("partner_user_id", "gorany");
+        params.add("partner_order_id", "1001");     //주문번호
+        params.add("partner_user_id", memberID);    //유저아이디
         params.add("pg_token", pg_token);
-        params.add("total_amount", "2100");
+        params.add("total_amount", session.getAttribute("totalPrice")+"");
 
         HttpEntity<MultiValueMap<String, String>> body = new HttpEntity<MultiValueMap<String, String>>(params, headers);
 
