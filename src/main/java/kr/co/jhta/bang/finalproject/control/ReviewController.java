@@ -83,11 +83,12 @@ public class ReviewController {
 
     @GetMapping("/reviewWrite")
     public String reviewWrite(Model model, Principal principal) {
-        if (principal.getName() == null || principal.getName().isEmpty()) {
+        if (principal == null || principal.getName() == null || principal.getName().isEmpty()) {
             return "redirect:/review/reviewList";
         }
+
         List<ReviewDTO> list = service.getOneByMemberId(principal.getName());
-        model.addAttribute("dto",list);
+        model.addAttribute("dto", list);
 
         return "review/reviewWrite";
     }
