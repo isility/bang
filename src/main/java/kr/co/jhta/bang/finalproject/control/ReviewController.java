@@ -1,8 +1,7 @@
 package kr.co.jhta.bang.finalproject.control;
 
+import kr.co.jhta.bang.finalproject.dto.CartDTO;
 import kr.co.jhta.bang.finalproject.dto.ReviewDTO;
-import kr.co.jhta.bang.finalproject.file.FileValidator;
-import kr.co.jhta.bang.finalproject.file.UploadFile;
 import kr.co.jhta.bang.finalproject.service.PaymentService;
 import kr.co.jhta.bang.finalproject.service.ReviewService;
 import kr.co.jhta.bang.finalproject.util.PageUtil;
@@ -10,16 +9,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.ModelAndView;
-
-import javax.servlet.ServletContext;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
-import java.io.File;
-import java.io.IOException;
 import java.security.Principal;
 import java.util.List;
 import java.util.Map;
@@ -33,14 +23,12 @@ public class ReviewController {
     @Autowired
     PaymentService payService;
 
-    @Autowired
-    FileValidator fileValidator;
 
 
 
     @GetMapping("/reviewList")
     public String reviewList(
-            Model model,
+            Model model,Principal principal,
             @RequestParam(name="currentPage", defaultValue = "1")int currentPage
     ){
         // 총 게시물 수
@@ -58,16 +46,44 @@ public class ReviewController {
         model.addAttribute("list", service.findAllReply(startNo, endNo));
         model.addAttribute("map", map);
 
+        if (principal != null) {
+            int cnt = 0;
+            log.info("로그인된 사용자");
+            log.info("Authentication 의 반환객체 : {}", principal.getName());
+            for (CartDTO dto : payService.cartlist(principal.getName()))
+                cnt++;
+            model.addAttribute("cartListCount", cnt);
+            model.addAttribute("username", principal.getName());
+        } else {
+            log.info("로그인하지 않은 사용자");
+            model.addAttribute("username", "Guest 님"); // 로그인하지 않은 사용자는 "Guest"라는 이름으로 보내기
+            model.addAttribute("cartListCount", 0);
+        }
+
         return "review/reviewList";
+
     }
 
     @GetMapping("/reviewDetail")
-    public String reviewDetail(@RequestParam("replyNumber") int replyNumber, Model model, Model model2){
+    public String reviewDetail(@RequestParam("replyNumber") int replyNumber, Model model,Principal principal, Model model2){
         model.addAttribute("reviewDTO", service.findByReply_number(replyNumber));
         log.info("-----------------replyNumber : {}", replyNumber);
         //log.info(">>>>>>>>>>>>>>>>>>>>GET {}", service.commentsSave(replyNumber));
         model2.addAttribute("list", service.findAllByReplyRef(replyNumber));
 
+        if (principal != null) {
+            int cnt = 0;
+            log.info("로그인된 사용자");
+            log.info("Authentication 의 반환객체 : {}", principal.getName());
+            for (CartDTO dto : payService.cartlist(principal.getName()))
+                cnt++;
+            model.addAttribute("cartListCount", cnt);
+            model.addAttribute("username", principal.getName());
+        } else {
+            log.info("로그인하지 않은 사용자");
+            model.addAttribute("username", "Guest 님"); // 로그인하지 않은 사용자는 "Guest"라는 이름으로 보내기
+            model.addAttribute("cartListCount", 0);
+        }
         return "review/reviewDetail";
     }
 
@@ -86,12 +102,27 @@ public class ReviewController {
 
     @GetMapping("/reviewWrite")
     public String reviewWrite(Model model, Principal principal) {
+        if (principal != null) {
+            int cnt = 0;
+            log.info("로그인된 사용자");
+            log.info("Authentication 의 반환객체 : {}", principal.getName());
+            for (CartDTO dto : payService.cartlist(principal.getName()))
+                cnt++;
+            model.addAttribute("cartListCount", cnt);
+            model.addAttribute("username", principal.getName());
+        } else {
+            log.info("로그인하지 않은 사용자");
+            model.addAttribute("username", "Guest 님"); // 로그인하지 않은 사용자는 "Guest"라는 이름으로 보내기
+            model.addAttribute("cartListCount", 0);
+        }
+
         if (principal == null || principal.getName() == null || principal.getName().isEmpty()) {
             return "redirect:/review/reviewList";
         }
 
         List<ReviewDTO> list = service.getOneByMemberId(principal.getName());
         model.addAttribute("dto", list);
+
 
         return "review/reviewWrite";
     }
@@ -139,7 +170,20 @@ public class ReviewController {
     }
 
     @GetMapping("/reviewModify")
-    public String modifyReply(@RequestParam("replyNumber")int replyNumber, Model model){
+    public String modifyReply(@RequestParam("replyNumber")int replyNumber, Model model, Principal principal){
+        if (principal != null) {
+            int cnt = 0;
+            log.info("로그인된 사용자");
+            log.info("Authentication 의 반환객체 : {}", principal.getName());
+            for (CartDTO dto : payService.cartlist(principal.getName()))
+                cnt++;
+            model.addAttribute("cartListCount", cnt);
+            model.addAttribute("username", principal.getName());
+        } else {
+            log.info("로그인하지 않은 사용자");
+            model.addAttribute("username", "Guest 님"); // 로그인하지 않은 사용자는 "Guest"라는 이름으로 보내기
+            model.addAttribute("cartListCount", 0);
+        }
         model.addAttribute("reviewDTO", service.findByReply_number(replyNumber));
         return "review/reviewModify";
     }
