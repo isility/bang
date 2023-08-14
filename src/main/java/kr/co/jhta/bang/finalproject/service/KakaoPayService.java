@@ -40,7 +40,6 @@ public class KakaoPayService {
     @Setter
     PaymentDTO paymentDTO;
 
-    @Setter
     MemberDTO memberDTO;
 
     public String kakaoPayReady() {
@@ -115,7 +114,7 @@ public class KakaoPayService {
 
     public KakaoPayApprovalDTO kakaoPayInfo(String pg_token) {
 
-        memberDTO = new MemberDTO();
+        paymentDTO = new PaymentDTO();
 
         memberDTO = (MemberDTO) session.getAttribute("member");
         log.info("멤버 dto : " + memberDTO);
