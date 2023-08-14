@@ -38,7 +38,7 @@ public class PaymentController {
     @Autowired
     MemberDAO memberDAO;
 
-    @GetMapping("pay")
+    @GetMapping("/pay")
     public String kakaoPayMain(){
 
         return "payment/kakaoPay";
