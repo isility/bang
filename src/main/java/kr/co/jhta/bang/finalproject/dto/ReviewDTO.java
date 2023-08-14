@@ -24,6 +24,9 @@ public class ReviewDTO {
     private int replyScore; // 리뷰점수
     private int productNumber; // 리뷰가 작성 될 상품 번호
     private String member_id;
+    private String paymentDetailStatus;
+    private int paymentDetailNumber;
+    private String productName;
 //    private int productDetailNumber;
 //    private String productName;
 //    private int productCount;

@@ -36,9 +36,25 @@
     <script th:src="@{/js/modernizr-2.6.2.min.js}"></script>
 
     <style>
-        input::placeholder {color:#D1C286;}
+
+	.star-rating {
+    font-size: 30px;
+    direction: ltr; /* 왼쪽 정렬 */
+}
+
+label {
+    color: orange;
+    unicode-bidi: bidi-override;
+    direction: ltr;
+    font-size: 15px;
+    text-align: left; /* 왼쪽 정렬 */
+}
+
+
+
     </style>
 </head>
+
 
 <body>
 
@@ -131,7 +147,10 @@
                             <th>작성일</th>
                             <td th:text="${reviewDTO.replyDate}"></td>
                             <th>리뷰점수</th>
-                            <td th:text="${reviewDTO.replyScore}"></td>
+
+                                <td>
+                            <label th:each="score : ${#numbers.sequence(1, reviewDTO.replyScore)}" for="star" >&#9733;</label>
+                                </td>
                         </tr>
                         <tr>
                             <th>내용</th>

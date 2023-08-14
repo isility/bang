@@ -51,6 +51,7 @@ public class ReviewController {
         Map<String,Object> map = PageUtil.getPageData(totalNumber, countPerPage, currentPage);
         int startNo = (int)map.get("startNo");
         int endNo = (int)map.get("endNo");
+
         model.addAttribute("list", service.findAllReply(startNo, endNo));
         model.addAttribute("map", map);
 
@@ -81,21 +82,28 @@ public class ReviewController {
     }
 
     @GetMapping("/reviewWrite")
-    public String reviewWrite(){
+    public String reviewWrite(Model model, Principal principal) {
+        if (principal.getName() == null || principal.getName().isEmpty()) {
+            return "redirect:/review/reviewList";
+        }
+        List<ReviewDTO> list = service.getOneByMemberId(principal.getName());
+        model.addAttribute("dto",list);
+
         return "review/reviewWrite";
     }
 
     @PostMapping("/reviewWrite")
     public String reviewWriteOk(Principal principal,
-                                @ModelAttribute ReviewDTO reviewDTO, @RequestParam("star") int star, Model model) {
+                                @ModelAttribute ReviewDTO reviewDTO, @RequestParam("star") int star,@RequestParam("productName")String productName, Model model) {
+
 
             reviewDTO.setReplyScore(star);
             reviewDTO.setMember_id(principal.getName());
             reviewDTO.setReplyWriter(principal.getName());
-
+            reviewDTO.setProductNumber(service.getProductNumberByName(productName));
+            reviewDTO.setProductName(productName);
             service.writeReply(reviewDTO);
             return "redirect:/review/reviewList";
-
     }
 
 
