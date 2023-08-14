@@ -2,6 +2,17 @@
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
+  <!-- include libraries(jQuery, bootstrap) -->
+  <link th:href="@{/css/bootstrap.css}" rel="stylesheet">
+  <script th:src="@{/js/jquery.min.js}"></script>
+  <script th:src="@{/js/bootstrap.min.js}"></script>
+
+  <!-- include summernote css/js -->
+  <link th:href="@{/assets/css/summernote/summernote-lite.css}" rel="stylesheet">
+  <script th:src="@{/assets/js/summernote/summernote-lite.js}"></script>
+
+
+
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>Shop &mdash; Free Website Template, Free HTML5 Template by gettemplates.co</title>
@@ -50,26 +61,6 @@
   <![endif]-->
   <script th:src="@{/js/modernizr-2.6.2.min.js}"></script>
 
-  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
-  <script th:src="@{/js/summernote/summernote-lite.js}"></script>
-  <script th:src="@{/js/summernote/lang/summernote-ko-KR.js}"></script>
-  <link rel="stylesheet" th:href="@{/css/summernote/summernote-lite.css}">
-
-  <script>
- $(document).ready(function() {
-	//여기 아래 부분
-	$('#summernote').summernote({
-		  height: 300,                 // 에디터 높이
-		  minHeight: null,             // 최소 높이
-		  maxHeight: null,             // 최대 높이
-		  focus: true,                  // 에디터 로딩후 포커스를 맞출지 여부
-		  lang: "ko-KR",					// 한글 설정
-		  placeholder: '최대 2048자까지 쓸 수 있습니다'	//placeholder 설정
-
-	});
-});
-</script>
 </head>
 <body>
 
@@ -154,8 +145,12 @@
     <div class="container">
       <div class="row">
         <div><h2>NOTICE</h2></div>
-        <!--				<h2 th:text="${list}"></h2>-->
         <form action="noticeWrite" method="post">
+        <div>
+          <a style="float:right;" class="btn btn-primary" th:href="@{/notice/noticeList}">목록</a>
+          <input style="float:right;" class="btn btn-primary" type="submit" value="작성" />
+        </div>
+
           <table class="table">
             <tr>
               <th>작성자</th>
@@ -167,21 +162,14 @@
             </tr>
             <tr>
               <th>내용</th>
-             <!-- <td><textarea name="noticeContents" id="summernote"></textarea></td>-->
-              <textarea id="summernote" name="editordata"></textarea>
-            </tr>
-            <tr>
-              <td colspan="2">
-                <a class="btn btn-outline-primary" th:href="@{/notice/noticeList}">목록</a>
-                <input class="btn btn-outline-success" type="submit" value="작성" />
-              </td>
+              <td><textarea name="noticeContents" id="summernote"></textarea></td>
             </tr>
           </table>
         </form>
       </div>
     </div>
 
- <!--   <script>
+    <script>
     $('#summernote').summernote({
         // 에디터 높이
         height: 400,
@@ -217,7 +205,6 @@
 
     });
 </script>
--->
   </div>
 
   <div id="fh5co-started">
@@ -326,21 +313,6 @@
 <!-- Main -->
 <script th:src="@{/js/main.js}"></script>
 
-<script type="text/javascript">
-
-		$(document).ready(function() {
-		  $('#summernote').summernote({
-
-			  height: 300,
-			  minHeight: null,
-			  maxHeight: null,
-			  lang: "ko-KR",
-			  placeholder: '여기에 글을 써주세요'
-
-		  });
-		});
-
-	</script>
 </body>
 </html>
 

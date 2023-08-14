@@ -114,7 +114,7 @@
     </div>
   </nav>
 
-  <header id="fh5co-header" class="fh5co-cover fh5co-cover-sm" role="banner" style="background-image:url(images/img_bg_2.jpg);">
+  <header id="fh5co-header" class="fh5co-cover fh5co-cover-sm" role="banner" style="background-image:url(/images/banner_speaker.jpg);">
     <div class="overlay"></div>
     <div class="container">
       <div class="row">
@@ -122,7 +122,6 @@
           <div class="display-t">
             <div class="display-tc animate-box" data-animate-effect="fadeIn">
               <h1>NOTICE</h1>
-              <h2>Free html5 templates by <a th:href="@{https://themewagon.com/theme_tag/free/}" target="_blank">Themewagon</a></h2>
             </div>
           </div>
         </div>
@@ -135,21 +134,21 @@
       <div class="row">
         <div><h2>NOTICE</h2></div>
         <div>
-          <a th:href="@{noticeDelete(noticeNumber=${dto.noticeNumber})}"><input type="button" style="float:right;" class="btn btn-outline-danger" value="삭제" /></a>
-          <a th:href="@{noticeModify(noticeNumber=${dto.noticeNumber})}"><input type="button" style="float:right;" class="btn btn-outline-success" value="수정" /></a>
-          <a th:href="@{noticeList}"><input type="button" style="float:right;" class="btn btn-outline-primary" value="목록" /></a>
+          <a th:href="@{noticeDelete(noticeNumber=${dto.noticeNumber})}"><input type="button" style="float:right;" class="btn btn-primary" value="삭제" /></a>
+          <a th:href="@{noticeModify(noticeNumber=${dto.noticeNumber})}"><input type="button" style="float:right;" class="btn btn-primary" value="수정" /></a>
+          <a th:href="@{noticeList}"><input type="button" style="float:right;" class="btn btn-primary" value="목록" /></a>
         </div>
         <form>
           <table class="table">
             <tr>
               <th>게시물번호</th>
               <td th:text="${dto.noticeNumber}"></td>
-              <th>작성자</th>
-              <td th:text="${dto.noticeWriter}"></td>
+              <th style="text-align: center;">작성자</th>
+              <td style="text-align: center;" th:text="${dto.noticeWriter}"></td>
             </tr>
             <tr>
               <th>작성일</th>
-              <td th:text="${dto.noticeDate}"></td>
+              <td colspan="4" th:text="${dto.noticeDate}"></td>
             </tr>
             <tr>
               <th>제목</th>
@@ -157,7 +156,7 @@
             </tr>
             <tr>
               <th>내용</th>
-              <td colspan="4" th:text="${dto.noticeContents}"></td>
+              <td colspan="4" th:utext="${dto.noticeContents}" ></td>
             </tr>
 
           </table>
