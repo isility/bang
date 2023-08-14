@@ -152,15 +152,15 @@
                                 <h4 style="margin-bottom:20px;">배송정보</h4>
                                 <div class="col-md-4" style="padding:0px;">
                                     <input type="text" name="orderName" class="form-control" placeholder="이름"
-                                           style="height:40px; margin-bottom:10px;">
+                                           style="height:40px; margin-bottom:10px;" th:value="${session.member.member_name}">
                                 </div>
                                 <div class="col-md-8" style="padding-right:0px;">
                                     <input type="text" name="orderPhone" class="form-control" placeholder="연락처"
-                                           style="height:40px;margin-bottom:10px; ">
+                                           style="height:40px;margin-bottom:10px; " th:value="${session.member.member_phone}">
                                 </div>
                                 <div class="col-md-8" style="padding:0px;">
                                     <input type="text" name="OrderPost" class="form-control" placeholder="우편번호"
-                                           style="height:40px;margin-bottom:10px;">
+                                           style="height:40px;margin-bottom:10px;" th:value="${session.member.member_postal}">
                                 </div>
                                 <div class="col-md-4" style="padding-right: 0px;" >
                                     <input type="button" class="form-control" value="주소 찾기"
