@@ -1,5 +1,7 @@
 <!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -181,7 +183,7 @@
                         <li><a href="/product/productList?categoryNumber=3">HEADPHONE</a></li>
                         <li><a href="/product/productList?categoryNumber=4">ACCESSORIES</a></li>
                         <li class="has-dropdown">
-                            <a href="/community.html">COMMUNITY</a>
+                            <a href="">COMMUNITY</a>
                             <ul class="dropdown">
                                 <li><a href="/notice/noticeList">공지사항</a></li>
                                 <li><a href="/review/reviewList">REVIEW</a></li>
@@ -192,14 +194,14 @@
                 </div>
                 <div class="col-md-3 col-xs-4 text-right hidden-xs menu-2">
                     <ul>
-                        <li class="shopping-cart menu-2"><a href="#" class="cart"><span><small>0</small><i
+                        <li class="shopping-cart menu-2"><a href="/product/cart" class="cart"><span><small th:text="${cartListCount}">0</small><i
                                 class="icon-shopping-cart"></i></span></a></li>
-                        <li class="login menu-2" th:if="${username}" th:text="" id="username"></li>
+                        <li class="login menu-2" th:text="${username}" id="username"></li>
                         <!-- 로그인 상태일 때 -->
-                        <li class="login menu-2" style="display: none;" id="mypage">
-                            <a href="mypage">mypage</a>
+                        <li class="login menu-2" sec:authorize="isAuthenticated()" id="mypage">
+                            님 <a href="/mypage">mypage</a>
                         </li>
-                        <li class="login menu-2" style="display: none;" id="logout">
+                        <li class="login menu-2" sec:authorize="isAuthenticated()" id="logout">
                             <a href="logout">logout</a>
                         </li>
 
@@ -209,15 +211,6 @@
                         </li>
                         <li class="login menu-2" sec:authorize="isAnonymous()" id="login">
                             <a href="login">login</a>
-                        </li>
-                        <li class="search menu-2">
-                            <div class="input-group">
-                                <input type="text" placeholder="SEARCH">
-                                <span class="input-group-btn">
-										<button class="btn btn-primary" type="button"><i
-                                                class="icon-search"></i></button>
-									</span>
-                            </div>
                         </li>
 
                     </ul>
@@ -318,7 +311,7 @@
                     <a href="/product/cart">
                         <button class=" btn btn-primary btn-xxs countbtn"
                                 style="font-size:13px;width:110px;height:35px;padding:11px;padding-top:7px;
-											position:relative;right:50px">장바구니 이동
+											position:relative;right:10px">장바구니 이동
                         </button>
                     </a>
 

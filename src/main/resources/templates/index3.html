@@ -34,9 +34,7 @@
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
-</head>
-
-<style>
+    <style>
 	.fh5co-hero .flexslider .slides li {
 		background-size: cover;
 		/* 이미지를 컨테이너에 맞추어 확대/축소 */
@@ -78,6 +76,33 @@
 
 </style>
 
+
+    <!--장바구니 모달창-->
+    <script>
+	$(document).ready(function () {
+		$('.cartPop').click(function () {
+
+		    var pno = parseInt($(this).closest('.product').attr('data-pno'));
+
+    		$.ajax({
+    			type : "POST",
+    			url : "/product/cartInsertOne",
+    			data : {
+    				pno : pno,
+    				quantity : 1
+    			},
+    			success : function(){
+    				$('#cartPop').modal('show');
+    			}
+    		});
+    	});
+  	});
+    </script>
+
+</head>
+
+
+
 <body>
 <!-- ===================================================================================================================================================== -->
 <!-- 카테고리 네비게이션 -->
@@ -108,7 +133,7 @@
                 </div>
                 <div class="col-md-3 col-xs-4 text-right hidden-xs menu-2">
                     <ul>
-                        <li class="shopping-cart menu-2"><a href="/product/cart" class="cart"><span><small>0</small><i
+                        <li class="shopping-cart menu-2"><a href="/product/cart" class="cart"><span><small th:text="${cartListCount}">0</small><i
                                 class="icon-shopping-cart"></i></span></a></li>
                         <li class="login menu-2" th:text="${username}" id="username"></li>
                         <!-- 로그인 상태일 때 -->
@@ -347,6 +372,35 @@
         </div>
     </div>
 
+
+    <!--    =================================================================================================-->
+    <!--	카트 모달 팝업-->
+    <div class="modal fade" id="cartPop" tabindex="-1" role="dialog" aria-labelledby="wishModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+
+                <div class="modal-body text-center">
+                    <br>
+                    <p style="text-align: center;">상품을 장바구니에 담았습니다.</p>
+                    <br>
+                    <a href="/product/cart" >
+                        <button class=" btn btn-primary btn-xxs countbtn"
+                                style="font-size:13px;width:110px;height:35px;padding:11px;padding-top:7px;
+											position:relative;right:10px">장바구니 이동
+                        </button>
+                    </a>
+
+                    <button onclick="window.close()" class=" btn btn-primary btn-outline btn-xxs countbtn"
+                            style="font-size:13px;width:110px;height:35px;padding:11px;padding-top:7px"
+                            data-dismiss="modal">쇼핑 계속하기
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
     <!-- ======================================================================================== -->
     <!-- footer -->
 
@@ -360,7 +414,7 @@
                         <small class="block">Designed by <a href="http://freehtml5.co/" target="_blank" style="color:white">FreeHTML5.co</a>
                             Demo Images: <a href="http://blog.gessato.com/"
                                             target="_blank" style="color:white">Gessato</a> &amp; <a href="http://unsplash.co/"
-                                                                                 target="_blank" style="color:white">Unsplash</a></small>
+                                                                                                     target="_blank" style="color:white">Unsplash</a></small>
                     </p>
                 </div>
             </div>

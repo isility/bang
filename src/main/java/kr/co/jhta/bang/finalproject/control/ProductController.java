@@ -28,9 +28,11 @@ public class ProductController {
 
     //상품리스트-------------------------------------------------------------------------------------------------
     @GetMapping("/productList")
-    public String productList(Model model, @RequestParam("categoryNumber") int categoryNumber){
+    public String productList(Model model, @RequestParam("categoryNumber") int categoryNumber, Principal principal){
 
         model.addAttribute("list", service.selectAll(categoryNumber));
+        model.addAttribute("username", principal.getName());
+
         List<ProductListDTO> list =  service.selectAll(categoryNumber);
 //        for(ProductListDTO dto : list ){
 //            log.info(dto.getImg());
@@ -71,14 +73,46 @@ public class ProductController {
 //        for(ProductDTO dto: list){
 //            log.info("dto : {}", dto.getProduct_number());
 //        }
+
+        //========================================================================
+        if (principal != null) {
+            int cnt = 0;
+            log.info("로그인된 사용자");
+            log.info("Authentication 의 반환객체 : {}", principal.getName());
+            for (CartDTO dto : payService.cartlist(principal.getName()))
+                cnt++;
+            model.addAttribute("cartListCount", cnt);
+            model.addAttribute("username", principal.getName());
+        } else {
+            log.info("로그인하지 않은 사용자");
+            model.addAttribute("username", "Guest 님"); // 로그인하지 않은 사용자는 "Guest"라는 이름으로 보내기
+            model.addAttribute("cartListCount", 0);
+        }
+
         return "product/productList";
     }
 
     //상세 페이지 -------------------------------------------------------------------------------------------------
     @GetMapping("/productDetail")
-    public String detail(Model model, @RequestParam("productNumber") int productNumber){
+    public String detail(Model model, @RequestParam("productNumber") int productNumber, Principal principal){
         model.addAttribute("productDto", service.selectOne(productNumber));
         model.addAttribute("detailImg", service.selectList(productNumber));
+        model.addAttribute("username", principal.getName());
+
+        //========================================================================
+        if (principal != null) {
+            int cnt = 0;
+            log.info("로그인된 사용자");
+            log.info("Authentication 의 반환객체 : {}", principal.getName());
+            for (CartDTO dto : payService.cartlist(principal.getName()))
+                cnt++;
+            model.addAttribute("cartListCount", cnt);
+            model.addAttribute("username", principal.getName());
+        } else {
+            log.info("로그인하지 않은 사용자");
+            model.addAttribute("username", "Guest 님"); // 로그인하지 않은 사용자는 "Guest"라는 이름으로 보내기
+            model.addAttribute("cartListCount", 0);
+        }
 
         return "product/productDetail";
     }
@@ -94,6 +128,8 @@ public class ProductController {
             cnt+=1;
         model.addAttribute("cartListCount",cnt);
         model.addAttribute("totalPrice",service.allPrice(principal.getName()));
+        model.addAttribute("username", principal.getName());
+
 
         return "product/cart";
     }
