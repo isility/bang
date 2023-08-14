@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.security.Principal;
 import java.util.Map;
 
 @Controller
@@ -20,7 +21,7 @@ public class NoticeController {
     NoticeService service;
 
     @GetMapping("notice/noticeList")
-    public String list(Model model, @RequestParam(name = "currentPage", defaultValue = "1")int currentPage){
+    public String list(Model model, Principal principal, @RequestParam(name = "currentPage", defaultValue = "1")int currentPage){
         // 총 게시물 수
         int totalNumber = service.getTotal();
         // 페이지당 게시물 수
@@ -31,18 +32,22 @@ public class NoticeController {
         int endNo = (int)map.get("endNo");
         model.addAttribute("list", service.selectAll(startNo, endNo));
         model.addAttribute("map", map);
+        model.addAttribute("username", principal.getName());
 
         return "notice/noticeList";
     }
 
     @GetMapping("notice/noticeDetail")
-    public String form(@RequestParam("noticeNumber")int noticeNumber, Model model){
+    public String form(@RequestParam("noticeNumber")int noticeNumber, Model model, Principal principal){
         model.addAttribute("dto", service.selectOne(noticeNumber));
+        model.addAttribute("username", principal.getName());
+
         return "notice/noticeDetail";
     }
 
     @GetMapping("notice/noticeWrite")
-    public String writeForm(){
+    public String writeForm(Model model, Principal principal){
+        model.addAttribute("username", principal.getName());
         return "notice/noticeWrite";
     }
 
@@ -53,8 +58,9 @@ public class NoticeController {
     }
 
     @GetMapping("notice/noticeModify")
-    public String modifyForm(@RequestParam("noticeNumber")int noticeNumber, Model model) {
+    public String modifyForm(@RequestParam("noticeNumber")int noticeNumber, Model model, Principal principal) {
         model.addAttribute("dto", service.selectOne(noticeNumber));
+        model.addAttribute("username", principal.getName());
         return "notice/noticeModify";
     }
 

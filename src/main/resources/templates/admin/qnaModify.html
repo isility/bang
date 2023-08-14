@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Review List</title>
+  <title>Notice Modify</title>
   <link rel="shortcut icon" type="image/png" th:href="@{../assets/images/logos/bang.jpeg}" />
   <link rel="stylesheet" th:href="@{../assets/css/styles.min.css}" />
 </head>
@@ -133,76 +133,42 @@
       <div class="container-fluid">
         <div class="card">
           <div class="card-body">
-            <h5 class="card-title fw-semibold mb-4">게시글관리</h5>
-            <div style="text-align: center">
-              <!--<select class="form-select" id="categorySelect">
-                <option value="1">Q&A</option>
-                <option value="2">NOTICE</option>
-                <option value="3">REVIEW</option>
-              </select>-->
-              <a th:href="@{/admin/communityList}"><input type="button" class="btn btn-outline-primary" value="NOTICE" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
-              <a th:href="@{/admin/reviewList}"><input type="button" class="btn btn-primary" value="REVIEW" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
-              <a th:href="@{/admin/qnaList}"><input type="button" class="btn btn-outline-primary" value="Q&A" /></a>
-            </div>
-            <br>
+            <h5 class="card-title fw-semibold mb-4">공지사항 수정</h5>
             <div class="card">
               <div class="card-body">
-                <table class="table table-hover" id="dataTable">
-                  <thead>
-                  <tr>
-                    <th scope="col">No</th>
-                    <th scope="col">상품번호</th>
-                    <th scope="col">내용</th>
-                    <th scope="col">작성자</th>
-                    <th scope="col">평점</th>
-                    <th scope="col">작성일</th>
-                    <th scope="col">#</th>
-                    <th scope="col">X</th>
-                  </tr>
-                  </thead>
 
-                  <tbody>
-                  <tr th:each="reviewDTO : ${list}">
-                    <td class="reviewNo" th:text="${reviewDTO.replyRef}"></td>
-                    <td class="productNumber" th:text="${reviewDTO.productNumber}"></td>
-                    <td>
-                      <a th:href="@{/review/reviewDetail(replyNumber=${reviewDTO.replyNumber})}" style="">
-                        <span th:utext="${#strings.length(reviewDTO.replyContents) > 20 ? #strings.substring(reviewDTO.replyContents, 0, 20) + '...' : reviewDTO.replyContents} + '  (' + ${reviewDTO.replyAnswerNumber} + ')'"></span>
-                      </a>
-                    </td>
-                    <td class="writer" th:text="${reviewDTO.replyWriter}"></td>
-                    <td>
-                      <div class="star-rating">
-                        <th:block th:each="score : ${#numbers.sequence(1, reviewDTO.replyScore)}">
-                          <label for="star">&#9733;</label>
-                        </th:block>
-                      </div>
-                    </td>
-                    <td class="date" th:text="${reviewDTO.replyDate}"></td>
-
-                    <td><a th:href="@{/admin/reviewModify(replyNumber=${reviewDTO.replyNumber})}" class="btn btn-primary" style="font-size: 9px;">수정</a></td>
-                    <td><a th:href="@{/admin/reviewDelete(replyNumber=${reviewDTO.replyNumber})}" class="btn btn-primary btn-outline" style="font-size: 9px;">삭제</a></td>
-                  </tr>
-                  </tbody>
-                </table>
-
-
-                <div class="centered">
-                  <nav aria-label="Page navigation example">
-                    <ul class="pagination" style="justify-content: center;">
-                      <li th:if="${map.prev}">
-                        <a th:href="@{/admin/reviewList(currentPage=${map.currentPage-5})}" class="page-link">이전</a>
-                      </li>
-                      <li th:each="i : ${#numbers.sequence(map.startPageNo, map.endPageNo)}">
-                        <a th:href="@{/admin/reviewList(currentPage=${i})}" class="page-link" th:text="${i}"></a>
-                      </li>
-                      <li th:if="${map.next}">
-                        <a th:href="@{/admin/reviewList(currentPage=${map.currentPage+5})}" class="page-link">다음</a>
-                      </li>
-                    </ul>
-                  </nav>
-                </div>
-
+                <form action="qnaModify" method="post">
+                  <select name="qnaType" id="category">
+                    <option value="">카테고리선택</option>
+                    <option value="상품문의">상품문의</option>
+                    <option value="결제/배송문의">결제/배송문의</option>
+                    <option value="회원정보문의">회원정보문의</option>
+                    <option value="기타문의">기타문의</option>
+                  </select>
+                  <table class="table">
+                    <tr>
+                      <th>작성자</th>
+                      <td>
+                        <input type="hidden" name="qnaNumber" th:value="${dto.qnaNumber}" />
+                        <input type="text" name="qnaWriter" th:value="${dto.qnaWriter}" />
+                      </td>
+                    </tr>
+                    <tr>
+                      <th>제목</th>
+                      <td><input type="text" name="qnaTitle" th:value="${dto.qnaTitle}" /></td>
+                    </tr>
+                    <tr>
+                      <th>내용</th>
+                      <td><textarea name="qnaContents" id="summernote" cols="30" rows="10" th:text="${dto.qnaContents}"></textarea></td>
+                    </tr>
+                    <tr>
+                      <td colspan="2">
+                        <a class="btn btn-outline-primary" th:href="@{/admin/qnaList}">목록</a>
+                        <input class="btn btn-outline-success" type="submit" value="수정" />
+                      </td>
+                    </tr>
+                  </table>
+                </form>
 
               </div>
             </div>
@@ -214,11 +180,13 @@
     </div>
   </div>
 </div>
-<script src="../assets/libs/jquery/dist/jquery.min.js"></script>
-<script src="../assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-<script src="../assets/js/sidebarmenu.js"></script>
-<script src="../assets/js/app.min.js"></script>
-<script src="../assets/libs/simplebar/dist/simplebar.js"></script>
+<script th:src="@{../assets/libs/jquery/dist/jquery.min.js}"></script>
+<script th:src="@{../assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js}"></script>
+<script th:src="@{../assets/js/sidebarmenu.js}"></script>
+<script th:src="@{../assets/js/app.min.js}"></script>
+<script th:src="@{../assets/libs/simplebar/dist/simplebar.js}"></script>
 </body>
 
 </html>
+
+

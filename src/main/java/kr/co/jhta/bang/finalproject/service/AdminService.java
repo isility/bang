@@ -152,4 +152,29 @@ public class AdminService {
     public void deleteReview(int replyNumber) {
         dao.deleteReview(replyNumber);
     }
+
+    public int getTotalQna() {
+        return  dao.getTotalQna();
+    }
+
+    public List<QnaDTO> selectAllQna(int startNo, int endNo) {
+        StartEnd se = new StartEnd(startNo, endNo);
+        return dao.getAllQna(se);
+    }
+
+    public void addOneQna(QnaDTO dto) {
+        dao.insertOneQna(dto);
+    }
+
+    public Object selectOneQna(int qnaNumber) {
+        return dao.selectOneQna(qnaNumber);
+    }
+
+    public void modifyOneQna(QnaDTO dto) {
+        dao.updateOneQna(dto);
+    }
+
+    public void removeOneQna(int qnaNumber) {
+        dao.deleteOneQna(qnaNumber);
+    }
 }

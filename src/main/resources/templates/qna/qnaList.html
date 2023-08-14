@@ -1,5 +1,6 @@
 <!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -134,8 +135,22 @@
 					<ul>
 						<li class="shopping-cart menu-2"><a th:href="@{#}" class="cart"><span><small>0</small><i
 								class="icon-shopping-cart"></i></span></a></li>
-						<li class="login menu-2"><a th:href="@{#}">JOIN</a></li>
-						<li class="login menu-2"><a th:href="@{#}">login</a></li>
+						<li class="login menu-2" th:text="${username}" id="username"></li>
+						<!-- 로그인 상태일 때 -->
+						<li class="login menu-2" sec:authorize="isAuthenticated()" id="mypage">
+							님 <a href="/mypage">mypage</a>
+						</li>
+						<li class="login menu-2" sec:authorize="isAuthenticated()" id="logout">
+							<a href="logout">logout</a>
+						</li>
+
+						<!-- 로그인 상태가 아닐 때 -->
+						<li class="login menu-2" sec:authorize="isAnonymous()" id="join">
+							<a href="join">JOIN</a>
+						</li>
+						<li class="login menu-2" sec:authorize="isAnonymous()" id="login">
+							<a href="login">login</a>
+						</li>
 						<li class="search menu-2">
 							<div class="input-group">
 								<input type="text" placeholder="SEARCH">
@@ -176,13 +191,13 @@
 			<div><h2>Q&A</h2></div>
 				<div class="row" >
 					<div>
-						<a th:href="@{/qna/qnaWrite}"><input type="button" style="float:right;" class="btn btn-outline-primary" value="글쓰기" /></a>
+						<a th:href="@{/qna/qnaWrite}"><input type="button" style="float:right;" class="btn btn-primary" value="글쓰기" /></a>
 					</div>
-					<table class="table">
+					<table class="table" style="text-align: center;">
 						<tr id="title">
-							<th>NO</th>
-							<th>
-								<select name="qnaType" id="qna-type-select">
+							<th style="text-align: center;">NO</th>
+							<th style="text-align: center;">
+								<select name="qnaType" id="qna-type-select" style="text-align: center;">
 									<option value="카테고리" id="all">카테고리</option>
 									<option value="상품문의" id="product">상품문의</option>
 									<option value="결제/배송문의" id="delivery">결제/배송문의</option>
@@ -190,9 +205,9 @@
 									<option value="기타문의" id="etc">기타문의</option>
 								</select>
 							</th>
-							<th>제목</th>
-							<th>글쓴이</th>
-							<th>작성시간</th>
+							<th style="text-align: center;">제목</th>
+							<th style="text-align: center;">글쓴이</th>
+							<th style="text-align: center;">작성시간</th>
 						</tr>
 
 						<!--<td scope="row" th:text="${#strings.equals( board.qna_secret, 'Y' ) ? '비밀글 입니다' : board.qna_title}"></td>
@@ -216,7 +231,7 @@
 
 						</tbody>
 					</table>
-					<div class="centered">
+					<div class="centered" style="text-align: center;">
 						<nav aria-label="Page navigation example">
 							<ul class="pagination">
 								<li th:if="${map.prev}">

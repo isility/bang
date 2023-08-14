@@ -79,8 +79,9 @@ public class QnaController {
 
 
     @GetMapping("qna/qnaDetail")
-    public String form(@RequestParam("qnaNumber")int qnaNumber, Model model){
+    public String form(@RequestParam("qnaNumber")int qnaNumber, Model model, Principal principal){
         model.addAttribute("dto", service.selectOne(qnaNumber));
+        model.addAttribute("username", principal.getName());
         return "qna/qnaDetail";
     }
 
@@ -88,7 +89,8 @@ public class QnaController {
 
 
     @GetMapping("qna/qnaWrite")
-    public String writeForm(){
+    public String writeForm(Model model, Principal principal){
+        model.addAttribute("username", principal.getName());
         return "qna/qnaWrite";
     }
 
@@ -99,7 +101,8 @@ public class QnaController {
     }
 
     @GetMapping("qna/qnaModify")
-    public String modifyForm(@RequestParam("qnaNumber")int qnaNumber, Model model) {
+    public String modifyForm(@RequestParam("qnaNumber")int qnaNumber, Model model, Principal principal) {
+        model.addAttribute("username", principal.getName());
         model.addAttribute("dto", service.selectOne(qnaNumber));
         return "qna/qnaModify";
     }

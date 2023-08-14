@@ -241,6 +241,52 @@ public class AdminController {
         return "redirect:/admin/reviewList";
     }
 
+    @GetMapping("/qnaList")
+    public String qnaList(Model model, @RequestParam(name = "currentPage", defaultValue = "1")int currentPage){
+        // 총 게시물 수
+        int totalNumber = service.getTotalQna();
+        // 페이지당 게시물 수
+        int countPerPage = 10;
+
+        Map<String,Object> map = PageUtil.getPageData(totalNumber, countPerPage, currentPage);
+        int startNo = (int)map.get("startNo");
+        int endNo = (int)map.get("endNo");
+        model.addAttribute("list", service.selectAllQna(startNo, endNo));
+        model.addAttribute("map", map);
+
+        return "admin/qnaList";
+    }
+
+    @GetMapping("/qnaWrite")
+    public String writeQnaForm(){
+        return "admin/qnaWrite";
+    }
+
+    @PostMapping("/qnaWrite")
+    public String writeQnaOk(@ModelAttribute QnaDTO dto, HttpServletRequest req){
+        service.addOneQna(dto);
+        return "redirect:/admin/qnaList";
+    }
+
+    @GetMapping("/qnaModify")
+    public String modifyQnaForm(@RequestParam("qnaNumber")int qnaNumber, Model model) {
+        model.addAttribute("dto", service.selectOneQna(qnaNumber));
+        return "admin/qnaModify";
+    }
+
+    @PostMapping("/qnaModify")
+    public String modifyQnaOk(@ModelAttribute QnaDTO dto) {
+        service.modifyOneQna(dto);
+        return "redirect:/admin/qnaList";
+    }
+
+    @GetMapping("/qnaDelete")
+    public String deleteQnaOk(@RequestParam("qnaNumber")int qnaNumber) {
+        service.removeOneQna(qnaNumber);
+        return "redirect:/admin/qnaList";
+    }
+
+
 
 
 

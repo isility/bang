@@ -372,4 +372,35 @@
         WHERE reply_number = #{replyNumber};
     </update>
 
+    <select id="getAllQna" resultType="QnaDTO" parameterType="StartEnd">
+        SELECT rn AS rowNumber, qna_number AS qnaNumber, qna_title AS qnaTitle, qna_contents AS qnaContents, qna_writer AS qnaWriter, qna_date AS qnaDate, qna_ref AS qnaRef, qna_step AS qnaStep, qna_ref_order AS qnaRefOrder, qna_answer_number AS qnaAnswerNumber, qna_parent_number AS qnaParentNumber, qna_type AS qnaType, qna_status AS qnaStatus, qna_secret AS qnaSecret, member_id AS memberId
+        FROM ( SELECT ROW_NUMBER() OVER (ORDER BY qna_ref DESC) AS rn, qna_number, qna_title, qna_contents, qna_writer, qna_date, qna_ref, qna_step, qna_ref_order, qna_answer_number, qna_parent_number, qna_type, qna_status, qna_secret, member_id
+        FROM qna
+        ) AS derived
+        WHERE rn BETWEEN #{startNo} AND #{endNo}
+    </select>
+    <select id="getTotalQna" resultType="int">
+        SELECT count(*) AS cnt
+        FROM qna
+    </select>
+    <select id="selectOneQna" parameterType="int" resultType="QnaDTO">
+        SELECT qna_number AS qnaNumber, qna_title AS qnaTitle, qna_contents AS qnaContents, qna_writer AS qnaWriter, qna_date AS qnaDate, qna_ref AS qnaRef, qna_step AS qnaStep, qna_ref_order AS qnaRefOrder, qna_answer_number AS qnaAnswerNumber, qna_parent_number AS qnaParentNumber, qna_type AS qnaType, qna_status AS qnaStatus, qna_secret AS qnaSecret, member_id AS memberId
+        FROM qna
+        WHERE qna_number =#{qnaNumber}
+    </select>
+    <insert id="insertOneQna" parameterType="QnaDTO">
+        INSERT INTO qna (qna_title, qna_contents, qna_writer, qna_date, qna_ref, qna_step, qna_ref_order, qna_answer_number, qna_parent_number, qna_type, qna_status, qna_secret, member_id)
+        VALUES (#{qnaTitle}, #{qnaContents}, #{qnaWriter}, DATE_FORMAT(NOW(), '%y-%m-%d'),
+        (SELECT IFNULL(MAX_qna_ref, 0) + 1 FROM (SELECT MAX(qna_ref) AS MAX_qna_ref FROM qna) AS temp), 0, 0, 0, 0, #{qnaType}, 0, #{qnaSecret}, 'b')
+    </insert>
+    <update id="updateOneQna" parameterType="QnaDTO">
+        UPDATE qna
+        SET qna_writer = #{qnaWriter}, qna_title = #{qnaTitle}, qna_contents = #{qnaContents}, qna_type = #{qnaType}, qna_secret = #{qnaSecret}
+        WHERE qna_number = #{qnaNumber}
+    </update>
+    <delete id="deleteOneQna" parameterType="int">
+        DELETE FROM qna
+        WHERE qna_number = #{qnaNumber}
+    </delete>
+
 </mapper>

@@ -1,5 +1,6 @@
 <!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -85,8 +86,22 @@
           <ul>
             <li class="shopping-cart menu-2"><a th:href="@{#}" class="cart"><span><small>0</small><i
                     class="icon-shopping-cart"></i></span></a></li>
-            <li class="login menu-2"><a th:href="@{#}">JOIN</a></li>
-            <li class="login menu-2"><a th:href="@{#}">login</a></li>
+            <li class="login menu-2" th:text="${username}" id="username"></li>
+            <!-- 로그인 상태일 때 -->
+            <li class="login menu-2" sec:authorize="isAuthenticated()" id="mypage">
+              님 <a href="/mypage">mypage</a>
+            </li>
+            <li class="login menu-2" sec:authorize="isAuthenticated()" id="logout">
+              <a href="logout">logout</a>
+            </li>
+
+            <!-- 로그인 상태가 아닐 때 -->
+            <li class="login menu-2" sec:authorize="isAnonymous()" id="join">
+              <a href="join">JOIN</a>
+            </li>
+            <li class="login menu-2" sec:authorize="isAnonymous()" id="login">
+              <a href="login">login</a>
+            </li>
             <li class="search menu-2">
               <div class="input-group">
                 <input type="text" placeholder="SEARCH">
@@ -150,7 +165,7 @@
             </tr>
             <tr>
               <td colspan="2">
-                <a class="btn btn-outline-primary" th:href="@{qna/qnaList}">목록</a>
+                <a class="btn btn-outline-primary" th:href="@{/qna/qnaList}">목록</a>
                 <input class="btn btn-outline-success" type="submit" value="수정" />
               </td>
             </tr>

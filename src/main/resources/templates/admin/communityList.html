@@ -142,7 +142,7 @@
                 </select>-->
                 <a th:href="@{/admin/communityList}"><input type="button" class="btn btn-primary" value="NOTICE" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
                 <a th:href="@{/admin/reviewList}"><input type="button" class="btn btn-outline-primary" value="REVIEW" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
-                <a href=""><input type="button" class="btn btn-outline-primary" value="Q&A" /></a>
+                <a th:href="@{/admin/qnaList}"><input type="button" class="btn btn-outline-primary" value="Q&A" /></a>
                 <div>
                   <a th:href="@{/admin/noticeWrite}"><input type="button" style="float:right;" class="btn btn-outline-primary" value="글쓰기" /></a>
                 </div>
@@ -186,11 +186,9 @@
                       </tr>
                     </tbody>
                   </table>
-
-
                   <div class="centered">
                     <nav aria-label="Page navigation example">
-                      <ul class="pagination">
+                      <ul class="pagination" style="justify-content: center;">
                         <li th:if="${map.prev}">
                           <a th:href="@{/admin/communityList(currentPage=${map.currentPage-5})}" class="page-link">이전</a>
                         </li>
@@ -203,8 +201,6 @@
                       </ul>
                     </nav>
                   </div>
-
-
                 </div>
               </div>
 

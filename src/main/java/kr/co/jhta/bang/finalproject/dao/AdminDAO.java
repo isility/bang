@@ -75,4 +75,16 @@ public interface AdminDAO {
     void modifyReview(ReviewDTO dto);
 
     void deleteReview(int replyNumber);
+
+    int getTotalQna();
+
+    List<QnaDTO> getAllQna(StartEnd se);
+
+    void insertOneQna(QnaDTO dto);
+
+    QnaDTO selectOneQna(int qnaNumber);
+
+    void updateOneQna(QnaDTO dto);
+
+    void deleteOneQna(int qnaNumber);
 }
