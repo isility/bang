@@ -65,8 +65,8 @@ public class ReviewService {
         return dao.getOneByMemberId(member_id);
     }
 
-    public int getProductNumberByName(String productName){
-        return dao.getProductNumberByName(productName);
+    public String getProductNumberByName(String member_id){
+        return dao.getProductNumberByName(member_id);
     }
 
     public String getProductName(int productNumber){

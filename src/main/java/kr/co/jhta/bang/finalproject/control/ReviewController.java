@@ -102,6 +102,7 @@ public class ReviewController {
 
     @GetMapping("/reviewWrite")
     public String reviewWrite(Model model, Principal principal) {
+
         if (principal != null) {
             int cnt = 0;
             log.info("로그인된 사용자");
@@ -120,8 +121,11 @@ public class ReviewController {
             return "redirect:/review/reviewList";
         }
 
+
         List<ReviewDTO> list = service.getOneByMemberId(principal.getName());
+        service.getOneByMemberId(principal.getName());
         model.addAttribute("dto", list);
+        log.info("getOneByMemberId ////////////////// {}", list);
 
 
         return "review/reviewWrite";
@@ -129,16 +133,21 @@ public class ReviewController {
 
     @PostMapping("/reviewWrite")
     public String reviewWriteOk(Principal principal,
-                                @ModelAttribute ReviewDTO reviewDTO, @RequestParam("star") int star,@RequestParam("productName")String productName, Model model) {
+                                @ModelAttribute ReviewDTO reviewDTO,
+                                @RequestParam("star") int star, Model model) {
 
-
-            reviewDTO.setReplyScore(star);
-            reviewDTO.setMember_id(principal.getName());
-            reviewDTO.setReplyWriter(principal.getName());
-            reviewDTO.setProductNumber(service.getProductNumberByName(productName));
-            reviewDTO.setProductName(productName);
-            service.writeReply(reviewDTO);
+        if (principal == null) {
+            // 로그인되지 않은 경우 처리
             return "redirect:/review/reviewList";
+        }
+
+        reviewDTO.setReplyScore(star);
+        reviewDTO.setMember_id(principal.getName());
+        reviewDTO.setReplyWriter(principal.getName());
+        // 상품명을 가져오기 위한 코드 수정
+
+        service.writeReply(reviewDTO);
+        return "redirect:/review/reviewList";
     }
 
 

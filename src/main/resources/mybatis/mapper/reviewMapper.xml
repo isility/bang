@@ -178,46 +178,46 @@
 
 
 
-    <select id="getOneByMemberId" resultType="ReviewDTO" parameterType="String">
+
+
+    <select id="getProductNumberByName" parameterType="String" resultType="String">
         SELECT
-        pr.member_id,
-        pr.product_number AS productNumber,
-        p.product_name AS productName,
-        pd.payment_detail_number AS paymentDetailNumber,
-        pd.payment_detail_status AS paymentDetailStatus
+        p.product_name AS productName
         FROM
-        product_reply pr
-        JOIN
-        product p ON pr.product_number = p.product_number
+        product p
         JOIN
         payment_detail pd ON p.product_number = pd.product_number
         JOIN
-        member m ON pr.member_id = m.member_id
-        JOIN
-        payment pay ON m.member_id = pay.member_id
+        payment pay ON pd.payment_number = pay.payment_number
         WHERE
-        pd.payment_detail_status = '배송완료' AND m.member_id = #{member_id}
+        pd.payment_detail_status = '배송완료'
+        AND member_id = #{member_id}
     </select>
-
-    <select id="getProductNumberByName" parameterType="String" resultType="int">
-
-        SELECT
-        product_number AS productNumber
-        FROM
-        product
-        WHERE
-        product_name = #{productName};
-    </select>
-    <select id="getProductName" parameterType="int" resultType="String">
+    <select id="getProductName" parameterType="ReviewDTO" resultType="String">
 
         SELECT
         product_name AS productName
         FROM
         product
         WHERE
-        product_number = #{productNumber};
+        product_number = #{productNumber} AND
+        AND pay.member_id = #{member_id}
     </select>
+    <select id="getOneByMemberId" resultType="ReviewDTO" parameterType="String">
+        SELECT
+        product_name AS productName
+        FROM
+        product p
+        JOIN
+        payment_detail pd ON p.product_number = pd.product_number
+        JOIN
+        payment pay ON pd.payment_number = pay.payment_number
+        WHERE
+        pd.payment_detail_status = '배송완료'
+        AND pay.member_id = #{member_id}
 
+
+    </select>
 
 
 </mapper>
