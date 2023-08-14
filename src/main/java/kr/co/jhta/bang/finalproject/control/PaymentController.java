@@ -38,25 +38,38 @@ public class PaymentController {
     @Autowired
     MemberDAO memberDAO;
 
+    @GetMapping("pay")
+    public String kakaoPayMain(){
 
-    @RequestMapping("")
-    public String kakaoPayGet(@RequestParam("pnoList[]")int[] pnoList,@RequestParam("quantityList[]")int[] quantityList, HttpSession session, Principal principal) {
-        log.info("pnoList : {} , quantityList : {}",pnoList, quantityList);
+        return "payment/kakaoPay";
+    }
+
+    @PostMapping("")
+    @ResponseBody
+    public void kakaoPayGet(@RequestParam("pnoList[]")int[] pnoList,@RequestParam("quantityList[]")int[] quantityList, HttpSession session, Principal principal) {
         int tp = 0;
 
         List<CartDTO> list = new ArrayList<>();
 
-        for(int pno : pnoList) {
-
+        for(int i = 0; i < pnoList.length; i++) {
+            CartDTO dto = new CartDTO();
+            dto.setProductNumber(pnoList[i]);
+            dto.setCartQuantity(quantityList[i]);
+            dto.setMemberID(principal.getName());
+            list.add(payService.selectList(dto));
+            ProductListDTO pdto = productService.selectOne(pnoList[i]);
+            tp += pdto.getProductPrice() * quantityList[i];
         }
-        log.info("list : " + list);
 
+        log.info("멤버 : " + memberDAO.selectOne(principal.getName()));
+        log.info("" + list);
         session.setAttribute("totalPrice",tp);
         session.setAttribute("cartList",list);
         session.setAttribute("member", memberDAO.selectOne(principal.getName()));
+        session.setAttribute("memberid", principal.getName());
 
         log.info("카카페 래디1");
-        return "payment/kakaoPay";
+//        return "payment/kakaoPay";
     }
 
     @PostMapping("/kakaoPay")

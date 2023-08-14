@@ -81,7 +81,8 @@ public class KakaoPayService {
             return "kakaoPaySuccessFail";
         }
 
-        params.add("total_amount", "2100");
+        params.add("total_amount", ""+session.getAttribute("totalPrice"));
+
         params.add("tax_free_amount", "100");
         params.add("approval_url", "http://localhost:8082/payment/kakaoPaySuccess");
         params.add("cancel_url", "http://localhost:8082/payment/kakaoPayCancel");

@@ -166,11 +166,11 @@
     </div>
 
     <div class="col-md-9" style="text-align:right;">
-        <p>[[${info.approved_at}]]</p>
+        <p> [[${info.approved_at}]]</p>
         <p> [[${info.partner_order_id}]]</p>
-        <p>[[${info.item_name}]]</p>
-        <p>[[${info.quantity}]]개</p>
-        <p>[[${info.payment_method_type}]]</p>
+        <p> [[${info.item_name}]]</p>
+        <p> [[${info.quantity}]]개</p>
+        <p> [[${info.payment_method_type}]]</p>
         <p style="color:#D3C48B;font-weight: bold;"
         th:text="|${#numbers.formatInteger(info.amount.total,0,'COMMA')}|+ '원'"></p>
     </div>

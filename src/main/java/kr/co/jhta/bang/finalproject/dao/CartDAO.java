@@ -18,5 +18,5 @@ public interface CartDAO {
 
     void insertOne(CartDTO dto);
 
-    List<CartDTO> selectList(CartDTO dto);
+    CartDTO selectList(CartDTO dto);
 }

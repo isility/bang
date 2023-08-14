@@ -116,7 +116,7 @@
                             <h4 style="margin-bottom:20px;">주문 상품 정보</h4>
                             <div class="row" th:each="cart : ${session.cartList}">
                                 <div class="col-md-4">
-                                    <img th:src="@{/images/__${cart.imageSrc}__.jpg}" class="img-thumbnail">
+                                    <img th:src="@{/images/__${cart.img}__.jpg}" class="img-thumbnail">
                                 </div>
                                 <div class="col-md-8">
                                     <p th:text="${cart.productName}"></p>
@@ -134,15 +134,15 @@
                                 <h4 style="margin-bottom:20px;">주문자 정보</h4>
                                 <div class="col-md-4" style="padding:0px;">
                                     <input type="text" class="form-control" placeholder="이름"
-                                           style="height:40px; margin-bottom:10px;">
+                                           style="height:40px; margin-bottom:10px;" th:value="${session.member.member_name}">
                                 </div>
                                 <div class="col-md-8" style="padding-right:0px;">
                                     <input type="text" class="form-control" placeholder="연락처"
-                                           style="height:40px; ">
+                                           style="height:40px; " th:value="${session.member.member_phone}">
                                 </div>
                                 <div class="col-md-12" style="padding:0px;">
                                     <input type="text" name="orderEmail" class="form-control" placeholder="이메일"
-                                           style="height:40px;">
+                                           style="height:40px;" th:value="${session.member.member_email}">
                                 </div>
                             </div>
                         </div>
@@ -173,30 +173,6 @@
                                 <div class="col-md-12" style="padding:0px;">
                                     <input type="text" name="orderAddr2" class="form-control" placeholder="상세주소"
                                            style="height:40px;margin-bottom:10px;">
-                                </div>
-
-                            </div>
-                        </div>
-                        <div class="fh5co-contact-info">
-                            <div class="row form-group"
-                                 style="margin-bottom: 30px;background:white;margin-left: 0px;margin-right: 0px;padding: 30px;">
-                                <h4 style="margin-bottom:20px;">쿠폰 정보</h4>
-                                <div class="col-md-9" style="padding:0px;">
-                                    <input type="text" name="couponCount" class="form-control"
-                                           style="height:40px;margin-bottom:10px;"
-                                           placeholder="보유쿠폰 x장">
-                                </div>
-                                <div class="col-md-3" style="padding-right: 0px;">
-                                    <input type="button" class="form-control" value="쿠폰목록"
-                                           style="padding:0px; height:40px;background:#F3F3F3">
-                                </div>
-                                <div class="col-md-9" style="padding:0px;">
-                                    <input type="text" name="memberMileage" class="form-control" style="height:40px;"
-                                           placeholder="현재 적립금">
-                                </div>
-                                <div class="col-md-3" style="padding-right: 0px;">
-                                    <input type="button" class="form-control" value="모두사용"
-                                           style="padding:0px; height:40px;background:#F3F3F3">
                                 </div>
                             </div>
                         </div>

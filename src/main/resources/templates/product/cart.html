@@ -133,7 +133,7 @@
                     "quantityList" : currentQuantityList
                 },
                 success: function(){
-                    location.href = "/payment";
+                    location.href = "/payment/pay";
                 },
                 error : function(){
                     console.log("에러");
@@ -176,8 +176,6 @@
 
             check();
 
-            console.log(newQuantity);
-
             $.ajax({
                 type: "POST",
                 url: "/product/updateQuantity",
@@ -189,7 +187,6 @@
                     var productTotalPriceElement = clickedButton.closest('tr').find('[name=productTotalPrice]');
                     var updatedTotalPrice = response * newQuantity;
                     productTotalPriceElement.text(updatedTotalPrice.toLocaleString() + ' 원');
-
 
                     console.log("변경");
                 },

@@ -19,12 +19,13 @@
     <select id="selectList" parameterType="CartDTO" resultType="CartDTO">
         select p.product_number as productNumber,
                 p.product_price as productPrice,
+                p.product_name as productName,
                 i.image_src as img,
                 c.cart_quantity as cartQuantity
         from cart c
-        inner join product p on #{productNumber} = p.product_number
-        inner join image i on #{productNumber} = i.product_number
-        inner join
+        inner join product p on c.product_number = p.product_number
+        inner join image i on p.product_number = i.product_number
+        where c.member_id = #{memberID} and c.product_number = #{productNumber} and i.image_order = 1
     </select>
 
     <select id="allPrice" parameterType="String" resultType="CartDTO">
