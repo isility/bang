@@ -61,11 +61,15 @@ public class ReviewService {
         return dao.findAllByReplyRef(refNumber);
     }
 
-//    public ReviewDTO getProductDetail(ReviewDTO reviewDTO){
-//
-//        return dao.getProductDetail(reviewDTO);
-//    }
+    public List<ReviewDTO> getOneByMemberId(String member_id){
+        return dao.getOneByMemberId(member_id);
+    }
 
+    public int getProductNumberByName(String productName){
+        return dao.getProductNumberByName(productName);
+    }
 
-
+    public String getProductName(int productNumber){
+        return dao.getProductName(productNumber);
+    }
 }

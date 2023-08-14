@@ -213,11 +213,12 @@ label {
 							<th class="score">평점</th>
 							<th class="date">작성일</th>
 							<th></th>
-							<th></th>
+							<th></th>호
 						</tr>
 						<tr th:each="reviewDTO : ${list}">
 							<td class="reviewNo" th:text="${reviewDTO.replyRef}"></td>
-							<td class="productNumber" th:text="${reviewDTO.productNumber}"></td>
+
+							<td class="productName" th:text="${#strings.length(reviewDTO.productName) > 10 ? #strings.substring(reviewDTO.productName, 0, 10) + '...' : reviewDTO.productName}"></td>
 							<td>
 								<a th:href="@{/review/reviewDetail(replyNumber=${reviewDTO.replyNumber})}" style="">
 									<span th:utext="${#strings.length(reviewDTO.replyContents) > 20 ? #strings.substring(reviewDTO.replyContents, 0, 20) + '...' : reviewDTO.replyContents}"></span>

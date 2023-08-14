@@ -39,4 +39,10 @@ public interface ReviewDAO {
     int getReplyNumber(int replyNumber);
 
   //  ReviewDTO getProductDetail(ReviewDTO reviewDTO);
+
+    List<ReviewDTO> getOneByMemberId(String member_id);
+
+    int getProductNumberByName(String productName);
+
+    String getProductName(int productNumber);
 }
