@@ -151,6 +151,7 @@
 	<div class="fh5co-loader"></div>
 
 	<div id="page">
+		<!--  카테고리  ==============================================================================================-->
 		<nav class="fh5co-nav" role="navigation">
 			<div class="container">
 				<div class="row">
@@ -208,13 +209,14 @@
 							<input type="radio" name="star" class="star" id="star0" value="0" style="display: none;" />
 						</div>
 						<div>
-							<p>작성할 상품</p>
+							<p>상품 선택</p>
 							<select name="productName">
 								<option th:each="dto : ${dto}" th:value="${dto.productName}" th:selected="${dto.productName}">
 									<span th:text="${dto.productName}"></span>
 								</option>
 							</select>
 						</div>
+						<br>
 						<div class="form-floating m-3">
 							<textarea class="form-control" rows="5" id="summernote" style="height: 450px;" name="replyContents" th:text="${replyContents}"></textarea>
 							<input type="hidden" name="member_id" th:value="${member_id}">

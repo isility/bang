@@ -3,6 +3,7 @@ package kr.co.jhta.bang.finalproject.control;
 import kr.co.jhta.bang.finalproject.dto.ReviewDTO;
 import kr.co.jhta.bang.finalproject.file.FileValidator;
 import kr.co.jhta.bang.finalproject.file.UploadFile;
+import kr.co.jhta.bang.finalproject.service.PaymentService;
 import kr.co.jhta.bang.finalproject.service.ReviewService;
 import kr.co.jhta.bang.finalproject.util.PageUtil;
 import lombok.extern.slf4j.Slf4j;
@@ -29,6 +30,8 @@ import java.util.Map;
 public class ReviewController {
     @Autowired
     ReviewService service;
+    @Autowired
+    PaymentService payService;
 
     @Autowired
     FileValidator fileValidator;
