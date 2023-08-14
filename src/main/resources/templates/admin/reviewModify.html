@@ -4,8 +4,8 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Modernize Free</title>
-  <link rel="shortcut icon" type="image/png" th:href="@{../assets/images/logos/favicon.png}" />
+  <title>Review Modify</title>
+  <link rel="shortcut icon" type="image/png" th:href="@{../assets/images/logos/bang.jpeg}" />
   <link rel="stylesheet" th:href="@{../assets/css/styles.min.css}" />
 </head>
 <body>
@@ -17,8 +17,11 @@
     <!-- Sidebar scroll-->
     <div>
       <div class="brand-logo d-flex align-items-center justify-content-between">
-        <a th:href="@{../index.html}" class="text-nowrap logo-img">
-          <img th:src="@{../assets/images/logos/dark-logo.svg}" width="180" alt="" />
+        <a th:href="@{../admin/dashboard}" class="text-nowrap logo-img">
+          <div class="sidebar-link">
+            <img th:src="@{../assets/images/logos/bang.jpeg}" width="50" style="float: left;"  alt="" />
+            <div id="main-logo">Bang & Oops</div>
+          </div>
         </a>
         <div class="close-btn d-xl-none d-block sidebartoggler cursor-pointer" id="sidebarCollapse">
           <i class="ti ti-x fs-8"></i>
