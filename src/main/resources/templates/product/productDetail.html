@@ -1,83 +1,84 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org"
-	  xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
-	<head>
-	<meta charset="utf-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>Bang</title>
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<meta name="description" content="Free HTML5 Website Template by gettemplates.co" />
-	<meta name="keywords" content="free website templates, free html5, free template, free bootstrap, free website template, html5, css3, mobile first, responsive" />
-	<meta name="author" content="gettemplates.co" />
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Bang</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Free HTML5 Website Template by gettemplates.co"/>
+    <meta name="keywords"
+          content="free website templates, free html5, free template, free bootstrap, free website template, html5, css3, mobile first, responsive"/>
+    <meta name="author" content="gettemplates.co"/>
 
-  	<!-- Facebook and Twitter integration -->
-	<meta property="og:title" content=""/>
-	<meta property="og:image" content=""/>
-	<meta property="og:url" content=""/>
-	<meta property="og:site_name" content=""/>
-	<meta property="og:description" content=""/>
-	<meta name="twitter:title" content="" />
-	<meta name="twitter:image" content="" />
-	<meta name="twitter:url" content="" />
-	<meta name="twitter:card" content="" />
+    <!-- Facebook and Twitter integration -->
+    <meta property="og:title" content=""/>
+    <meta property="og:image" content=""/>
+    <meta property="og:url" content=""/>
+    <meta property="og:site_name" content=""/>
+    <meta property="og:description" content=""/>
+    <meta name="twitter:title" content=""/>
+    <meta name="twitter:image" content=""/>
+    <meta name="twitter:url" content=""/>
+    <meta name="twitter:card" content=""/>
 
-		<!-- jQuery -->
-		<script src="/js/jquery.min.js"></script>
-		<!-- jQuery Easing -->
-		<script src="/js/jquery.easing.1.3.js"></script>
-		<!-- Bootstrap -->
-		<script src="/js/bootstrap.min.js"></script>
-		<!-- Waypoints -->
-		<script src="/js/jquery.waypoints.min.js"></script>
-		<!-- Carousel -->
-		<script src="/js/owl.carousel.min.js"></script>
-		<!-- countTo -->
-		<script src="/js/jquery.countTo.js"></script>
-		<!-- Flexslider -->
-		<script src="/js/jquery.flexslider-min.js"></script>
-		<!-- Main -->
-		<script src="/js/main.js"></script>
-
-
-		<!-- <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet"> -->
-	<!-- <link href="https://fonts.googleapis.com/css?family=Playfair+Display:400,400i" rel="stylesheet"> -->
-
-		<!-- Animate.css -->
-
-		<link rel="stylesheet"  th:href="@{/css/animate.css}">
-		<!-- Icomoon Icon Fonts-->
-		<!--	<link rel="stylesheet" href="../../static/css/icomoon.css">-->
-		<link rel="stylesheet"  th:href="@{/css/icomoon.css}">
-		<!-- Bootstrap  -->
-		<!--	<link rel="stylesheet" href="../../static/css/bootstrap.css">-->
-		<link rel="stylesheet"  th:href="@{/css/bootstrap.css}">
-
-		<!-- Flexslider  -->
-		<!--	<link rel="stylesheet" href="../../static/css/flexslider.css">-->
-		<link rel="stylesheet"  th:href="@{/css/flexslider.css}">
-
-		<!-- Owl Carousel  -->
-		<!--	<link rel="stylesheet" href="../../static/css/owl.carousel.min.css">-->
-		<link rel="stylesheet"  th:href="@{/css/owl.carousel.min.css}">
-		<!--	<link rel="stylesheet" href="../../static/css/owl.theme.default.min.css">-->
-		<link rel="stylesheet"  th:href="@{/css/owl.theme.default.min.css}">
-
-		<!-- Theme style  -->
-		<!--	<link rel="stylesheet" href="../../static/css/style.css">-->
-		<!--		<link rel="stylesheet" type="text/css" th:href="@{/css/style.css}">-->
-		<link rel="stylesheet" th:href="@{/css/style.css}">
-
-		<!-- Modernizr JS -->
-		<script src="/js/modernizr-2.6.2.min.js"></script>
-
-		<!-- FOR IE9 below -->
-		<!--[if lt IE 9]>
-		<script src="/js/respond.min.js"></script>
-		<![endif]-->
+    <!-- jQuery -->
+    <script src="/js/jquery.min.js"></script>
+    <!-- jQuery Easing -->
+    <script src="/js/jquery.easing.1.3.js"></script>
+    <!-- Bootstrap -->
+    <script src="/js/bootstrap.min.js"></script>
+    <!-- Waypoints -->
+    <script src="/js/jquery.waypoints.min.js"></script>
+    <!-- Carousel -->
+    <script src="/js/owl.carousel.min.js"></script>
+    <!-- countTo -->
+    <script src="/js/jquery.countTo.js"></script>
+    <!-- Flexslider -->
+    <script src="/js/jquery.flexslider-min.js"></script>
+    <!-- Main -->
+    <script src="/js/main.js"></script>
 
 
-		<style>
+    <!-- <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet"> -->
+    <!-- <link href="https://fonts.googleapis.com/css?family=Playfair+Display:400,400i" rel="stylesheet"> -->
+
+    <!-- Animate.css -->
+
+    <link rel="stylesheet" th:href="@{/css/animate.css}">
+    <!-- Icomoon Icon Fonts-->
+    <!--	<link rel="stylesheet" href="../../static/css/icomoon.css">-->
+    <link rel="stylesheet" th:href="@{/css/icomoon.css}">
+    <!-- Bootstrap  -->
+    <!--	<link rel="stylesheet" href="../../static/css/bootstrap.css">-->
+    <link rel="stylesheet" th:href="@{/css/bootstrap.css}">
+
+    <!-- Flexslider  -->
+    <!--	<link rel="stylesheet" href="../../static/css/flexslider.css">-->
+    <link rel="stylesheet" th:href="@{/css/flexslider.css}">
+
+    <!-- Owl Carousel  -->
+    <!--	<link rel="stylesheet" href="../../static/css/owl.carousel.min.css">-->
+    <link rel="stylesheet" th:href="@{/css/owl.carousel.min.css}">
+    <!--	<link rel="stylesheet" href="../../static/css/owl.theme.default.min.css">-->
+    <link rel="stylesheet" th:href="@{/css/owl.theme.default.min.css}">
+
+    <!-- Theme style  -->
+    <!--	<link rel="stylesheet" href="../../static/css/style.css">-->
+    <!--		<link rel="stylesheet" type="text/css" th:href="@{/css/style.css}">-->
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+
+    <!-- Modernizr JS -->
+    <script src="/js/modernizr-2.6.2.min.js"></script>
+
+    <!-- FOR IE9 below -->
+    <!--[if lt IE 9]>
+    <script src="/js/respond.min.js"></script>
+    <![endif]-->
+
+
+    <style>
 	#fh5co-hero .flexslider .slides li {
 		background-size: cover;
 		/* 이미지를 컨테이너에 맞추어 확대/축소 */
@@ -127,10 +128,11 @@ color: #D3C48B;
 #wishPop, #cartPop{
 
 
-</style>
 
-<!--수량에 따라 총 금액 변동-->
-<script type="text/javascript" th:inline="javascript">
+    </style>
+
+    <!--수량에 따라 총 금액 변동-->
+    <script type="text/javascript" th:inline="javascript">
     /*<![CDATA[*/
     $(function() {
       	// 상품 가격 가져오기
@@ -152,25 +154,26 @@ color: #D3C48B;
       });
     });
     /*]]>*/
-  </script>
 
-<!--장바구니 버튼 누르면 팝업창 띄우기-->
-<!--<script>-->
-<!--function show() {-->
-<!--		var w = 400;-->
-<!--		var h = 200;-->
-<!--		var x = 550;-->
-<!--		var y = 400;-->
+    </script>
 
-<!--		var spec = "width=" + w + ", height=" + h + ", left=" + x + ", top="-->
-<!--				+ y + ", menubar=0,resizeable=0,scrollbar=0,status=0,toolbar=0";-->
+    <!--장바구니 버튼 누르면 팝업창 띄우기-->
+    <!--<script>-->
+    <!--function show() {-->
+    <!--		var w = 400;-->
+    <!--		var h = 200;-->
+    <!--		var x = 550;-->
+    <!--		var y = 400;-->
 
-<!--		window.open("/product/cartpopup", "_blank", spec);-->
-<!--	}-->
-<!--</script>-->
+    <!--		var spec = "width=" + w + ", height=" + h + ", left=" + x + ", top="-->
+    <!--				+ y + ", menubar=0,resizeable=0,scrollbar=0,status=0,toolbar=0";-->
 
-<!--위시리스트 모달창-->
-<script type="text/javascript">
+    <!--		window.open("/product/cartpopup", "_blank", spec);-->
+    <!--	}-->
+    <!--</script>-->
+
+    <!--위시리스트 모달창-->
+    <script type="text/javascript">
   	$(document).ready(function () {
     	$('.wishPop').click(function () {
     		$.ajax({
@@ -185,10 +188,11 @@ color: #D3C48B;
     		});
 		});
 	});
-</script>
 
-<!--장바구니 모달창-->
-<script>
+    </script>
+
+    <!--장바구니 모달창-->
+    <script>
 	$(document).ready(function () {
 		$('.cartPop').click(function () {
     		$.ajax({
@@ -204,329 +208,299 @@ color: #D3C48B;
     		});
     	});
   	});
-</script>
-	</head>
 
-	<body>
-	<!--======================================================================================================  -->
-	<!-- 상단부분 -->
-	<!--		<div class="fh5co-loader"></div>-->
+    </script>
+</head>
 
-	<div id="page">
-		<nav class="fh5co-nav" role="navigation">
-			<div class="container">
-				<div class="row">
-					<div class="col-md-3 col-xs-2">
-						<div id="fh5co-logo"><a href="/">Bang & Oops</a></div>
-					</div>
-					<div class="col-md-6 col-xs-6 text-center menu-1">
-						<ul>
-							<li><a href="/product/productList?categoryNumber=1">SPEAKER</a></li>
-							<li><a href="/product/productList?categoryNumber=2">EARPHONE</a></li>
-							<li><a href="/product/productList?categoryNumber=3">HEADPHONE</a></li>
-							<li><a href="/product/productList?categoryNumber=4">ACCESSORIES</a></li>
-							<li class="has-dropdown">
-								<a href="">COMMUNITY</a>
-								<ul class="dropdown">
-									<li><a href="/notice/noticeList">공지사항</a></li>
-									<li><a href="/review/reviewList">REVIEW</a></li>
-									<li><a href="/qna/qnaList">Q&A</a></li>
-								</ul>
-							</li>
-						</ul>
-					</div>
-					<div class="col-md-3 col-xs-4 text-right hidden-xs menu-2">
-						<ul>
-							<li class="shopping-cart menu-2"><a href="/product/cart" class="cart"><span><small th:text="${cartListCount}">0</small><i
-									class="icon-shopping-cart"></i></span></a></li>
-							<li class="login menu-2" th:text="${username}" id="username"></li>
-							<!-- 로그인 상태일 때 -->
-							<li class="login menu-2" sec:authorize="isAuthenticated()" id="mypage">
-								님 <a href="/mypage">mypage</a>
-							</li>
-							<li class="login menu-2" sec:authorize="isAuthenticated()" id="logout">
-								<a href="logout">logout</a>
-							</li>
+<body>
+<!--======================================================================================================  -->
+<!-- 상단부분 -->
+<!--		<div class="fh5co-loader"></div>-->
 
-							<!-- 로그인 상태가 아닐 때 -->
-							<li class="login menu-2" sec:authorize="isAnonymous()" id="join">
-								<a href="join">JOIN</a>
-							</li>
-							<li class="login menu-2" sec:authorize="isAnonymous()" id="login">
-								<a href="login">login</a>
-							</li>
+<div id="page">
+    <nav class="fh5co-nav" role="navigation">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3 col-xs-2">
+                    <div id="fh5co-logo"><a href="/">Bang & Oops</a></div>
+                </div>
+                <div class="col-md-6 col-xs-6 text-center menu-1">
+                    <ul>
+                        <li><a href="/product/productList?categoryNumber=1">SPEAKER</a></li>
+                        <li><a href="/product/productList?categoryNumber=2">EARPHONE</a></li>
+                        <li><a href="/product/productList?categoryNumber=3">HEADPHONE</a></li>
+                        <li><a href="/product/productList?categoryNumber=4">ACCESSORIES</a></li>
+                        <li class="has-dropdown">
+                            <a href="">COMMUNITY</a>
+                            <ul class="dropdown">
+                                <li><a href="/notice/noticeList">공지사항</a></li>
+                                <li><a href="/review/reviewList">REVIEW</a></li>
+                                <li><a href="/qna/qnaList">Q&A</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-md-3 col-xs-4 text-right hidden-xs menu-2">
+                    <ul>
+                        <li class="shopping-cart menu-2"><a href="/product/cart" class="cart"><span><small
+                                th:text="${cartListCount}">0</small><i
+                                class="icon-shopping-cart"></i></span></a></li>
+                        <li class="login menu-2" th:text="${username}" id="username"></li>
+                        <!-- 로그인 상태일 때 -->
+                        <li class="login menu-2" sec:authorize="isAuthenticated()" id="mypage">
+                            님 <a href="/mypage">mypage</a>
+                        </li>
+                        <li class="login menu-2" sec:authorize="isAuthenticated()" id="logout">
+                            <a href="/logout">logout</a>
+                        </li>
 
-						</ul>
-					</div>
-				</div>
-			</div>
-		</nav>
-		<!-- =========================================================================================== -->
+                        <!-- 로그인 상태가 아닐 때 -->
+                        <li class="login menu-2" sec:authorize="isAnonymous()" id="join">
+                            <a href="/join">JOIN</a>
+                        </li>
+                        <li class="login menu-2" sec:authorize="isAnonymous()" id="login">
+                            <a href="/login">login</a>
+                        </li>
 
-<!-- 상품		-->
-	<div id="fh5co-product">
-		<div class="container">
-			<div class="row">
-				<div class="col-md-10 col-md-offset-1 animate-box">
-					<div class="owl-carousel owl-carousel-fullwidth product-carousel">
-						<div class="item">
-							<div class="active text-center">
-								<figure>
-									<img th:src="@{/images/__${productDto.imageSrc}__.jpg}" alt="user">
-								</figure>
-							</div>
-						</div>
-						<div class="item">
-							<div class="active text-center">
-								<figure>
-									<img src="/images/product-single-2.jpg" alt="user">
-								</figure>
-							</div>
-						</div>
-						<div class="item">
-							<div class="active text-center">
-								<figure>
-									<img src="/images/product-single-3.jpg" alt="user">
-								</figure>
-							</div>
-						</div>
-					</div>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <!-- =========================================================================================== -->
 
-					<div class="row animate-box">
-						<div class="col-md-8 col-md-offset-2 text-center fh5co-heading">
-							<input type="hidden" id="pno" th:value="${productDto.productNumber}">
-							<h2 th:text="${productDto.productName}" style="color:#808080">베오릿20</h2>
-							<h3 style="color: #D1C286;" th:text="|${#numbers.formatInteger(productDto.productPrice,0,'COMMA')}|+ '원'">679,000원</h3>
-							<span>배송방법 택배  |  배송비 무료 </span>
+    <!-- 상품		-->
+    <div id="fh5co-product">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-10 col-md-offset-1 animate-box">
+                    <div class="owl-carousel owl-carousel-fullwidth product-carousel">
+                        <div class="item">
+                            <div class="active text-center">
+                                <figure>
+                                    <img th:src="@{/images/__${productDto.imageSrc}__.jpg}" alt="user">
+                                </figure>
+                            </div>
+                        </div>
+                        <div class="item">
+                            <div class="active text-center">
+                                <figure>
+                                    <img src="/images/product-single-2.jpg" alt="user">
+                                </figure>
+                            </div>
+                        </div>
+                        <div class="item">
+                            <div class="active text-center">
+                                <figure>
+                                    <img src="/images/product-single-3.jpg" alt="user">
+                                </figure>
+                            </div>
+                        </div>
+                    </div>
 
-							<hr>
-							<!-- 상품 수량 입력 폼 -->
-							<div>
+                    <div class="row animate-box">
+                        <div class="col-md-8 col-md-offset-2 text-center fh5co-heading">
+                            <input type="hidden" id="pno" th:value="${productDto.productNumber}">
+                            <h2 th:text="${productDto.productName}" style="color:#808080">베오릿20</h2>
+                            <h3 style="color: #D1C286;"
+                                th:text="|${#numbers.formatInteger(productDto.productPrice,0,'COMMA')}|+ '원'">
+                                679,000원</h3>
+                            <span>배송방법 택배  |  배송비 무료 </span>
+
+                            <hr>
+                            <!-- 상품 수량 입력 폼 -->
+                            <div>
 							  <span><label for="quantity" class="col-md-3 col-md-push-2">수량</label>
 							  <input type="number" id="quantity" min="1" value="1"
-									 style="width:50px;border: 1px solid #D9D9D9; border-radius: 3px;"></span>
-							</div>
+                                     style="width:50px;border: 1px solid #D9D9D9; border-radius: 3px;"></span>
+                            </div>
 
-							<hr>
-								<!-- 가격 표시 부분 -->
-							<div>
-								<span id="total" class="col-md-3 col-md-push-2">총 상품 금액</span>
-								<span id="totalPrice" th:utext="|${#numbers.formatInteger(productDto.productPrice,0,'COMMA')}|+ '원'"></span>
-							</div>
+                            <hr>
+                            <!-- 가격 표시 부분 -->
+                            <div>
+                                <span id="total" class="col-md-3 col-md-push-2">총 상품 금액</span>
+                                <span id="totalPrice"
+                                      th:utext="|${#numbers.formatInteger(productDto.productPrice,0,'COMMA')}|+ '원'"></span>
+                            </div>
 
-							<p>
-								<a href="#" class="btn btn-primary btn-outline btn-lg cartPop" id="open-popup-btn">장바구니</a>
-								<a href="/payment" class="btn btn-primary btn btn-lg">구매하기</a>
-								<a href="#" class="icon btn btn-primary btn-outline btn-lg wishPop" style="width:30px"><i class="icon-heart"></i></a>
-							</p>
-						</div>
-					</div>
-				</div>
-			</div>
-
-
-<!--			==================================================================================-->
-			<!--	위시리스트 모달 팝업-->
-			<div class="modal fade" id="wishPop" tabindex="-1" role="dialog" aria-labelledby="wishModalLabel" aria-hidden="true">
-				<div class="modal-dialog" role="document">
-					<div class="modal-content">
-
-						<div class="modal-body">
-							<p style="text-align: center;">위시리스트에 담았습니다</p>
-						</div>
-						<div class="modal-footer">
-							<button type="button" class="btn btn-secondary" data-dismiss="modal">닫기</button>
-						</div>
-					</div>
-				</div>
-			</div>
-
-			<!--	카트 모달 팝업-->
-			<div class="modal fade" id="cartPop" tabindex="-1" role="dialog" aria-labelledby="wishModalLabel" aria-hidden="true">
-				<div class="modal-dialog" role="document">
-					<div class="modal-content">
-
-						<div class="modal-body text-center">
-							<br>
-							<p style="text-align: center;">상품을 장바구니에 담았습니다.</p>
-							<br>
-							<a href="/product/cart">
-								<button class=" btn btn-primary btn-xxs countbtn"
-										style="font-size:13px;width:110px;height:35px;padding:11px;padding-top:7px;
-											position:relative;right:10px">장바구니 이동</button></a>
-
-							<button onclick="window.close()" class=" btn btn-primary btn-outline btn-xxs countbtn"
-									style="font-size:13px;width:110px;height:35px;padding:11px;padding-top:7px" data-dismiss="modal">쇼핑 계속하기</button>
-						</div>
-					</div>
-				</div>
-			</div>
-
-			<!-- ===================================================================================================================================== -->
-			<div class="row">
-				<div class="col-md-10 col-md-offset-1">
-					<div class="fh5co-tabs animate-box">
-						<ul class="fh5co-tab-nav">
-							<li class="active"><a href="#" data-tab="1"><span class="icon visible-xs"><i class="icon-file"></i></span><span class="hidden-xs">DETAILS</span></a></li>
-							<li><a href="#" data-tab="2"><span class="icon visible-xs"><i class="icon-bar-graph"></i></span><span class="hidden-xs">REVIEWS</span></a></li>
-							<li><a href="#" data-tab="3"><span class="icon visible-xs"><i class="icon-star"></i></span><span class="hidden-xs">Q&A</span></a></li>
-						</ul>
-
-						<!-- Tabs -->
-						<div class="fh5co-tab-content-wrap">
-							
-							<!-- =================================================================================== -->
-							<!-- 상세정보 -->
-							<div class="fh5co-tab-content tab-content active" data-tab-content="1" id="detail">
-								<div class="col-md-10 col-md">
-
-<!--									이미지 가져오기-->
-									<div th:each="images:${detailImg}">
-										<img th:src="@{/images/__${images.imageSrc}__.jpg}" alt="user">
-									</div>
-
-								</div>
-							</div>
-
-							<!-- =================================================================================== -->
-							<!-- 리뷰 -->
-							<div class="fh5co-tab-content tab-content" data-tab-content="2">
-								<div class="col-md-10 col-md-offset-1">
-									<h3>REVIEWS</h3>
+                            <p>
+                                <a href="#" class="btn btn-primary btn-outline btn-lg cartPop"
+                                   id="open-popup-btn">장바구니</a>
+                                <a href="/payment" class="btn btn-primary btn btn-lg">구매하기</a>
+                                <a href="#" class="icon btn btn-primary btn-outline btn-lg wishPop"
+                                   style="width:30px"><i class="icon-heart"></i></a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
 
-									<div class="feed">
-										<div >
-											<blockquote>
-											</blockquote>
+            <!--			==================================================================================-->
+            <!--	위시리스트 모달 팝업-->
+            <div class="modal fade" id="wishPop" tabindex="-1" role="dialog" aria-labelledby="wishModalLabel"
+                 aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
 
-											<span class="rate">
+                        <div class="modal-body">
+                            <p style="text-align: center;">위시리스트에 담았습니다</p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">닫기</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!--	카트 모달 팝업-->
+            <div class="modal fade" id="cartPop" tabindex="-1" role="dialog" aria-labelledby="wishModalLabel"
+                 aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+
+                        <div class="modal-body text-center">
+                            <br>
+                            <p style="text-align: center;">상품을 장바구니에 담았습니다.</p>
+                            <br>
+                            <a href="/product/cart">
+                                <button class=" btn btn-primary btn-xxs countbtn"
+                                        style="font-size:13px;width:110px;height:35px;padding:11px;padding-top:7px;
+											position:relative;right:10px">장바구니 이동
+                                </button>
+                            </a>
+
+                            <button onclick="window.close()" class=" btn btn-primary btn-outline btn-xxs countbtn"
+                                    style="font-size:13px;width:110px;height:35px;padding:11px;padding-top:7px"
+                                    data-dismiss="modal">쇼핑 계속하기
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ===================================================================================================================================== -->
+            <div class="row">
+                <div class="col-md-10 col-md-offset-1">
+                    <div class="fh5co-tabs animate-box">
+                        <ul class="fh5co-tab-nav">
+                            <li class="active"><a href="#" data-tab="1"><span class="icon visible-xs"><i
+                                    class="icon-file"></i></span><span class="hidden-xs">DETAILS</span></a></li>
+                            <li><a href="#" data-tab="2"><span class="icon visible-xs"><i
+                                    class="icon-bar-graph"></i></span><span class="hidden-xs">REVIEWS</span></a></li>
+                            <li><a href="#" data-tab="3"><span class="icon visible-xs"><i
+                                    class="icon-star"></i></span><span class="hidden-xs">Q&A</span></a></li>
+                        </ul>
+
+                        <!-- Tabs -->
+                        <div class="fh5co-tab-content-wrap">
+
+                            <!-- =================================================================================== -->
+                            <!-- 상세정보 -->
+                            <div class="fh5co-tab-content tab-content active" data-tab-content="1" id="detail">
+                                <div class="col-md-10 col-md">
+
+                                    <!--									이미지 가져오기-->
+                                    <div th:each="images:${detailImg}">
+                                        <img th:src="@{/images/__${images.imageSrc}__.jpg}" alt="user">
+                                    </div>
+
+                                </div>
+                            </div>
+
+                            <!-- =================================================================================== -->
+                            <!-- 리뷰 -->
+                            <div class="fh5co-tab-content tab-content" data-tab-content="2">
+                                <div class="col-md-10 col-md-offset-1">
+
+
+                                    <div class="row">
+                                        <table class="table">
+
+                                            <tr th:each="reviewDTO : ${reviewList}">
+                                                <td class="reviewNo" th:text="${reviewDTO.replyRef}"></td>
+                                                <td>
+                                                    <a th:href="@{/review/reviewDetail(replyNumber=${reviewDTO.replyNumber})}"
+                                                       style="">
+                                                        <span th:utext="${#strings.length(reviewDTO.replyContents) > 20 ? #strings.substring(reviewDTO.replyContents, 0, 20) + '...' : reviewDTO.replyContents}"></span>
+                                                    </a>
+                                                </td>
+                                                <td class="writer" th:text="${reviewDTO.replyWriter}"></td>
+                                                <td>
+                                                    <div class="star-rating">
+                                                        <th:block
+                                                                th:each="score : ${#numbers.sequence(1, reviewDTO.replyScore)}">
+                                                            <label for="star">&#9733;</label>
+                                                        </th:block>
+                                                    </div>
+                                                </td>
+                                                <td class="date" th:text="${reviewDTO.replyDate}"></td>
+
+                                            </tr>
+                                        </table>
+                                    </div>
+
+
+                                </div>
+                            </div>
+
+                            <!-- =================================================================================== -->
+                            <!-- Q & A -->
+                            <div class="fh5co-tab-content tab-content" data-tab-content="3">
+                                <div class="col-md-10 col-md-offset-1">
+                                    <h3>Q&A</h3>
+                                    <div class="feed">
+                                        <div>
+                                            <blockquote>
+
+                                            </blockquote>
+
+                                            <span class="rate">
 												<i class="icon-star2"></i>
 												<i class="icon-star2"></i>
 												<i class="icon-star2"></i>
 												<i class="icon-star2"></i>
 												<i class="icon-star2"></i>
 											</span>
-										</div>
-									</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
 
-<!--									이걸 가져오려면 어떻게 해야할까 -->
-<!--									<div class="row">-->
-<!--										<table class="table">-->
-<!--											<tr>-->
-<!--												<th class="reviewNo">No</th>-->
-<!--												<th class="productNumber">상품번호</th>-->
-<!--												<th>내용</th>-->
-<!--												<th class="writer">작성자</th>-->
-<!--												<th class="score">평점</th>-->
-<!--												<th class="date">작성일</th>-->
-<!--												<th></th>-->
-<!--												<th></th>-->
-<!--											</tr>-->
-<!--											<tr th:each="reviewDTO : ${list}">-->
-<!--												<td class="reviewNo" th:text="${reviewDTO.replyRef}"></td>-->
-<!--												<td class="productNumber" th:text="${reviewDTO.productNumber}"></td>-->
-<!--												<td>-->
-<!--													<a th:href="@{/review/reviewDetail(replyNumber=${reviewDTO.replyNumber})}" style="">-->
-<!--														<span th:utext="${#strings.length(reviewDTO.replyContents) > 20 ? #strings.substring(reviewDTO.replyContents, 0, 20) + '...' : reviewDTO.replyContents} + '  (' + ${reviewDTO.replyAnswerNumber} + ')'"></span>-->
-<!--													</a>-->
-<!--												</td>-->
-<!--												<td class="writer" th:text="${reviewDTO.replyWriter}"></td>-->
-<!--												<td>-->
-<!--													<div class="star-rating">-->
-<!--														<th:block th:each="score : ${#numbers.sequence(1, reviewDTO.replyScore)}">-->
-<!--															<label for="star">&#9733;</label>-->
-<!--														</th:block>-->
-<!--													</div>-->
-<!--												</td>-->
-<!--												<td class="date" th:text="${reviewDTO.replyDate}"></td>-->
+                        </div>
 
-<!--												<td><a th:href="@{/review/reviewModify(replyNumber=${reviewDTO.replyNumber})}" class="btn btn-primary" style="font-size: 9px;">수정</a></td>-->
-<!--												<td><a th:href="@{/review/reviewDelete(replyNumber=${reviewDTO-->
-<!--							.replyNumber})}" class="btn btn-primary btn-outline" style="font-size: 9px;">삭제</a></td>-->
-<!--												-->
-<!--											</tr>-->
-<!--										</table>-->
-<!--										<hr>-->
-<!--										<div>-->
-<!--											<a th:href="@{/review/reviewWrite}" class="btn btn-primary">작성</a>-->
-<!--										</div>-->
-<!--										<div class="centered">-->
-<!--											<nav aria-label="Page navigation example">-->
-<!--												<ul class="pagination">-->
-<!--													<li th:if="${map.prev}">-->
-<!--														<a th:href="@{/review/reviewList(currentPage=${map.currentPage-5})}" class="page-link">이전</a>-->
-<!--													</li>-->
-<!--													<li th:each="i : ${#numbers.sequence(map.startPageNo, map.endPageNo)}">-->
-<!--														<a th:href="@{/review/reviewList(currentPage=${i})}" class="page-link" th:text="${i}"></a>-->
-<!--													</li>-->
-<!--													<li th:if="${map.next}">-->
-<!--														<a th:href="@{/review/reviewList(currentPage=${map.currentPage+5})}" class="page-link">다음</a>-->
-<!--													</li>-->
-<!--												</ul>-->
-<!--											</nav>-->
-<!--										</div>-->
-<!--									</div>-->
-<!--									==========================================================-->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
 
+    <!-- ============================================================================================================================ -->
+    <footer id="fh5co-footer" role="contentinfo" style="background: #D1C286">
+        <div class="container">
+            <div class="row copyright">
+                <div class="col-md-12 text-center">
+                    <p>
+                        <small class="block">&copy; 2023 Free HTML5. All Rights Reserved.</small>
+                        <small class="block">Designed by <a href="http://freehtml5.co/" target="_blank"
+                                                            style="color:white">FreeHTML5.co</a>
+                            Demo Images: <a href="http://blog.gessato.com/"
+                                            target="_blank" style="color:white">Gessato</a> &amp; <a
+                                    href="http://unsplash.co/"
+                                    target="_blank" style="color:white">Unsplash</a></small>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </footer>
+</div>
 
-								</div>
-							</div>
-
-							<!-- =================================================================================== -->
-							<!-- Q & A -->
-							<div class="fh5co-tab-content tab-content" data-tab-content="3">
-								<div class="col-md-10 col-md-offset-1">
-									<h3>Q&A</h3>
-									<div class="feed">
-										<div >
-											<blockquote>
-
-											</blockquote>
-
-											<span class="rate">
-												<i class="icon-star2"></i>
-												<i class="icon-star2"></i>
-												<i class="icon-star2"></i>
-												<i class="icon-star2"></i>
-												<i class="icon-star2"></i>
-											</span>
-										</div>
-									</div>
-								</div>
-							</div>
-
-						</div>
-
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
+<div class="gototop js-top">
+    <a href="#" class="js-gotop"><i class="icon-arrow-up"></i></a>
+</div>
 
 
-	
-<!-- ============================================================================================================================ -->
-	<footer id="fh5co-footer" role="contentinfo">
-		<div class="container">
-			<div class="row copyright">
-				<div class="col-md-12 text-center">
-					<p>
-						<small class="block">&copy; 2023 Free HTML5. All Rights Reserved.</small> 
-						<small class="block">Designed by <a href="http://freehtml5.co/" target="_blank">FreeHTML5.co</a> Demo Images: <a href="http://blog.gessato.com/" target="_blank">Gessato</a> &amp; <a href="http://unsplash.co/" target="_blank">Unsplash</a></small>
-					</p>
-				</div>
-			</div>
-		</div>
-	</footer>
-	</div>
-
-	<div class="gototop js-top">
-		<a href="#" class="js-gotop"><i class="icon-arrow-up"></i></a>
-	</div>
-
-
-	</body>
+</body>
 </html>
 
