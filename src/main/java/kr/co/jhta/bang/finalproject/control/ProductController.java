@@ -4,6 +4,8 @@ import kr.co.jhta.bang.finalproject.dto.CartDTO;
 import kr.co.jhta.bang.finalproject.dto.ProductListDTO;
 import kr.co.jhta.bang.finalproject.service.PaymentService;
 import kr.co.jhta.bang.finalproject.service.ProductService;
+import kr.co.jhta.bang.finalproject.service.QnaService;
+import kr.co.jhta.bang.finalproject.service.ReviewService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -26,12 +28,19 @@ public class ProductController {
     @Autowired
     PaymentService payService;
 
+    @Autowired
+    ReviewService reviewService;
+
+    @Autowired
+    QnaService qnaService;
+
     //상품리스트-------------------------------------------------------------------------------------------------
     @GetMapping("/productList")
     public String productList(Model model, @RequestParam("categoryNumber") int categoryNumber, Principal principal){
 
         model.addAttribute("list", service.selectAll(categoryNumber));
-        model.addAttribute("username", principal.getName());
+
+
 
         List<ProductListDTO> list =  service.selectAll(categoryNumber);
 //        for(ProductListDTO dto : list ){
@@ -97,7 +106,14 @@ public class ProductController {
     public String detail(Model model, @RequestParam("productNumber") int productNumber, Principal principal){
         model.addAttribute("productDto", service.selectOne(productNumber));
         model.addAttribute("detailImg", service.selectList(productNumber));
-        model.addAttribute("username", principal.getName());
+
+        //리뷰
+        log.info(""+reviewService.getAll());
+        model.addAttribute("reviewList", reviewService.getAll());
+
+        //큐앤에이
+//        model.addAttribute("qnaList", qnaService.selectAll());
+
 
         //========================================================================
         if (principal != null) {

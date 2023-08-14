@@ -194,7 +194,8 @@
                 </div>
                 <div class="col-md-3 col-xs-4 text-right hidden-xs menu-2">
                     <ul>
-                        <li class="shopping-cart menu-2"><a href="/product/cart" class="cart"><span><small th:text="${cartListCount}">0</small><i
+                        <li class="shopping-cart menu-2"><a href="/product/cart" class="cart"><span><small
+                                th:text="${cartListCount}">0</small><i
                                 class="icon-shopping-cart"></i></span></a></li>
                         <li class="login menu-2" th:text="${username}" id="username"></li>
                         <!-- 로그인 상태일 때 -->
@@ -202,15 +203,15 @@
                             님 <a href="/mypage">mypage</a>
                         </li>
                         <li class="login menu-2" sec:authorize="isAuthenticated()" id="logout">
-                            <a href="logout">logout</a>
+                            <a href="/logout">logout</a>
                         </li>
 
                         <!-- 로그인 상태가 아닐 때 -->
                         <li class="login menu-2" sec:authorize="isAnonymous()" id="join">
-                            <a href="join">JOIN</a>
+                            <a href="/join">JOIN</a>
                         </li>
                         <li class="login menu-2" sec:authorize="isAnonymous()" id="login">
-                            <a href="login">login</a>
+                            <a href="/login">login</a>
                         </li>
 
                     </ul>
@@ -326,20 +327,24 @@
 
 
     <!--====================================================================================================================================-->
-    <footer id="fh5co-footer" role="contentinfo">
+    <footer id="fh5co-footer" role="contentinfo" style="background: #D1C286">
         <div class="container">
             <div class="row copyright">
                 <div class="col-md-12 text-center">
                     <p>
                         <small class="block">&copy; 2023 Free HTML5. All Rights Reserved.</small>
-                        <small class="block">Designed by <a href="http://freehtml5.co/" target="_blank">FreeHTML5.co</a>
-                            Demo Images: <a href="http://blog.gessato.com/" target="_blank">Gessato</a> &amp; <a
-                                    href="http://unsplash.co/" target="_blank">Unsplash</a></small>
+                        <small class="block">Designed by <a href="http://freehtml5.co/" target="_blank"
+                                                            style="color:white">FreeHTML5.co</a>
+                            Demo Images: <a href="http://blog.gessato.com/"
+                                            target="_blank" style="color:white">Gessato</a> &amp; <a
+                                    href="http://unsplash.co/"
+                                    target="_blank" style="color:white">Unsplash</a></small>
                     </p>
                 </div>
             </div>
         </div>
     </footer>
+
 </div>
 
 <div class="gototop js-top">
