@@ -176,7 +176,7 @@
                     <tbody>
                     <tr th:each="productDTO : ${list}">
                       <th scope="row" th:text="${productDTO.productNumber}"></th>
-                      <td th:text="${productDTO.productName}"></td>
+                      <td th:text="${#strings.length(productDTO.productName) > 15 ? #strings.substring(productDTO.productName, 0, 15) + '...' : productDTO.productName}"></td>
                       <td th:text="${productDTO.productPrice}"></td>
                       <td th:text="${productDTO.productStock}"></td>
                       <td th:text="${productDTO.productRegist}"></td>

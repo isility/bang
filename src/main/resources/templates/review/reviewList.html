@@ -66,7 +66,7 @@
         text-overflow: ellipsis; /* 넘치는 텍스트를 ... 으로 표시합니다 */
     }
     th.reviewNo, td.reviewNo {
-        width: 30px; /* 작성자 칼럼의 너비를 조정합니다 */
+        width: 30px; /* 작성자 칼럼의 너비를 조정합니다 */성
     }
 
 	.star-rating {
@@ -211,7 +211,11 @@ label {
 	<!-- 리뷰 -->
 		<div id="fh5co-product">
 			<div class="container">
-				<p>REVIEW</p>
+				<div class="col-md-6 " style="margin:0; padding:0;"><p style="font-size:24px;">REVIEW</p></div>
+				<div style="float:right;">
+					<a th:href="@{/review/reviewWrite}" class="btn btn-primary" >작성</a>
+
+				</div>
 				<div class="row">
 					<table class="table">
 						<tr>
@@ -246,13 +250,13 @@ label {
 							<td>
 								<input type="hidden" name="member_id" th:value="${reviewDTO.member_id}">
 								<input type="hidden" name="replyNumber" th:value="${reviewDTO.replyNumber}">
-								<a href="#" onclick="modifyReview(this)" class="btn btn-primary" style="font-size: 9px;">수정</a>
+								<a href="#" onclick="modifyReview(this)" class="btn btn-primary" style="font-size: 12px;">수정</a>
 							</td>
 							<td>
 								<input type="hidden" name="member_id" th:value="${reviewDTO.member_id}">
 								<input type="hidden" name="replyNumber" th:value="${reviewDTO.replyNumber}">
 
-								<a href="#" onclick="deleteReview(this)" class="btn btn-primary btn-outline" style="font-size:9px;">
+								<a href="#" onclick="deleteReview(this)" class="btn btn-primary btn-outline" style="font-size:12px;">
 									삭제
 								</a>
 							</td>
@@ -263,9 +267,7 @@ label {
 						</tr>
 					</table>
 						<hr>
-					<div>
-					<a th:href="@{/review/reviewWrite}" class="btn btn-primary">작성</a>
-					</div>
+
 					<div class="centered">
 							<nav aria-label="Page navigation example">
 								<ul class="pagination">

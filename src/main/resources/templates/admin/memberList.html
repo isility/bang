@@ -156,8 +156,9 @@
                     <tbody>
 
                     <tr th:each="memberDTO : ${list}">
-                      <th scope="row" th:text="${memberDTO.member_id}"></th>
-                      <td th:text="${#strings.length(memberDTO.member_pw) > 20 ? #strings.substring(memberDTO.member_pw, 0, 17) + '...' : memberDTO.member_pw}"></td>
+
+                      <th scope="row" th:text="${#strings.length(memberDTO.member_id) > 15 ? #strings.substring(memberDTO.member_id, 0, 15) + '...' : memberDTO.member_id}"></th>
+                      <td th:text="${#strings.length(memberDTO.member_pw) > 15 ? #strings.substring(memberDTO.member_pw, 0, 15) + '...' : memberDTO.member_pw}"></td>
                       <td th:text="${memberDTO.member_name}"></td>
                       <td>
                         <span th:if="${memberDTO.role_number == 0}">관리자</span>
