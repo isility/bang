@@ -1,7 +1,9 @@
 package kr.co.jhta.bang.finalproject.control;
 
+import kr.co.jhta.bang.finalproject.dto.CartDTO;
 import kr.co.jhta.bang.finalproject.dto.MemberDTO;
 import kr.co.jhta.bang.finalproject.service.MemberService;
+import kr.co.jhta.bang.finalproject.service.PaymentService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.security.Principal;
 
 @Controller
 @RequiredArgsConstructor
@@ -22,9 +25,27 @@ public class LoginController {
     @Autowired
     MemberService memberService;
 
+    @Autowired
+    PaymentService payService;
+
 
     @GetMapping("/login")
-    public String login() {
+    public String login(Principal principal, Model model) {
+
+        if (principal != null) {
+            int cnt = 0;
+            log.info("로그인된 사용자");
+            log.info("Authentication 의 반환객체 : {}", principal.getName());
+            for (CartDTO dto : payService.cartlist(principal.getName()))
+                cnt++;
+            model.addAttribute("cartListCount", cnt);
+            model.addAttribute("username", principal.getName());
+        } else {
+            log.info("로그인하지 않은 사용자");
+            model.addAttribute("username", "Guest 님"); // 로그인하지 않은 사용자는 "Guest"라는 이름으로 보내기
+            model.addAttribute("cartListCount", 0);
+        }
+
         return "login/login.html";
     }
 

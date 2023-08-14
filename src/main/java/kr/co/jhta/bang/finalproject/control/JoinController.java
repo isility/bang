@@ -1,19 +1,23 @@
 package kr.co.jhta.bang.finalproject.control;
 
+import kr.co.jhta.bang.finalproject.dto.CartDTO;
 import kr.co.jhta.bang.finalproject.dto.CompanyDTO;
 import kr.co.jhta.bang.finalproject.dto.MemberDTO;
 import kr.co.jhta.bang.finalproject.dto.PersonDTO;
 import kr.co.jhta.bang.finalproject.service.EmailService;
 import kr.co.jhta.bang.finalproject.service.MemberService;
+import kr.co.jhta.bang.finalproject.service.PaymentService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.mail.MessagingException;
 import javax.servlet.http.HttpSession;
 import java.io.UnsupportedEncodingException;
+import java.security.Principal;
 
 @Slf4j
 @Controller
@@ -28,9 +32,27 @@ public class JoinController {
     @Autowired
     PasswordEncoder passwordEncoder;
 
+    @Autowired
+    PaymentService payService;;
+
 
     @GetMapping()
-    public String join() {
+    public String join(Principal principal, Model model) {
+
+        if (principal != null) {
+            int cnt = 0;
+            log.info("로그인된 사용자");
+            log.info("Authentication 의 반환객체 : {}", principal.getName());
+            for (CartDTO dto : payService.cartlist(principal.getName()))
+                cnt++;
+            model.addAttribute("cartListCount", cnt);
+            model.addAttribute("username", principal.getName());
+        } else {
+            log.info("로그인하지 않은 사용자");
+            model.addAttribute("username", "Guest 님"); // 로그인하지 않은 사용자는 "Guest"라는 이름으로 보내기
+            model.addAttribute("cartListCount", 0);
+        }
+
         return "join/join.html";
     }
 
@@ -38,22 +60,90 @@ public class JoinController {
 
 
     @GetMapping("/costomerTerms")
-    public String costomerTerms() {
+    public String costomerTerms(Principal principal, Model model) {
+
+        if (principal != null) {
+            int cnt = 0;
+            log.info("로그인된 사용자");
+            log.info("Authentication 의 반환객체 : {}", principal.getName());
+            for (CartDTO dto : payService.cartlist(principal.getName()))
+                cnt++;
+            model.addAttribute("cartListCount", cnt);
+            model.addAttribute("username", principal.getName());
+        } else {
+            log.info("로그인하지 않은 사용자");
+            model.addAttribute("username", "Guest 님"); // 로그인하지 않은 사용자는 "Guest"라는 이름으로 보내기
+            model.addAttribute("cartListCount", 0);
+        }
+
         return "join/costomerTerms.html";
     }
 
     @GetMapping("/costomerJoinForm")
-    public String costomerJoinForm() { return "join/costomerJoinForm.html"; }
+    public String costomerJoinForm(Principal principal, Model model) {
+
+        if (principal != null) {
+            int cnt = 0;
+            log.info("로그인된 사용자");
+            log.info("Authentication 의 반환객체 : {}", principal.getName());
+            for (CartDTO dto : payService.cartlist(principal.getName()))
+                cnt++;
+            model.addAttribute("cartListCount", cnt);
+            model.addAttribute("username", principal.getName());
+        } else {
+            log.info("로그인하지 않은 사용자");
+            model.addAttribute("username", "Guest 님"); // 로그인하지 않은 사용자는 "Guest"라는 이름으로 보내기
+            model.addAttribute("cartListCount", 0);
+        }
+
+        return "join/costomerJoinForm.html";
+    }
 
 
 
     @GetMapping("/businessOk")
-    public String businessOk() { return "join/businessOk.html"; }
+    public String businessOk(Principal principal, Model model) {
+
+        if (principal != null) {
+            int cnt = 0;
+            log.info("로그인된 사용자");
+            log.info("Authentication 의 반환객체 : {}", principal.getName());
+            for (CartDTO dto : payService.cartlist(principal.getName()))
+                cnt++;
+            model.addAttribute("cartListCount", cnt);
+            model.addAttribute("username", principal.getName());
+        } else {
+            log.info("로그인하지 않은 사용자");
+            model.addAttribute("username", "Guest 님"); // 로그인하지 않은 사용자는 "Guest"라는 이름으로 보내기
+            model.addAttribute("cartListCount", 0);
+        }
+
+        return "join/businessOk.html";
+
+    }
 
     @PostMapping("/businessOk")
     public String businessNumber(@RequestParam("bzNum")String bzNum,
-                               HttpSession session) {
-        /* 사업자 번호를 여기로 저장 */
+                                 HttpSession session,
+                                 Principal principal, 
+                                 Model model) {
+        
+        if (principal != null) {
+            int cnt = 0;
+            log.info("로그인된 사용자");
+            log.info("Authentication 의 반환객체 : {}", principal.getName());
+            for (CartDTO dto : payService.cartlist(principal.getName()))
+                cnt++;
+            model.addAttribute("cartListCount", cnt);
+            model.addAttribute("username", principal.getName());
+        } else {
+            log.info("로그인하지 않은 사용자");
+            model.addAttribute("username", "Guest 님"); // 로그인하지 않은 사용자는 "Guest"라는 이름으로 보내기
+            model.addAttribute("cartListCount", 0);
+        }
+        
+        
+        // 사업자 번호를 session에 저장
         session.setAttribute("bzNum", bzNum);
         log.info("businessOk 의 session에 담긴 bzNum : " + session.getAttribute("bzNum"));
         return "join/businessTerms.html";
@@ -61,14 +151,46 @@ public class JoinController {
 
 
     @GetMapping("/businessTerms")
-    public String businessTerms(HttpSession session) {
+    public String businessTerms(HttpSession session, Principal principal, Model model) {
+
+        if (principal != null) {
+            int cnt = 0;
+            log.info("로그인된 사용자");
+            log.info("Authentication 의 반환객체 : {}", principal.getName());
+            for (CartDTO dto : payService.cartlist(principal.getName()))
+                cnt++;
+            model.addAttribute("cartListCount", cnt);
+            model.addAttribute("username", principal.getName());
+        } else {
+            log.info("로그인하지 않은 사용자");
+            model.addAttribute("username", "Guest 님"); // 로그인하지 않은 사용자는 "Guest"라는 이름으로 보내기
+            model.addAttribute("cartListCount", 0);
+        }
+
         return "join/businessTerms.html";
     }
 
     @PostMapping("/businessTerms")
-    public String businessNumberForm(HttpSession session) {
+    public String businessNumberForm(HttpSession session, Principal principal, Model model) {
+
+        if (principal != null) {
+            int cnt = 0;
+            log.info("로그인된 사용자");
+            log.info("Authentication 의 반환객체 : {}", principal.getName());
+            for (CartDTO dto : payService.cartlist(principal.getName()))
+                cnt++;
+            model.addAttribute("cartListCount", cnt);
+            model.addAttribute("username", principal.getName());
+        } else {
+            log.info("로그인하지 않은 사용자");
+            model.addAttribute("username", "Guest 님"); // 로그인하지 않은 사용자는 "Guest"라는 이름으로 보내기
+            model.addAttribute("cartListCount", 0);
+        }
+
+
         session.setAttribute("bzNum", session.getAttribute("bzNum"));
         log.info("businessTerms 의 session에 담긴 값 : " + session.getAttribute("bzNum"));
+
         return "join/businessJoinForm.html";
     }
 
@@ -76,8 +198,24 @@ public class JoinController {
 
 
     @GetMapping("/businessJoinForm")
-    public String businessJoinForm(HttpSession session) {
+    public String businessJoinForm(HttpSession session, Principal principal, Model model) {
+
+        if (principal != null) {
+            int cnt = 0;
+            log.info("로그인된 사용자");
+            log.info("Authentication 의 반환객체 : {}", principal.getName());
+            for (CartDTO dto : payService.cartlist(principal.getName()))
+                cnt++;
+            model.addAttribute("cartListCount", cnt);
+            model.addAttribute("username", principal.getName());
+        } else {
+            log.info("로그인하지 않은 사용자");
+            model.addAttribute("username", "Guest 님"); // 로그인하지 않은 사용자는 "Guest"라는 이름으로 보내기
+            model.addAttribute("cartListCount", 0);
+        }
+
         log.info("businessJoinForm 의 session에 담긴 값 : " + session.getAttribute("bzNum"));
+
         return "join/businessJoinForm.html";
     }
 
@@ -95,7 +233,28 @@ public class JoinController {
     @PostMapping("/costomerJoinForm")
     public String costomerJoinOk(@ModelAttribute MemberDTO memberDto,
                                  @ModelAttribute PersonDTO personDto,
-                                 @RequestParam(name = "email_check", defaultValue = "0")int emailCheck) {
+                                 @RequestParam(name = "email_check", defaultValue = "0")int emailCheck,
+                                 Principal principal,
+                                 Model model) {
+
+
+        if (principal != null) {
+            int cnt = 0;
+            log.info("로그인된 사용자");
+            log.info("Authentication 의 반환객체 : {}", principal.getName());
+            for (CartDTO dto : payService.cartlist(principal.getName()))
+                cnt++;
+            model.addAttribute("cartListCount", cnt);
+            model.addAttribute("username", principal.getName());
+        } else {
+            log.info("로그인하지 않은 사용자");
+            model.addAttribute("username", "Guest 님"); // 로그인하지 않은 사용자는 "Guest"라는 이름으로 보내기
+            model.addAttribute("cartListCount", 0);
+        }
+
+
+        ///////
+
 
         log.info("일반 회원 가입 dto :" + memberDto + personDto);
         log.info("이메일 수신 여부 : " + emailCheck);
@@ -124,7 +283,26 @@ public class JoinController {
     public String businessJoinOk(@ModelAttribute MemberDTO memberDto,
                                  @ModelAttribute CompanyDTO companyDto,
                                  @RequestParam(name = "email_check", defaultValue = "0")int emailCheck,
-                                 HttpSession session) {
+                                 HttpSession session,
+                                 Principal principal,
+                                 Model model) {
+
+        if (principal != null) {
+            int cnt = 0;
+            log.info("로그인된 사용자");
+            log.info("Authentication 의 반환객체 : {}", principal.getName());
+            for (CartDTO dto : payService.cartlist(principal.getName()))
+                cnt++;
+            model.addAttribute("cartListCount", cnt);
+            model.addAttribute("username", principal.getName());
+        } else {
+            log.info("로그인하지 않은 사용자");
+            model.addAttribute("username", "Guest 님"); // 로그인하지 않은 사용자는 "Guest"라는 이름으로 보내기
+            model.addAttribute("cartListCount", 0);
+        }
+
+
+        ///////
 
         log.info("사업자 회원 가입 dto :" + memberDto + companyDto);
         log.info("이메일 수신 여부 : " + emailCheck);
@@ -150,15 +328,15 @@ public class JoinController {
 
 
 
-    @ResponseBody
     @PostMapping("/idCheck")
+    @ResponseBody
     public int idCheck(@RequestParam("member_id")String memberId) {
         return memberService.idCheck(memberId);
     }
 
 
-    @ResponseBody
     @PostMapping("/nicknameCheck")
+    @ResponseBody
     public int nicknameCheck(@RequestParam("nickname")String nickname) {
         return memberService.nicknameCheck(nickname);
     }
