@@ -1,8 +1,6 @@
 <!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org"
-	  xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
-
-<head>
+<html xmlns:th="http://www.thymeleaf.org">
+	<head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<title>Bang</title>
@@ -216,17 +214,17 @@ color: #D3C48B;
 		<nav class="fh5co-nav" role="navigation">
 			<div class="container">
 				<div class="row">
-					<div class="col-md-3 col-xs-2">
-						<div id="fh5co-logo"><a href="/">Bang & Oops</a></div>
+					<div class="col-md-3 col-xs-2" >
+						<div id="fh5co-logo" ><a href="/">Bang & Oops</a></div>
 					</div>
-					<div class="col-md-6 col-xs-6 text-center menu-1">
+					<div class="col-md-6 col-xs-6 text-center menu-1" >
 						<ul>
-							<li><a href="/product/productList?categoryNumber=1">SPEAKER</a></li>
-							<li><a href="/product/productList?categoryNumber=2">EARPHONE</a></li>
-							<li><a href="/product/productList?categoryNumber=3">HEADPHONE</a></li>
-							<li><a href="/product/productList?categoryNumber=4">ACCESSORIES</a></li>
+							<li><a  href="/product/productList?categoryNumber=1">SPEAKER</a></li>
+							<li><a href="/product/productList?categoryNumber=2" >EARPHONE</a></li>
+							<li><a href="/product/productList?categoryNumber=3" >HEADPHONE</a></li>
+							<li><a href="/product/productList?categoryNumber=4" >ACCESSORIES</a></li>
 							<li class="has-dropdown">
-								<a href="">COMMUNITY</a>
+								<a href="/community.html">COMMUNITY</a>
 								<ul class="dropdown">
 									<li><a href="/notice/noticeList">공지사항</a></li>
 									<li><a href="/review/reviewList">REVIEW</a></li>
@@ -237,14 +235,14 @@ color: #D3C48B;
 					</div>
 					<div class="col-md-3 col-xs-4 text-right hidden-xs menu-2">
 						<ul>
-							<li class="shopping-cart menu-2"><a href="/product/cart" class="cart"><span><small th:text="${cartListCount}">0</small><i
+							<li class="shopping-cart menu-2"><a href="#" class="cart"><span><small>0</small><i
 									class="icon-shopping-cart"></i></span></a></li>
-							<li class="login menu-2" th:text="${username}" id="username"></li>
+							<li class="login menu-2" th:if="${username}" th:text="" id="username"></li>
 							<!-- 로그인 상태일 때 -->
-							<li class="login menu-2" sec:authorize="isAuthenticated()" id="mypage">
-								님 <a href="/mypage">mypage</a>
+							<li class="login menu-2" style="display: none;" id="mypage">
+								<a href="mypage">mypage</a>
 							</li>
-							<li class="login menu-2" sec:authorize="isAuthenticated()" id="logout">
+							<li class="login menu-2" style="display: none;" id="logout">
 								<a href="logout">logout</a>
 							</li>
 
@@ -254,6 +252,15 @@ color: #D3C48B;
 							</li>
 							<li class="login menu-2" sec:authorize="isAnonymous()" id="login">
 								<a href="login">login</a>
+							</li>
+							<li class="search menu-2">
+								<div class="input-group">
+									<input type="text" placeholder="SEARCH">
+									<span class="input-group-btn">
+										<button class="btn btn-primary" type="button"><i
+												class="icon-search"></i></button>
+									</span>
+								</div>
 							</li>
 
 						</ul>
@@ -353,7 +360,7 @@ color: #D3C48B;
 							<a href="/product/cart">
 								<button class=" btn btn-primary btn-xxs countbtn"
 										style="font-size:13px;width:110px;height:35px;padding:11px;padding-top:7px;
-											position:relative;right:10px">장바구니 이동</button></a>
+											position:relative;right:50px">장바구니 이동</button></a>
 
 							<button onclick="window.close()" class=" btn btn-primary btn-outline btn-xxs countbtn"
 									style="font-size:13px;width:110px;height:35px;padding:11px;padding-top:7px" data-dismiss="modal">쇼핑 계속하기</button>
