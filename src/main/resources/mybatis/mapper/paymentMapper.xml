@@ -6,7 +6,7 @@
 <mapper namespace="kr.co.jhta.bang.finalproject.dao.PaymentDAO">
     <insert id="insertOne" parameterType="PaymentDTO">
         insert into payment(payment_date, payment_postal, payment_address1, payment_address2, payment_name, payment_phone, payment_method, member_id)
-        values(#{paymentDate}, #{paymentPostal}, #{paymentAddress1}, #{paymentAddress2}, #{paymentName}, #{paymentPhone}, #{paymentMethod}, memberID)
+        values(sysdate(), #{paymentPostal}, #{paymentAddress1}, #{paymentAddress2}, #{paymentName}, #{paymentPhone}, #{paymentMethod}, #{memberID})
     </insert>
     <select id="selectTop" resultType="int">
         select payment_number as paymentNumber
