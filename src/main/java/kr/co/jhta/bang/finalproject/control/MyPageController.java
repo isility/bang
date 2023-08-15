@@ -12,8 +12,6 @@ public class MyPageController {
 
     @RequestMapping("/mypage")
     public String mypage(HttpServletRequest req, @RequestParam(name = "my", required = false, defaultValue = "1")int my) {
-//        System.out.println("---------------------------------------------------------" + req);
-       // System.out.println(my);
         if (req != null) {
             if (my == 1) {
                 return "mypage/myPage";
@@ -33,6 +31,5 @@ public class MyPageController {
                 return "mypage/myPage";
         }else
             return "redirect:/mypage/myPage";
-//        return null;
     }
 }

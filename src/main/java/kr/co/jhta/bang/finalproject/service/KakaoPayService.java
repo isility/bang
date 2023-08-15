@@ -71,11 +71,10 @@ public class KakaoPayService {
             String productName = cartdto.getProductName();
             for (CartDTO cdto : CartDTOList)
                 cnt += 1;
-            if (cnt == 1)
+            if (cnt <= 1)
                 params.add("item_name", productName);
             else
                 params.add("item_name", productName + " 등 " + cnt + "건");
-            log.info("--------------------------------------상품이름" + productName + " 등 " + cnt + "건");
         } else
             return "kakaoPaySuccessFail";
 
