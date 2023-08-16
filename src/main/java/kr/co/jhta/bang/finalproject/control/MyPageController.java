@@ -55,11 +55,15 @@ public class MyPageController {
     @RequestMapping("/orderdetail")
     public String orderdetail(@RequestParam("pno")int pno, Principal principal, Model model){
         PaymentDTO dto = new PaymentDTO();
+        int cnt=0;
         dto.setMemberID(principal.getName());
         dto.setPaymentNumber(pno);
-        log.info("dto : " + dto);
-        log.info("널값 찾어"+paymentService.orderProductList(dto));
         model.addAttribute("orderlist",paymentService.orderProductList(dto));
+        List<PaymentDTO> list = paymentService.orderProductList(dto);
+        for(PaymentDTO ddto : list)
+            cnt++;
+
+        model.addAttribute("cnt",cnt);
 
         return "mypage/orderDetail";
     }
