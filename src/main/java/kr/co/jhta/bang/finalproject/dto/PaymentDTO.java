@@ -20,4 +20,7 @@ public class PaymentDTO {
     int productPrice;
     String paymentDetailStatus;
     int productNumber;
+    String paymentDate;
+    String productName;
+    String img;
 }

@@ -111,8 +111,8 @@
                 </div>
                 <div class="col-md-9 animate-box fadeInUp animated-fast">
                     <h3>주문 목록</h3>
-                    <div class="row">
-                        <div class="col-md-9"></div>
+                    <div class="row" th:each="orderList : ${order}">
+                        <div class="col-md-9" th:text="${orderList.paymentDate}"></div>
                     </div>
                 </div>
             </div>
