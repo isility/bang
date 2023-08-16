@@ -9,7 +9,7 @@
         values(sysdate(), #{paymentPostal}, #{paymentAddress1}, #{paymentAddress2}, #{paymentName}, #{paymentPhone}, #{paymentMethod}, #{memberID})
     </insert>
     <select id="selectTop" resultType="int">
-        select payment_number as paymentNumber
+        select payment_number as PaymentNumber
         from payment
         Order by payment_number desc
         limit 1
@@ -18,5 +18,16 @@
         insert into payment_detail(product_count, product_price, payment_detail_status, product_number, payment_number)
         values(#{productCount}, #{productPrice}, #{paymentDetailStatus}, #{productNumber}, #{paymentNumber})
     </insert>
+
+    <select id="orderList" parameterType="String" resultType="PaymentDTO">
+        select pd.product_count as productCount,
+        pd.product_price as productPrice,
+        pd.payment_detail_status as paymentDetailStatus,
+        pd.product_number as productNumber,
+        pd.payment_number as paymentNumber
+        from payment_detail pd
+        inner join payment p on p.payment_number = pd.payment_number,
+        where p.member_id = #{memberID}
+    </select>
 
 </mapper>

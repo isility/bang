@@ -37,7 +37,6 @@ public class KakaoPayService {
     private KakaoPayReadyDTO KakaoPayReadyDTO;
     private KakaoPayApprovalDTO KakaoPayApprovalDTO;
 
-    @Setter
     PaymentDTO paymentDTO;
 
     MemberDTO memberDTO;
@@ -119,7 +118,7 @@ public class KakaoPayService {
 
         paymentDTO = new PaymentDTO();
 
-        String orderNumberTop = Integer.toString(paymentDAO.selectTop()+1);
+        String orderNumberTop = Integer.toString(paymentDAO.selectTop() + 1);
 
         memberDTO = (MemberDTO) session.getAttribute("member");
         paymentDTO.setMemberID(memberDTO.getMember_id());
@@ -129,24 +128,19 @@ public class KakaoPayService {
         paymentDTO.setPaymentName(memberDTO.getMember_name());
         paymentDTO.setPaymentPhone(memberDTO.getMember_phone());
         paymentDTO.setPaymentMethod(1);
-
         paymentDAO.insertOne(paymentDTO);
 
         paymentDTO.setPaymentNumber(paymentDAO.selectTop());
-        paymentDTO.setProductPrice((int) session.getAttribute("totalPrice"));
         paymentDTO.setPaymentDetailStatus("입금확인");
-
         List<CartDTO> CartDTOList = (List<CartDTO>) session.getAttribute("cartList");
-        int cnt = 0;
         if (CartDTOList != null && !CartDTOList.isEmpty()) {
-            for (CartDTO cdto : CartDTOList)
-                cnt ++;
-            log.info("" + cnt);
-            paymentDTO.setProductCount(cnt);
-
-            for (CartDTO cdto : CartDTOList) {
-                paymentDTO.setProductNumber(cdto.getProductNumber());
-                paymentDAO.detailInsertOne(paymentDTO);
+            if (CartDTOList != null && !CartDTOList.isEmpty()) {
+                for (CartDTO cdto : CartDTOList) {
+                    paymentDTO.setProductCount(cdto.getCartQuantity());
+                    paymentDTO.setProductPrice(cdto.getProductPrice());
+                    paymentDTO.setProductNumber(cdto.getProductNumber());
+                    paymentDAO.detailInsertOne(paymentDTO);
+                }
             }
         }
 
