@@ -38,6 +38,7 @@
     <select id="getTotal" resultType="int">
         SELECT count(*) AS cnt
         FROM qna
+        WHERE qna_step = 0
     </select>
 
    <!-- <select id="getAll" resultType="QnaDTO">

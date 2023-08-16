@@ -61,6 +61,18 @@
   <![endif]-->
   <script th:src="@{/js/modernizr-2.6.2.min.js}"></script>
 
+  <script type="text/javascript">
+    $(document).ready(function(){
+      $("#noticeSave").on("click", function() {
+            var noticeTitle = $("#noticeTitle").val();
+            if (noticeTitle.trim() === "") {
+                alert("제목을 입력해주세요.");
+                $("#noticeTitle").focus();
+                return;
+            }
+      });
+    });
+  </script>
 </head>
 <body>
 
@@ -148,17 +160,17 @@
         <form action="noticeWrite" method="post">
         <div>
           <a style="float:right;" class="btn btn-primary" th:href="@{/notice/noticeList}">목록</a>
-          <input style="float:right;" class="btn btn-primary" type="submit" value="작성" />
+          <input style="float:right;" class="btn btn-primary" type="submit" id="noticeSave" name="noticeSave" value="작성" />
         </div>
 
           <table class="table">
             <tr>
               <th>작성자</th>
-              <td><input type="text" name="noticeWriter" value="관리자"/></td>
+              <td><input type="text" name="noticeWriter" value="관리자" style="border: 1px solid #ddd; font-weight: bold;"/></td>
             </tr>
             <tr>
               <th>제목</th>
-              <td><input type="text" name="noticeTitle" /></td>
+              <td><input type="text" name="noticeTitle" id="noticeTitle" placeholder="제목을 입력하세요." style="width: 500px; border: 1px solid #ddd;"/></td>
             </tr>
             <tr>
               <th>내용</th>
@@ -177,6 +189,8 @@
         lang: "ko-KR",
         // 에디터에 커서 이동 (input창의 autofocus라고 생각)
         focus : true,
+
+        placeholder: '내용을 입력하세요.',
 
         toolbar: [
             // 글꼴 설정
