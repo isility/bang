@@ -275,7 +275,9 @@
                             <span class="price"
                                   th:text="|${#numbers.formatInteger(dto.productPrice,0,'COMMA')}|+ '원'"></span>
 
-                            <p style="color:#BFBFBF;">리뷰 4</p>
+<!--                            <p style="color:#BFBFBF;">리뷰 4</p>-->
+                            <p style="color:#BFBFBF;" th:text="'리뷰 ' + ${dto.reviewCount}">리뷰 4</p>
+
                         </div>
                     </div>
                 </div>
@@ -283,6 +285,7 @@
         </div>
     </div>
 
+<!--    ==============================================================================================================-->
     <!--	위시리스트 모달 팝업-->
     <div class="modal fade" id="wishPop" tabindex="-1" role="dialog" aria-labelledby="wishModalLabel"
          aria-hidden="true">
