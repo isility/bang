@@ -63,6 +63,7 @@
     <select id="getTotal" resultType="int">
         SELECT count(*)cnt
         FROM product_reply
+        WHERE reply_step = 0;
     </select>
 
     <select id="findAllByReplyRef"  resultType="ReviewDTO" parameterType="int">
@@ -202,6 +203,24 @@
         WHERE
         product_number = #{productNumber} AND
         AND pay.member_id = #{member_id}
+    </select>
+    <select id="getReplyByProductNumber" parameterType="int">
+        SELECT
+        reply_number AS replyNumber,
+        reply_contents AS replyContents,
+        reply_writer AS replyWriter,
+        reply_date AS replyDate,
+        reply_step AS replyStep,
+        reply_ref_order AS replyRefOrder,
+        reply_ref AS replyRef,
+        reply_answer_number AS replyAnswerNumber,
+        reply_parent_number AS replyParentNumber,
+        reply_score AS replyScore,
+        product_number AS productNumber
+        FROM product_reply
+        WHERE reply_step = 0
+        WHERE product_number = #{productNumber}
+        ORDER BY reply_ref DESC;
     </select>
     <select id="getOneByMemberId" resultType="ReviewDTO" parameterType="String">
         SELECT

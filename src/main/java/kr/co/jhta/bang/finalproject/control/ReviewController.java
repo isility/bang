@@ -121,14 +121,18 @@ public class ReviewController {
             return "redirect:/review/reviewList";
         }
 
+        // 로그인한 아이디로 구매한 이력 확인
+        if(service.getOneByMemberId(principal.getName()) == null || service.getOneByMemberId(principal.getName()).isEmpty() ) {
 
-        List<ReviewDTO> list = service.getOneByMemberId(principal.getName());
-        service.getOneByMemberId(principal.getName());
-        model.addAttribute("dto", list);
-        log.info("getOneByMemberId ////////////////// {}", list);
-
-
-        return "review/reviewWrite";
+            return "redirect:/review/reviewList";
+        }
+        else {
+            List<ReviewDTO> list = service.getOneByMemberId(principal.getName());
+            service.getOneByMemberId(principal.getName());
+            model.addAttribute("dto", list);
+            log.info("getOneByMemberId ////////////////// {}", list);
+            return "review/reviewWrite";
+        }
     }
 
     @PostMapping("/reviewWrite")
@@ -169,17 +173,24 @@ public class ReviewController {
 
     @PostMapping("/reviewModify")
     @ResponseBody
-    public String modifyForm(@RequestParam("replyNumber")int replyNumber, @RequestParam("member_id")String member_id, Model model, Principal principal){
-        model.addAttribute("reviewDTO", service.findByReply_number(replyNumber));
+    public String modifyForm(@RequestParam("replyNumber")int replyNumber, @RequestParam("member_id")String member_id, Model model, Principal principal) {
 
-        if(principal.getName().equals(member_id)){
+        model.addAttribute("reviewDTO", service.findByReply_number(replyNumber));
+        if (principal.getName().equals(member_id)) {
             return "성공";
-        }else
-            return "fail";
+        } else if(principal.getName().equals(null) || principal.getName() == null){
+            return "null";
+        }
+        else{
+            return "실패";
+        }
+
+
     }
 
     @GetMapping("/reviewModify")
-    public String modifyReply(@RequestParam("replyNumber")int replyNumber, Model model, Principal principal){
+    public String modifyReply(@RequestParam("replyNumber")int replyNumber, Model model, Principal principal, @RequestParam("member_id")String member_id){
+        log.info(""+ member_id);
         if (principal != null) {
             int cnt = 0;
             log.info("로그인된 사용자");
@@ -188,13 +199,17 @@ public class ReviewController {
                 cnt++;
             model.addAttribute("cartListCount", cnt);
             model.addAttribute("username", principal.getName());
+
         } else {
             log.info("로그인하지 않은 사용자");
             model.addAttribute("username", "Guest 님"); // 로그인하지 않은 사용자는 "Guest"라는 이름으로 보내기
             model.addAttribute("cartListCount", 0);
         }
+
         model.addAttribute("reviewDTO", service.findByReply_number(replyNumber));
+
         return "review/reviewModify";
+
     }
 
     @PostMapping("/reviewModifyOk")
