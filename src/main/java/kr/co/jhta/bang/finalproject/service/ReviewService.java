@@ -72,4 +72,9 @@ public class ReviewService {
     public String getProductName(int productNumber){
         return dao.getProductName(productNumber);
     }
+
+    public List<ReviewDTO> getReplyByProductNumber(int productNumber){
+
+        return dao.getReplyByProductNumber(productNumber);
+    }
 }
