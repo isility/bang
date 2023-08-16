@@ -179,7 +179,9 @@
 
                         <textarea class="form-control" rows="5" id="summernote" style="height: 450px;" name="replyContents" th:utext="${reviewDTO.replyContents}"></textarea>
                         <td><input type="hidden" name="replyNumber" th:value="${reviewDTO
-                        .replyNumber}"/></td>
+                        .replyNumber}"/>
+                            <input type="hidden" name="member_id" th:value="${reviewDTO.member_id}"></td>
+
                     </div>
 
 

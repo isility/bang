@@ -13,5 +13,6 @@ public class ProductListDTO {
     private String productName;
     private int productPrice;
     private int categoryNumber;
+    private int reviewCount;
 
 }

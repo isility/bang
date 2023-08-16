@@ -108,8 +108,8 @@ public class ProductController {
         model.addAttribute("detailImg", service.selectList(productNumber));
 
         //리뷰
-        log.info(""+reviewService.getAll());
-        model.addAttribute("reviewList", reviewService.getAll());
+        log.info(""+reviewService.getReplyByProductNumber(productNumber));
+        model.addAttribute("reviewList", reviewService.getReplyByProductNumber(productNumber));
 
         //큐앤에이
 //        model.addAttribute("qnaList", qnaService.selectAll());

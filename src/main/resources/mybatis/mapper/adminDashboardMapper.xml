@@ -79,6 +79,7 @@
     <select id="getTotalReply" resultType="int">
         SELECT count(*)cnt
         FROM product_reply
+        WHERE reply_step = 0;
     </select>
     <select id="getTotalPaymentDetail" resultType="int">
         SELECT count(*)cnt

@@ -16,10 +16,8 @@ public class PaymentDTO {
     String paymentPhone;
     int paymentMethod;
     String memberID;
-    int product_count;
-    int product_price;
-    String payment_detail_status;
-    int product_number;
-    int payment_number;
-
+    int productCount;
+    int productPrice;
+    String paymentDetailStatus;
+    int productNumber;
 }
