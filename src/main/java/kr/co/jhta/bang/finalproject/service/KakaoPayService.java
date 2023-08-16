@@ -37,16 +37,18 @@ public class KakaoPayService {
     private KakaoPayReadyDTO KakaoPayReadyDTO;
     private KakaoPayApprovalDTO KakaoPayApprovalDTO;
 
-    @Setter
     PaymentDTO paymentDTO;
 
-    @Setter
     MemberDTO memberDTO;
+
 
     public String kakaoPayReady() {
 
         RestTemplate restTemplate = new RestTemplate();
         MemberDTO memberDTO = (MemberDTO) session.getAttribute("member");
+        String orderNumberTop = Integer.toString(paymentDAO.selectTop() + 1);
+
+        log.info(orderNumberTop);
 
 
         // 서버로 요청할 Header
@@ -58,7 +60,7 @@ public class KakaoPayService {
         // 서버로 요청할 Body
         MultiValueMap<String, String> params = new LinkedMultiValueMap<String, String>();
         params.add("cid", "TC0ONETIME");
-        params.add("partner_order_id", Integer.toString(paymentDAO.selectTop() + 1));
+        params.add("partner_order_id", orderNumberTop);
         params.add("partner_user_id", memberDTO.getMember_id());
 
         List<CartDTO> CartDTOList = (List<CartDTO>) session.getAttribute("cartList");
@@ -68,11 +70,10 @@ public class KakaoPayService {
             String productName = cartdto.getProductName();
             for (CartDTO cdto : CartDTOList)
                 cnt += 1;
-            if (cnt == 1)
+            if (cnt <= 1)
                 params.add("item_name", productName);
             else
                 params.add("item_name", productName + " 등 " + cnt + "건");
-            log.info("--------------------------------------상품이름" + productName + " 등 " + cnt + "건");
         } else
             return "kakaoPaySuccessFail";
 
@@ -115,11 +116,11 @@ public class KakaoPayService {
 
     public KakaoPayApprovalDTO kakaoPayInfo(String pg_token) {
 
-        memberDTO = new MemberDTO();
+        paymentDTO = new PaymentDTO();
+
+        String orderNumberTop = Integer.toString(paymentDAO.selectTop() + 1);
 
         memberDTO = (MemberDTO) session.getAttribute("member");
-        log.info("멤버 dto : " + memberDTO);
-        log.info("id : " + memberDTO.getMember_id());
         paymentDTO.setMemberID(memberDTO.getMember_id());
         paymentDTO.setPaymentPostal(memberDTO.getMember_postal());
         paymentDTO.setPaymentAddress1(memberDTO.getMember_address1());
@@ -127,30 +128,21 @@ public class KakaoPayService {
         paymentDTO.setPaymentName(memberDTO.getMember_name());
         paymentDTO.setPaymentPhone(memberDTO.getMember_phone());
         paymentDTO.setPaymentMethod(1);
-
         paymentDAO.insertOne(paymentDTO);
 
-        log.info("주문목록 생성");
-
         paymentDTO.setPaymentNumber(paymentDAO.selectTop());
-        paymentDTO.setProduct_price((int) session.getAttribute("totalPrice"));
-        paymentDTO.setPayment_detail_status("입금확인");
-
+        paymentDTO.setPaymentDetailStatus("입금확인");
         List<CartDTO> CartDTOList = (List<CartDTO>) session.getAttribute("cartList");
-        int cnt = 0;
         if (CartDTOList != null && !CartDTOList.isEmpty()) {
-            for (CartDTO cdto : CartDTOList)
-                cnt += 1;
-            paymentDTO.setProduct_count(cnt);
-
-            for (CartDTO cdto : CartDTOList) {
-                paymentDTO.setProduct_number(cdto.getProductNumber());
-                paymentDAO.detailInsertOne(paymentDTO);
-                log.info("주문목록 생성2");
+            if (CartDTOList != null && !CartDTOList.isEmpty()) {
+                for (CartDTO cdto : CartDTOList) {
+                    paymentDTO.setProductCount(cdto.getCartQuantity());
+                    paymentDTO.setProductPrice(cdto.getProductPrice());
+                    paymentDTO.setProductNumber(cdto.getProductNumber());
+                    paymentDAO.detailInsertOne(paymentDTO);
+                }
             }
         }
-
-        log.info("주문목록 생성3");
 
         RestTemplate restTemplate = new RestTemplate();
 
@@ -165,7 +157,7 @@ public class KakaoPayService {
         MultiValueMap<String, String> params = new LinkedMultiValueMap<String, String>();
         params.add("cid", "TC0ONETIME");
         params.add("tid", KakaoPayReadyDTO.getTid());
-        params.add("partner_order_id", Integer.toString(paymentDAO.selectTop() + 1));     //주문번호
+        params.add("partner_order_id", orderNumberTop);     //주문번호
         params.add("partner_user_id", memberDTO.getMember_id());    //유저아이디
         params.add("pg_token", pg_token);
         params.add("total_amount", session.getAttribute("totalPrice") + "");

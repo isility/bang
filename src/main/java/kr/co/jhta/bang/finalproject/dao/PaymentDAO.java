@@ -4,6 +4,8 @@ import kr.co.jhta.bang.finalproject.dto.PaymentDTO;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 @Mapper
 public interface PaymentDAO {
@@ -12,4 +14,6 @@ public interface PaymentDAO {
     int selectTop();
 
     void detailInsertOne(PaymentDTO dto);
+
+    List<PaymentDTO> orderList(String id);
 }
