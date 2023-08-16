@@ -15,7 +15,6 @@ public class PaymentDTO {
     String paymentName;
     String paymentPhone;
     int paymentMethod;
-    String memberID;
     int productCount;
     int productPrice;
     String paymentDetailStatus;
@@ -23,4 +22,10 @@ public class PaymentDTO {
     String paymentDate;
     String productName;
     String img;
+    String memberID;
+    String memberName;
+    String memberEmail;
+    String memberPhone;
+    int totalPrice;
+
 }

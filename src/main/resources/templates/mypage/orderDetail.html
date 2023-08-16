@@ -152,10 +152,17 @@
                   <td>진행상황</td>
                 </tr>
                 <tr th:each="order : ${orderlist}">
-                  <td th:text="${order.img}"></td>
-                  <td th:text="${order.productName}"></td>
-                  <td th:text="${order.productCount}"></td>
-                  <td th:text="${order.productPrice}"></td>
+                  <td th:text="${order.paymentNumber}"></td>
+                  <td th:text="${order.memberName}"></td>
+                  <td th:text="${order.memberEmail}"></td>
+                  <td th:text="${order.memberPhone}"></td>
+                  <td th:text="${order.paymentName}"></td>
+                  <td th:text="${order.paymentPhone}"></td>
+                  <td th:text="${order.paymentAddress1}"></td>
+                  <td th:text="${order.paymentAddress2}"></td>
+                  <td th:text="${order.paymentMethod}"></td>
+                  <td th:text="${totalPrice}"></td>
+
                 </tr>
               </table>
             </div>

@@ -38,11 +38,20 @@
         p.payment_number as paymentNumber,
         product.product_name as productName,
         i.image_src as img,
-        p.member_id as memberID
+        p.member_id as memberID,
+        m.member_name as memberName,
+        m.member_email as memberEmail,
+        m.member_phone as memberPhone,
+        p.payment_name as paymentName,
+        p.payment_phone as paymentPhone,
+        p.payment_address1 as paymentAddress1,
+        p.payment_address2 as paymentAddress2,
+        p.payment_method as paymentMethod
         from payment_detail pd
         inner join payment p on p.payment_number = pd.payment_number
         inner join product on product.product_number = pd.product_number
         inner join image i on i.product_number = pd.product_number and i.image_order = 1
+        inner join member m on m.member_id = p.member_id
         where pd.payment_number = #{paymentNumber} and p.member_id = #{memberID}
     </select>
 

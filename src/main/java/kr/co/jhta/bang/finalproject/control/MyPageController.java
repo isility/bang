@@ -55,15 +55,16 @@ public class MyPageController {
     @RequestMapping("/orderdetail")
     public String orderdetail(@RequestParam("pno")int pno, Principal principal, Model model){
         PaymentDTO dto = new PaymentDTO();
-        int cnt=0;
+        int totalPrice=0;
         dto.setMemberID(principal.getName());
         dto.setPaymentNumber(pno);
         model.addAttribute("orderlist",paymentService.orderProductList(dto));
         List<PaymentDTO> list = paymentService.orderProductList(dto);
-        for(PaymentDTO ddto : list)
-            cnt++;
+        for(PaymentDTO ddto : list){
+            totalPrice+= ddto.getProductPrice();
+        }
 
-        model.addAttribute("cnt",cnt);
+        model.addAttribute("totalPrice",totalPrice);
 
         return "mypage/orderDetail";
     }
