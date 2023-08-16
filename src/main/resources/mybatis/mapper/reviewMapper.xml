@@ -63,6 +63,7 @@
     <select id="getTotal" resultType="int">
         SELECT count(*)cnt
         FROM product_reply
+        WHERE reply_step = 0;
     </select>
 
     <select id="findAllByReplyRef"  resultType="ReviewDTO" parameterType="int">
