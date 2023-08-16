@@ -204,7 +204,7 @@
         product_number = #{productNumber} AND
         AND pay.member_id = #{member_id}
     </select>
-    <select id="getReplyByProductNumber" parameterType="int">
+    <select id="getReplyByProductNumber" resultType="ReviewDTO" parameterType="int">
         SELECT
         reply_number AS replyNumber,
         reply_contents AS replyContents,
@@ -218,8 +218,7 @@
         reply_score AS replyScore,
         product_number AS productNumber
         FROM product_reply
-        WHERE reply_step = 0
-        WHERE product_number = #{productNumber}
+        WHERE reply_step = 0 AND product_number = #{productNumber}
         ORDER BY reply_ref DESC;
     </select>
     <select id="getOneByMemberId" resultType="ReviewDTO" parameterType="String">
