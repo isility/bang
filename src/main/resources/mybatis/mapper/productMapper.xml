@@ -5,7 +5,8 @@
 
 <mapper namespace="kr.co.jhta.bang.finalproject.dao.ProductListDAO">
     <select id="selectAll" parameterType="int" resultType="ProductListDTO">
-        SELECT p.product_number as productNumber,  i.image_src as imageSrc, product_name as productName, product_price as productPrice, category_number as categoryNumber
+        SELECT p.product_number as productNumber,  i.image_src as imageSrc, product_name as productName, product_price as productPrice, category_number as categoryNumber,
+        (SELECT COUNT(*) FROM product_reply pr WHERE pr.product_number = p.product_number) as reviewCount
         FROM product p, image i
         WHERE p.product_number = i.product_number
         AND category_number=#{category_number}
