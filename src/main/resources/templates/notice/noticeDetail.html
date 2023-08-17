@@ -60,7 +60,7 @@
     <div class="container">
       <div class="row">
         <div class="col-md-3 col-xs-2" >
-          <div id="fh5co-logo" ><a th:href="@{/index.html}">Bang & Oops</a></div>
+          <div id="fh5co-logo" ><a th:href="@{/}">Bang & Oops</a></div>
         </div>
         <div class="col-md-6 col-xs-6 text-center menu-1" >
           <ul>
@@ -88,15 +88,15 @@
               님 <a href="/mypage">mypage</a>
             </li>
             <li class="login menu-2" sec:authorize="isAuthenticated()" id="logout">
-              <a href="logout">logout</a>
+              <a href="/logout">logout</a>
             </li>
 
             <!-- 로그인 상태가 아닐 때 -->
             <li class="login menu-2" sec:authorize="isAnonymous()" id="join">
-              <a href="join">JOIN</a>
+              <a href="/join">JOIN</a>
             </li>
             <li class="login menu-2" sec:authorize="isAnonymous()" id="login">
-              <a href="login">login</a>
+              <a href="/login">login</a>
             </li>
             <li class="search menu-2">
               <div class="input-group">
@@ -134,8 +134,8 @@
       <div class="row">
         <div><h2>NOTICE</h2></div>
         <div>
-          <a th:href="@{noticeDelete(noticeNumber=${dto.noticeNumber})}"><input type="button" style="float:right;" class="btn btn-primary" value="삭제" /></a>
-          <a th:href="@{noticeModify(noticeNumber=${dto.noticeNumber})}"><input type="button" style="float:right;" class="btn btn-primary" value="수정" /></a>
+          <a th:href="@{noticeDelete(noticeNumber=${dto.noticeNumber})}" sec:authorize="hasRole('ROLE_ADMIN')"><input type="button" style="float:right;" class="btn btn-primary" value="삭제" /></a>
+          <a th:href="@{noticeModify(noticeNumber=${dto.noticeNumber})}" sec:authorize="hasRole('ROLE_ADMIN')"><input type="button" style="float:right;" class="btn btn-primary" value="수정" /></a>
           <a th:href="@{noticeList}"><input type="button" style="float:right;" class="btn btn-primary" value="목록" /></a>
         </div>
         <form>
