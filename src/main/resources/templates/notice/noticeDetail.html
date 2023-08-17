@@ -59,28 +59,29 @@
   <nav class="fh5co-nav" role="navigation">
     <div class="container">
       <div class="row">
-        <div class="col-md-3 col-xs-2" >
-          <div id="fh5co-logo" ><a th:href="@{/index.html}">Bang & Oops</a></div>
+        <div class="col-md-3 col-xs-2">
+          <div id="fh5co-logo"><a href="/">Bang & Oops</a></div>
         </div>
-        <div class="col-md-6 col-xs-6 text-center menu-1" >
+        <div class="col-md-6 col-xs-6 text-center menu-1">
           <ul>
-            <li><a th:href="@{/product/productList?categoryNumber=1}">SPEAKER</a></li>
-            <li><a th:href="@{/product/productList?categoryNumber=2}">EARPHONE</a></li>
-            <li><a th:href="@{/product/productList?categoryNumber=3}">HEADPHONE</a></li>
-            <li><a th:href="@{/product/productList?categoryNumber=4}">ACCESSORIES</a></li>
+            <li><a href="/product/productList?categoryNumber=1">SPEAKER</a></li>
+            <li><a href="/product/productList?categoryNumber=2">EARPHONE</a></li>
+            <li><a href="/product/productList?categoryNumber=3">HEADPHONE</a></li>
+            <li><a href="/product/productList?categoryNumber=4">ACCESSORIES</a></li>
             <li class="has-dropdown">
-              <a th:href="@{/community.html}">COMMUNITY</a>
+              <a href="">COMMUNITY</a>
               <ul class="dropdown">
-                <li><a th:href="@{/notice/noticeList}">공지사항</a></li>
-                <li><a th:href="@{/review/reviewList}">REVIEW</a></li>
-                <li><a th:href="@{/qna/qnaList}">Q&A</a></li>
+                <li><a href="/notice/noticeList">공지사항</a></li>
+                <li><a href="/review/reviewList">REVIEW</a></li>
+                <li><a href="/qna/qnaList">Q&A</a></li>
               </ul>
             </li>
           </ul>
         </div>
         <div class="col-md-3 col-xs-4 text-right hidden-xs menu-2">
           <ul>
-            <li class="shopping-cart menu-2"><a th:href="@{#}" class="cart"><span><small>0</small><i
+            <li class="shopping-cart menu-2"><a href="/product/cart" class="cart"><span><small
+                    th:text="${cartListCount}">0</small><i
                     class="icon-shopping-cart"></i></span></a></li>
             <li class="login menu-2" th:text="${username}" id="username"></li>
             <!-- 로그인 상태일 때 -->
@@ -88,24 +89,15 @@
               님 <a href="/mypage">mypage</a>
             </li>
             <li class="login menu-2" sec:authorize="isAuthenticated()" id="logout">
-              <a href="logout">logout</a>
+              <a href="/logout">logout</a>
             </li>
 
             <!-- 로그인 상태가 아닐 때 -->
             <li class="login menu-2" sec:authorize="isAnonymous()" id="join">
-              <a href="join">JOIN</a>
+              <a href="/join">JOIN</a>
             </li>
             <li class="login menu-2" sec:authorize="isAnonymous()" id="login">
-              <a href="login">login</a>
-            </li>
-            <li class="search menu-2">
-              <div class="input-group">
-                <input type="text" placeholder="SEARCH">
-                <span class="input-group-btn">
-										<button class="btn btn-primary" type="button"><i
-                                                class="icon-search"></i></button>
-									</span>
-              </div>
+              <a href="/login">login</a>
             </li>
 
           </ul>
@@ -134,8 +126,8 @@
       <div class="row">
         <div><h2>NOTICE</h2></div>
         <div>
-          <a th:href="@{noticeDelete(noticeNumber=${dto.noticeNumber})}"><input type="button" style="float:right;" class="btn btn-primary" value="삭제" /></a>
-          <a th:href="@{noticeModify(noticeNumber=${dto.noticeNumber})}"><input type="button" style="float:right;" class="btn btn-primary" value="수정" /></a>
+          <a th:href="@{/notice/noticeDelete(noticeNumber=${dto.noticeNumber})}" sec:authorize="hasRole('ROLE_ADMIN')"><input type="button" style="float:right;" class="btn btn-primary" value="삭제" /></a>
+          <a th:href="@{/notice/noticeModify(noticeNumber=${dto.noticeNumber})}" sec:authorize="hasRole('ROLE_ADMIN')"><input type="button" style="float:right;" class="btn btn-primary" value="수정" /></a>
           <a th:href="@{noticeList}"><input type="button" style="float:right;" class="btn btn-primary" value="목록" /></a>
         </div>
         <form>
@@ -161,70 +153,6 @@
 
           </table>
         </form>
-
-
-        <!--
-        <div class="col-md-4 col-sm-4 text-center">
-            <div class="feature-center animate-box" data-animate-effect="fadeIn">
-                <span class="icon">
-                    <i class="icon-credit-card"></i>
-                </span>
-                <h3>Credit Card</h3>
-                <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove</p>
-                <p><a href="#" class="btn btn-primary btn-outline">Learn More</a></p>
-            </div>
-        </div>
-        <div class="col-md-4 col-sm-4 text-center">
-            <div class="feature-center animate-box" data-animate-effect="fadeIn">
-                <span class="icon">
-                    <i class="icon-wallet"></i>
-                </span>
-                <h3>Save Money</h3>
-                <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove</p>
-                <p><a href="#" class="btn btn-primary btn-outline">Learn More</a></p>
-            </div>
-        </div>
-        <div class="col-md-4 col-sm-4 text-center">
-            <div class="feature-center animate-box" data-animate-effect="fadeIn">
-                <span class="icon">
-                    <i class="icon-paper-plane"></i>
-                </span>
-                <h3>Free Delivery</h3>
-                <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove</p>
-                <p><a href="#" class="btn btn-primary btn-outline">Learn More</a></p>
-            </div>
-        </div>
-        <div class="col-md-4 col-sm-4 text-center">
-            <div class="feature-center animate-box" data-animate-effect="fadeIn">
-                <span class="icon">
-                    <i class="icon-calendar"></i>
-                </span>
-                <h3>Lifetime Warranty</h3>
-                <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove</p>
-                <p><a href="#" class="btn btn-primary btn-outline">Learn More</a></p>
-            </div>
-        </div>
-        <div class="col-md-4 col-sm-4 text-center">
-            <div class="feature-center animate-box" data-animate-effect="fadeIn">
-                <span class="icon">
-                    <i class="icon-clapperboard"></i>
-                </span>
-                <h3>Branded Model</h3>
-                <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove</p>
-                <p><a href="#" class="btn btn-primary btn-outline">Learn More</a></p>
-            </div>
-        </div>
-        <div class="col-md-4 col-sm-4 text-center">
-            <div class="feature-center animate-box" data-animate-effect="fadeIn">
-                <span class="icon">
-                    <i class="icon-drive"></i>
-                </span>
-                <h3>Affordable</h3>
-                <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove</p>
-                <p><a href="#" class="btn btn-primary btn-outline">Learn More</a></p>
-            </div>
-        </div>
-    -->
       </div>
     </div>
   </div>
@@ -255,61 +183,21 @@
     </div>
   </div>
 
-  <footer id="fh5co-footer" role="contentinfo">
+  <footer id="fh5co-footer" role="contentinfo" style="background: #D1C286">
     <div class="container">
-      <div class="row row-pb-md">
-        <div class="col-md-4 fh5co-widget">
-          <h3>Shop.</h3>
-          <p>Facilis ipsum reprehenderit nemo molestias. Aut cum mollitia reprehenderit. Eos cumque dicta adipisci architecto culpa amet.</p>
-        </div>
-        <div class="col-md-2 col-sm-4 col-xs-6 col-md-push-1">
-          <ul class="fh5co-footer-links">
-            <li><a th:href="@{#}">About</a></li>
-            <li><a th:href="@{#}">Help</a></li>
-            <li><a th:href="@{#}">Contact</a></li>
-            <li><a th:href="@{#}">Terms</a></li>
-            <li><a th:href="@{#}">Meetups</a></li>
-          </ul>
-        </div>
-
-        <div class="col-md-2 col-sm-4 col-xs-6 col-md-push-1">
-          <ul class="fh5co-footer-links">
-            <li><a th:href="@{#}">Shop</a></li>
-            <li><a th:href="@{#}">Privacy</a></li>
-            <li><a th:href="@{#}">Testimonials</a></li>
-            <li><a th:href="@{#}">Handbook</a></li>
-            <li><a th:href="@{#}">Held Desk</a></li>
-          </ul>
-        </div>
-
-        <div class="col-md-2 col-sm-4 col-xs-6 col-md-push-1">
-          <ul class="fh5co-footer-links">
-            <li><a th:href="@{#}">Find Designers</a></li>
-            <li><a th:href="@{#}">Find Developers</a></li>
-            <li><a th:href="@{#}">Teams</a></li>
-            <li><a th:href="@{#}">Advertise</a></li>
-            <li><a th:href="@{#}">API</a></li>
-          </ul>
-        </div>
-      </div>
-
       <div class="row copyright">
         <div class="col-md-12 text-center">
           <p>
-            <small class="block">&copy; 2016 Free HTML5. All Rights Reserved.</small>
-            <small class="block">Designed by <a th:href="@{http://freehtml5.co/}" target="_blank">FreeHTML5.co</a> Demo Images: <a th:href="@{http://blog.gessato.com/}" target="_blank">Gessato</a> &amp; <a th:href="@{http://unsplash.co/}" target="_blank">Unsplash</a></small>
-          </p>
-          <p>
-          <ul class="fh5co-social-icons">
-            <li><a th:href="@{#}"><i class="icon-twitter"></i></a></li>
-            <li><a th:href="@{#}"><i class="icon-facebook"></i></a></li>
-            <li><a th:href="@{#}"><i class="icon-linkedin"></i></a></li>
-            <li><a th:href="@{#}"><i class="icon-dribbble"></i></a></li>
-          </ul>
+            <small class="block">&copy; 2023 Free HTML5. All Rights Reserved.</small>
+            <small class="block">Designed by <a href="http://freehtml5.co/" target="_blank"
+                                                style="color:white">FreeHTML5.co</a>
+              Demo Images: <a href="http://blog.gessato.com/"
+                              target="_blank" style="color:white">Gessato</a> &amp; <a
+                      href="http://unsplash.co/"
+                      target="_blank" style="color:white">Unsplash</a></small>
           </p>
         </div>
       </div>
-
     </div>
   </footer>
 </div>
