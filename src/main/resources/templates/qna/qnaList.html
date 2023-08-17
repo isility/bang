@@ -105,6 +105,7 @@
 
 	</script>
 
+
 </head>
 
 <body>
@@ -205,22 +206,15 @@
 							<th style="text-align: center;">글쓴이</th>
 							<th style="text-align: center;">작성시간</th>
 						</tr>
-
-						<!--<td scope="row" th:text="${#strings.equals( board.qna_secret, 'Y' ) ? '비밀글 입니다' : board.qna_title}"></td>
-						<td class="text-left">
-							<a th:href="@{/board/view.do( idx=${row.idx} )}" th:text="${row.title}"></a>
-						</td>-->
 						<tbody id="qna-table-body">
 						<tr th:each="board:${list}">
 							<td th:text="${board.qnaRef}"></td>
 							<td th:text="${board.qnaType}"></td>
-<!--							<td><a th:href="@{/qna/qnaDetail(qna_number=${board.qna_number})}" th:text="${board.qna_title}"></a>비밀글입니다</td>-->
 							<td>
 								<span th:if="${board.qnaSecret == 'true'}"><a th:href="@{/qna/qnaDetail(qnaNumber=${board.qnaNumber})}">비밀글입니다</a></span>
 								<span th:if="${board.qnaSecret == null}"><a th:href="@{/qna/qnaDetail(qnaNumber=${board.qnaNumber})}" th:text="${board.qnaTitle}"></a></span>
 							</td>
-<!--							<td th:if="${board.qna_secret == 'true'}">비밀글입니다</td>-->
-<!--							<td th:unlss="${board.qna_secret == 'true'}"><a th:href="@{/qna/qnaDetail(qna_number=${board.qna_number})}" th:text="${board.qna_title}"></a></td>-->
+
 							<td th:text="${board.memberId}"></td>
 							<td th:text="${board.qnaDate}"></td>
 						</tr>
