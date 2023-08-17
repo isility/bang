@@ -91,7 +91,7 @@
     </insert>
     <update id="updateOne" parameterType="QnaDTO">
         UPDATE qna
-        SET  member_id = #{memberId}, qna_writer = #{qnaWriter}, qna_title = #{qnaTitle}, qna_contents = #{qnaContents}, qna_type = #{qnaType}, qna_secret = #{qnaSecret}
+        SET qna_writer = #{qnaWriter}, qna_title = #{qnaTitle}, qna_contents = #{qnaContents}, qna_type = #{qnaType}, qna_secret = #{qnaSecret}
         WHERE qna_number = #{qnaNumber}
     </update>
     <delete id="deleteOne" parameterType="int">

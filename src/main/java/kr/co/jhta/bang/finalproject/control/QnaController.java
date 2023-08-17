@@ -152,8 +152,21 @@ public class QnaController {
         return "redirect:/qna/qnaList";
     }
 
+    @GetMapping("qna/qnaCheck")
+    @ResponseBody
+    public String qnaCheck(@RequestParam("memberId")String memberId, Principal principal){
+        log.info(memberId);
+        log.info(principal.getName());
+        if(memberId.equals(principal.getName())) {
+            return "성공";
+        }
+        else
+            return "실패";
+    }
+
     @GetMapping("qna/qnaModify")
-    public String modifyForm(@RequestParam("qnaNumber")int qnaNumber, Model model, Principal principal) {
+    public String modifyForm(@RequestParam("qnaNumber")int qnaNumber, @RequestParam("memberId")String memberId, Model model, Principal principal) {
+
         model.addAttribute("dto", service.selectOne(qnaNumber));
 
         if (principal != null) {

@@ -65,7 +65,9 @@
 		// qnaType Select 엘리먼트의 값 변경 시
 		$('#qna-type-select').change(function() {
 			var selectedValue = $(this).val(); // 선택된 값을 가져옴
-
+			if (selectedValue === '전체보기') {
+				location.href='/qna/qnaList';
+			}
 			// 값 조회 AJAX 요청
 			$.ajax({
 				url: '/qna/getQnaTypeValues', // 값 조회 API 엔드포인트
@@ -98,7 +100,9 @@
 				}
 			});
 		});
+
 	});
+
 	</script>
 
 </head>
@@ -183,14 +187,14 @@
 			<div><h2>Q&A</h2></div>
 				<div class="row" >
 					<div>
-						<a th:href="@{/qna/qnaWrite}"><input type="button" style="float:right;" class="btn btn-primary" value="글쓰기" /></a>
+						<a th:href="@{/qna/qnaWrite}" sec:authorize="isAuthenticated()"><input type="button" style="float:right;" class="btn btn-primary" value="글쓰기" /></a>
 					</div>
 					<table class="table" style="text-align: center;">
 						<tr id="title">
 							<th style="text-align: center;">NO</th>
 							<th style="text-align: center;">
 								<select name="qnaType" id="qna-type-select" style="text-align: center;">
-									<option value="카테고리" id="all">카테고리</option>
+									<option value="전체보기" id="all">전체보기</option>
 									<option value="상품문의" id="product">상품문의</option>
 									<option value="결제/배송문의" id="delivery">결제/배송문의</option>
 									<option value="회원정보문의" id="member">회원정보문의</option>

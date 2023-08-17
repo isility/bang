@@ -74,6 +74,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/payment/**").permitAll()
                 .antMatchers("/mypage/**").permitAll()
                 .antMatchers("/notice/noticeWrite").access("hasRole('ROLE_ADMIN')")
+                .antMatchers("/qna/qnaWrite").authenticated()
                 .antMatchers("/admin/**").access("hasRole('ROLE_ADMIN')")
                 .anyRequest().permitAll()
                 .and()
