@@ -36,7 +36,7 @@
         reply_score AS replyScore,
         product_number AS productNumber,
         product_name AS productName,
-        derived.member_id
+        derived.member_id AS member_id
         FROM (
         SELECT ROW_NUMBER() OVER (ORDER BY reply_ref DESC) AS rn,
         reply_number,
@@ -77,7 +77,8 @@
         reply_answer_number AS replyAnswerNumber,
         reply_parent_number AS replyParentNumber,
         reply_score AS replyScore,
-        product_number AS productNumber
+        product_number AS productNumber,
+        product_name AS productName
         FROM product_reply
         WHERE reply_parent_number = #{replyNumber} and reply_step != 0
     </select>
@@ -108,7 +109,8 @@
         reply_answer_number AS replyAnswerNumber,
         reply_parent_number AS replyParentNumber,
         reply_score AS replyScore,
-        product_number AS productNumber
+        product_number AS productNumber,
+        product_name AS productName
         FROM product_reply
         WHERE reply_number = #{replyNumber};
     </select>
@@ -143,10 +145,10 @@
     <insert id="setReplyFirst" parameterType="ReviewDTO">
         INSERT INTO product_reply
         (reply_contents, reply_writer, reply_date, reply_ref, reply_step, reply_ref_order,
-        reply_answer_number, reply_parent_number, reply_score, product_number)
+        reply_answer_number, reply_parent_number, reply_score, product_number, product_name)
         VALUES
         (#{replyContents}, #{replyWriter}, DATE_FORMAT(NOW(), '%y-%m-%d'), #{replyRef}, 1,
-        1, 0, #{replyNumber}, null, #{productNumber})
+        1, 0, #{replyNumber}, null, #{productNumber}, #{productName})
     </insert>
 
 
