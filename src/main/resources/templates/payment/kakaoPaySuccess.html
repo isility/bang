@@ -87,7 +87,7 @@
 
 <body>
 
-<div id="page">
+<div id="page" style="margin-bottom:100px;">
     <nav class="fh5co-nav" role="navigation">
         <div class="container">
             <div class="row">
@@ -138,10 +138,7 @@
         </div>
     </nav>
 
-    <!-- =========================================================================================== -->
-
     <div id="success">
-
         <div class="feature-center animate-box" data-animate-effect="fadeIn">
                         <span class="icon">
                         <i class="icon-check"></i>
@@ -172,35 +169,60 @@
             <p style="color:#D3C48B;font-weight: bold;"
                th:text="|${#numbers.formatInteger(info.amount.total,0,'COMMA')}|+ '원'"></p>
         </div>
-
         <br><br>
-
         <div>
-            <a href="/mypage?my=1" class="btn btn-primary"
-               style="width: 500px;height: 54px;
-               display: flex;align-items: center;justify-content: center;">주문내역 확인</a>
+            <form action="/orderdetail" method="get">
+                <input type="hidden" name="pno" th:value="${info.partner_order_id}">
+                <input type="submit" class="btn btn-primary" style="width: 500px;height: 54px;
+                               display: flex;align-items: center;justify-content: center;" value="주문 내역 확인">
+            </form>
         </div>
-
     </div>
-    <!--======================================================================================-->
-    <footer id="fh5co-footer" role="contentinfo" style="background: #D1C286">
-        <div class="container">
-            <div class="row copyright">
-                <div class="col-md-12 text-center">
-                    <p>
-                        <small class="block">&copy; 2023 Free HTML5. All Rights Reserved.</small>
-                        <small class="block">Designed by <a href="http://freehtml5.co/" target="_blank"
-                                                            style="color:white">FreeHTML5.co</a>
-                            Demo Images: <a href="http://blog.gessato.com/"
-                                            target="_blank" style="color:white">Gessato</a> &amp; <a
-                                    href="http://unsplash.co/"
-                                    target="_blank" style="color:white">Unsplash</a></small>
-                    </p>
-                </div>
-            </div>
-        </div>
-    </footer>
 
+    <!--    &lt;!&ndash; =========================================================================================== &ndash;&gt;-->
+    <!--    <div id="fh5co-contact">-->
+    <!--        <div id="container" class="col-md-6 col-md-push-3">-->
+    <!--            <div class="feature-center animate-box" data-animate-effect="fadeIn">-->
+    <!--                        <span class="icon">-->
+    <!--                        <i class="icon-check"></i>-->
+    <!--                    </span>-->
+    <!--            </div>-->
+
+    <!--            <h3 style="color:#D3C48B; font-weight: bold; text-align:center;">카카오페이 결제가 정상적으로 완료되었습니다.</h3>-->
+    <!--            <br>-->
+    <!--            <strong>-->
+    <!--                <hr>-->
+    <!--            </strong>-->
+
+    <!--            <div class="col-md-3" style="text-align:left;">-->
+    <!--                <p>결제일시</p>-->
+    <!--                <p>주문번호</p>-->
+    <!--                <p>상품명</p>-->
+    <!--                <p>상품수량</p>-->
+    <!--                <p>결제방법</p>-->
+    <!--                <p>결제금액</p>-->
+    <!--            </div>-->
+
+    <!--            <div class="col-md-9" style="text-align:right;">-->
+    <!--                <p> [[${info.approved_at}]]</p>-->
+    <!--                <p> [[${info.partner_order_id}]]</p>-->
+    <!--                <p> [[${info.item_name}]]</p>-->
+    <!--                <p> [[${info.quantity}]]개</p>-->
+    <!--                <p> [[${info.payment_method_type}]]</p>-->
+    <!--                <p style="color:#D3C48B;font-weight: bold;"-->
+    <!--                   th:text="|${#numbers.formatInteger(info.amount.total,0,'COMMA')}|+ '원'"></p>-->
+    <!--            </div>-->
+    <!--            <br><br>-->
+    <!--            <div class="col-md-8">-->
+    <!--                <form action="/orderdetail" method="get">-->
+    <!--                    <input type="hidden" name="pno" th:value="${info.partner_order_id}">-->
+    <!--                    <input type="submit" class="btn btn-primary" style="width: 500px;height: 54px;-->
+    <!--               display: flex;align-items: center;justify-content: center;" value="주문 내역 확인">-->
+    <!--                </form>-->
+
+    <!--            </div>-->
+    <!--        </div>-->
+    <!--    </div>-->
 
 </div>
 

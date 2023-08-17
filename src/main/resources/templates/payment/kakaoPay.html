@@ -24,7 +24,88 @@
     <link rel="stylesheet" href="/css/style.css">
     <!-- Modernizr JS -->
     <script src="/js/modernizr-2.6.2.min.js"></script>
+
+    <!--스크립트 참조-->
+
+    <!-- jQuery -->
+    <script src="/js/jquery.min.js"></script>
+    <!-- jQuery Easing -->
+    <script src="/js/jquery.easing.1.3.js"></script>
+    <!-- Bootstrap -->
+    <script src="/js/bootstrap.min.js"></script>
+    <!-- Waypoints -->
+    <script src="/js/jquery.waypoints.min.js"></script>
+    <!-- Carousel -->
+    <script src="/js/owl.carousel.min.js"></script>
+    <!-- countTo -->
+    <script src="/js/jquery.countTo.js"></script>
+    <!-- Flexslider -->
+    <script src="/js/jquery.flexslider-min.js"></script>
+    <!-- Main -->
+    <script src="/js/main.js"></script>
     <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+
+    <script>
+    <!-- 카카오 주소 -->
+    $(document).ready(function(){
+
+        $("#addressSearch").on("click", function() {
+            console.log("버튼눌림");
+            kakaoaddress();
+        });
+
+
+        function kakaoaddress() {
+        new daum.Postcode({
+            oncomplete: function(data) {
+                // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
+
+                // 각 주소의 노출 규칙에 따라 주소를 조합한다.
+                // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
+                var addr = ''; // 주소 변수
+                var extraAddr = ''; // 참고항목 변수
+
+                //사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
+                if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
+                    addr = data.roadAddress;
+                } else { // 사용자가 지번 주소를 선택했을 경우(J)
+                    addr = data.jibunAddress;
+                }
+
+                // 사용자가 선택한 주소가 도로명 타입일때 참고항목을 조합한다.
+                if(data.userSelectedType === 'R'){
+                    // 법정동명이 있을 경우 추가한다. (법정리는 제외)
+                    // 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
+                    if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
+                        extraAddr += data.bname;
+                    }
+                    // 건물명이 있고, 공동주택일 경우 추가한다.
+                    if(data.buildingName !== '' && data.apartment === 'Y'){
+                        extraAddr += (extraAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+                    }
+                    // 표시할 참고항목이 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
+                    if(extraAddr !== ''){
+                        extraAddr = ' (' + extraAddr + ')';
+                    }
+                    // 조합된 참고항목을 해당 필드에 넣는다.
+
+                } else {
+                }
+
+                // 우편번호와 주소 정보를 해당 필드에 넣는다.
+                document.getElementById('orderPost').value = data.zonecode;
+                document.getElementById("orderAddr1").value = addr;
+                // 커서를 상세주소 필드로 이동한다.
+                document.getElementById("orderAddr2").value = "";
+                document.getElementById("orderAddr2").focus();
+            }
+        }).open();
+        }
+    });
+
+
+
+    </script>
 
     <style>
         h4{
@@ -41,29 +122,11 @@
         .kakao{
         width:30%; height:30%;
         }
+
+
     </style>
 </head>
 <body>
-<!--스크립트 참조-->
-
-<!-- jQuery -->
-<script src="/js/jquery.min.js"></script>
-<!-- jQuery Easing -->
-<script src="/js/jquery.easing.1.3.js"></script>
-<!-- Bootstrap -->
-<script src="/js/bootstrap.min.js"></script>
-<!-- Waypoints -->
-<script src="/js/jquery.waypoints.min.js"></script>
-<!-- Carousel -->
-<script src="/js/owl.carousel.min.js"></script>
-<!-- countTo -->
-<script src="/js/jquery.countTo.js"></script>
-<!-- Flexslider -->
-<script src="/js/jquery.flexslider-min.js"></script>
-<!-- Main -->
-<script src="/js/main.js"></script>
-
-
 <div class="fh5co-loader"></div>
 
 <div id="page">
@@ -149,7 +212,8 @@
                                 <h4 style="margin-bottom:20px;">주문자 정보</h4>
                                 <div class="col-md-4" style="padding:0px;">
                                     <input type="text" class="form-control" placeholder="이름"
-                                           style="height:40px; margin-bottom:10px;" th:value="${session.member.member_name}">
+                                           style="height:40px; margin-bottom:10px;"
+                                           th:value="${session.member.member_name}">
                                 </div>
                                 <div class="col-md-8" style="padding-right:0px;">
                                     <input type="text" class="form-control" placeholder="연락처"
@@ -167,27 +231,35 @@
                                 <h4 style="margin-bottom:20px;">배송정보</h4>
                                 <div class="col-md-4" style="padding:0px;">
                                     <input type="text" name="orderName" class="form-control" placeholder="이름"
-                                           style="height:40px; margin-bottom:10px;" th:value="${session.member.member_name}">
+                                           style="height:40px; margin-bottom:10px;"
+                                           th:value="${session.member.member_name}">
                                 </div>
                                 <div class="col-md-8" style="padding-right:0px;">
                                     <input type="text" name="orderPhone" class="form-control" placeholder="연락처"
-                                           style="height:40px;margin-bottom:10px; " th:value="${session.member.member_phone}">
+                                           style="height:40px;margin-bottom:10px; "
+                                           th:value="${session.member.member_phone}">
                                 </div>
                                 <div class="col-md-8" style="padding:0px;">
-                                    <input type="text" name="orderPost" class="form-control" placeholder="우편번호"
-                                           style="height:40px;margin-bottom:10px;" th:value="${session.member.member_postal}">
+                                    <input type="text" id="orderPost" name="orderPost" class="form-control"
+                                           placeholder="우편번호"
+                                           style="height:40px;margin-bottom:10px;"
+                                           th:value="${session.member.member_postal}">
                                 </div>
-                                <div class="col-md-4" style="padding-right: 0px;" >
-                                    <input type="button" class="form-control" value="주소 찾기"
-                                           style="padding:0px; height:40px; background:#F3F3F3" >
-                                </div>
-                                <div class="col-md-12" style="padding:0px;">
-                                    <input type="text" name="orderAddr1" class="form-control" placeholder="도로명/지번 주소"
-                                           style="height:40px; margin-bottom:10px;" th:value="${session.member.member_address1}">
+                                <div class="col-md-4" style="padding-right: 0px;">
+                                    <input type="button" class="form-control" value="주소 찾기" id="addressSearch"
+                                           style="padding:0px; height:40px; background:#F3F3F3">
                                 </div>
                                 <div class="col-md-12" style="padding:0px;">
-                                    <input type="text" name="orderAddr2" class="form-control" placeholder="상세주소"
-                                           style="height:40px;margin-bottom:10px;" th:value="${session.member.member_address2}">
+                                    <input type="text" id="orderAddr1" name="orderAddr1" class="form-control"
+                                           placeholder="도로명/지번 주소"
+                                           style="height:40px; margin-bottom:10px;"
+                                           th:value="${session.member.member_address1}">
+                                </div>
+                                <div class="col-md-12" style="padding:0px;">
+                                    <input type="text" id="orderAddr2" name="orderAddr2" class="form-control"
+                                           placeholder="상세주소"
+                                           style="height:40px;margin-bottom:10px;"
+                                           th:value="${session.member.member_address2}">
                                 </div>
                             </div>
                         </div>
@@ -197,7 +269,8 @@
                     <!--                    ========================================================================-->
                     <div class="col-md-3 animate-box fadeInUp animated-fast">
                         <div class="row"
-                             style="margin-bottom: 30px;background:white;margin-left: 0px;margin-right: 0px;padding: 30px;">                            <div class="col-md">
+                             style="margin-bottom: 30px;background:white;margin-left: 0px;margin-right: 0px;padding: 30px;">
+                            <div class="col-md">
                                 <h4>주문요약</h4>
                                 <input class="col-md-6" type="text" value="주문금액  "
                                        style="align-text:left; border:0px; padding:0px;"
@@ -250,14 +323,14 @@
                                    align-items: center;justify-content: center;">일반 결제</a>
                             </div>
                             <br>
-<!--                            <div class="col-md-6">-->
-<!--                                <button class="btn btn-primary btn btn-md">일반 결제</button>-->
-<!--                            </div>-->
+                            <!--                            <div class="col-md-6">-->
+                            <!--                                <button class="btn btn-primary btn btn-md">일반 결제</button>-->
+                            <!--                            </div>-->
                             <div class="col-md-12">
-                                <button class="btn btn-md"  style="background:#FFEB00; width: 264px;">
+                                <button class="btn btn-md" style="background:#FFEB00; width: 264px;">
                                     <img src="/images/kakao.png" class="kakao">
                                     <strong style="color:#000000">결제</strong>
-                                    </button>
+                                </button>
                             </div>
                         </div>
                     </div>
