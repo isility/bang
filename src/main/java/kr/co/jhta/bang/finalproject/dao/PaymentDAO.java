@@ -19,4 +19,5 @@ public interface PaymentDAO {
 
     List<PaymentDTO> orderProductList(PaymentDTO dto);
 
+    void deleteCart(PaymentDTO paymentDTO);
 }

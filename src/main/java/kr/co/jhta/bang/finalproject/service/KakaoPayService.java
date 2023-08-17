@@ -118,15 +118,19 @@ public class KakaoPayService {
 
         paymentDTO = new PaymentDTO();
 
+        PaymentDTO paymentDTO1 = new PaymentDTO();
+
         String orderNumberTop = Integer.toString(paymentDAO.selectTop() + 1);
 
         memberDTO = (MemberDTO) session.getAttribute("member");
+        paymentDTO1 = (PaymentDTO)session.getAttribute("order");
+
         paymentDTO.setMemberID(memberDTO.getMember_id());
-        paymentDTO.setPaymentPostal(memberDTO.getMember_postal());
-        paymentDTO.setPaymentAddress1(memberDTO.getMember_address1());
-        paymentDTO.setPaymentAddress2(memberDTO.getMember_address2());
-        paymentDTO.setPaymentName(memberDTO.getMember_name());
-        paymentDTO.setPaymentPhone(memberDTO.getMember_phone());
+        paymentDTO.setPaymentPostal(paymentDTO1.getPaymentPostal());
+        paymentDTO.setPaymentAddress1(paymentDTO1.getPaymentAddress1());
+        paymentDTO.setPaymentAddress2(paymentDTO1.getPaymentAddress2());
+        paymentDTO.setPaymentName(paymentDTO1.getPaymentName());
+        paymentDTO.setPaymentPhone(paymentDTO1.getPaymentPhone());
         paymentDTO.setPaymentMethod(1);
         paymentDAO.insertOne(paymentDTO);
 
@@ -140,6 +144,7 @@ public class KakaoPayService {
                     paymentDTO.setProductPrice(cdto.getProductPrice());
                     paymentDTO.setProductNumber(cdto.getProductNumber());
                     paymentDAO.detailInsertOne(paymentDTO);
+                    paymentDAO.deleteCart(paymentDTO);
                 }
             }
         }
