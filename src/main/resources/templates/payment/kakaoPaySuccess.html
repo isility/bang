@@ -1,14 +1,16 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Bang</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="Free HTML5 Website Template by gettemplates.co" />
-    <meta name="keywords" content="free website templates, free html5, free template, free bootstrap, free website template, html5, css3, mobile first, responsive" />
-    <meta name="author" content="gettemplates.co" />
+    <meta name="description" content="Free HTML5 Website Template by gettemplates.co"/>
+    <meta name="keywords"
+          content="free website templates, free html5, free template, free bootstrap, free website template, html5, css3, mobile first, responsive"/>
+    <meta name="author" content="gettemplates.co"/>
 
 
     <!-- jQuery -->
@@ -34,23 +36,23 @@
 
     <!-- Animate.css -->
 
-    <link rel="stylesheet"  th:href="@{/css/animate.css}">
+    <link rel="stylesheet" th:href="@{/css/animate.css}">
     <!-- Icomoon Icon Fonts-->
     <!--	<link rel="stylesheet" href="../../static/css/icomoon.css">-->
-    <link rel="stylesheet"  th:href="@{/css/icomoon.css}">
+    <link rel="stylesheet" th:href="@{/css/icomoon.css}">
     <!-- Bootstrap  -->
     <!--	<link rel="stylesheet" href="../../static/css/bootstrap.css">-->
-    <link rel="stylesheet"  th:href="@{/css/bootstrap.css}">
+    <link rel="stylesheet" th:href="@{/css/bootstrap.css}">
 
     <!-- Flexslider  -->
     <!--	<link rel="stylesheet" href="../../static/css/flexslider.css">-->
-    <link rel="stylesheet"  th:href="@{/css/flexslider.css}">
+    <link rel="stylesheet" th:href="@{/css/flexslider.css}">
 
     <!-- Owl Carousel  -->
     <!--	<link rel="stylesheet" href="../../static/css/owl.carousel.min.css">-->
-    <link rel="stylesheet"  th:href="@{/css/owl.carousel.min.css}">
+    <link rel="stylesheet" th:href="@{/css/owl.carousel.min.css}">
     <!--	<link rel="stylesheet" href="../../static/css/owl.theme.default.min.css">-->
-    <link rel="stylesheet"  th:href="@{/css/owl.theme.default.min.css}">
+    <link rel="stylesheet" th:href="@{/css/owl.theme.default.min.css}">
 
     <!-- Theme style  -->
     <!--	<link rel="stylesheet" href="../../static/css/style.css">-->
@@ -58,11 +60,11 @@
     <link rel="stylesheet" th:href="@{/css/style.css}">
 
     <!-- Modernizr JS -->
-    <script src="@{/js/modernizr-2.6.2.min.js}"></script>
+    <script src="/js/modernizr-2.6.2.min.js"></script>
 
     <!-- FOR IE9 below -->
     <!--[if lt IE 9]>
-    <script src="@{/js/respond.min.js}"></script>
+    <script src="/js/respond.min.js"></script>
     <![endif]-->
 
     <style>
@@ -78,7 +80,9 @@
     padding: 20px;
 }
 
-  </style>
+
+
+    </style>
 </head>
 
 <body>
@@ -87,17 +91,17 @@
     <nav class="fh5co-nav" role="navigation">
         <div class="container">
             <div class="row">
-                <div class="col-md-3 col-xs-2" >
-                    <div id="fh5co-logo" ><a href="/">Bang & Oops</a></div>
+                <div class="col-md-3 col-xs-2">
+                    <div id="fh5co-logo"><a href="/">Bang & Oops</a></div>
                 </div>
-                <div class="col-md-6 col-xs-6 text-center menu-1" >
+                <div class="col-md-6 col-xs-6 text-center menu-1">
                     <ul>
-                        <li><a  href="/product/productList?categoryNumber=1">SPEAKER</a></li>
-                        <li><a href="/product/productList?categoryNumber=2" >EARPHONE</a></li>
-                        <li><a href="/product/productList?categoryNumber=3" >HEADPHONE</a></li>
-                        <li><a href="/product/productList?categoryNumber=4" >ACCESSORIES</a></li>
+                        <li><a href="/product/productList?categoryNumber=1">SPEAKER</a></li>
+                        <li><a href="/product/productList?categoryNumber=2">EARPHONE</a></li>
+                        <li><a href="/product/productList?categoryNumber=3">HEADPHONE</a></li>
+                        <li><a href="/product/productList?categoryNumber=4">ACCESSORIES</a></li>
                         <li class="has-dropdown">
-                            <a href="/community.html">COMMUNITY</a>
+                            <a href="">COMMUNITY</a>
                             <ul class="dropdown">
                                 <li><a href="/notice/noticeList">공지사항</a></li>
                                 <li><a href="/review/reviewList">REVIEW</a></li>
@@ -108,32 +112,24 @@
                 </div>
                 <div class="col-md-3 col-xs-4 text-right hidden-xs menu-2">
                     <ul>
-                        <li class="shopping-cart menu-2"><a href="#" class="cart"><span><small>0</small><i
+                        <li class="shopping-cart menu-2"><a href="/product/cart" class="cart"><span><small
+                                th:text="${cartListCount}">0</small><i
                                 class="icon-shopping-cart"></i></span></a></li>
-                        <li class="login menu-2" th:if="${username}" th:text="" id="username"></li>
+                        <li class="login menu-2" th:text="${username}" id="username"></li>
                         <!-- 로그인 상태일 때 -->
-                        <li class="login menu-2" style="display: none;" id="mypage">
-                            <a href="mypage">mypage</a>
+                        <li class="login menu-2" sec:authorize="isAuthenticated()" id="mypage">
+                            님 <a href="/mypage">mypage</a>
                         </li>
-                        <li class="login menu-2" style="display: none;" id="logout">
-                            <a href="logout">logout</a>
+                        <li class="login menu-2" sec:authorize="isAuthenticated()" id="logout">
+                            <a href="/logout">logout</a>
                         </li>
 
                         <!-- 로그인 상태가 아닐 때 -->
                         <li class="login menu-2" sec:authorize="isAnonymous()" id="join">
-                            <a href="join">JOIN</a>
+                            <a href="/join">JOIN</a>
                         </li>
                         <li class="login menu-2" sec:authorize="isAnonymous()" id="login">
-                            <a href="login">login</a>
-                        </li>
-                        <li class="search menu-2">
-                            <div class="input-group">
-                                <input type="text" placeholder="SEARCH">
-                                <span class="input-group-btn">
-										<button class="btn btn-primary" type="button"><i
-                                                class="icon-search"></i></button>
-									</span>
-                            </div>
+                            <a href="/login">login</a>
                         </li>
 
                     </ul>
@@ -142,52 +138,68 @@
         </div>
     </nav>
 
-<!-- =========================================================================================== -->
+    <!-- =========================================================================================== -->
 
-<div id="success">
+    <div id="success">
 
-    <div class="feature-center animate-box" data-animate-effect="fadeIn">
+        <div class="feature-center animate-box" data-animate-effect="fadeIn">
                         <span class="icon">
                         <i class="icon-check"></i>
                     </span>
-    </div>
+        </div>
 
-    <h3 style="color:#D3C48B; font-weight: bold; text-align:center;">카카오페이 결제가 정상적으로 완료되었습니다.</h3>
-    <br>
-    <strong><hr></strong>
+        <h3 style="color:#D3C48B; font-weight: bold; text-align:center;">카카오페이 결제가 정상적으로 완료되었습니다.</h3>
+        <br>
+        <strong>
+            <hr>
+        </strong>
 
-    <div class="col-md-3" style="text-align:left;">
-        <p>결제일시</p>
-        <p>주문번호</p>
-        <p>상품명</p>
-        <p>상품수량</p>
-        <p>결제방법</p>
-        <p>결제금액</p>
-    </div>
+        <div class="col-md-3" style="text-align:left;">
+            <p>결제일시</p>
+            <p>주문번호</p>
+            <p>상품명</p>
+            <p>상품수량</p>
+            <p>결제방법</p>
+            <p>결제금액</p>
+        </div>
 
-    <div class="col-md-9" style="text-align:right;">
-        <p> [[${info.approved_at}]]</p>
-        <p> [[${info.partner_order_id}]]</p>
-        <p> [[${info.item_name}]]</p>
-        <p> [[${info.quantity}]]개</p>
-        <p> [[${info.payment_method_type}]]</p>
-        <p style="color:#D3C48B;font-weight: bold;"
-        th:text="|${#numbers.formatInteger(info.amount.total,0,'COMMA')}|+ '원'"></p>
-    </div>
+        <div class="col-md-9" style="text-align:right;">
+            <p> [[${info.approved_at}]]</p>
+            <p> [[${info.partner_order_id}]]</p>
+            <p> [[${info.item_name}]]</p>
+            <p> [[${info.quantity}]]개</p>
+            <p> [[${info.payment_method_type}]]</p>
+            <p style="color:#D3C48B;font-weight: bold;"
+               th:text="|${#numbers.formatInteger(info.amount.total,0,'COMMA')}|+ '원'"></p>
+        </div>
 
-    <br><br>
+        <br><br>
 
-    <div>
-        <a href="/mypage?my=3" class="btn btn-primary"
-           style="width: 500px;height: 54px;
+        <div>
+            <a href="/mypage?my=1" class="btn btn-primary"
+               style="width: 500px;height: 54px;
                display: flex;align-items: center;justify-content: center;">주문내역 확인</a>
-    </div>
+        </div>
 
-</div>
-<!--    <div th:text="${session.cartList}"></div>-->
-<!--    <h2>[[${info}]]</h2>-->
-<!--======================================================================================
--->
+    </div>
+    <!--======================================================================================-->
+    <footer id="fh5co-footer" role="contentinfo" style="background: #D1C286">
+        <div class="container">
+            <div class="row copyright">
+                <div class="col-md-12 text-center">
+                    <p>
+                        <small class="block">&copy; 2023 Free HTML5. All Rights Reserved.</small>
+                        <small class="block">Designed by <a href="http://freehtml5.co/" target="_blank"
+                                                            style="color:white">FreeHTML5.co</a>
+                            Demo Images: <a href="http://blog.gessato.com/"
+                                            target="_blank" style="color:white">Gessato</a> &amp; <a
+                                    href="http://unsplash.co/"
+                                    target="_blank" style="color:white">Unsplash</a></small>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </footer>
 
 
 </div>

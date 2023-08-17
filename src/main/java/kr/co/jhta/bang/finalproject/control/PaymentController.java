@@ -3,6 +3,7 @@ package kr.co.jhta.bang.finalproject.control;
 import kr.co.jhta.bang.finalproject.dao.CartDAO;
 import kr.co.jhta.bang.finalproject.dao.MemberDAO;
 import kr.co.jhta.bang.finalproject.dto.CartDTO;
+import kr.co.jhta.bang.finalproject.dto.PaymentDTO;
 import kr.co.jhta.bang.finalproject.dto.ProductDTO;
 import kr.co.jhta.bang.finalproject.dto.ProductListDTO;
 import kr.co.jhta.bang.finalproject.service.KakaoPayService;
@@ -39,14 +40,41 @@ public class PaymentController {
     MemberDAO memberDAO;
 
     @GetMapping("/pay")
-    public String kakaoPayMain(){
+    public String kakaoPayMain(Principal principal, Model model){
+
+        if (principal != null) {
+            int cnt = 0;
+            for (CartDTO dto : payService.cartlist(principal.getName()))
+                cnt++;
+            model.addAttribute("cartListCount", cnt);
+            model.addAttribute("username", principal.getName());
+        } else {
+            model.addAttribute("username", "Guest 님"); // 로그인하지 않은 사용자는 "Guest"라는 이름으로 보내기
+            model.addAttribute("cartListCount", 0);
+        }
 
         return "payment/kakaoPay";
+    }
+    @GetMapping("")
+    public String kakaoPayMain(@RequestParam("pno")int pno, @RequestParam("quantity")int quantity, HttpSession session, Principal principal) {
+        int tp = 0;
+
+        tp = productService.selectOne(pno).getProductPrice() * quantity;
+
+        session.setAttribute("totalPrice", tp);
+        session.setAttribute("cartList", productService.selectOne(pno));
+        session.setAttribute("member", memberDAO.selectOne(principal.getName()));
+        session.setAttribute("memberid", principal.getName());
+
+        return "payment/pay";
     }
 
     @PostMapping("")
     @ResponseBody
     public void kakaoPayGet(@RequestParam("pnoList[]")int[] pnoList,@RequestParam("quantityList[]")int[] quantityList, HttpSession session, Principal principal) {
+
+
+
         int tp = 0;
 
         List<CartDTO> list = new ArrayList<>();
@@ -73,7 +101,22 @@ public class PaymentController {
     }
 
     @PostMapping("/kakaoPay")
-    public String kakaoPay() {
+    public String kakaoPay(@RequestParam("orderName")String orderName,
+                           @RequestParam("orderPhone")String orderPhone,
+                           @RequestParam("orderPost")String orderPost,
+                           @RequestParam("orderAddr1")String orderAddress1,
+                           @RequestParam("orderAddr2")String orderAddress2,HttpSession session) {
+
+        PaymentDTO paymentDTO = new PaymentDTO();
+        paymentDTO.setPaymentName(orderName);
+        paymentDTO.setPaymentPhone(orderPhone);
+        paymentDTO.setPaymentPostal(orderPost);
+        paymentDTO.setPaymentAddress1(orderAddress1);
+        paymentDTO.setPaymentAddress2(orderAddress2);
+
+
+        session.setAttribute("order", paymentDTO);
+
         log.info("카카페 래디2");
         return "redirect:" + kakaopay.kakaoPayReady();
     }

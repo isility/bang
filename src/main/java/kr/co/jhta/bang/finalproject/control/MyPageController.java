@@ -1,6 +1,7 @@
 package kr.co.jhta.bang.finalproject.control;
 
 
+import kr.co.jhta.bang.finalproject.dto.CartDTO;
 import kr.co.jhta.bang.finalproject.dto.PaymentDTO;
 import kr.co.jhta.bang.finalproject.service.PaymentService;
 import kr.co.jhta.bang.finalproject.service.ProductService;
@@ -25,12 +26,17 @@ public class MyPageController {
     ProductService productService;
 
 
-
     @RequestMapping("/mypage")
-    public String mypage(@RequestParam(name = "my", required = false, defaultValue = "1")int my, Principal principal, Model model) {
-        if(principal != null) {
+    public String mypage(@RequestParam(name = "my", required = false, defaultValue = "1") int my, Principal principal, Model model) {
+        if (principal != null) {
             if (my == 1) {
-                model.addAttribute("orderlist",paymentService.orderList(principal.getName()));
+                int cnt = 0;
+                for (CartDTO dto : paymentService.cartlist(principal.getName()))
+                    cnt++;
+                model.addAttribute("cartListCount", cnt);
+                model.addAttribute("username", principal.getName());
+
+                model.addAttribute("orderlist", paymentService.orderList(principal.getName()));
                 return "mypage/myPage";
             } else if (my == 2) {
                 return "mypage/myWish";
@@ -45,26 +51,44 @@ public class MyPageController {
             } else if (my == 7) {
                 return "mypage/mySignOut";
             } else {
+                int cnt = 0;
+                for (CartDTO dto : paymentService.cartlist(principal.getName()))
+                    cnt++;
+                model.addAttribute("cartListCount", cnt);
+                model.addAttribute("username", principal.getName());
+
                 model.addAttribute("orderlist", paymentService.orderList(principal.getName()));
                 return "mypage/myPage";
             }
-        }else
+        } else
             return "redirect:/";
     }
 
     @RequestMapping("/orderdetail")
-    public String orderdetail(@RequestParam("pno")int pno, Principal principal, Model model){
+    public String orderdetail(@RequestParam("pno") int pno, Principal principal, Model model) {
         PaymentDTO dto = new PaymentDTO();
-        int totalPrice=0;
-        dto.setMemberID(principal.getName());
-        dto.setPaymentNumber(pno);
-        model.addAttribute("orderlist",paymentService.orderProductList(dto));
-        List<PaymentDTO> list = paymentService.orderProductList(dto);
-        for(PaymentDTO ddto : list){
-            totalPrice+= ddto.getProductPrice();
+        int totalPrice = 0;
+
+        if (principal != null) {
+            int cnt = 0;
+            for (CartDTO cdto : paymentService.cartlist(principal.getName()))
+                cnt++;
+            model.addAttribute("cartListCount", cnt);
+            model.addAttribute("username", principal.getName());
+            dto.setMemberID(principal.getName());
+            dto.setPaymentNumber(pno);
+            model.addAttribute("orderlist", paymentService.orderProductList(dto));
+            List<PaymentDTO> list = paymentService.orderProductList(dto);
+            for (PaymentDTO ddto : list) {
+                totalPrice += ddto.getProductPrice();
+            }
+
+            model.addAttribute("totalPrice", totalPrice);
+        } else {
+            model.addAttribute("username", "Guest 님"); // 로그인하지 않은 사용자는 "Guest"라는 이름으로 보내기
+            model.addAttribute("cartListCount", 0);
         }
 
-        model.addAttribute("totalPrice",totalPrice);
 
         return "mypage/orderDetail";
     }

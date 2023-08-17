@@ -54,5 +54,9 @@
         inner join member m on m.member_id = p.member_id
         where pd.payment_number = #{paymentNumber} and p.member_id = #{memberID}
     </select>
+    <delete id="deleteCart" parameterType="PaymentDTO">
+        delete from cart
+        where member_id = #{memberID} and product_number = #{productNumber}
+    </delete>
 
 </mapper>
