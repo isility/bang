@@ -36,7 +36,7 @@
         reply_score AS replyScore,
         product_number AS productNumber,
         product_name AS productName,
-        derived.member_id
+        derived.member_id AS member_id
         FROM (
         SELECT ROW_NUMBER() OVER (ORDER BY reply_ref DESC) AS rn,
         reply_number,

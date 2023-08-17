@@ -45,7 +45,6 @@ public class ReviewController {
 
         model.addAttribute("list", service.findAllReply(startNo, endNo));
         model.addAttribute("map", map);
-
         if (principal != null) {
             int cnt = 0;
             log.info("로그인된 사용자");
