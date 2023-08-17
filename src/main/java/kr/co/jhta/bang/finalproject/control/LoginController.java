@@ -102,6 +102,12 @@ public class LoginController {
         return "login/loginError.html";
     }
 
+    @GetMapping("/loginIdError")
+    public String loginIdError() {
+        return "login/loginIdError.html";
+    }
+
+
     @GetMapping("/accessDenied")
     public String accessDenied() {
         return "login/accessDenied.html";

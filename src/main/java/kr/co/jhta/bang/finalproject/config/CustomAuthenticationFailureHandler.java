@@ -37,8 +37,12 @@ public class CustomAuthenticationFailureHandler implements AuthenticationFailure
         log.info("onAuthenticationFailure PW 인코딩: {}", member_pw);
         log.info("onAuthenticationFailure memberDto: {}", memberDto);
 
-        if (memberDto.getMember_loginFailures() < 5) {
-            log.info("맞는 회원정보가 없을 때 + 5번 미만 틀렸을 때");
+        if (memberDto == null) {
+            log.info("ID 를 틀렸을 때");
+
+            response.sendRedirect("/loginIdError");
+        } else if (memberDto.getMember_loginFailures() < 5) {
+            log.info("5번 미만 틀렸을 때");
 
             // 로그인 실패 횟수 업데이트
             memberService.loginFailures(member_id);
@@ -55,7 +59,7 @@ public class CustomAuthenticationFailureHandler implements AuthenticationFailure
             response.sendRedirect("/loginError");
 
         } else {
-            log.info("맞는 회원정보가 없을 때 + 5번 이상 틀렸을 때");
+            log.info("5번 이상 틀렸을 때");
 
             // 세션에 업데이트된 로그인 실패 횟수 저장
             request.getSession().setAttribute("loginFailuresCount", memberDto.getMember_loginFailures());
