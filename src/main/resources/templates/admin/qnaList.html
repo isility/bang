@@ -163,7 +163,6 @@
                                         <th scope="col">No</th>
                                         <th scope="col">카테고리</th>
                                         <th scope="col">제목</th>
-                                        <th scope="col">내용</th>
                                         <th scope="col">작성자</th>
                                         <th scope="col">작성일</th>
                                         <th scope="col">#</th>
@@ -177,11 +176,10 @@
                                         <td th:text="${board.qnaType}"></td>
 
                                         <td th:text="${#strings.length(board.qnaTitle) > 10 ? #strings.substring(board.qnaTitle, 0, 10) + '...' : board.qnaTitle}"></td>
-                                        <td th:text="${#strings.length(board.qnaContents) > 12 ? #strings.substring(board.qnaContents, 0, 12) + '...' : board.qnaContents}"></td>
                                         <td th:text="${board.qnaWriter}"></td>
                                         <td th:text="${board.qnaDate}"></td>
                                         <td>
-                                            <a th:href="@{/admin/qnaModify(qnaNumber=${board.qnaNumber})}" class="btn btn-primary m-1" style="font-size: 12px;">정보수정</a>
+                                            <a th:href="@{/admin/qnaModify(qnaNumber=${board.qnaNumber})}" class="btn btn-primary m-1" style="font-size: 12px;">수정</a>
                                         </td>
                                         <td>
                                             <a th:href="@{/admin/qnaDelete(qnaNumber=${board.qnaNumber})}"
