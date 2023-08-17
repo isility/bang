@@ -45,6 +45,22 @@
     <!-- Main -->
     <script src="/js/main.js"></script>
 
+    <style>
+        img{width:60%;height:60%}
+        .orderInfo{margin-bottom: 100px;}
+
+        .center-align {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                height: 100%;
+            }
+
+
+
+
+    </style>
+
 </head>
 <body>
 <!--상단 네비게이션-->
@@ -56,43 +72,40 @@
             </div>
             <div class="col-md-6 col-xs-6 text-center menu-1">
                 <ul>
-                    <li><a href="#">SPEAKER</a></li>
-                    <li><a href="#">EARPHONE</a></li>
-                    <li><a href="#">HEADPHONE</a></li>
-                    <li><a href="#">ACCESSORIES</a></li>
-                    <li><a href="#">SERVICE</a></li>
+                    <li><a href="/product/productList?categoryNumber=1">SPEAKER</a></li>
+                    <li><a href="/product/productList?categoryNumber=2">EARPHONE</a></li>
+                    <li><a href="/product/productList?categoryNumber=3">HEADPHONE</a></li>
+                    <li><a href="/product/productList?categoryNumber=4">ACCESSORIES</a></li>
+                    <li class="has-dropdown">
+                        <a href="">COMMUNITY</a>
+                        <ul class="dropdown">
+                            <li><a href="/notice/noticeList">공지사항</a></li>
+                            <li><a href="/review/reviewList">REVIEW</a></li>
+                            <li><a href="/qna/qnaList">Q&A</a></li>
+                        </ul>
+                    </li>
                 </ul>
             </div>
             <div class="col-md-3 col-xs-4 text-right hidden-xs menu-2">
                 <ul>
-                    <li class="shopping-cart menu-2"><a href="#" class="cart"><span><small>0</small><i
+                    <li class="shopping-cart menu-2"><a href="/product/cart" class="cart"><span><small
+                            th:text="${cartListCount}">0</small><i
                             class="icon-shopping-cart"></i></span></a></li>
                     <li class="login menu-2" th:text="${username}" id="username"></li>
-                    님
-                    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
                     <!-- 로그인 상태일 때 -->
                     <li class="login menu-2" sec:authorize="isAuthenticated()" id="mypage">
-                        <a href="/mypage">mypage</a>
+                        님 <a href="/mypage">mypage</a>
                     </li>
                     <li class="login menu-2" sec:authorize="isAuthenticated()" id="logout">
-                        <a href="logout">logout</a>
+                        <a href="/logout">logout</a>
                     </li>
 
                     <!-- 로그인 상태가 아닐 때 -->
                     <li class="login menu-2" sec:authorize="isAnonymous()" id="join">
-                        <a href="join">JOIN</a>
+                        <a href="/join">JOIN</a>
                     </li>
                     <li class="login menu-2" sec:authorize="isAnonymous()" id="login">
-                        <a href="login">login</a>
-                    </li>
-                    <li class="search menu-2">
-                        <div class="input-group">
-                            <input type="text" placeholder="SEARCH">
-                            <span class="input-group-btn">
-										<button class="btn btn-primary" type="button"><i
-                                                class="icon-search"></i></button>
-									</span>
-                        </div>
+                        <a href="/login">login</a>
                     </li>
 
                 </ul>
@@ -108,7 +121,7 @@
     <div id="fh5co-contact">
         <div class="container">
             <div class="row">
-                <div class="col-md-3 animate-box fadeInUp animated-fast">
+                <div class="col-md-3 animate-box fadeInUp animated-fast" style="padding:0px">
                     <!--왼쪽 사이드 바-->
                     <div class="fh5co-contact-info">
                         <ul>
@@ -136,60 +149,257 @@
                         </ul>
                     </div>
                 </div>
-                <!--본 내용 목록-->
-                <div class="col-md-9 animate-box fadeInUp animated-fast">
-                    <h3>주문 목록</h3>
-                    <div class="row" style="height:80px;">
-                        <div>
-                            <table class="table">
-                                <tr>
-                                    <td>주문날짜</td>
-                                    <td>상품이미지</td>
-                                    <td>상품명</td>
-                                    <td>수량</td>
-                                    <td>가격</td>
-                                    <td>배송비</td>
-                                    <td>진행상황</td>
-                                    <td>주문번호</td>
-                                    <td>주문자명</td>
-                                    <td>주문자이메일</td>
-                                    <td>주문자전화번호</td>
-                                    <td>배송자명</td>
-                                    <td>배송지주소1</td>
-                                    <td>배송지주소2</td>
-                                    <td>결제방식</td>
-                                    <td>진행상황</td>
-                                    <td>수량</td>
-                                    <td>총 가격</td>
-                                </tr>
-                                <tr th:each="order : ${orderlist}">
-                                    <td th:text="${order.paymentDate}"></td>
-                                    <td th:text="${order.img}"></td>
-                                    <td th:text="${order.productName}"></td>
-                                    <td th:text="${order.productCount}"></td>
-                                    <td th:text="${order.productPrice}"></td>
-                                    <td>배송비 무료</td>
-                                    <td th:text="${order.paymentDetailStatus}"></td>
-                                    <td th:text="${order.paymentNumber}"></td>
-                                    <td th:text="${order.memberName}"></td>
-                                    <td th:text="${order.memberEmail}"></td>
-                                    <td th:text="${order.memberPhone}"></td>
-                                    <td th:text="${order.paymentName}"></td>
-                                    <td th:text="${order.paymentPhone}"></td>
-                                    <td th:text="${order.paymentAddress1}"></td>
-                                    <td th:text="${order.paymentAddress2}"></td>
-                                    <td th:text="${order.paymentMethod}"></td>
-                                    <td th:text="${totalPrice}"></td>
-                                </tr>
-                            </table>
+
+                <!--               =============================================================================================================-->
+                <div class="col-md-9 animate-box fadeInUp animated-fast" style="padding-left:0px">
+                    <h3 >주문 상세 조회</h3>
+                    <br><br><br>
+
+                    <!--                    주문번호/주문일-->
+
+                    <div style="padding:0px; ">
+                        <div class="col-md-2" style="padding:0px;"><h4 style="color:#808080;font-weight:bolder">주문번호&nbsp;   </h4></div>
+
+                        <div class="col-md-2" style="padding:0px;"><h4 th:text="${orderlist[0].paymentNumber}" style="color:#D1C286;font-weight:bolder"></h4>
                         </div>
+
+
+                        <div class="col-md-2 " style="padding:0px"><h4  style="color:#808080;font-weight:bolder">주문일&nbsp; </h4></div>
+                        <div class="col-md-6" style="padding:0px"><h4 th:text="${orderlist[0].paymentDate}" style="color:#D1C286;font-weight:bolder"></h4></div>
+                    </div>
+
+<!--                    <div style="padding:0px; ">-->
+<!--                        <div class="col-md-2" style="padding:0px;"><h4 style="color:#808080;font-weight:bolder">주문번호&nbsp; &nbsp;<span th:text="${orderlist[0].paymentNumber}"></span></h4></div>-->
+<!--                        <div class="col-md-5 " style="padding:0px"><h4  style="color:#808080;font-weight:bolder">주문일 &nbsp; &nbsp;<span th:text="${orderlist[0].paymentDate}"></span> </h4></div>-->
+<!--                    </div>-->
+
+
+                    <!--                    th-->
+                    <div class="col-md-12" style="padding:0px">
+                        <hr style="border:1.5px solid #C1C1C1">
+                    </div>
+
+                    <div class="col-md-5" style="text-align:center;">상품정보</div>
+                    <div class="col-md-1" style="padding-left: 0px;">수량</div>
+                    <div class="col-md-2">상품 금액</div>
+                    <div class="col-md-2" >배송비</div>
+                    <div class="col-md-2">진행상황</div>
+
+                    <div class="col-md-12">
+                        <hr>
+                    </div>
+
+                    <div class="col-md-12 orderInfo " style="padding-left:0px">
+                        <!--                    내용 -->
+                        <div class="col-md-12 " th:each="order : ${orderlist}" style="padding-left:0px">
+
+                            <div class="row form-group"
+                                 style="margin-bottom: 30px;background:white;margin-left: 0px;margin-right: 0px;padding-left: 0px;">
+
+                                <div class="col-md-2" style="padding:0px"><img th:src="@{/images/__${order.img}__.jpg}">
+                                </div>
+                                <div class="col-md-3" style="padding:0px"><p th:text="${order.productName}"></p></div>
+                                <div class="col-md-1" style="padding:0px"><p th:text="${order.productCount}" style="padding-left: 20px;"></p></div>
+                                <div class="col-md-2" style="padding:0px"><p
+                                        th:text="|${#numbers.formatInteger(order.productPrice, 0, 'COMMA')}| + ' 원'"
+                                        style="padding-left: 25px;"
+                                ></p></div>
+
+
+                                <div class="col-md-2" style="padding:0px;"><p style="text-align:center;padding-right: 25px">무료</p></div>
+                                <div class="col-md-2" style="padding:0px;text-align:center">
+                                    <p th:text="${order.paymentDetailStatus}"></p>
+                                    <input type="button" class="btn btn-primary btn-outline btn-xxs"
+                                           style="font-size:13px;width:80px;height:35px;padding:11px;padding-top:7px"
+                                           value="배송조회">
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!--                    배송지 정보 -->
+                    <div style="padding:0px; ">
+                        <div class="col-md-2" style="padding:0px"><h4 style="color:#808080;font-weight:bolder">배송지 정보</h4></div>
+                        <div class="col-md-12" style="padding:0px">
+                            <hr style="border:1.5px solid #C1C1C1">
+                        </div>
+                    </div>
+
+                    <div class="col-md-12 orderInfo" style="padding-left:0px">
+                        <div class="row form-group"
+                             style="margin-bottom: 30px;background:white;margin-left: 0px;margin-right: 0px;padding-left: 0px;">
+
+                            <div class="col-md-3">받으시는 분</div>
+                            <div class="col-md-9" th:text="${orderlist[0].paymentName}"></div>
+                            <div class="col-md-12">
+                                <hr>
+                            </div>
+
+                            <div class="col-md-3">휴대폰번호</div>
+                            <div class="col-md-9" th:text="${orderlist[0].paymentPhone}"></div>
+                            <div class="col-md-12">
+                                <hr>
+                            </div>
+
+                            <div class="col-md-3">배송지 주소</div>
+                            <div class="col-md-9"
+                                 th:text="${orderlist[0].paymentAddress1  + ' ' + orderlist[0].paymentAddress2}"></div>
+                            <div class="col-md-12">
+                                <hr>
+                            </div>
+
+                            <div class="col-md-3">배송메세지</div>
+                            <div class="col-md-9"></p></div>
+                        </div>
+                    </div>
+
+
+                    <!--                    주문자 정보 -->
+                    <div style="padding:0px; ">
+                        <div class="col-md-2" style="padding:0px"><h4 style="color:#808080;font-weight:bolder">주문자 정보</h4></div>
+                        <div class="col-md-12" style="padding:0px">
+                            <hr style="border:1.5px solid #C1C1C1">
+                        </div>
+                    </div>
+
+                    <div class="col-md-12 orderInfo" style="padding-left:0px">
+                        <div class="row form-group"
+                             style="margin-bottom: 30px;background:white;margin-left: 0px;margin-right: 0px;padding-left: 0px;">
+
+                            <div class="col-md-3">주문하시는 분</div>
+                            <div class="col-md-9" th:text="${orderlist[0].memberName}"></div>
+                            <div class="col-md-12">
+                                <hr>
+                            </div>
+
+                            <div class="col-md-3">이메일주소</div>
+                            <div class="col-md-9" th:text="${orderlist[0].memberEmail}"></div>
+                            <div class="col-md-12">
+                                <hr>
+                            </div>
+
+                            <div class="col-md-3">휴대폰번호</div>
+                            <div class="col-md-9" th:text="${orderlist[0].memberPhone}"></div>
+                            <div class="col-md-12">
+                                <hr>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!--                    결제 정보 -->
+                    <div style="padding:0px; ">
+                        <div class="col-md-2" style="padding:0px"><h4 style="color:#808080;font-weight:bolder">결제 정보</h4></div>
+                        <div class="col-md-12" style="padding:0px">
+                            <hr style="border:1.5px solid #C1C1C1">
+                        </div>
+                    </div>
+
+                    <div class="col-md-12 orderInfo" style="padding-left:0px">
+                        <div class="row form-group"
+                             style="margin-bottom: 30px;background:white;margin-left: 0px;margin-right: 0px;padding-left: 0px;">
+
+                            <div class="col-md-3">결제 방법</div>
+                            <div class="col-md-9" th:text="${orderlist[0].paymentMethod == 1 ? '현금' : '카드'}"></div>
+                            <div class="col-md-12">
+                                <hr>
+                            </div>
+
+                            <div class="col-md-3">총 결제 금액</div>
+                            <div class="col-md-9"
+                                 th:text="|${#numbers.formatInteger(totalPrice, 0, 'COMMA')}| + ' 원'"></div>
+                            <div class="col-md-12">
+                                <hr>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-12 center-align">
+                        <a href="/mypage">
+                            <button class="btn btn-primary "
+                                    style="width: 500px;height: 54px;">주문 목록</button></a>
+                    </div>
+
+
+
+                            <!--                    <div class="row" style="height:80px;">-->
+                            <!--                        <div>-->
+                            <!--                            <table class="table">-->
+                            <!--                                <tr>-->
+                            <!--                                    <td>주문날짜</td>-->
+                            <!--                                    <td>상품이미지</td>-->
+                            <!--                                    <td>상품명</td>-->
+                            <!--                                    <td>수량</td>-->
+                            <!--                                    <td>가격</td>-->
+                            <!--                                    <td>배송비</td>-->
+                            <!--                                    <td>진행상황</td>-->
+                            <!--                                    <td>주문번호</td>-->
+                            <!--                                    <td>주문자명</td>-->
+                            <!--                                    <td>주문자이메일</td>-->
+                            <!--                                    <td>주문자전화번호</td>-->
+                            <!--                                    <td>배송자명</td>-->
+                            <!--                                    <td>배송지주소1</td>-->
+                            <!--                                    <td>배송지주소2</td>-->
+                            <!--                                    <td>결제방식</td>-->
+                            <!--                                    <td>진행상황</td>-->
+                            <!--                                    <td>수량</td>-->
+                            <!--                                    <td>총 가격</td>-->
+                            <!--                                </tr>-->
+                            <!--                                <tr th:each="order : ${orderlist}">-->
+                            <!--                                    <td th:text="${order.paymentDate}"></td>-->
+                            <!--                                    <td th:text="${order.img}"></td>-->
+                            <!--                                    <td th:text="${order.productName}"></td>-->
+                            <!--                                    <td th:text="${order.productCount}"></td>-->
+                            <!--                                    <td th:text="${order.productPrice}"></td>-->
+                            <!--                                    <td>배송비 무료</td>-->
+                            <!--                                    <td th:text="${order.paymentDetailStatus}"></td>-->
+                            <!--                                    <td th:text="${order.paymentNumber}"></td>-->
+
+                            <!--                                    <td th:text="${order.memberName}"></td>-->
+                            <!--                                    <td th:text="${order.memberEmail}"></td>-->
+                            <!--                                    <td th:text="${order.memberPhone}"></td>-->
+                            <!--                                    <td th:text="${order.paymentName}"></td>-->
+                            <!--                                    <td th:text="${order.paymentPhone}"></td>-->
+                            <!--                                    <td th:text="${order.paymentAddress1}"></td>-->
+                            <!--                                    <td th:text="${order.paymentAddress2}"></td>-->
+                            <!--                                    <td th:text="${order.paymentMethod}"></td>-->
+                            <!--                                    <td th:text="${totalPrice}"></td>-->
+                            <!--                                </tr>-->
+                            <!--                            </table>-->
+                            <!--                        </div>-->
+                            <!--                    </div>-->
+                            <!--                </div>-->
+
+
                     </div>
                 </div>
             </div>
         </div>
+
+    <!-- ======================================================================================== -->
+    <!-- footer -->
+
+
+    <footer id="fh5co-footer" role="contentinfo" style="background: #D1C286">
+        <div class="container">
+            <div class="row copyright">
+                <div class="col-md-12 text-center">
+                    <p>
+                        <small class="block">&copy; 2023 Free HTML5. All Rights Reserved.</small>
+                        <small class="block">Designed by <a href="http://freehtml5.co/" target="_blank"
+                                                            style="color:white">FreeHTML5.co</a>
+                            Demo Images: <a href="http://blog.gessato.com/"
+                                            target="_blank" style="color:white">Gessato</a> &amp; <a
+                                    href="http://unsplash.co/"
+                                    target="_blank" style="color:white">Unsplash</a></small>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </footer>
     </div>
-</div>
-</div>
+
+
 
 </body>
 </html>
