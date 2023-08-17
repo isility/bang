@@ -138,13 +138,17 @@ public class ProductController {
     public String cart(Model model, Principal principal){
         int cnt = 0;
 
-        model.addAttribute("cartList", payService.cartlist(principal.getName()));
-        List<CartDTO> list = payService.cartlist(principal.getName());
-        for (CartDTO dto : list)
-            cnt+=1;
-        model.addAttribute("cartListCount",cnt);
-        model.addAttribute("totalPrice",service.allPrice(principal.getName()));
-        model.addAttribute("username", principal.getName());
+        if(principal != null) {
+            model.addAttribute("cartList", payService.cartlist(principal.getName()));
+            List<CartDTO> list = payService.cartlist(principal.getName());
+            for (CartDTO dto : list)
+                cnt += 1;
+            model.addAttribute("cartListCount", cnt);
+            model.addAttribute("totalPrice", service.allPrice(principal.getName()));
+            model.addAttribute("username", principal.getName());
+        }else{
+            return "redirect:/";
+        }
 
 
         return "product/cart";

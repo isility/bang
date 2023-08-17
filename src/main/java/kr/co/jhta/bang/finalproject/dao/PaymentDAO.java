@@ -16,4 +16,7 @@ public interface PaymentDAO {
     void detailInsertOne(PaymentDTO dto);
 
     List<PaymentDTO> orderList(String id);
+
+    List<PaymentDTO> orderProductList(PaymentDTO dto);
+
 }

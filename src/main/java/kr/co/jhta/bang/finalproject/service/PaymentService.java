@@ -24,9 +24,6 @@ public class PaymentService {
     @Autowired
     PaymentDAO paymentDAO;
 
-    @Autowired
-    ProductListDAO productListDAO;
-
     public List<CartDTO> cartlist(String id){
         return CartDAO.selectAll(id);
     }
@@ -35,15 +32,12 @@ public class PaymentService {
         return CartDAO.selectList(dto);
     }
 
-    public MultiValueMap<String,Object> orderList(String id){
-        MultiValueMap<String, Object> map = new LinkedMultiValueMap<>();
-        List<PaymentDTO> list = paymentDAO.orderList(id);
-        for(PaymentDTO paymentDTO : list){
-            map.add("product", productListDAO.selectOne(paymentDTO.getProductNumber()));
-            map.add("payment", paymentDTO);
-        }
-        return map;
+    public List<PaymentDTO> orderList(String id){
+            return paymentDAO.orderList(id);
     }
 
+    public List<PaymentDTO> orderProductList(PaymentDTO dto){
+        return paymentDAO.orderProductList(dto);
+    }
 
 }

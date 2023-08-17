@@ -6,7 +6,7 @@
 <mapper namespace="kr.co.jhta.bang.finalproject.dao.PaymentDAO">
     <insert id="insertOne" parameterType="PaymentDTO">
         insert into payment(payment_date, payment_postal, payment_address1, payment_address2, payment_name, payment_phone, payment_method, member_id)
-        values(sysdate(), #{paymentPostal}, #{paymentAddress1}, #{paymentAddress2}, #{paymentName}, #{paymentPhone}, #{paymentMethod}, #{memberID})
+        values(date_format(sysdate(), '%y-%m-%d'), #{paymentPostal}, #{paymentAddress1}, #{paymentAddress2}, #{paymentName}, #{paymentPhone}, #{paymentMethod}, #{memberID})
     </insert>
     <select id="selectTop" resultType="int">
         select payment_number as PaymentNumber
@@ -23,11 +23,36 @@
         select pd.product_count as productCount,
         pd.product_price as productPrice,
         pd.payment_detail_status as paymentDetailStatus,
-        pd.product_number as productNumber,
-        pd.payment_number as paymentNumber
+        pd.payment_number as paymentNumber,
+        p.payment_date as paymentDate
         from payment_detail pd
-        inner join payment p on p.payment_number = pd.payment_number,
+        inner join payment p on p.payment_number = pd.payment_number
         where p.member_id = #{memberID}
+        group by pd.payment_number
+    </select>
+    <select id="orderProductList" parameterType="PaymentDTO" resultType="PaymentDTO">
+        select pd.product_count as productCount,
+        pd.product_price as productPrice,
+        pd.product_number as productNumber,
+        pd.payment_detail_status as paymentDetailStatus,
+        p.payment_number as paymentNumber,
+        product.product_name as productName,
+        i.image_src as img,
+        p.member_id as memberID,
+        m.member_name as memberName,
+        m.member_email as memberEmail,
+        m.member_phone as memberPhone,
+        p.payment_name as paymentName,
+        p.payment_phone as paymentPhone,
+        p.payment_address1 as paymentAddress1,
+        p.payment_address2 as paymentAddress2,
+        p.payment_method as paymentMethod
+        from payment_detail pd
+        inner join payment p on p.payment_number = pd.payment_number
+        inner join product on product.product_number = pd.product_number
+        inner join image i on i.product_number = pd.product_number and i.image_order = 1
+        inner join member m on m.member_id = p.member_id
+        where pd.payment_number = #{paymentNumber} and p.member_id = #{memberID}
     </select>
 
 </mapper>

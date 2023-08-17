@@ -44,13 +44,7 @@
     <script src="/js/jquery.flexslider-min.js"></script>
     <!-- Main -->
     <script src="/js/main.js"></script>
-    <script>
-    function orderDetail(e){
-        let pno = e.getAttribute("data-pno");
-        location.href = "/orderdetail?pno=" + pno;
-    }
 
-    </script>
 </head>
 <body>
 <!--상단 네비게이션-->
@@ -146,21 +140,46 @@
                 <div class="col-md-9 animate-box fadeInUp animated-fast">
                     <h3>주문 목록</h3>
                     <div class="row" style="height:80px;">
-
                         <div>
                             <table class="table">
                                 <tr>
                                     <td>주문날짜</td>
-                                    <td>주문번호</td>
+                                    <td>상품이미지</td>
+                                    <td>상품명</td>
                                     <td>수량</td>
                                     <td>가격</td>
                                     <td>배송비</td>
                                     <td>진행상황</td>
+                                    <td>주문번호</td>
+                                    <td>주문자명</td>
+                                    <td>주문자이메일</td>
+                                    <td>주문자전화번호</td>
+                                    <td>배송자명</td>
+                                    <td>배송지주소1</td>
+                                    <td>배송지주소2</td>
+                                    <td>결제방식</td>
+                                    <td>진행상황</td>
+                                    <td>수량</td>
+                                    <td>총 가격</td>
                                 </tr>
-                                <tr th:each="order : ${orderlist}" onclick="orderDetail(this)"
-                                    th:data-pno="${order.paymentNumber}">
+                                <tr th:each="order : ${orderlist}">
                                     <td th:text="${order.paymentDate}"></td>
+                                    <td th:text="${order.img}"></td>
+                                    <td th:text="${order.productName}"></td>
+                                    <td th:text="${order.productCount}"></td>
+                                    <td th:text="${order.productPrice}"></td>
+                                    <td>배송비 무료</td>
+                                    <td th:text="${order.paymentDetailStatus}"></td>
                                     <td th:text="${order.paymentNumber}"></td>
+                                    <td th:text="${order.memberName}"></td>
+                                    <td th:text="${order.memberEmail}"></td>
+                                    <td th:text="${order.memberPhone}"></td>
+                                    <td th:text="${order.paymentName}"></td>
+                                    <td th:text="${order.paymentPhone}"></td>
+                                    <td th:text="${order.paymentAddress1}"></td>
+                                    <td th:text="${order.paymentAddress2}"></td>
+                                    <td th:text="${order.paymentMethod}"></td>
+                                    <td th:text="${totalPrice}"></td>
                                 </tr>
                             </table>
                         </div>
