@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>LoginError</title>
+  <script>
+        function redirectToLoginPage() {
+            if (confirm("일치하는 회원정보가 없습니다. \n다시 입력하시거나, '아이디 찾기'를 이용해주세요.")) {
+                window.location.href = "/login";
+            }
+        }
+        // 페이지 로드 시 함수 호출
+        redirectToLoginPage();
+    </script>
+</head>
+<body>
+</body>
+</html>
