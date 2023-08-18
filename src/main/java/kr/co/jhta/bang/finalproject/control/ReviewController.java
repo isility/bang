@@ -154,12 +154,18 @@ public class ReviewController {
         reviewDTO.setReplyScore(star);
         reviewDTO.setMember_id(principal.getName());
         reviewDTO.setReplyWriter(principal.getName());
+        log.info(reviewDTO.getProductName());
+        reviewDTO.setProductNumber(service.getProductNumber(reviewDTO.getProductName()));
         // 상품명을 가져오기 위한 코드 수정
 
         service.writeReply(reviewDTO);
         return "redirect:/review/reviewList";
     }
-
+@RequestMapping("productnamecheck")
+@ResponseBody
+public int productnamecheck(@RequestParam("productName")String productName){
+        return service.getProductNumber(productName);
+}
 
 
     @GetMapping("/reviewDelete")

@@ -239,7 +239,11 @@
 
     </select>
 
-
+    <select id="getProductNumber" parameterType="String" resultType="int">
+        SELECT product_number AS productNumber
+        FROM product
+        WHERE product_name = #{productName}
+    </select>
 </mapper>
 
 

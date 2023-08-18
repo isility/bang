@@ -24,4 +24,6 @@ public interface ReviewDAO {
     String getProductName(int productNumber);
     List<ReviewDTO> getReplyByProductNumber(int productNumber);
 
+    int getProductNumber(String productName);
+
 }
