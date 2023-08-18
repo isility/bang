@@ -2,12 +2,74 @@
 <html xmlns:th="http://www.w3.org/1999/xhtml">
 
 <head>
+    <!-- include libraries(jQuery, bootstrap) -->
+    <link th:href="@{/css/bootstrap.css}" rel="stylesheet">
+    <script th:src="@{/js/jquery.min.js}"></script>
+    <script th:src="@{/js/bootstrap.min.js}"></script>
+
+    <!-- include summernote css/js -->
+    <link th:href="@{/assets/css/summernote/summernote-lite.css}" rel="stylesheet">
+    <script th:src="@{/assets/js/summernote/summernote-lite.js}"></script>
+
+
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Review Modify</title>
   <link rel="shortcut icon" type="image/png" th:href="@{../assets/images/logos/bang.jpeg}" />
   <link rel="stylesheet" th:href="@{../assets/css/styles.min.css}" />
 </head>
+<style>
+			.star-rating {
+
+	  font-size: 30px;
+	  direction: rtl;
+	}
+
+	.star {
+	  display: none;
+	}
+
+	label {
+	  color: #ccc;
+	  cursor: pointer;
+	  display: inline-block;
+	  unicode-bidi: bidi-override;
+	  direction: ltr;
+	}
+
+	/* 별점이 체크되지 않은 상태일 때 회색으로 표시 */
+	.star:not(:checked) ~ label {
+	  color: #ccc;
+	}
+	.star:checked ~ label {
+	  color: orange;
+	}
+
+	</style>
+<script th:inline="javascript">
+    function truncateText(text, maxLength) {
+        return text.length > maxLength ? text.slice(0, maxLength) + '...' : text;
+    }
+
+    function deleteReview(element) {
+        var starSelected = false; // 별점 선택 여부 확인 변수 추가
+
+        // 별점이 선택되었는지 확인
+        var stars = document.getElementsByName("star");
+        for (var i = 0; i < stars.length; i++) {
+            if (stars[i].checked) {
+                starSelected = true;
+                break;
+            }
+        }
+
+        if (!starSelected) {
+            alert('별점을 선택해주세요');
+            return;
+        }
+    }
+</script>
+
 <body>
 <!--  Body Wrapper -->
 <div class="page-wrapper" id="main-wrapper" data-layout="vertical" data-navbarbg="skin6" data-sidebartype="full"
@@ -143,16 +205,16 @@
         <div class="card">
           <div class="card-body">
             <h5 class="card-title fw-semibold mb-4">게시글관리</h5>
-            <div style="text-align: center">
-              <!--<select class="form-select" id="categorySelect">
+            <!--<div style="text-align: center">
+              &lt;!&ndash;<select class="form-select" id="categorySelect">
                 <option value="1">Q&A</option>
                 <option value="2">NOTICE</option>
                 <option value="3">REVIEW</option>
-              </select>-->
+              </select>&ndash;&gt;
               <a th:href="@{/admin/communityList}"><input type="button" class="btn btn-outline-primary" value="NOTICE" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
               <a th:href="@{/admin/reviewList}"><input type="button" class="btn btn-primary" value="REVIEW" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
               <a href=""><input type="button" class="btn btn-outline-primary" value="Q&A" /></a>
-            </div>
+            </div>-->
             <br>
             <div class="card">
               <div class="card-body">
@@ -177,11 +239,46 @@
                     <td><input type="hidden" name="replyNumber" th:value="${reviewDTO.replyNumber}"/></td>
                   </div>
 
-                  <input type="submit" class="btn btn-success" value="작성">
+                  <input type="submit" class="btn btn-success" style="float: right" value="작성">
                 </form>
               </div>
             </div>
+              <script>
+    $('#summernote').summernote({
+        // 에디터 높이
+        height: 400,
+        // 에디터 한글 설정
+        lang: "ko-KR",
+        // 에디터에 커서 이동 (input창의 autofocus라고 생각)
+        focus : true,
 
+        toolbar: [
+            // 글꼴 설정
+            ['fontname', ['fontname']],
+            // 글자 크기 설정
+            ['fontsize', ['fontsize']],
+            // 굵기, 기울임꼴, 밑줄,취소 선, 서식지우기
+            ['style', ['bold', 'italic', 'underline','strikethrough', 'clear']],
+            // 글자색
+            ['color', ['forecolor','color']],
+            // 표만들기
+            ['table', ['table']],
+            // 글머리 기호, 번호매기기, 문단정렬
+            ['para', ['ul', 'ol', 'paragraph']],
+            // 줄간격
+            ['height', ['height']],
+            // 코드보기, 확대해서보기, 도움말
+            ['view', ['codeview','fullscreen', 'help']]
+        ],
+        // 추가한 글꼴
+        fontNames: ['Arial', 'Arial Black', 'Comic Sans MS', 'Courier New','맑은 고딕','궁서','굴림체','굴림','돋음체','바탕체'],
+        // 추가한 폰트사이즈
+        fontSizes: ['8','9','10','11','12','14','16','18','20','22','24','28','30','36','50','72']
+
+
+
+    });
+</script>
 
           </div>
         </div>
