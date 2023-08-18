@@ -46,18 +46,18 @@ public class AdminController {
         // 페이지당 게시물 수
         int countPerPage = 10;
 
-        log.info("총 게시물 수 >>>>>>>" + totalNumber);
-        log.info("페이지당 게시물 수 >>>>>>>" + countPerPage);
-        log.info("현재 페이지 번호 >>>>>>>" + currentPage);
+//        log.info("총 게시물 수 >>>>>>>" + totalNumber);
+//        log.info("페이지당 게시물 수 >>>>>>>" + countPerPage);
+//        log.info("현재 페이지 번호 >>>>>>>" + currentPage);
         Map<String, Object> map = PageUtil.getPageData(totalNumber, countPerPage, currentPage);
         int startNo = (int) map.get("startNo");
         int endNo = (int) map.get("endNo");
 
         List<PaymentDetailDTO> paymentDetails = service.getPaging(startNo, endNo);
-        log.info(">>>>>>>>>>>>>>>>페이징 {}", paymentDetails);
+//        log.info(">>>>>>>>>>>>>>>>페이징 {}", paymentDetails);
         model.addAttribute("list", paymentDetails);
         model.addAttribute("map", map);
-        log.info(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>{}",paymentDetails);
+//        log.info(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>{}",paymentDetails);
         return "admin/paymentList";
     }
     @PostMapping("/paymentList")
@@ -68,7 +68,7 @@ public class AdminController {
         dto.setPaymentDetailStatus(paymentDetailStatus);
         dto.setPaymentNumber(paymentNumber);
         service.updatePaymentList(dto);
-        log.info(">>>>>> paymentDetailDTO : {}", dto);
+//        log.info(">>>>>> paymentDetailDTO : {}", dto);
         return "redirect:/admin/paymentList";
     }
 
@@ -83,18 +83,18 @@ public class AdminController {
         // 페이지당 게시물 수
         int countPerPage = 10;
 
-        log.info("총 게시물 수 >>>>>>>" + totalNumber);
-        log.info("페이지당 게시물 수 >>>>>>>" + countPerPage);
-        log.info("현재 페이지 번호 >>>>>>>" + currentPage);
+//        log.info("총 게시물 수 >>>>>>>" + totalNumber);
+//        log.info("페이지당 게시물 수 >>>>>>>" + countPerPage);
+//        log.info("현재 페이지 번호 >>>>>>>" + currentPage);
         Map<String, Object> map = PageUtil.getPageData(totalNumber, countPerPage, currentPage);
         int startNo = (int) map.get("startNo");
         int endNo = (int) map.get("endNo");
 
         List<MemberDTO> memberList = service.getMemberPaging(startNo, endNo);
-        log.info(">>>>>>>>>>>>>>>>페이징 {}", memberList);
+//        log.info(">>>>>>>>>>>>>>>>페이징 {}", memberList);
         model.addAttribute("list", memberList);
         model.addAttribute("map", map);
-        log.info(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>{}",memberList);
+//        log.info(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>{}",memberList);
         return "admin/memberList";
     }
     @GetMapping("/memberModify")
