@@ -18,7 +18,7 @@
                 type: "POST",
                 url: "/admin/paymentList",
                 data: {
-                    paymentDetailNumber: selectedNumber,
+                    paymentNumber: selectedNumber,
                     paymentDetailStatus: selectedValue
                 },
                 success: function (response) {
@@ -186,13 +186,13 @@
                     <tbody>
 
                     <tr th:each="paymentDetailDTO : ${list}">
-                      <th scope="row" th:text="${paymentDetailDTO.paymentDetailNumber}"></th>
+                      <th scope="row" th:text="${paymentDetailDTO.paymentNumber}"></th>
                       <td th:text="${paymentDetailDTO.productNumber}"></td>
                       <td th:text="${paymentDetailDTO.productCount}"></td>
                       <td th:text="${paymentDetailDTO.productPrice}"></td>
                       <td>
                         <div>
-                          <select class="form-select" th:id="${paymentDetailDTO.paymentDetailNumber}" onchange="optionChanged(this)">
+                          <select class="form-select" th:id="${paymentDetailDTO.paymentNumber}" onchange="optionChanged(this)">
                             <option th:value="입금대기" th:selected="${paymentDetailDTO.paymentDetailStatus == '입금대기'}">입금대기</option>
                             <option th:value="입금확인" th:selected="${paymentDetailDTO.paymentDetailStatus == '입금확인'}">입금확인</option>
                             <option th:value="상품준비" th:selected="${paymentDetailDTO.paymentDetailStatus == '상품준비'}">상품준비</option>

@@ -150,16 +150,16 @@ public class ReviewController {
             // 로그인되지 않은 경우 처리
             return "redirect:/review/reviewList";
         }
+            reviewDTO.setReplyScore(star);
+            reviewDTO.setMember_id(principal.getName());
+            reviewDTO.setReplyWriter(principal.getName());
+            log.info(reviewDTO.getProductName());
+            reviewDTO.setProductNumber(service.getProductNumber(reviewDTO.getProductName()));
+            // 상품명을 가져오기 위한 코드 수정
 
-        reviewDTO.setReplyScore(star);
-        reviewDTO.setMember_id(principal.getName());
-        reviewDTO.setReplyWriter(principal.getName());
-        log.info(reviewDTO.getProductName());
-        reviewDTO.setProductNumber(service.getProductNumber(reviewDTO.getProductName()));
-        // 상품명을 가져오기 위한 코드 수정
+            service.writeReply(reviewDTO);
+            return "redirect:/review/reviewList";
 
-        service.writeReply(reviewDTO);
-        return "redirect:/review/reviewList";
     }
 @RequestMapping("productnamecheck")
 @ResponseBody

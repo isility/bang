@@ -105,14 +105,16 @@
         product_count AS productCount,
         product_price AS productPrice,
         payment_detail_status AS paymentDetailStatus,
-        product_number AS productNumber
+        product_number AS productNumber,
+        payment_number AS paymentNumber
         FROM (
         SELECT ROW_NUMBER() OVER (ORDER BY payment_number DESC) AS rn,
         payment_detail_number,
         product_count,
         product_price,
         payment_detail_status,
-        product_number
+        product_number,
+        payment_number
         FROM payment_detail
         ) AS derived
         WHERE rn BETWEEN #{startNo} AND #{endNo}
@@ -122,7 +124,7 @@
     <update id="updatePaymentList" parameterType="PaymentDetailDTO">
         UPDATE payment_detail
         SET payment_detail_status = #{paymentDetailStatus}
-        WHERE payment_detail_number = #{paymentDetailNumber};
+        WHERE payment_number = #{paymentNumber};
     </update>
 
     <select id="getMemberPaging" resultType="MemberDTO" parameterType="StartEnd">

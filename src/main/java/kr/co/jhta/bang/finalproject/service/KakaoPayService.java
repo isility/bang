@@ -131,7 +131,7 @@ public class KakaoPayService {
         paymentDTO.setPaymentAddress2(paymentDTO1.getPaymentAddress2());
         paymentDTO.setPaymentName(paymentDTO1.getPaymentName());
         paymentDTO.setPaymentPhone(paymentDTO1.getPaymentPhone());
-        paymentDTO.setPaymentMethod(1);
+        paymentDTO.setPaymentMethod(2);
         paymentDAO.insertOne(paymentDTO);
 
         paymentDTO.setPaymentNumber(paymentDAO.selectTop());

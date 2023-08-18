@@ -29,6 +29,7 @@
         inner join payment p on p.payment_number = pd.payment_number
         where p.member_id = #{memberID}
         group by pd.payment_number
+        order by p.payment_date desc
     </select>
     <select id="orderProductList" parameterType="PaymentDTO" resultType="PaymentDTO">
         select pd.product_count as productCount,

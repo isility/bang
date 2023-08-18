@@ -101,6 +101,7 @@
                 $('#productNumber').val(response)
             },
             error: function() {
+            	alert("리뷰할 상품을 선택해주세요");
             }
         });
     }
@@ -244,13 +245,15 @@
 						<div>
 							<p>상품 선택</p>
 							<select id="productNameSelect" name="productName">
-								<option th:each="dto : ${dto}" th:value="${dto.productName}" th:selected="${dto.productName}">
+								<option value="미선택">미선택</option>
+
+								<option th:each="dto : ${dto}" th:value="${dto.productName}">
 									<span th:text="${dto.productName}"></span>
 								</option>
 							</select>
 							<input type="hidden" id="productNumber"name="productNumber">
 
-						<input type="submit" class="btn btn-primary" value="작성" style="float:right;">
+						<input type="submit" class="btn btn-primary" value="작성" style="float:right;" onclick="event()">
 						</div>
 						<br>
 						<div class="form-floating m-3">

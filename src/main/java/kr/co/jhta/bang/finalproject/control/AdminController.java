@@ -62,11 +62,11 @@ public class AdminController {
     }
     @PostMapping("/paymentList")
     public String updatePaymentList(
-                                    @RequestParam("paymentDetailNumber")int paymentDetailNumber,
+                                    @RequestParam("paymentNumber")int paymentNumber,
                                     @RequestParam("paymentDetailStatus")String paymentDetailStatus){
         PaymentDetailDTO dto = new PaymentDetailDTO();
         dto.setPaymentDetailStatus(paymentDetailStatus);
-        dto.setPaymentDetailNumber(paymentDetailNumber);
+        dto.setPaymentNumber(paymentNumber);
         service.updatePaymentList(dto);
         log.info(">>>>>> paymentDetailDTO : {}", dto);
         return "redirect:/admin/paymentList";
