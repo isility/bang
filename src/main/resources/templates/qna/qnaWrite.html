@@ -169,15 +169,11 @@
               <th>내용</th>
               <td><textarea name="qnaContents" id="summernote" cols="30" rows="10"></textarea></td>
             </tr>
-            <tr>
-              <td colspan="2">
-                <div style="float:right;">
-                  <a class="btn btn-outline-primary" th:href="@{/qna/qnaList}">목록</a>
-                  <input class="btn btn-outline-success" type="submit" id="btnWrite" value="작성" />
-                </div>
-              </td>
-            </tr>
           </table>
+          <div>
+            <input style="float:right;" class="btn btn-primary" type="submit" id="btnWrite" value="작성" />
+            <a style="float:right;" class="btn btn-primary" th:href="@{/qna/qnaList}">목록</a>
+          </div>
         </form>
       </div>
     </div>
