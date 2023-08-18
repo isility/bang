@@ -33,7 +33,7 @@ public class AdminController {
         model.addAttribute("getSalesAvgMonth", service.getSalesAvgMonth());
         //log.info(">>>>>>>>>getSalesAvgMonth() {}", service.getSalesAvgMonth());
 
-        return "/admin/dashboard";
+        return "admin/dashboard";
     }
 
 
@@ -58,7 +58,7 @@ public class AdminController {
         model.addAttribute("list", paymentDetails);
         model.addAttribute("map", map);
         log.info(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>{}",paymentDetails);
-        return "/admin/paymentList";
+        return "admin/paymentList";
     }
     @PostMapping("/paymentList")
     public String updatePaymentList(
@@ -137,7 +137,7 @@ public class AdminController {
         model.addAttribute("list", serviceList);
         model.addAttribute("map", map);
         log.info(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>{}",serviceList);
-        return "/admin/serviceList";
+        return "admin/serviceList";
     }
     @PostMapping("/serviceList")
     public String updateServiceList( @RequestParam("serviceNumber")int serviceNumber, @RequestParam("serviceType")String serviceType){
