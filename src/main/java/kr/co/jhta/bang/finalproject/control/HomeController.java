@@ -70,6 +70,6 @@ public class HomeController {
             model.addAttribute("username", "Guest 님"); // 로그인하지 않은 사용자는 "Guest"라는 이름으로 보내기
             model.addAttribute("cartListCount", 0);
         }
-        return "/index3";
+        return "index3";
     }
 }
