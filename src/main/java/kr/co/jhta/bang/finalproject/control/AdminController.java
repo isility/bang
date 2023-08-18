@@ -125,18 +125,18 @@ public class AdminController {
         // 페이지당 게시물 수
         int countPerPage = 10;
 
-        log.info("총 게시물 수 >>>>>>>" + totalNumber);
-        log.info("페이지당 게시물 수 >>>>>>>" + countPerPage);
-        log.info("현재 페이지 번호 >>>>>>>" + currentPage);
+//        log.info("총 게시물 수 >>>>>>>" + totalNumber);
+//        log.info("페이지당 게시물 수 >>>>>>>" + countPerPage);
+//        log.info("현재 페이지 번호 >>>>>>>" + currentPage);
         Map<String, Object> map = PageUtil.getPageData(totalNumber, countPerPage, currentPage);
         int startNo = (int) map.get("startNo");
         int endNo = (int) map.get("endNo");
 
         List<ServiceDTO> serviceList = service.getServicePaging(startNo, endNo);
-        log.info(">>>>>>>>>>>>>>>>페이징 {}", serviceList);
+//        log.info(">>>>>>>>>>>>>>>>페이징 {}", serviceList);
         model.addAttribute("list", serviceList);
         model.addAttribute("map", map);
-        log.info(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>{}",serviceList);
+//        log.info(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>{}",serviceList);
         return "admin/serviceList";
     }
     @PostMapping("/serviceList")
@@ -145,7 +145,7 @@ public class AdminController {
         dto.setServiceNumber(serviceNumber);
         dto.setServiceType(serviceType);
         service.updateServiceList(dto);
-        log.info(">>>>>> serviceDTO : {}", dto);
+//        log.info(">>>>>> serviceDTO : {}", dto);
         return "redirect:/admin/serviceList";
     }
     @GetMapping("/serviceDelete")
@@ -210,9 +210,9 @@ public class AdminController {
         // 페이지당 게시물 수
         int countPerPage = 10;
 
-        log.info("총 게시물 수 >>>>>>>" + totalNumber);
-        log.info("페이지당 게시물 수 >>>>>>>" + countPerPage);
-        log.info("현재 페이지 번호 >>>>>>>" + currentPage);
+//        log.info("총 게시물 수 >>>>>>>" + totalNumber);
+//        log.info("페이지당 게시물 수 >>>>>>>" + countPerPage);
+//        log.info("현재 페이지 번호 >>>>>>>" + currentPage);
         Map<String,Object> map = PageUtil.getPageData(totalNumber, countPerPage, currentPage);
         int startNo = (int)map.get("startNo");
         int endNo = (int)map.get("endNo");
@@ -231,7 +231,7 @@ public class AdminController {
     public String modifyReply(@ModelAttribute ReviewDTO reviewDTO, @RequestParam("star") int star){
         reviewDTO.setReplyScore(star);
         service.modifyReview(reviewDTO);
-        log.info(">>>>>>>>>>>>>dto {} ", reviewDTO);
+//        log.info(">>>>>>>>>>>>>dto {} ", reviewDTO);
         return "redirect:/admin/reviewList";
     }
 
@@ -299,18 +299,18 @@ public class AdminController {
         // 페이지당 게시물 수
         int countPerPage = 10;
 
-        log.info("총 게시물 수 >>>>>>>" + totalNumber);
-        log.info("페이지당 게시물 수 >>>>>>>" + countPerPage);
-        log.info("현재 페이지 번호 >>>>>>>" + currentPage);
+//        log.info("총 게시물 수 >>>>>>>" + totalNumber);
+//        log.info("페이지당 게시물 수 >>>>>>>" + countPerPage);
+//        log.info("현재 페이지 번호 >>>>>>>" + currentPage);
         Map<String, Object> map = PageUtil.getPageData(totalNumber, countPerPage, currentPage);
         int startNo = (int) map.get("startNo");
         int endNo = (int) map.get("endNo");
 
         List<ProductDTO> productList = service.getProductPaging(startNo, endNo);
-        log.info(">>>>>>>>>>>>>>>>페이징 {}", productList);
+//        log.info(">>>>>>>>>>>>>>>>페이징 {}", productList);
         model.addAttribute("list", productList);
         model.addAttribute("map", map);
-        log.info(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>{}",productList);
+//        log.info(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>{}",productList);
         return "admin/productList";
     }
     @PostMapping("/productList")
@@ -319,7 +319,7 @@ public class AdminController {
         dto.setProductNumber(productNumber);
         dto.setProductDetail(productDetail);
         service.updateProductList(dto);
-        log.info(">>>>>> serviceDTO : {}", dto);
+//        log.info(">>>>>> serviceDTO : {}", dto);
         return "redirect:/admin/productList";
     }
 
