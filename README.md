@@ -38,14 +38,15 @@
 	<img src="https://img.shields.io/badge/Tomcat-F8DC75?style=flat&logo=ApacheTomcat&logoColor=white" />
 	<img src="https://img.shields.io/badge/AWS-232F3E?style=flat&logo=AmazonAWS&logoColor=white" />
 	<img src="https://img.shields.io/badge/GitHub-181717?style=flat&logo=GitHub&logoColor=white" />
+	<img src="https://img.shields.io/badge/GitHub-181717?style=flat&logo=Jenkins&logoColor=white" />
 </div>
 <br>
 <div align=center>
 	<p>🎨 SNS & Portfolio 🎨</p>
 </div>
 <div align=center>
-	<a href="https://ambiguous-millennium-f22.notion.site/7c166adde771455ab9a2fce1269cec21?pvs=4">
-		<img src="https://img.shields.io/badge/신관호-000000?style=flat&logo=Notion&logoColor=white" />
+	<a href="https://ambiguous-millennium-f22.notion.site/ad815e41bc2f466cb6ecc5f1dd05bb43?pvs=4">
+		<img src="https://img.shields.io/badge/Notion-000000?style=flat&logo=Notion&logoColor=white" />
 	</a>
 	<a href="https://ambiguous-millennium-f22.notion.site/ad815e41bc2f466cb6ecc5f1dd05bb43?pvs=4">
 		<img src="https://img.shields.io/badge/Notion-000000?style=flat&logo=Notion&logoColor=white" />
