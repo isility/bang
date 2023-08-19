@@ -34,6 +34,7 @@
 </div>
 <div align=center>
 	<img src="https://img.shields.io/badge/intellijidea-168CF3?style=flat&logo=intellijidea&logoColor=white" />
+	<img src="https://img.shields.io/badge/git-F05032?style=for-the-badge&logo=git&logoColor=white">
 	<br>
 	<img src="https://img.shields.io/badge/Tomcat-F8DC75?style=flat&logo=ApacheTomcat&logoColor=white" />
 	<img src="https://img.shields.io/badge/AWS-232F3E?style=flat&logo=AmazonAWS&logoColor=white" />
