@@ -91,9 +91,9 @@ public class KakaoPayService {
 
         params.add("total_amount", Integer.toString((int) session.getAttribute("totalPrice")));
         params.add("tax_free_amount", "" + tax);
-        params.add("approval_url", "http://bangoops/payment/kakaoPaySuccess");
-        params.add("cancel_url", "http://bangoops/payment/kakaoPayCancel");
-        params.add("fail_url", "http://bangoops/payment/kakaoPaySuccessFail");
+        params.add("approval_url", "http://bangoops.store/payment/kakaoPaySuccess");
+        params.add("cancel_url", "http://bangoops.store/payment/kakaoPayCancel");
+        params.add("fail_url", "http://bangoops.store/payment/kakaoPaySuccessFail");
 
         HttpEntity<MultiValueMap<String, String>> body = new HttpEntity<MultiValueMap<String, String>>(params, headers);
 
